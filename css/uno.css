@@ -98,6 +98,10 @@ video {
 
 
 
+
+
+
+
 /* HTML5 display-role reset for older browsers */
 
 article,
@@ -156,6 +160,10 @@ body:after {
 body:after {
     clear: both;
 }
+
+
+
+
 
 
 
@@ -1666,7 +1674,6 @@ hr {
     width: 100%;
     max-width: none;
     height: 100%;
-    background: url(../images/background-cover.jpg) top left no-repeat #666666;
     background-size: cover;
 }
 
@@ -2260,6 +2267,10 @@ input[type="tel"]:-ms-input-placeholder {
         margin-bottom: .4em;
     }
 }
+
+
+
+
 
 
 

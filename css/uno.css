@@ -102,6 +102,12 @@ video {
 
 
 
+
+
+
+
+
+
 /* HTML5 display-role reset for older browsers */
 
 article,
@@ -160,6 +166,12 @@ body:after {
 body:after {
     clear: both;
 }
+
+
+
+
+
+
 
 
 
@@ -1679,7 +1691,7 @@ hr {
 
 .panel-cover--collapsed {
     width: 32%;
-    max-width: 430px;
+    max-width: 300px;
 }
 
 .panel-cover--overlay {
@@ -1795,7 +1807,6 @@ hr {
 .btn,
 .navigation__item a {
     padding: 10px 20px;
-    border: 1px solid #006699;
     font-size: .9em;
     font-weight: bold;
     letter-spacing: 1px;
@@ -2106,7 +2117,7 @@ input[type="tel"]:-ms-input-placeholder {
 
 @media all and (min-width: 1300px) {
     .content-wrapper {
-        margin-left: 430px;
+        margin-left: 300px;
     }
 }
 
@@ -2267,6 +2278,12 @@ input[type="tel"]:-ms-input-placeholder {
         margin-bottom: .4em;
     }
 }
+
+
+
+
+
+
 
 
 

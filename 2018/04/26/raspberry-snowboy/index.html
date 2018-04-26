@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="树莓派," />
 
 
 
@@ -94,16 +94,17 @@
 
 
 
-<meta name="description" content="从2014可以折腾博客，先是在博客园，然后觉得博客园写博客太麻烦，又转到Octopress,换了电脑，Octopress又要折腾，依赖于Ruby环境，总是出问题，怒而转至Hexo。从此常驻Hexo  技术信仰  主要是Java栈 爱好Go系列语言 也写点Scala   生活爱好  喜欢音乐，正在练习吉他   爱好骑行、旅行，希望去更多的地方   也读一些乱七八糟的书，写代码后读的书越来越少了">
-<meta property="og:type" content="website">
-<meta property="og:title" content="一个写后端的程序员">
-<meta property="og:url" content="http://wangwanchao.wang/about/index.html">
+<meta name="description" content="###">
+<meta name="keywords" content="树莓派">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派实现简易的语音识别">
+<meta property="og:url" content="http://wangwanchao.wang/2018/04/26/raspberry-snowboy/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
-<meta property="og:description" content="从2014可以折腾博客，先是在博客园，然后觉得博客园写博客太麻烦，又转到Octopress,换了电脑，Octopress又要折腾，依赖于Ruby环境，总是出问题，怒而转至Hexo。从此常驻Hexo  技术信仰  主要是Java栈 爱好Go系列语言 也写点Scala   生活爱好  喜欢音乐，正在练习吉他   爱好骑行、旅行，希望去更多的地方   也读一些乱七八糟的书，写代码后读的书越来越少了">
-<meta property="og:updated_time" content="2018-04-03T06:30:24.560Z">
+<meta property="og:description" content="###">
+<meta property="og:updated_time" content="2018-04-26T11:45:57.492Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个写后端的程序员">
-<meta name="twitter:description" content="从2014可以折腾博客，先是在博客园，然后觉得博客园写博客太麻烦，又转到Octopress,换了电脑，Octopress又要折腾，依赖于Ruby环境，总是出问题，怒而转至Hexo。从此常驻Hexo  技术信仰  主要是Java栈 爱好Go系列语言 也写点Scala   生活爱好  喜欢音乐，正在练习吉他   爱好骑行、旅行，希望去更多的地方   也读一些乱七八糟的书，写代码后读的书越来越少了">
+<meta name="twitter:title" content="树莓派实现简易的语音识别">
+<meta name="twitter:description" content="###">
 
 
 
@@ -132,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://wangwanchao.wang/about/"/>
+  <link rel="canonical" href="http://wangwanchao.wang/2018/04/26/raspberry-snowboy/"/>
 
 
 
 
 
-  <title>一个写后端的程序员 | Wangsir's Blog</title>
+  <title>树莓派实现简易的语音识别 | Wangsir's Blog</title>
   
 
 
@@ -303,55 +304,144 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/04/26/raspberry-snowboy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wanchao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/alifather.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wangsir's Blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">一个写后端的程序员</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <p>从2014可以折腾博客，先是在博客园，然后觉得博客园写博客太麻烦，又转到Octopress,换了电脑，Octopress又要折腾，依赖于Ruby环境，总是出问题，怒而转至Hexo。从此常驻Hexo</p>
-<ul>
-<li><p>技术信仰</p>
-<blockquote>
-<p>主要是Java栈</p>
-<p>爱好Go系列语言</p>
-<p>也写点Scala</p>
-</blockquote>
-</li>
-<li><p>生活爱好</p>
-<blockquote>
-<p>喜欢音乐，正在练习吉他</p>
-</blockquote>
-<blockquote>
-<p>爱好骑行、旅行，希望去更多的地方</p>
-</blockquote>
-<blockquote>
-<p>也读一些乱七八糟的书，写代码后读的书越来越少了</p>
-</blockquote>
-</li>
-</ul>
-<p>希望自己以后能多输出一些博客，为技术努力搬砖！</p>
-
+          <h1 class="post-title" itemprop="name headline">树莓派实现简易的语音识别</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-26T19:45:06+08:00">
+                2018-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>###</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/树莓派/" rel="tag"># 树莓派</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/26/raspberry1/" rel="next" title="树莓派系统搭建踩坑">
+                <i class="fa fa-chevron-left"></i> 树莓派系统搭建踩坑
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -613,10 +703,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 

@@ -105,7 +105,7 @@
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
 <meta property="og:description" content="Spring Data Redis(SDR) 2.x需要JDK8+、Spring Framework5.0.7+、Redis2.6.x 2、整合了Lettuce和Jedis两个开源库 3、高可见性 可以直接使用底层(本地库)直接连接Redis RedisConnection可以传递底层链接库异常到Spring持久化层DAO层， 使用RedisConnectionFactory创建RedisConn">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-16T05:53:43.919Z">
+<meta property="og:updated_time" content="2018-07-24T08:41:58.962Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RedisTemplate">
 <meta name="twitter:description" content="Spring Data Redis(SDR) 2.x需要JDK8+、Spring Framework5.0.7+、Redis2.6.x 2、整合了Lettuce和Jedis两个开源库 3、高可见性 可以直接使用底层(本地库)直接连接Redis RedisConnection可以传递底层链接库异常到Spring持久化层DAO层， 使用RedisConnectionFactory创建RedisConn">
@@ -385,6 +385,7 @@
 <p>RedisConnection<br>可以传递底层链接库异常到Spring持久化层DAO层，</p>
 <p>使用RedisConnectionFactory创建RedisConncection,RedisConnectionFactory继承PersistenceExceptionTranslator对象，意味着异常操作对RedisConnectionFactory更透明化。</p>
 <p>目前并不是所有的SDR特性都被connector开源库支持，使用不支持的特性会抛出<br>UnsupportedOperationException异常。</p>
+<a id="more"></a>
 <p>二、Lettuce<br>Lettuce是基于Netty的连接器</p>
 <p>1、默认情况下，所有的LettuceConnection被LettuceConnectionFactory创建，它们共享一个线程安全的本地连接执行非阻塞、非事务性操作。</p>
 <p>2、LettuceConnectionFactory可以通过配置使用LettucePool</p>
@@ -560,34 +561,34 @@
           
             
               <span class="links-of-author-item">
-                <a href="https://github.com/wangwanchao" target="_blank" title="github">
+                <a href="https://github.com/wangwanchao" target="_blank" title="Github">
                   
                     <i class="fa fa-fw fa-globe"></i>
                   
                     
-                      github
+                      Github
                     
                 </a>
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://weibo.com/u/2546166725/home?wvr=5" target="_blank" title="weibo">
+                <a href="https://blog.csdn.net/zhongyuemengxiang" target="_blank" title="CSDN">
                   
                     <i class="fa fa-fw fa-globe"></i>
                   
                     
-                      weibo
+                      CSDN
                     
                 </a>
               </span>
             
               <span class="links-of-author-item">
-                <a href="http://www.cnblogs.com/wangwanchao/" target="_blank" title="cnblogs">
+                <a href="http://www.cnblogs.com/wangwanchao/" target="_blank" title="Cnblogs">
                   
-                    <i class="fa fa-fw fa-globe"></i>
+                    <i class="fa fa-fw fa-cnblog"></i>
                   
                     
-                      cnblogs
+                      Cnblogs
                     
                 </a>
               </span>

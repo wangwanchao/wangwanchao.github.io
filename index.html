@@ -379,24 +379,15 @@
 
       
         
-          
-            <p>  虽说不是三十，却也是即将奔三。</p>
-<p>  2018年2月份的时候离开上家公司，当初胸怀大志，希望出来能在一个<br>更好的平台上施展一番。如今已经过去四分之三，却感觉收获寥寥无几。其<br>实这半年经历了很多的事情，也想了很多很多的东西：关于爱情，关于工<br>作，关于生活。正好最近空闲下来，好好整理下自己，也整理一下生活。</p>
-<h3 id="爱情"><a href="#爱情" class="headerlink" title="爱情"></a>爱情</h3><p>一塌糊涂的爱情，和她见过最后一面，吃过最后一顿饭，走过最后一段，我想，也许我还没有放下，但生活总要继续。过年去姑姑家拜年的时候，也是各种被劝说，一直以来自己也想了很多，但是缘分这种事情，也是急不来的。从《不能承受的生命之轻》到《霍乱时期的爱情》，爱情观被不断的冲击，最近开始让自己静下来，遇到真正合适的再义无反顾的去争取吧。</p>
-<h3 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h3><p>三月份来到新的公司，项目组是新组建的，管理上一塌糊涂，哎。对写代码的热情被慢慢的消耗，很多时候我都在想，什么才是有意义的工作，怎样才能发挥自己最大的价值，究竟该选择什么方向努力。希望能尽快步入正轨吧。</p>
-<h3 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h3><p>四月份飞了重庆，当初说好带她去重庆的，结果是自己一个人去，中间在明信片点还看到一个女生一边抹着眼泪，一边给某人写着寄语。</p>
-<p>五月份第一次远程骑行到十三陵，摔了膝盖疼了好几天，骑行中间还突然下了一场雨，感觉好狼狈，由于没有远程骑行经验，中间轮子还掉了两次。。。最后终于在十一点多回家，累到倒床就睡。</p>
-<p>今年可以说是熬夜最多的一年，更多的还是因为生活中一些不如意的事情<br>吧。有些时候我是一个很情绪化的人，遇到一些苦恼的事情，就会像很多很<br>多，最后一觉醒来，也就没那么多烦恼。前一段时间，终于狠心办了张健身<br>卡，终于第一次去健身房，想想也是自 工作以来，很少去健身房锻炼了，<br>以后还是要规律饮食，勤去健身房才好。</p>
-<h3 id="阅读"><a href="#阅读" class="headerlink" title="阅读"></a>阅读</h3><p>《人类简史》 终于完结了一下，真的是从2017年读到2018年，拖延症太可怕</p>
-<p>《黑客与画家》 思想论的东西，和写代码有关，不得不佩服格雷厄姆思想的深刻，毕竟是硅谷创业之父啊</p>
-<p>《引爆点》 有点心理学的意味，大多是在地铁上读完的，其实生活中很多的行为都是被潜移默化的影响</p>
-<p>《商业的本质》 管理学，大师的作品，正好自己也有兴趣，就在地铁上完成吧</p>
-<p>《小王子》 重读了一遍，还是有很多不同的感受</p>
-<p>《无比无杂的心绪》 很符合今年上半年的心绪，又是偶然发现，村上村树的作品，写的很深刻，直入内心的触动，需要多读几遍</p>
-<p>《独居的一年》 感觉有昆德拉的影子在里面，正在读</p>
-<p>  距离2019年还有五个月的时间，希望自己能在不断的思考中，更成熟、更深刻、更充实。</p>
-
-          
+          <p>虽说不是三十，却也是即将奔三。</p>
+<p>2018年2月份的时候离开上家公司，当初胸怀大志，希望出来能在一个更好的平台上施展一番。如今已经过去四之三，却感觉收获寥寥无几。其实这半年经历了很多的事情，也想了很多很多的东西：关于爱情，关于工作，关于生活。正好最近空闲下来，好好整理下自己，也整理一下生活。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/24/Thirtysomething/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -654,44 +645,20 @@
 
       
         
-          
-            <p>Spring Data Redis(SDR) 2.x<br>需要JDK8+、Spring Framework5.0.7+、Redis2.6.x</p>
+          <p>Spring Data Redis(SDR) 2.x<br>需要JDK8+、Spring Framework5.0.7+、Redis2.6.x</p>
 <p>2、整合了Lettuce和Jedis两个开源库</p>
 <p>3、高可见性</p>
 <p>可以直接使用底层(本地库)直接连接Redis</p>
 <p>RedisConnection<br>可以传递底层链接库异常到Spring持久化层DAO层，</p>
 <p>使用RedisConnectionFactory创建RedisConncection,RedisConnectionFactory继承PersistenceExceptionTranslator对象，意味着异常操作对RedisConnectionFactory更透明化。</p>
 <p>目前并不是所有的SDR特性都被connector开源库支持，使用不支持的特性会抛出<br>UnsupportedOperationException异常。</p>
-<p>二、Lettuce<br>Lettuce是基于Netty的连接器</p>
-<p>1、默认情况下，所有的LettuceConnection被LettuceConnectionFactory创建，它们共享一个线程安全的本地连接执行非阻塞、非事务性操作。</p>
-<p>2、LettuceConnectionFactory可以通过配置使用LettucePool</p>
-<p>3、LettuceConnectionFactory通过设置shareNativeConnection=false使用事务性连接</p>
-<p>三、Jedis</p>
-<p>四、RedisTemplate<br>1、提供了更高层的抽象，更关注序列化、连接的管理。<br>RedisConnection则提供了底层方法可以操作二进制数据。</p>
-<p>2、一旦被配置，则是线程安全的，可以被多个实例重用，</p>
-<p>3、默认基于Java原生序列类进行序列化，则所有的对象读写都是经过序列化和反序列化的。SDR在org.springframework.data.redis.serializer包内提供了一些其它的序列化实现类。可以通过设置所有的序列器为null同时设置enableDefaultSerializer=false。<br><strong><em>注意：RedisTemplate要求所有的属性key不能为空，value可以为空</em></strong></p>
-<p>特殊的String操作：<br>StringRedisConnection<br>StringRedisTemplate<br>StringRedisSerializer</p>
-<p>两种serializers都基于RedisSerializer<br>Element读写使用RedisElementReader、RedisElementWriter<br>RedisCache和RedisTemplate默认使用JdkSerializationRedisSerializer</p>
-<p>OxmSerializer用于基于Object/XML mapping</p>
-<p>Jackson2JsonRedisSerializer / GenericJackson2JsonRedisSerializer用于json格式数据</p>
-<p><strong><em>如果安全更重要，可以考虑在JVM层使用特殊的filter机制</em></strong></p>
-<p>使用Redis Hash可以存储更复杂的结构化对象：<br>(1)HashOperations + serializer<br>(2)Redis Repositories<br>(3)HashMapper + HashOperations<br>BeanUtilsHashMapper</p>
-<p>ObjectHashMapper</p>
-<p>Jackson2HashMapper</p>
-<p>五、Reactive Redis(异步)<br>ReactiveRedisConnection</p>
-<p>ReactiveRedisTemplate</p>
-<p>六、Redis Cluster<br>RedisClusterConnection继承RedisConnection，通过RedisConnectionFactory创建，RedisClusterFactory配置属性</p>
-<p>redisTemplate.opsForCluster();</p>
-<p>七、Redis Repository</p>
-<p>要求：Redis Server2.8.0+</p>
-<p>CrudRepository</p>
-<p>RedisConverter</p>
-<p>TTL</p>
-<p>KeySpaces</p>
-<p>@Reference注解</p>
-<p>CDI Integration</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/16/RedisTemplate/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -819,116 +786,15 @@
 
       
         
-          
-            <p>与Scala大约是三年之前，在一本《程序员面试宝典》看到，2016年买了《Scala快速入门》，感觉好繁琐，后来慢慢放下，去年接触到Apache Apollo，是一个MQTT的代理服务器开源软件(貌似是2007年发布的，就没有更新过)。最近突然想要捡起来</p>
+          <p>与Scala大约是三年之前，在一本《程序员面试宝典》看到，2016年买了《Scala快速入门》，感觉好繁琐，后来慢慢放下，去年接触到Apache Apollo，是一个MQTT的代理服务器开源软件(貌似是2007年发布的，就没有更新过)。最近突然想要捡起来</p>
 <p>学习新语言语法最快的途径就是打开<a href="http://www.runoob.com/scala/scala-tutorial.html" title="菜鸟教程Scala" target="_blank" rel="noopener">菜鸟教程网</a>跟着敲一遍，以下内容权当记录：</p>
-<h4 id="一、基础语法："><a href="#一、基础语法：" class="headerlink" title="一、基础语法："></a>一、基础语法：</h4><blockquote>
-<p>区分大小写 -  Scala是大小写敏感的，这意味着标识Hello 和 hello在Scala中会有不同的含义。</p>
-</blockquote>
-<blockquote>
-<p>类名 - 对于所有的类名的第一个字母要大写。</p>
-</blockquote>
-<blockquote>
-<p>如果需要使用几个单词来构成一个类的名称，每个单词的第一个字母要大写。示例：class MyFirstScalaClass</p>
-</blockquote>
-<blockquote>
-<p>方法名称 - 所有的方法名称的第一个字母用小写。</p>
-</blockquote>
-<blockquote>
-<p>如果若干单词被用于构成方法的名称，则每个单词的第一个字母应大写。示例：def myMethodName()</p>
-</blockquote>
-<blockquote>
-<p>程序文件名 - 程序文件的名称应该与对象名称(object)完全匹配。</p>
-</blockquote>
-<blockquote>
-<p>保存文件时，应该保存它使用的对象名称（记住Scala是区分大小写），并追加”.scala”为文件扩展名。 （如果文件名和对象名称不匹配，程序将无法编译）。</p>
-</blockquote>
-<blockquote>
-<p>def main(args: Array[String]) - Scala程序从main()方法开始处理，这是每一个Scala程序的强制程序入口部分。(类似于Java)</p>
-</blockquote>
-<h4 id="二、标识符"><a href="#二、标识符" class="headerlink" title="二、标识符"></a>二、标识符</h4><blockquote>
-<p>避免使用$开头的标识符</p>
-</blockquote>
-<blockquote>
-<p>避免使用下划线结尾的标识符</p>
-</blockquote>
-<p><strong>混合标识符</strong>：例如unary_+</p>
-<p><strong>字面标识符</strong>：例如<code>x`</code>yield`</p>
-<p><strong><em>在Scala中不能使用Thread.yield(),必须使用Thread.<code>yield</code>();</em></strong></p>
-<h4 id="三、包"><a href="#三、包" class="headerlink" title="三、包"></a>三、包</h4><p>定义包<br>引用包，import语句可以出现在任何地方，而不只是文件顶部</p>
-<p>引入包内所有成员：import java.awt._</p>
-<p>重命名成员：import java.util.{HashMap =&gt; JavaHashMap}</p>
-<p>隐藏成员：import java.util.{HashMap =&gt; _, _}</p>
-<p><strong><em>默认情况下，Scala 总会引入 java.lang._ 、 scala._ 和 Predef._，这里也能解释，为什么以scala开头的包，在使用时都是省去scala.的。</em></strong></p>
-<h4 id="四、数据类型"><a href="#四、数据类型" class="headerlink" title="四、数据类型"></a>四、数据类型</h4><p>Unit<br>Null<br>Nothing<br>Any<br>AnyRef</p>
-<p>符号字面量<br>字符字面量 ‘wangsir’<br>字符串字面量 “Hello World!”<br>多行字符串<br>    val foo = “”” Hello<br>        World!<br>        Scala<br>    “””</p>
-<h4 id="五、变量"><a href="#五、变量" class="headerlink" title="五、变量"></a>五、变量</h4><p>var 声明变量</p>
-<p>val 声明常量</p>
-<p>变量不一定要声明类型，会有类型推断; 但是如果声明类型，必须初始化。</p>
-<p>声明多个变量 val xmax, ymax = 100 //xmax=ymax=100<br>声明元组 val person = (“wangsir”, 27)</p>
-<h4 id="六、访问修饰符"><a href="#六、访问修饰符" class="headerlink" title="六、访问修饰符"></a>六、访问修饰符</h4><blockquote>
-<p>private：比Java更严格，在嵌套类情况下，外部类甚至不能访问嵌套类的私有成员</p>
-</blockquote>
-<blockquote>
-<p>protected：比Java更严格，只允许在该类的子类中被访问</p>
-</blockquote>
-<blockquote>
-<p>public：和Java不同，Scala默认访问为public</p>
-</blockquote>
-<p>作用域保护：private[x] protected[x]</p>
-<h4 id="七、"><a href="#七、" class="headerlink" title="七、"></a>七、</h4><p>Scala不支持break或continue语句，但是2.8版本后提供了一种中断循环</p>
-<p>1、字符串<br>Scala本身没有String类，所以Scala中的String类实际上是Java String</p>
-<pre><code>API：str1.concat(str2)
-</code></pre><p>2、数组:<br>var z:Array[String] = new Array<a href="3">String</a><br>var z = new Array<a href="3">String</a><br>var z = Array(“”,””,””)<br>区间数组：var z = range(10, 20, 2)</p>
-<p>for(a &lt;- array)<br>for(i &lt;- 0 to (array.length-1))</p>
-<p>3、集合(类似于Java、Python)</p>
-<p>List:</p>
-<p>Set:</p>
-<p>Map:</p>
-<p>元组: var x = (10, “”)</p>
-<p>Option:Option有两个子类(Some、None) var x:Option[Int] = Some(5)</p>
-<p>Iterator:</p>
-<p>4、模式匹配，类似于Java中的switch<br>x match {case Any =&gt; Any}</p>
-<h4 id="八、函数"><a href="#八、函数" class="headerlink" title="八、函数"></a>八、函数</h4><p><strong>函数传名调用</strong>：传名调用，传值调用</p>
-<p><strong>内嵌函数</strong></p>
-<p><strong>偏应用函数</strong></p>
-<p>递归函数</p>
-<p><strong>高阶函数</strong>：允许使用其他函数作为参数/返回值 def f1(f2(), arg) = f2();</p>
-<p><strong>匿名函数</strong>：<br><code>var inc = (x:Int) =&gt; x+1; var print = () =&gt; {System.getProperty(&quot;&quot;)}</code></p>
-<p><strong>函数柯里化</strong></p>
-<p>闭包**：</p>
-<h4 id="九、对象、类、特征"><a href="#九、对象、类、特征" class="headerlink" title="九、对象、类、特征"></a>九、对象、类、特征</h4><p>1、继承</p>
-<blockquote>
-<p>1、重写一个非抽象方法必须使用override修饰符。</p>
-<p>2、只有主构造函数才可以往基类的构造函数里写参数。</p>
-<p>3、在子类中重写超类的抽象方法时，你不需要使用override关键字。</p>
-</blockquote>
-<p><strong><em>Scala没有static</em></strong></p>
-<p>Scala定义单利模式时，需要在同一个源文件中定义一个类(伴生类)，和一个同名的object对象(伴生对象),类和对象可以互相访问其私有成员</p>
-<p>2、特征：相当于Java的接口，不同的是特征可以定义属性和方法的实现，所以更像Java的抽象类<br>特征也有构造器</p>
-<p>构造器的执行顺序：</p>
-<blockquote>
-<p>调用超类的构造器；</p>
-<p>特征构造器在超类构造器之后、类构造器之前执行；</p>
-<p>特征由左到右被构造；</p>
-<p>每个特征当中，父特征先被构造；</p>
-<p>如果多个特征共有一个父特征，父特征不会被重复构造</p>
-<p>所有特征被构造完毕，子类被构造。</p>
-</blockquote>
-<p>3、样例类，用于模式匹配</p>
-<p><code>case class Person(name: String, age: Int)</code></p>
-<p>在声明样例类时，下面的过程自动发生了：</p>
-<blockquote>
-<p>构造器的每个参数都成为val，除非显式被声明为var，但是并不推荐这么做；</p>
-<p>在伴生对象中提供了apply方法，所以可以不使用new关键字就可构建对象；</p>
-<p>提供unapply方法使模式匹配可以工作；</p>
-<p>生成toString、equals、hashCode和copy方法，除非显示给出这些方法的定义。</p>
-</blockquote>
-<p>4、提取器：从传递的对象中提出构造该对象的参数<br>apply<br>unapply</p>
-<h4 id="十、异常"><a href="#十、异常" class="headerlink" title="十、异常"></a>十、异常</h4><p>和Java类似</p>
-<h4 id="十一、web框架"><a href="#十一、web框架" class="headerlink" title="十一、web框架"></a>十一、web框架</h4><p>Lift框架<br>Play框架</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/13/scala-base/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1458,82 +1324,18 @@
 
       
         
-          
-            <h4 id="第14条"><a href="#第14条" class="headerlink" title="第14条"></a>第14条</h4><p>退化类：</p>
+          <h4 id="第14条"><a href="#第14条" class="headerlink" title="第14条"></a>第14条</h4><p>退化类：</p>
 <p>改进：</p>
 <p>(1)如果类可以在它所在的包外部进行访问，就提供访问方法，以保留将来改变该类的内部表示法的灵活性(但是如果域是不可变的final,直接public暴露)</p>
 <p>反例：java.awt.Point/Dimension类</p>
 <p>(2)如果类是包级私有的，或是私有的嵌套类，可以直接暴露它的数据域</p>
-<h4 id="第15条"><a href="#第15条" class="headerlink" title="第15条"></a>第15条</h4><p>不可变类：实例所包含的信息在创建时被提供，并在整个生命周期内固定不变。例如：String、基本类型的封装类、BigInteger、BegDecimal</p>
-<p>不可变类的五条原则：</p>
-<p>1、不要提供任何会修改对象状态的方法</p>
-<p>2、保证类不会被扩展，使这个类成为final类;或者让类的所有构造器变成私有的/包级私有的，并添加公有的静态工厂</p>
-<p>3、使所有的域都是final的</p>
-<p>4、使所有的域都是私有的(虽然技术上允许public, 但是以后不能再将public降级为private)</p>
-<p>5、确保对于任何可变组件的互斥访问</p>
-<blockquote>
-<p>如果类具有指向可变对象的域，必须确保客户端无法获得指向这些对象的引用；永远不要用客户端提供的对象引用来初始化这样的域；永远不要从任何方法中返回该对象引用。</p>
-</blockquote>
-<blockquote>
-<p>在构造器、访问方法、readObject中使用保护性拷贝</p>
-</blockquote>
-<p>注意：</p>
-<blockquote>
-<p>实际上，许多不可变类拥有一个或多个非final的域，它们在第一次被请求执行这些计算时，把开销昂贵的计算结果缓存在这些域。例如String的延迟初始化</p>
-<p>如果让自定义的不可变类实现Serializable接口，并且包含一个或多个指向可变对象的域，就必须提供一个显式的readObject/readResolve方法</p>
-</blockquote>
-<blockquote>
-<p>不要为每个get方法编写一个相应的set方法，</p>
-</blockquote>
-<blockquote>
-<p>构造器应该创建完全初始化的对象，并建立起所有的约束关系，不要在构造器或者静态工厂之外再提供公有的初始化方法。</p>
-</blockquote>
-<p>函数的</p>
-<p>过程的</p>
-<p>命令式的</p>
-<p>不可变对象的优点：</p>
-<p>1、不可变对象比较简单</p>
-<p>2、不可变对象本质上是线程安全的，它们不要求同步，所以可以被自由共享</p>
-<p>public static final Complex ZERO = new Complex(0, 0);</p>
-<p>可以提供一些静态工厂，把频繁被请求的实例缓存起来，例如BigInteger、基本类型包装类</p>
-<p>不需要为不可变类提供clone方法、拷贝构造器</p>
-<p>3、不仅可以共享不可变对象，甚至可以共享它们的内部信息。例如：BigInteger类内部使用了符号数值表示法</p>
-<p>4、不可变对象为其它对象提供了大量的构件。一旦不可变对象进入映射或集合中，尽管这破坏了映射或者集合的不可变性约束，但是也不用担心它们的值会发生变化</p>
-<p>不可变类的缺点：</p>
-<p>1、不可变对象对于每个不同的值都需要一个单独的对象。例如：String的可变配套类StringBuilder，Big Integer的BitSet</p>
-<p>为了潜在的性能问题，java.util.Date、java.awt.Point本应该是不可变的，实际上却不是</p>
-<h4 id="第16条"><a href="#第16条" class="headerlink" title="第16条"></a>第16条</h4><p>该条讨论的继承指的是class extends class,而不是class implements interface、interface extends interface</p>
-<p>包内使用继承非常安全，跨包使用继承则非常危险。</p>
-<p>复合代替继承，使用转发类代替接口实现类实现接口</p>
-<p>注意：</p>
-<blockquote>
-<p>包装类不适<br>合用在回调框架中</p>
-</blockquote>
-<blockquote>
-<p>在Java类库中，违反复合原则的有:Stack并不是Vector，Properties也不是HashTable</p>
-</blockquote>
-<blockquote>
-<p>在使用继承而不是复合之前，要确定将要扩展的类中API有没有缺陷</p>
-</blockquote>
-<h4 id="第17条"><a href="#第17条" class="headerlink" title="第17条"></a>第17条</h4><p>接口优于实现类</p>
-<p>骨架实现类(结合接口和抽象类的优点)。例如：AbstractCollection、AbstractSet、AbstractList、AbstractMap</p>
-<p>抽象类的演变比接口的演变容易的多</p>
-<h4 id="第19条"><a href="#第19条" class="headerlink" title="第19条"></a>第19条</h4><p>常量接口是一种不良使用，接口应该只被用来定义类型</p>
-<p>导出常量的三种方式：</p>
-<blockquote>
-<p>直接放在类、接口中</p>
-</blockquote>
-<blockquote>
-<p>枚举类型</p>
-</blockquote>
-<blockquote>
-<p>工具类，如果工具类常量太多，可以通过静态导入机制实现</p>
-</blockquote>
-<h4 id="第20条"><a href="#第20条" class="headerlink" title="第20条"></a>第20条</h4><p>标签类：如何定义</p>
-<p>改进：</p>
-<p>类层次</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/06/class-interface/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1814,72 +1616,16 @@
 
       
         
-          
-            <h3 id="一、安装树莓派系统"><a href="#一、安装树莓派系统" class="headerlink" title="一、安装树莓派系统"></a>一、安装树莓派系统</h3><p>1、SDFormatter格式化优盘</p>
+          <h3 id="一、安装树莓派系统"><a href="#一、安装树莓派系统" class="headerlink" title="一、安装树莓派系统"></a>一、安装树莓派系统</h3><p>1、SDFormatter格式化优盘</p>
 <p>2、win32Disk写入镜像</p>
 <p>3、pi用户登录系统，pi/raspberry</p>
-<h3 id="二、修改键盘布局-因为树莓派默认英国键盘布局，会导致出错"><a href="#二、修改键盘布局-因为树莓派默认英国键盘布局，会导致出错" class="headerlink" title="二、修改键盘布局(因为树莓派默认英国键盘布局，会导致出错"></a>二、修改键盘布局(因为树莓派默认英国键盘布局，会导致出错</h3><pre><code>sudo raspi-config
-</code></pre><blockquote>
-<ol>
-<li>Locals Options</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol>
-<li>Choose Keyword Layout</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol>
-<li>Generic 104-key PC #键盘101布局和104布局</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol>
-<li>English(US, alternative international)</li>
-</ol>
-</blockquote>
-<p>重启系统</p>
-<pre><code>reboot
-</code></pre><h3 id="三、设置远程登录，使用xshell操作"><a href="#三、设置远程登录，使用xshell操作" class="headerlink" title="三、设置远程登录，使用xshell操作"></a>三、设置远程登录，使用xshell操作</h3><p>开启22号端口<br>    sudo raspi-config</p>
-<blockquote>
-<p>1、Advanced Options</p>
-</blockquote>
-<blockquote>
-<p>2、SSH Enable</p>
-</blockquote>
-<p>树莓派默认pi用户，开启root用户<br>    sudo passwd root</p>
-<pre><code>sudo passwd --unlock root
-
-su root
-</code></pre><p>设置允许root用户远程登录系统</p>
-<pre><code>vi /etc/ssh/sshd_config
-</code></pre><blockquote>
-<p>PermitRootLogin yes</p>
-</blockquote>
-<pre><code>reboot
-</code></pre><h3 id="四、配置WiFi"><a href="#四、配置WiFi" class="headerlink" title="四、配置WiFi"></a>四、配置WiFi</h3><pre><code>su root
-vi /etc/wpa_supplicant/wpa_supplicant.conf
-</code></pre><blockquote>
-<p>network={</p>
-<pre><code>ssid=&quot;wifi名称&quot;
-
-psk=&quot;wifi密码&quot;
-</code></pre><p>}</p>
-</blockquote>
-<p>重启查看网络</p>
-<pre><code>reboot
-ifconfig wlan0
-</code></pre><h3 id="五、卸载系统自带vim，安装vim-自带vim上下左右键盘为ABCD"><a href="#五、卸载系统自带vim，安装vim-自带vim上下左右键盘为ABCD" class="headerlink" title="五、卸载系统自带vim，安装vim(自带vim上下左右键盘为ABCD)"></a>五、卸载系统自带vim，安装vim(自带vim上下左右键盘为ABCD)</h3><pre><code>apt-get remove vim-common
-apt-get install vim
-</code></pre><h3 id="六、修改镜像源"><a href="#六、修改镜像源" class="headerlink" title="六、修改镜像源"></a>六、修改镜像源</h3><p>vi /etc/apt/sources.list</p>
-<p>deb <a href="http://mirrors.aliyun.com/raspbian/raspbian/" target="_blank" rel="noopener">http://mirrors.aliyun.com/raspbian/raspbian/</a> stretch main contrib non-free rpi<br>deb-src <a href="http://mirrors.aliyun.com/raspbian/raspbian/" target="_blank" rel="noopener">http://mirrors.aliyun.com/raspbian/raspbian/</a> stretch main contrib non-free rpi </p>
-<pre><code>vi /etc/apt/sources.list.d/raspi.list
-</code></pre><p>更新源</p>
-<pre><code>sudo apt-get update
-sudo apt-get upgrade -y
-</code></pre>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/26/raspberry1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1999,34 +1745,34 @@ sudo apt-get upgrade -y
           
             
               <span class="links-of-author-item">
-                <a href="https://github.com/wangwanchao" target="_blank" title="github">
+                <a href="https://github.com/wangwanchao" target="_blank" title="Github">
                   
                     <i class="fa fa-fw fa-globe"></i>
                   
                     
-                      github
+                      Github
                     
                 </a>
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://weibo.com/u/2546166725/home?wvr=5" target="_blank" title="weibo">
+                <a href="https://blog.csdn.net/zhongyuemengxiang" target="_blank" title="CSDN">
                   
                     <i class="fa fa-fw fa-globe"></i>
                   
                     
-                      weibo
+                      CSDN
                     
                 </a>
               </span>
             
               <span class="links-of-author-item">
-                <a href="http://www.cnblogs.com/wangwanchao/" target="_blank" title="cnblogs">
+                <a href="http://www.cnblogs.com/wangwanchao/" target="_blank" title="Cnblogs">
                   
-                    <i class="fa fa-fw fa-globe"></i>
+                    <i class="fa fa-fw fa-cnblog"></i>
                   
                     
-                      cnblogs
+                      Cnblogs
                     
                 </a>
               </span>

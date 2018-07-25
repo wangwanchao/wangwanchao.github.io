@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="语言, go," />
 
 
 
@@ -98,17 +98,18 @@
 
 
 
-<meta name="description" content="第14条退化类： 改进： (1)如果类可以在它所在的包外部进行访问，就提供访问方法，以保留将来改变该类的内部表示法的灵活性(但是如果域是不可变的final,直接public暴露) 反例：java.awt.Point/Dimension类 (2)如果类是包级私有的，或是私有的嵌套类，可以直接暴露它的数据域">
+<meta name="description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字：break    default    func    interface    selectcase    defer    go    map    structchan    else">
+<meta name="keywords" content="语言, go">
 <meta property="og:type" content="article">
-<meta property="og:title" content="类和接口">
-<meta property="og:url" content="http://wangwanchao.wang/2018/05/06/class-interface/index.html">
+<meta property="og:title" content="Go语言基础入门">
+<meta property="og:url" content="http://wangwanchao.wang/2018/07/25/go-base/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
-<meta property="og:description" content="第14条退化类： 改进： (1)如果类可以在它所在的包外部进行访问，就提供访问方法，以保留将来改变该类的内部表示法的灵活性(但是如果域是不可变的final,直接public暴露) 反例：java.awt.Point/Dimension类 (2)如果类是包级私有的，或是私有的嵌套类，可以直接暴露它的数据域">
+<meta property="og:description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字：break    default    func    interface    selectcase    defer    go    map    structchan    else">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-24T08:45:36.343Z">
+<meta property="og:updated_time" content="2018-07-25T06:20:09.073Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="类和接口">
-<meta name="twitter:description" content="第14条退化类： 改进： (1)如果类可以在它所在的包外部进行访问，就提供访问方法，以保留将来改变该类的内部表示法的灵活性(但是如果域是不可变的final,直接public暴露) 反例：java.awt.Point/Dimension类 (2)如果类是包级私有的，或是私有的嵌套类，可以直接暴露它的数据域">
+<meta name="twitter:title" content="Go语言基础入门">
+<meta name="twitter:description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字：break    default    func    interface    selectcase    defer    go    map    structchan    else">
 
 
 
@@ -137,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://wangwanchao.wang/2018/05/06/class-interface/"/>
+  <link rel="canonical" href="http://wangwanchao.wang/2018/07/25/go-base/"/>
 
 
 
 
 
-  <title>类和接口 | Wangsir's Blog</title>
+  <title>Go语言基础入门 | Wangsir's Blog</title>
   
 
 
@@ -300,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/05/06/class-interface/">
+    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/07/25/go-base/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wanchao">
@@ -317,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">类和接口</h1>
+          <h1 class="post-title" itemprop="name headline">Go语言基础入门</h1>
         
 
         <div class="post-meta">
@@ -329,8 +330,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T10:23:45+08:00">
-                2018-05-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T14:12:45+08:00">
+                2018-07-25
               </time>
             
 
@@ -348,9 +349,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/06/class-interface/#comments" itemprop="discussionUrl">
+                <a href="/2018/07/25/go-base/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/06/class-interface/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/07/25/go-base/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -378,80 +379,61 @@
       
 
       
-        <h4 id="第14条"><a href="#第14条" class="headerlink" title="第14条"></a>第14条</h4><p>退化类：</p>
-<p>改进：</p>
-<p>(1)如果类可以在它所在的包外部进行访问，就提供访问方法，以保留将来改变该类的内部表示法的灵活性(但是如果域是不可变的final,直接public暴露)</p>
-<p>反例：java.awt.Point/Dimension类</p>
-<p>(2)如果类是包级私有的，或是私有的嵌套类，可以直接暴露它的数据域</p>
-<a id="more"></a>
-<h4 id="第15条"><a href="#第15条" class="headerlink" title="第15条"></a>第15条</h4><p>不可变类：实例所包含的信息在创建时被提供，并在整个生命周期内固定不变。例如：String、基本类型的封装类、BigInteger、BegDecimal</p>
-<p>不可变类的五条原则：</p>
-<p>1、不要提供任何会修改对象状态的方法</p>
-<p>2、保证类不会被扩展，使这个类成为final类;或者让类的所有构造器变成私有的/包级私有的，并添加公有的静态工厂</p>
-<p>3、使所有的域都是final的</p>
-<p>4、使所有的域都是私有的(虽然技术上允许public, 但是以后不能再将public降级为private)</p>
-<p>5、确保对于任何可变组件的互斥访问</p>
+        <p>一段时间不写Go,很多东西都忘了，还是记录一下吧！<br>一、基础入门<br>go run hello.go</p>
+<p>行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala</p>
+<p>25个关键字：<br>break    default    func    interface    select<br>case    defer    go    map    struct<br>chan    else    goto    package    switch<br>const    fallthrough    if    range    type<br>continue    for    import    return    var</p>
+<p>36个预定义标识符<br>append     bool     byte     cap     close     complex     complex64     complex128     uint16<br>copy     false     float32     float64     imag     int     int8     int16     uint32<br>int32     int64     iota     len     make     new     nil     panic     uint64<br>print     println     real     recover     string     true     uint     uint8     uintptr</p>
+<p>二、数据类型<br>1、布尔类型<br>2、数字类型</p>
 <blockquote>
-<p>如果类具有指向可变对象的域，必须确保客户端无法获得指向这些对象的引用；永远不要用客户端提供的对象引用来初始化这样的域；永远不要从任何方法中返回该对象引用。</p>
+<p>uint8 无符号 8 位整型 (0 到 255)</p>
+<p>uint16 无符号 16 位整型 (0 到 65535)</p>
+<p>uint32 无符号 32 位整型 (0 到 4294967295)</p>
+<p>uint64 无符号 64 位整型 (0 到 18446744073709551615)</p>
+<p>int8 有符号 8 位整型 (-128 到 127)</p>
+<p>int16 有符号 16 位整型 (-32768 到 32767)</p>
+<p>int32 有符号 32 位整型 (-2147483648 到 2147483647)</p>
+<p>int64 有符号 64 位整型 (-9223372036854775808 到 9223372036854775807)</p>
 </blockquote>
-<blockquote>
-<p>在构造器、访问方法、readObject中使用保护性拷贝</p>
-</blockquote>
-<p>注意：</p>
-<blockquote>
-<p>实际上，许多不可变类拥有一个或多个非final的域，它们在第一次被请求执行这些计算时，把开销昂贵的计算结果缓存在这些域。例如String的延迟初始化</p>
-<p>如果让自定义的不可变类实现Serializable接口，并且包含一个或多个指向可变对象的域，就必须提供一个显式的readObject/readResolve方法</p>
-</blockquote>
-<blockquote>
-<p>不要为每个get方法编写一个相应的set方法，</p>
-</blockquote>
-<blockquote>
-<p>构造器应该创建完全初始化的对象，并建立起所有的约束关系，不要在构造器或者静态工厂之外再提供公有的初始化方法。</p>
-</blockquote>
-<p>函数的</p>
-<p>过程的</p>
-<p>命令式的</p>
-<p>不可变对象的优点：</p>
-<p>1、不可变对象比较简单</p>
-<p>2、不可变对象本质上是线程安全的，它们不要求同步，所以可以被自由共享</p>
-<p>public static final Complex ZERO = new Complex(0, 0);</p>
-<p>可以提供一些静态工厂，把频繁被请求的实例缓存起来，例如BigInteger、基本类型包装类</p>
-<p>不需要为不可变类提供clone方法、拷贝构造器</p>
-<p>3、不仅可以共享不可变对象，甚至可以共享它们的内部信息。例如：BigInteger类内部使用了符号数值表示法</p>
-<p>4、不可变对象为其它对象提供了大量的构件。一旦不可变对象进入映射或集合中，尽管这破坏了映射或者集合的不可变性约束，但是也不用担心它们的值会发生变化</p>
-<p>不可变类的缺点：</p>
-<p>1、不可变对象对于每个不同的值都需要一个单独的对象。例如：String的可变配套类StringBuilder，Big Integer的BitSet</p>
-<p>为了潜在的性能问题，java.util.Date、java.awt.Point本应该是不可变的，实际上却不是</p>
-<h4 id="第16条"><a href="#第16条" class="headerlink" title="第16条"></a>第16条</h4><p>该条讨论的继承指的是class extends class,而不是class implements interface、interface extends interface</p>
-<p>包内使用继承非常安全，跨包使用继承则非常危险。</p>
-<p>复合代替继承，使用转发类代替接口实现类实现接口</p>
-<p>注意：</p>
-<blockquote>
-<p>包装类不适<br>合用在回调框架中</p>
-</blockquote>
-<blockquote>
-<p>在Java类库中，违反复合原则的有:Stack并不是Vector，Properties也不是HashTable</p>
-</blockquote>
-<blockquote>
-<p>在使用继承而不是复合之前，要确定将要扩展的类中API有没有缺陷</p>
-</blockquote>
-<h4 id="第17条"><a href="#第17条" class="headerlink" title="第17条"></a>第17条</h4><p>接口优于实现类</p>
-<p>骨架实现类(结合接口和抽象类的优点)。例如：AbstractCollection、AbstractSet、AbstractList、AbstractMap</p>
-<p>抽象类的演变比接口的演变容易的多</p>
-<h4 id="第19条"><a href="#第19条" class="headerlink" title="第19条"></a>第19条</h4><p>常量接口是一种不良使用，接口应该只被用来定义类型</p>
-<p>导出常量的三种方式：</p>
-<blockquote>
-<p>直接放在类、接口中</p>
-</blockquote>
-<blockquote>
-<p>枚举类型</p>
-</blockquote>
-<blockquote>
-<p>工具类，如果工具类常量太多，可以通过静态导入机制实现</p>
-</blockquote>
-<h4 id="第20条"><a href="#第20条" class="headerlink" title="第20条"></a>第20条</h4><p>标签类：如何定义</p>
-<p>改进：</p>
-<p>类层次</p>
+<p>byte 类似 uint8<br>rune 类似 int32<br>uint 32 或 64 位<br>int 与 uint 一样大小<br>uintptr 无符号整型，用于存放一个指针</p>
+<p>3、字符串类型<br>4、派生类型：<br>    (a) 指针类型（Pointer）<br>    (b) 数组类型<br>    (c) 结构化类型(struct)<br>    (d) Channel 类型<br>    (e) 函数类型<br>    (f) 切片类型<br>    (g) 接口类型（interface）<br>    (h) Map 类型 </p>
+<p>三、变量与常量<br>数据类型     初始化默认值<br>int         0<br>float32     0<br>pointer     nil<br>1、var 声明变量<br>var identifier type  //声明后若不赋值，则使用默认值<br>var v_name = value  //不声明类型时，执行类型推断，类似于Scala<br>v_name := value</p>
+<p>多变量声明：<br>var a, b, c = a1, b1, c1</p>
+<p>2、const 声明常量<br>const可以用于枚举<br><code>const( 
+    Unkonwn = 0
+    Female = 1
+    Male = 2
+)</code><br>常量可以用len(), cap(), unsafe.Sizeof()函数计算表达式的值。常量表达式中，函数必须是内置函数，否则编译不过</p>
+<p><code>const(
+    a = &quot;abc&quot;
+    b = len(a)
+)</code></p>
+<p>3、<strong>iota 特殊常量</strong></p>
+<p>空白标识符’_’用于抛弃值，类似于Scala</p>
+<p>四、<br>Go语言循环中有：break、continue、goto</p>
+<p>五、函数<br>Go语言中全局变量和局部变量可以相同，函数内变量优先考虑<br>Go函数可以返回多个值，这个比Java好很多</p>
+<p><code>func swap(x, y string) (string, string){
+    return y, x
+}</code></p>
+<p>值传递: 值传递是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数。<br>引用传递: 引用传递是指在调用函数时将实际参数的地址传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数。</p>
+<p><strong>默认情况下，Go 语言使用的是值传递，即在调用过程中不会影响到实际参数。</strong></p>
+<p>函数作为值传递，类似于Scala高阶函数<br>getSquareRoot := func(x float64) float64 {  //类似于Scala匿名函数<br>    return math.Sqrt(x)<br>}</p>
+<p>Go支持匿名函数可以作为闭包，和Scala的闭包有什么区别？</p>
+<p>Go语言中函数不同于方法。一个方法就是一个包含了接受者的函数，接受者可以是命名类型或者结构体类型的一个值或者是一个指针。<br>接口类型（interface）<br>方法集</p>
+<p>六、<br>1、数组</p>
+<p><code>var array [size] arr_type
+var array = [5]int{1,2,3,4,5}</code></p>
+<p>2、切片：切片是对数组的抽象，数组长度不可变，切片是动态数组<br><code>var slice [] slice_type
+var slice [] slice_type = make([]slice_type, len)
+slice := make([]slice_type, len)</code></p>
+<p>3、范围range 类似于Java在for-Each，Scala中&lt;-遍历<br>Go 语言中 range 关键字用于for循环中迭代数组(array)、切片(slice)、通道(channel)或集合(map)的元素。<br>在数组和切片中它返回元素的索引值，在集合中返回 key-value 对的 key 值。 </p>
+<p>4、Map声明后必须make初始化，否则为nil，类似于Java的null</p>
+<p><code>var cmap map[string]string
+cmap = make(map[string]string)</code></p>
+<p>5、类型转换，不同于Java的向上向下转型</p>
+<p><code>var i int = 10
+float32(i)</code></p>
+<p>结构体：类似于c语言的结构体<br>结构体指针</p>
+<p>七、错误处理<br>Go语言通过内置的错误接口(error)提供了非常简单的错误处理机制。</p>
 
       
     </div>
@@ -467,6 +449,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/语言-go/" rel="tag"># 语言, go</a>
+          
+        </div>
+      
 
       
       
@@ -476,8 +464,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/26/raspberry-snowboy/" rel="next" title="树莓派实现简易的语音识别">
-                <i class="fa fa-chevron-left"></i> 树莓派实现简易的语音识别
+              <a href="/2018/07/24/Thirtysomething/" rel="next" title="三十而立(Thirtysomething)">
+                <i class="fa fa-chevron-left"></i> 三十而立(Thirtysomething)
               </a>
             
           </div>
@@ -485,10 +473,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/06/annotation/" rel="prev" title="枚举和注解">
-                枚举和注解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -547,17 +531,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/alifather.jpg"
@@ -665,22 +640,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#第14条"><span class="nav-text">第14条</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第15条"><span class="nav-text">第15条</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第16条"><span class="nav-text">第16条</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第17条"><span class="nav-text">第17条</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第19条"><span class="nav-text">第19条</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第20条"><span class="nav-text">第20条</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -825,9 +784,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://wangwanchao.wang/2018/05/06/class-interface/';
-          this.page.identifier = '2018/05/06/class-interface/';
-          this.page.title = '类和接口';
+          this.page.url = 'http://wangwanchao.wang/2018/07/25/go-base/';
+          this.page.identifier = '2018/07/25/go-base/';
+          this.page.title = 'Go语言基础入门';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://wangsirblog.disqus.com/embed.js';

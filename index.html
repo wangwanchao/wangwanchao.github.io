@@ -298,6 +298,191 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/07/25/go-base/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wanchao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/alifather.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wangsir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/25/go-base/" itemprop="url">Go语言基础入门</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T14:12:45+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/25/go-base/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/25/go-base/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>一段时间不写Go,很多东西都忘了，还是记录一下吧！<br>一、基础入门<br>go run hello.go</p>
+<p>行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala</p>
+<p>25个关键字：<br>break    default    func    interface    select<br>case    defer    go    map    struct<br>chan    else    goto    package    switch<br>const    fallthrough    if    range    type<br>continue    for    import    return    var</p>
+<p>36个预定义标识符<br>append     bool     byte     cap     close     complex     complex64     complex128     uint16<br>copy     false     float32     float64     imag     int     int8     int16     uint32<br>int32     int64     iota     len     make     new     nil     panic     uint64<br>print     println     real     recover     string     true     uint     uint8     uintptr</p>
+<p>二、数据类型<br>1、布尔类型<br>2、数字类型</p>
+<blockquote>
+<p>uint8 无符号 8 位整型 (0 到 255)</p>
+<p>uint16 无符号 16 位整型 (0 到 65535)</p>
+<p>uint32 无符号 32 位整型 (0 到 4294967295)</p>
+<p>uint64 无符号 64 位整型 (0 到 18446744073709551615)</p>
+<p>int8 有符号 8 位整型 (-128 到 127)</p>
+<p>int16 有符号 16 位整型 (-32768 到 32767)</p>
+<p>int32 有符号 32 位整型 (-2147483648 到 2147483647)</p>
+<p>int64 有符号 64 位整型 (-9223372036854775808 到 9223372036854775807)</p>
+</blockquote>
+<p>byte 类似 uint8<br>rune 类似 int32<br>uint 32 或 64 位<br>int 与 uint 一样大小<br>uintptr 无符号整型，用于存放一个指针</p>
+<p>3、字符串类型<br>4、派生类型：<br>    (a) 指针类型（Pointer）<br>    (b) 数组类型<br>    (c) 结构化类型(struct)<br>    (d) Channel 类型<br>    (e) 函数类型<br>    (f) 切片类型<br>    (g) 接口类型（interface）<br>    (h) Map 类型 </p>
+<p>三、变量与常量<br>数据类型     初始化默认值<br>int         0<br>float32     0<br>pointer     nil<br>1、var 声明变量<br>var identifier type  //声明后若不赋值，则使用默认值<br>var v_name = value  //不声明类型时，执行类型推断，类似于Scala<br>v_name := value</p>
+<p>多变量声明：<br>var a, b, c = a1, b1, c1</p>
+<p>2、const 声明常量<br>const可以用于枚举<br><code>const( 
+    Unkonwn = 0
+    Female = 1
+    Male = 2
+)</code><br>常量可以用len(), cap(), unsafe.Sizeof()函数计算表达式的值。常量表达式中，函数必须是内置函数，否则编译不过</p>
+<p><code>const(
+    a = &quot;abc&quot;
+    b = len(a)
+)</code></p>
+<p>3、<strong>iota 特殊常量</strong></p>
+<p>空白标识符’_’用于抛弃值，类似于Scala</p>
+<p>四、<br>Go语言循环中有：break、continue、goto</p>
+<p>五、函数<br>Go语言中全局变量和局部变量可以相同，函数内变量优先考虑<br>Go函数可以返回多个值，这个比Java好很多</p>
+<p><code>func swap(x, y string) (string, string){
+    return y, x
+}</code></p>
+<p>值传递: 值传递是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数。<br>引用传递: 引用传递是指在调用函数时将实际参数的地址传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数。</p>
+<p><strong>默认情况下，Go 语言使用的是值传递，即在调用过程中不会影响到实际参数。</strong></p>
+<p>函数作为值传递，类似于Scala高阶函数<br>getSquareRoot := func(x float64) float64 {  //类似于Scala匿名函数<br>    return math.Sqrt(x)<br>}</p>
+<p>Go支持匿名函数可以作为闭包，和Scala的闭包有什么区别？</p>
+<p>Go语言中函数不同于方法。一个方法就是一个包含了接受者的函数，接受者可以是命名类型或者结构体类型的一个值或者是一个指针。<br>接口类型（interface）<br>方法集</p>
+<p>六、<br>1、数组</p>
+<p><code>var array [size] arr_type
+var array = [5]int{1,2,3,4,5}</code></p>
+<p>2、切片：切片是对数组的抽象，数组长度不可变，切片是动态数组<br><code>var slice [] slice_type
+var slice [] slice_type = make([]slice_type, len)
+slice := make([]slice_type, len)</code></p>
+<p>3、范围range 类似于Java在for-Each，Scala中&lt;-遍历<br>Go 语言中 range 关键字用于for循环中迭代数组(array)、切片(slice)、通道(channel)或集合(map)的元素。<br>在数组和切片中它返回元素的索引值，在集合中返回 key-value 对的 key 值。 </p>
+<p>4、Map声明后必须make初始化，否则为nil，类似于Java的null</p>
+<p><code>var cmap map[string]string
+cmap = make(map[string]string)</code></p>
+<p>5、类型转换，不同于Java的向上向下转型</p>
+<p><code>var i int = 10
+float32(i)</code></p>
+<p>结构体：类似于c语言的结构体<br>结构体指针</p>
+<p>七、错误处理<br>Go语言通过内置的错误接口(error)提供了非常简单的错误处理机制。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/07/24/Thirtysomething/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1500,165 +1685,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/04/26/raspberry1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wanchao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/alifather.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wangsir's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/26/raspberry1/" itemprop="url">树莓派系统搭建踩坑</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T18:43:00+08:00">
-                2018-04-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/raspberry/" itemprop="url" rel="index">
-                    <span itemprop="name">raspberry</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/04/26/raspberry1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/04/26/raspberry1/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="一、安装树莓派系统"><a href="#一、安装树莓派系统" class="headerlink" title="一、安装树莓派系统"></a>一、安装树莓派系统</h3><p>1、SDFormatter格式化优盘</p>
-<p>2、win32Disk写入镜像</p>
-<p>3、pi用户登录系统，pi/raspberry</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/26/raspberry1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1709,7 +1735,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1731,7 +1757,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -1767,12 +1793,12 @@
               </span>
             
               <span class="links-of-author-item">
-                <a href="http://www.cnblogs.com/wangwanchao/" target="_blank" title="Cnblogs">
+                <a href="http://www.cnblogs.com/wangwanchao/" target="_blank" title="cnblogs">
                   
-                    <i class="fa fa-fw fa-cnblog"></i>
+                    <i class="fa fa-fw fa-globe"></i>
                   
                     
-                      Cnblogs
+                      cnblogs
                     
                 </a>
               </span>

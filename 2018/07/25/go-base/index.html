@@ -98,18 +98,18 @@
 
 
 
-<meta name="description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！ 一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字：break    default    func    interface    selectcase    defer    go    map    structchan    else">
+<meta name="description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！ 一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字： break  default    func  interface     selectcase    defer    go    map    structchan    else    g">
 <meta name="keywords" content="语言, go">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go语言基础入门">
 <meta property="og:url" content="http://wangwanchao.wang/2018/07/25/go-base/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
-<meta property="og:description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！ 一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字：break    default    func    interface    selectcase    defer    go    map    structchan    else">
+<meta property="og:description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！ 一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字： break  default    func  interface     selectcase    defer    go    map    structchan    else    g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-25T06:56:29.131Z">
+<meta property="og:updated_time" content="2018-07-25T07:37:18.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go语言基础入门">
-<meta name="twitter:description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！ 一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字：break    default    func    interface    selectcase    defer    go    map    structchan    else">
+<meta name="twitter:description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！ 一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字： break  default    func  interface     selectcase    defer    go    map    structchan    else    g">
 
 
 
@@ -404,9 +404,11 @@
         <p>一段时间不写Go,很多东西都忘了，还是记录一下吧！</p>
 <h2 id="一、基础入门"><a href="#一、基础入门" class="headerlink" title="一、基础入门"></a>一、基础入门</h2><p><code>go run hello.go</code></p>
 <p>行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala</p>
-<p>25个关键字：<br>break    default    func    interface    select<br>case    defer    go    map    struct<br>chan    else    goto    package    switch<br>const    fallthrough    if    range    type<br>continue    for    import    return    var</p>
+<p>25个关键字：</p>
+<p>break  default    func  interface     select<br>case    defer    go    map    struct<br>chan    else    goto    package    switch<br>const    fallthrough    if    range    type<br>continue    for    import    return    var</p>
 <a id="more"></a>
-<p>36个预定义标识符<br>append     bool     byte     cap     close     complex     complex64     complex128     uint16<br>copy     false     float32     float64     imag     int     int8     int16     uint32<br>int32     int64     iota     len     make     new     nil     panic     uint64<br>print     println     real     recover     string     true     uint     uint8     uintptr</p>
+<p>36个预定义标识符:</p>
+<p>append     bool     byte     cap     close     complex     complex64     complex128     uint16<br>copy     false     float32     float64     imag     int     int8     int16     uint32<br>int32     int64     iota     len     make     new     nil     panic     uint64<br>print     println     real     recover     string     true     uint     uint8     uintptr</p>
 <h2 id="二、数据类型"><a href="#二、数据类型" class="headerlink" title="二、数据类型"></a>二、数据类型</h2><p>1、布尔类型</p>
 <p>2、数字类型</p>
 <blockquote>
@@ -422,10 +424,28 @@
 <p>byte 类似 uint8<br>rune 类似 int32<br>uint 32 或 64 位<br>int 与 uint 一样大小<br>uintptr 无符号整型，用于存放一个指针</p>
 <p>3、字符串类型</p>
 <p>4、派生类型：<br>    (a) 指针类型（Pointer）<br>    (b) 数组类型<br>    (c) 结构化类型(struct)<br>    (d) Channel 类型<br>    (e) 函数类型<br>    (f) 切片类型<br>    (g) 接口类型（interface）<br>    (h) Map 类型 </p>
-<h2 id="三、变量与常量"><a href="#三、变量与常量" class="headerlink" title="三、变量与常量"></a>三、变量与常量</h2><p>数据类型     初始化默认值</p>
-<p>int         0</p>
-<p>float32     0</p>
-<p>pointer     nil</p>
+<h2 id="三、变量与常量"><a href="#三、变量与常量" class="headerlink" title="三、变量与常量"></a>三、变量与常量</h2><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th style="text-align:center">初始化默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td>float32</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td>pointer</td>
+<td style="text-align:center">nil</td>
+</tr>
+</tbody>
+</table>
 <p>1、var 声明变量</p>
 <p>`var identifier type  //声明后若不赋值，则使用默认值</p>
 <p>var v_name = value  //不声明类型时，执行类型推断，类似于Scala</p>

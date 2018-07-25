@@ -98,17 +98,13 @@
 
 
 
-<meta name="description" content="第14条退化类： 改进： (1)如果类可以在它所在的包外部进行访问，就提供访问方法，以保留将来改变该类的内部表示法的灵活性(但是如果域是不可变的final,直接public暴露) 反例：java.awt.Point/Dimension类 (2)如果类是包级私有的，或是私有的嵌套类，可以直接暴露它的数据域">
-<meta property="og:type" content="article">
-<meta property="og:title" content="类和接口">
-<meta property="og:url" content="http://wangwanchao.wang/2018/05/06/class-interface/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Wangsir&#39;s Blog">
+<meta property="og:url" content="http://wangwanchao.wang/categories/Python/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
-<meta property="og:description" content="第14条退化类： 改进： (1)如果类可以在它所在的包外部进行访问，就提供访问方法，以保留将来改变该类的内部表示法的灵活性(但是如果域是不可变的final,直接public暴露) 反例：java.awt.Point/Dimension类 (2)如果类是包级私有的，或是私有的嵌套类，可以直接暴露它的数据域">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-24T08:45:36.343Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="类和接口">
-<meta name="twitter:description" content="第14条退化类： 改进： (1)如果类可以在它所在的包外部进行访问，就提供访问方法，以保留将来改变该类的内部表示法的灵活性(但是如果域是不可变的final,直接public暴露) 反例：java.awt.Point/Dimension类 (2)如果类是包级私有的，或是私有的嵌套类，可以直接暴露它的数据域">
+<meta name="twitter:title" content="Wangsir&#39;s Blog">
 
 
 
@@ -137,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://wangwanchao.wang/2018/05/06/class-interface/"/>
+  <link rel="canonical" href="http://wangwanchao.wang/categories/Python/"/>
 
 
 
 
 
-  <title>类和接口 | Wangsir's Blog</title>
+  <title>分类: Python | Wangsir's Blog</title>
   
 
 
@@ -168,7 +164,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -286,229 +282,55 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block category">
 
-  
+    <div id="posts" class="posts-collapse">
+      <div class="collection-title">
+        <h1>Python<small>分类</small>
+        </h1>
+      </div>
 
-  
-  
-  
+      
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/05/06/class-interface/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wanchao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/alifather.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wangsir's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
-        
-          <h1 class="post-title" itemprop="name headline">类和接口</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
+            <a class="post-title-link" href="/2018/07/25/raspberry-facerecognition/" itemprop="url">
               
-                <span class="post-meta-item-text">发表于</span>
+                <span itemprop="name">树莓派实现简单的人脸识别</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T10:23:45+08:00">
-                2018-05-06
-              </time>
-            
+            </a>
+        
+      </h2>
 
-            
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-07-25T17:20:30+08:00"
+              content="2018-07-25" >
+          07-25
+        </time>
+      </div>
 
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/05/06/class-interface/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/06/class-interface/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        <h4 id="第14条"><a href="#第14条" class="headerlink" title="第14条"></a>第14条</h4><p>退化类：</p>
-<p>改进：</p>
-<p>(1)如果类可以在它所在的包外部进行访问，就提供访问方法，以保留将来改变该类的内部表示法的灵活性(但是如果域是不可变的final,直接public暴露)</p>
-<p>反例：java.awt.Point/Dimension类</p>
-<p>(2)如果类是包级私有的，或是私有的嵌套类，可以直接暴露它的数据域</p>
-<a id="more"></a>
-<h4 id="第15条"><a href="#第15条" class="headerlink" title="第15条"></a>第15条</h4><p>不可变类：实例所包含的信息在创建时被提供，并在整个生命周期内固定不变。例如：String、基本类型的封装类、BigInteger、BegDecimal</p>
-<p>不可变类的五条原则：</p>
-<p>1、不要提供任何会修改对象状态的方法</p>
-<p>2、保证类不会被扩展，使这个类成为final类;或者让类的所有构造器变成私有的/包级私有的，并添加公有的静态工厂</p>
-<p>3、使所有的域都是final的</p>
-<p>4、使所有的域都是私有的(虽然技术上允许public, 但是以后不能再将public降级为private)</p>
-<p>5、确保对于任何可变组件的互斥访问</p>
-<blockquote>
-<p>如果类具有指向可变对象的域，必须确保客户端无法获得指向这些对象的引用；永远不要用客户端提供的对象引用来初始化这样的域；永远不要从任何方法中返回该对象引用。</p>
-</blockquote>
-<blockquote>
-<p>在构造器、访问方法、readObject中使用保护性拷贝</p>
-</blockquote>
-<p>注意：</p>
-<blockquote>
-<p>实际上，许多不可变类拥有一个或多个非final的域，它们在第一次被请求执行这些计算时，把开销昂贵的计算结果缓存在这些域。例如String的延迟初始化</p>
-<p>如果让自定义的不可变类实现Serializable接口，并且包含一个或多个指向可变对象的域，就必须提供一个显式的readObject/readResolve方法</p>
-</blockquote>
-<blockquote>
-<p>不要为每个get方法编写一个相应的set方法，</p>
-</blockquote>
-<blockquote>
-<p>构造器应该创建完全初始化的对象，并建立起所有的约束关系，不要在构造器或者静态工厂之外再提供公有的初始化方法。</p>
-</blockquote>
-<p>函数的</p>
-<p>过程的</p>
-<p>命令式的</p>
-<p>不可变对象的优点：</p>
-<p>1、不可变对象比较简单</p>
-<p>2、不可变对象本质上是线程安全的，它们不要求同步，所以可以被自由共享</p>
-<p>public static final Complex ZERO = new Complex(0, 0);</p>
-<p>可以提供一些静态工厂，把频繁被请求的实例缓存起来，例如BigInteger、基本类型包装类</p>
-<p>不需要为不可变类提供clone方法、拷贝构造器</p>
-<p>3、不仅可以共享不可变对象，甚至可以共享它们的内部信息。例如：BigInteger类内部使用了符号数值表示法</p>
-<p>4、不可变对象为其它对象提供了大量的构件。一旦不可变对象进入映射或集合中，尽管这破坏了映射或者集合的不可变性约束，但是也不用担心它们的值会发生变化</p>
-<p>不可变类的缺点：</p>
-<p>1、不可变对象对于每个不同的值都需要一个单独的对象。例如：String的可变配套类StringBuilder，Big Integer的BitSet</p>
-<p>为了潜在的性能问题，java.util.Date、java.awt.Point本应该是不可变的，实际上却不是</p>
-<h4 id="第16条"><a href="#第16条" class="headerlink" title="第16条"></a>第16条</h4><p>该条讨论的继承指的是class extends class,而不是class implements interface、interface extends interface</p>
-<p>包内使用继承非常安全，跨包使用继承则非常危险。</p>
-<p>复合代替继承，使用转发类代替接口实现类实现接口</p>
-<p>注意：</p>
-<blockquote>
-<p>包装类不适<br>合用在回调框架中</p>
-</blockquote>
-<blockquote>
-<p>在Java类库中，违反复合原则的有:Stack并不是Vector，Properties也不是HashTable</p>
-</blockquote>
-<blockquote>
-<p>在使用继承而不是复合之前，要确定将要扩展的类中API有没有缺陷</p>
-</blockquote>
-<h4 id="第17条"><a href="#第17条" class="headerlink" title="第17条"></a>第17条</h4><p>接口优于实现类</p>
-<p>骨架实现类(结合接口和抽象类的优点)。例如：AbstractCollection、AbstractSet、AbstractList、AbstractMap</p>
-<p>抽象类的演变比接口的演变容易的多</p>
-<h4 id="第19条"><a href="#第19条" class="headerlink" title="第19条"></a>第19条</h4><p>常量接口是一种不良使用，接口应该只被用来定义类型</p>
-<p>导出常量的三种方式：</p>
-<blockquote>
-<p>直接放在类、接口中</p>
-</blockquote>
-<blockquote>
-<p>枚举类型</p>
-</blockquote>
-<blockquote>
-<p>工具类，如果工具类常量太多，可以通过静态导入机制实现</p>
-</blockquote>
-<h4 id="第20条"><a href="#第20条" class="headerlink" title="第20条"></a>第20条</h4><p>标签类：如何定义</p>
-<p>改进：</p>
-<p>类层次</p>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/04/26/raspberry-snowboy/" rel="next" title="树莓派实现简易的语音识别">
-                <i class="fa fa-chevron-left"></i> 树莓派实现简易的语音识别
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/06/annotation/" rel="prev" title="枚举和注解">
-                枚举和注解 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
       
     </div>
+
   </div>
+  
+  
+  
+
+  
+
 
 
           </div>
@@ -516,17 +338,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -547,17 +358,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/alifather.jpg"
@@ -665,22 +467,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#第14条"><span class="nav-text">第14条</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第15条"><span class="nav-text">第15条</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第16条"><span class="nav-text">第16条</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第17条"><span class="nav-text">第17条</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第19条"><span class="nav-text">第19条</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第20条"><span class="nav-text">第20条</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -801,10 +587,10 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-
+  
 
   
 
@@ -822,18 +608,6 @@
       <script id="dsq-count-scr" src="https://wangsirblog.disqus.com/count.js" async></script>
     
 
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://wangwanchao.wang/2018/05/06/class-interface/';
-          this.page.identifier = '2018/05/06/class-interface/';
-          this.page.title = '类和接口';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://wangsirblog.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
     
 
   

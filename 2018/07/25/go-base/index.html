@@ -98,18 +98,18 @@
 
 
 
-<meta name="description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字：break    default    func    interface    selectcase    defer    go    map    structchan    else">
+<meta name="description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！ 一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字：break    default    func    interface    selectcase    defer    go    map    structchan    else">
 <meta name="keywords" content="语言, go">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go语言基础入门">
 <meta property="og:url" content="http://wangwanchao.wang/2018/07/25/go-base/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
-<meta property="og:description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字：break    default    func    interface    selectcase    defer    go    map    structchan    else">
+<meta property="og:description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！ 一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字：break    default    func    interface    selectcase    defer    go    map    structchan    else">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-25T06:20:09.073Z">
+<meta property="og:updated_time" content="2018-07-25T06:56:29.131Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go语言基础入门">
-<meta name="twitter:description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字：break    default    func    interface    selectcase    defer    go    map    structchan    else">
+<meta name="twitter:description" content="一段时间不写Go,很多东西都忘了，还是记录一下吧！ 一、基础入门go run hello.go 行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala 25个关键字：break    default    func    interface    selectcase    defer    go    map    structchan    else">
 
 
 
@@ -341,6 +341,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -379,11 +401,14 @@
       
 
       
-        <p>一段时间不写Go,很多东西都忘了，还是记录一下吧！<br>一、基础入门<br>go run hello.go</p>
+        <p>一段时间不写Go,很多东西都忘了，还是记录一下吧！</p>
+<h2 id="一、基础入门"><a href="#一、基础入门" class="headerlink" title="一、基础入门"></a>一、基础入门</h2><p><code>go run hello.go</code></p>
 <p>行分隔符：一行代表一个语句结束，不需要分号’;’，多个语句在一行使用’;’，类似于Scala</p>
 <p>25个关键字：<br>break    default    func    interface    select<br>case    defer    go    map    struct<br>chan    else    goto    package    switch<br>const    fallthrough    if    range    type<br>continue    for    import    return    var</p>
+<a id="more"></a>
 <p>36个预定义标识符<br>append     bool     byte     cap     close     complex     complex64     complex128     uint16<br>copy     false     float32     float64     imag     int     int8     int16     uint32<br>int32     int64     iota     len     make     new     nil     panic     uint64<br>print     println     real     recover     string     true     uint     uint8     uintptr</p>
-<p>二、数据类型<br>1、布尔类型<br>2、数字类型</p>
+<h2 id="二、数据类型"><a href="#二、数据类型" class="headerlink" title="二、数据类型"></a>二、数据类型</h2><p>1、布尔类型</p>
+<p>2、数字类型</p>
 <blockquote>
 <p>uint8 无符号 8 位整型 (0 到 255)</p>
 <p>uint16 无符号 16 位整型 (0 到 65535)</p>
@@ -395,31 +420,45 @@
 <p>int64 有符号 64 位整型 (-9223372036854775808 到 9223372036854775807)</p>
 </blockquote>
 <p>byte 类似 uint8<br>rune 类似 int32<br>uint 32 或 64 位<br>int 与 uint 一样大小<br>uintptr 无符号整型，用于存放一个指针</p>
-<p>3、字符串类型<br>4、派生类型：<br>    (a) 指针类型（Pointer）<br>    (b) 数组类型<br>    (c) 结构化类型(struct)<br>    (d) Channel 类型<br>    (e) 函数类型<br>    (f) 切片类型<br>    (g) 接口类型（interface）<br>    (h) Map 类型 </p>
-<p>三、变量与常量<br>数据类型     初始化默认值<br>int         0<br>float32     0<br>pointer     nil<br>1、var 声明变量<br>var identifier type  //声明后若不赋值，则使用默认值<br>var v_name = value  //不声明类型时，执行类型推断，类似于Scala<br>v_name := value</p>
-<p>多变量声明：<br>var a, b, c = a1, b1, c1</p>
-<p>2、const 声明常量<br>const可以用于枚举<br><code>const( 
-    Unkonwn = 0
-    Female = 1
-    Male = 2
-)</code><br>常量可以用len(), cap(), unsafe.Sizeof()函数计算表达式的值。常量表达式中，函数必须是内置函数，否则编译不过</p>
+<p>3、字符串类型</p>
+<p>4、派生类型：<br>    (a) 指针类型（Pointer）<br>    (b) 数组类型<br>    (c) 结构化类型(struct)<br>    (d) Channel 类型<br>    (e) 函数类型<br>    (f) 切片类型<br>    (g) 接口类型（interface）<br>    (h) Map 类型 </p>
+<h2 id="三、变量与常量"><a href="#三、变量与常量" class="headerlink" title="三、变量与常量"></a>三、变量与常量</h2><p>数据类型     初始化默认值</p>
+<p>int         0</p>
+<p>float32     0</p>
+<p>pointer     nil</p>
+<p>1、var 声明变量</p>
+<p>`var identifier type  //声明后若不赋值，则使用默认值</p>
+<p>var v_name = value  //不声明类型时，执行类型推断，类似于Scala</p>
+<p>v_name := value`</p>
+<p>多变量声明：var a, b, c = a1, b1, c1</p>
+<p>2、const 声明常量<br>const可以用于枚举</p>
+<p>`const( </p>
+<p>  Unkonwn = 0</p>
+<p>  Female = 1</p>
+<p>  Male = 2</p>
+<p>)<br>`</p>
+<p>常量可以用len(), cap(), unsafe.Sizeof()函数计算表达式的值。常量表达式中，函数必须是内置函数，否则编译不过</p>
 <p><code>const(
     a = &quot;abc&quot;
     b = len(a)
 )</code></p>
 <p>3、<strong>iota 特殊常量</strong></p>
 <p>空白标识符’_’用于抛弃值，类似于Scala</p>
-<p>四、<br>Go语言循环中有：break、continue、goto</p>
-<p>五、函数<br>Go语言中全局变量和局部变量可以相同，函数内变量优先考虑<br>Go函数可以返回多个值，这个比Java好很多</p>
+<h2 id="四、"><a href="#四、" class="headerlink" title="四、"></a>四、</h2><p>Go语言循环中有：break、continue、goto</p>
+<h2 id="五、函数"><a href="#五、函数" class="headerlink" title="五、函数"></a>五、函数</h2><p>Go语言中全局变量和局部变量可以相同，函数内变量优先考虑</p>
+<p>Go函数可以返回多个值，这个比Java好很多</p>
 <p><code>func swap(x, y string) (string, string){
     return y, x
 }</code></p>
-<p>值传递: 值传递是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数。<br>引用传递: 引用传递是指在调用函数时将实际参数的地址传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数。</p>
+<p>值传递: 值传递是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数。</p>
+<p>引用传递: 引用传递是指在调用函数时将实际参数的地址传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数。</p>
 <p><strong>默认情况下，Go 语言使用的是值传递，即在调用过程中不会影响到实际参数。</strong></p>
 <p>函数作为值传递，类似于Scala高阶函数<br>getSquareRoot := func(x float64) float64 {  //类似于Scala匿名函数<br>    return math.Sqrt(x)<br>}</p>
-<p>Go支持匿名函数可以作为闭包，和Scala的闭包有什么区别？</p>
-<p>Go语言中函数不同于方法。一个方法就是一个包含了接受者的函数，接受者可以是命名类型或者结构体类型的一个值或者是一个指针。<br>接口类型（interface）<br>方法集</p>
-<p>六、<br>1、数组</p>
+<p><em>Go支持匿名函数可以作为闭包，和Scala的闭包有什么区别？</em></p>
+<p>Go语言中函数不同于方法。一个方法就是一个包含了接受者的函数，接受者可以是命名类型或者结构体类型的一个值或者是一个指针。</p>
+<p><strong>接口类型(interface)</strong></p>
+<p><strong>方法集</strong></p>
+<h2 id="六、"><a href="#六、" class="headerlink" title="六、"></a>六、</h2><p>1、数组</p>
 <p><code>var array [size] arr_type
 var array = [5]int{1,2,3,4,5}</code></p>
 <p>2、切片：切片是对数组的抽象，数组长度不可变，切片是动态数组<br><code>var slice [] slice_type
@@ -432,8 +471,9 @@ cmap = make(map[string]string)</code></p>
 <p>5、类型转换，不同于Java的向上向下转型</p>
 <p><code>var i int = 10
 float32(i)</code></p>
-<p>结构体：类似于c语言的结构体<br>结构体指针</p>
-<p>七、错误处理<br>Go语言通过内置的错误接口(error)提供了非常简单的错误处理机制。</p>
+<p>结构体：类似于c语言的结构体</p>
+<p>结构体指针</p>
+<h2 id="七、错误处理"><a href="#七、错误处理" class="headerlink" title="七、错误处理"></a>七、错误处理</h2><p>Go语言通过内置的错误接口(error)提供了非常简单的错误处理机制。</p>
 
       
     </div>
@@ -531,8 +571,17 @@ float32(i)</code></p>
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/alifather.jpg"
@@ -558,7 +607,7 @@ float32(i)</code></p>
             
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -640,6 +689,22 @@ float32(i)</code></p>
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、基础入门"><span class="nav-text">一、基础入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、数据类型"><span class="nav-text">二、数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、变量与常量"><span class="nav-text">三、变量与常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、"><span class="nav-text">四、</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、函数"><span class="nav-text">五、函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、"><span class="nav-text">六、</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、错误处理"><span class="nav-text">七、错误处理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

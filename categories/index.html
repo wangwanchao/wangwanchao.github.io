@@ -98,17 +98,14 @@
 
 
 
-<meta name="description" content="Spring Data Redis(SDR) 2.x需要JDK8+、Spring Framework5.0.7+、Redis2.6.x 2、整合了Lettuce和Jedis两个开源库 3、高可见性 可以直接使用底层(本地库)直接连接Redis RedisConnection可以传递底层链接库异常到Spring持久化层DAO层， 使用RedisConnectionFactory创建RedisConn">
-<meta property="og:type" content="article">
-<meta property="og:title" content="RedisTemplate">
-<meta property="og:url" content="http://wangwanchao.wang/2018/06/16/RedisTemplate/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="categories">
+<meta property="og:url" content="http://wangwanchao.wang/categories/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
-<meta property="og:description" content="Spring Data Redis(SDR) 2.x需要JDK8+、Spring Framework5.0.7+、Redis2.6.x 2、整合了Lettuce和Jedis两个开源库 3、高可见性 可以直接使用底层(本地库)直接连接Redis RedisConnection可以传递底层链接库异常到Spring持久化层DAO层， 使用RedisConnectionFactory创建RedisConn">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-24T08:41:58.962Z">
+<meta property="og:updated_time" content="2018-07-27T10:34:36.299Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RedisTemplate">
-<meta name="twitter:description" content="Spring Data Redis(SDR) 2.x需要JDK8+、Spring Framework5.0.7+、Redis2.6.x 2、整合了Lettuce和Jedis两个开源库 3、高可见性 可以直接使用底层(本地库)直接连接Redis RedisConnection可以传递底层链接库异常到Spring持久化层DAO层， 使用RedisConnectionFactory创建RedisConn">
+<meta name="twitter:title" content="categories">
 
 
 
@@ -137,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://wangwanchao.wang/2018/06/16/RedisTemplate/"/>
+  <link rel="canonical" href="http://wangwanchao.wang/categories/"/>
 
 
 
 
 
-  <title>RedisTemplate | Wangsir's Blog</title>
+  <title>categories | Wangsir's Blog</title>
   
 
 
@@ -308,207 +305,48 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/06/16/RedisTemplate/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wanchao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/alifather.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wangsir's Blog">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
+	<h1 class="post-title" itemprop="name headline">categories</h1>
+
+
+
+</header>
+
+      
+      
+      
+      <div class="post-body han-init-context">
         
         
-          <h1 class="post-title" itemprop="name headline">RedisTemplate</h1>
+          <div class="category-all-page">
+            <div class="category-all-title">
+                目前共计 5 个分类
+            </div>
+            <div class="category-all">
+              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/raspberry/">raspberry</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/周报/">周报</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/爬虫/">爬虫</a><span class="category-list-count">1</span></li></ul>
+            </div>
+          </div>
         
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-16T10:06:06+08:00">
-                2018-06-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/06/16/RedisTemplate/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/16/RedisTemplate/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>Spring Data Redis(SDR) 2.x<br>需要JDK8+、Spring Framework5.0.7+、Redis2.6.x</p>
-<p>2、整合了Lettuce和Jedis两个开源库</p>
-<p>3、高可见性</p>
-<p>可以直接使用底层(本地库)直接连接Redis</p>
-<p>RedisConnection<br>可以传递底层链接库异常到Spring持久化层DAO层，</p>
-<p>使用RedisConnectionFactory创建RedisConncection,RedisConnectionFactory继承PersistenceExceptionTranslator对象，意味着异常操作对RedisConnectionFactory更透明化。</p>
-<p>目前并不是所有的SDR特性都被connector开源库支持，使用不支持的特性会抛出<br>UnsupportedOperationException异常。</p>
-<a id="more"></a>
-<p>二、Lettuce<br>Lettuce是基于Netty的连接器</p>
-<p>1、默认情况下，所有的LettuceConnection被LettuceConnectionFactory创建，它们共享一个线程安全的本地连接执行非阻塞、非事务性操作。</p>
-<p>2、LettuceConnectionFactory可以通过配置使用LettucePool</p>
-<p>3、LettuceConnectionFactory通过设置shareNativeConnection=false使用事务性连接</p>
-<p>三、Jedis</p>
-<p>四、RedisTemplate<br>1、提供了更高层的抽象，更关注序列化、连接的管理。<br>RedisConnection则提供了底层方法可以操作二进制数据。</p>
-<p>2、一旦被配置，则是线程安全的，可以被多个实例重用，</p>
-<p>3、默认基于Java原生序列类进行序列化，则所有的对象读写都是经过序列化和反序列化的。SDR在org.springframework.data.redis.serializer包内提供了一些其它的序列化实现类。可以通过设置所有的序列器为null同时设置enableDefaultSerializer=false。<br><strong><em>注意：RedisTemplate要求所有的属性key不能为空，value可以为空</em></strong></p>
-<p>特殊的String操作：<br>StringRedisConnection<br>StringRedisTemplate<br>StringRedisSerializer</p>
-<p>两种serializers都基于RedisSerializer<br>Element读写使用RedisElementReader、RedisElementWriter<br>RedisCache和RedisTemplate默认使用JdkSerializationRedisSerializer</p>
-<p>OxmSerializer用于基于Object/XML mapping</p>
-<p>Jackson2JsonRedisSerializer / GenericJackson2JsonRedisSerializer用于json格式数据</p>
-<p><strong><em>如果安全更重要，可以考虑在JVM层使用特殊的filter机制</em></strong></p>
-<p>使用Redis Hash可以存储更复杂的结构化对象：<br>(1)HashOperations + serializer<br>(2)Redis Repositories<br>(3)HashMapper + HashOperations<br>BeanUtilsHashMapper</p>
-<p>ObjectHashMapper</p>
-<p>Jackson2HashMapper</p>
-<p>五、Reactive Redis(异步)<br>ReactiveRedisConnection</p>
-<p>ReactiveRedisTemplate</p>
-<p>六、Redis Cluster<br>RedisClusterConnection继承RedisConnection，通过RedisConnectionFactory创建，RedisClusterFactory配置属性</p>
-<p>redisTemplate.opsForCluster();</p>
-<p>七、Redis Repository</p>
-<p>要求：Redis Server2.8.0+</p>
-<p>CrudRepository</p>
-<p>RedisConverter</p>
-<p>TTL</p>
-<p>KeySpaces</p>
-<p>@Reference注解</p>
-<p>CDI Integration</p>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/05/13/scala-base/" rel="next" title="Scala基础入门">
-                <i class="fa fa-chevron-left"></i> Scala基础入门
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/12/spring-boot-1/" rel="prev" title="Spring boot源码分析(1)">
-                Spring boot源码分析(1) <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
       </div>
+      
+      
+      
+    </div>
+    
+    
     
   </div>
 
+
+          </div>
+          
+
+
+          
 
         </div>
         
@@ -758,10 +596,10 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-
+  
 
   
 
@@ -779,18 +617,6 @@
       <script id="dsq-count-scr" src="https://wangsirblog.disqus.com/count.js" async></script>
     
 
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://wangwanchao.wang/2018/06/16/RedisTemplate/';
-          this.page.identifier = '2018/06/16/RedisTemplate/';
-          this.page.title = 'RedisTemplate';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://wangsirblog.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
     
 
   

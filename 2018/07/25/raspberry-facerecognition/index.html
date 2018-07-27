@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
 <meta property="og:description" content="硬件需求：  树莓派开发板 pi摄像头 16g内存卡 读卡器">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-25T09:50:56.651Z">
+<meta property="og:updated_time" content="2018-07-25T09:53:32.609Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派实现简单的人脸识别">
 <meta name="twitter:description" content="硬件需求：  树莓派开发板 pi摄像头 16g内存卡 读卡器">
@@ -221,6 +221,26 @@
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
           </a>
         </li>
       
@@ -450,7 +470,8 @@ apt-get install libgtk-3-dev
     -D INSTALL_PYTHON_EXAMPLES=ON \
     -D BUILD_EXAMPLES=ON ..</code></p>
 <h2 id="4、编写pytho脚本，并执行"><a href="#4、编写pytho脚本，并执行" class="headerlink" title="4、编写pytho脚本，并执行"></a>4、编写pytho脚本，并执行</h2><pre><code>python TestOpencv.py 
-</code></pre><p><strong>报错</strong><br>Found 0 face(s)</p>
+</code></pre><p><strong>报错</strong></p>
+<p>Found 0 face(s)</p>
 <p>Unable to init server: Could not connect: Connection refused</p>
 <p>(Frame:15788): Gtk-WARNING **: cannot open display: </p>
 <p>解决：原因是raspberry系统stetch最小化安装，没有图形界面</p>
@@ -500,6 +521,10 @@ sudo apt-get install raspberrypi-ui-mods
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/25/raspberry-base/" rel="prev" title="raspberry-base">
+                raspberry-base <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -583,7 +608,7 @@ sudo apt-get install raspberrypi-ui-mods
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -593,10 +618,10 @@ sudo apt-get install raspberrypi-ui-mods
             
             
             <div class="site-state-item site-state-categories">
-              
+              <a href="/categories/index.html">
                 <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
-              
+              </a>
             </div>
           
 
@@ -604,10 +629,10 @@ sudo apt-get install raspberrypi-ui-mods
             
             
             <div class="site-state-item site-state-tags">
-              
+              <a href="/tags/index.html">
                 <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
-              
+              </a>
             </div>
           
 

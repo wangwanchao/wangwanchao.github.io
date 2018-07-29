@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="三十而立," />
+  <meta name="keywords" content="树莓派," />
 
 
 
@@ -98,18 +98,18 @@
 
 
 
-<meta name="description" content="虽说不是三十，却也是即将奔三。 2018年2月份的时候离开上家公司，当初胸怀大志，希望出来能在一个更好的平台上施展一番。如今已经过去四之三，却感觉收获寥寥无几。其实这半年经历了很多的事情，也想了很多很多的东西：关于爱情，关于工作，关于生活。正好最近空闲下来，好好整理下自己，也整理一下生活。">
-<meta name="keywords" content="三十而立">
+<meta name="description" content="一、安装树莓派系统1、SDFormatter格式化优盘 2、win32Disk写入镜像 3、pi用户登录系统，pi/raspberry">
+<meta name="keywords" content="树莓派">
 <meta property="og:type" content="article">
-<meta property="og:title" content="三十而立(Thirtysomething)">
-<meta property="og:url" content="http://wangwanchao.wang/2018/07/24/Thirtysomething/index.html">
+<meta property="og:title" content="树莓派系统搭建踩坑">
+<meta property="og:url" content="http://wangwanchao.wang/2018/04/26/raspberry-base/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
-<meta property="og:description" content="虽说不是三十，却也是即将奔三。 2018年2月份的时候离开上家公司，当初胸怀大志，希望出来能在一个更好的平台上施展一番。如今已经过去四之三，却感觉收获寥寥无几。其实这半年经历了很多的事情，也想了很多很多的东西：关于爱情，关于工作，关于生活。正好最近空闲下来，好好整理下自己，也整理一下生活。">
+<meta property="og:description" content="一、安装树莓派系统1、SDFormatter格式化优盘 2、win32Disk写入镜像 3、pi用户登录系统，pi/raspberry">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-24T08:49:48.581Z">
+<meta property="og:updated_time" content="2018-07-29T02:07:37.070Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="三十而立(Thirtysomething)">
-<meta name="twitter:description" content="虽说不是三十，却也是即将奔三。 2018年2月份的时候离开上家公司，当初胸怀大志，希望出来能在一个更好的平台上施展一番。如今已经过去四之三，却感觉收获寥寥无几。其实这半年经历了很多的事情，也想了很多很多的东西：关于爱情，关于工作，关于生活。正好最近空闲下来，好好整理下自己，也整理一下生活。">
+<meta name="twitter:title" content="树莓派系统搭建踩坑">
+<meta name="twitter:description" content="一、安装树莓派系统1、SDFormatter格式化优盘 2、win32Disk写入镜像 3、pi用户登录系统，pi/raspberry">
 
 
 
@@ -138,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://wangwanchao.wang/2018/07/24/Thirtysomething/"/>
+  <link rel="canonical" href="http://wangwanchao.wang/2018/04/26/raspberry-base/"/>
 
 
 
 
 
-  <title>三十而立(Thirtysomething) | Wangsir's Blog</title>
+  <title>树莓派系统搭建踩坑 | Wangsir's Blog</title>
   
 
 
@@ -321,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/07/24/Thirtysomething/">
+    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/04/26/raspberry-base/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wanchao">
@@ -338,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">三十而立(Thirtysomething)</h1>
+          <h1 class="post-title" itemprop="name headline">树莓派系统搭建踩坑</h1>
         
 
         <div class="post-meta">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T15:29:55+08:00">
-                2018-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T18:43:00+08:00">
+                2018-04-26
               </time>
             
 
@@ -361,6 +361,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/raspberry/" itemprop="url" rel="index">
+                    <span itemprop="name">raspberry</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -369,9 +391,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/24/Thirtysomething/#comments" itemprop="discussionUrl">
+                <a href="/2018/04/26/raspberry-base/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/24/Thirtysomething/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/04/26/raspberry-base/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -399,24 +421,71 @@
       
 
       
-        <p>虽说不是三十，却也是即将奔三。</p>
-<p>2018年2月份的时候离开上家公司，当初胸怀大志，希望出来能在一个更好的平台上施展一番。如今已经过去四之三，却感觉收获寥寥无几。其实这半年经历了很多的事情，也想了很多很多的东西：关于爱情，关于工作，关于生活。正好最近空闲下来，好好整理下自己，也整理一下生活。</p>
+        <h3 id="一、安装树莓派系统"><a href="#一、安装树莓派系统" class="headerlink" title="一、安装树莓派系统"></a>一、安装树莓派系统</h3><p>1、SDFormatter格式化优盘</p>
+<p>2、win32Disk写入镜像</p>
+<p>3、pi用户登录系统，pi/raspberry</p>
 <a id="more"></a>
-<h3 id="爱情"><a href="#爱情" class="headerlink" title="爱情"></a>爱情</h3><p>一塌糊涂的爱情，和她见过最后一面，吃过最后一顿饭，走过最后一段，我想，也许我还没有放下，但生活总要继续。过年去姑姑家拜年的时候，也是各种被劝说，一直以来自己也想了很多，但是缘分这种事情，也是急不来的。从《不能承受的生命之轻》到《霍乱时期的爱情》，爱情观被不断的冲击，最近开始让自己静下来，遇到真正合适的再义无反顾的去争取吧。</p>
-<h3 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h3><p>三月份来到新的公司，项目组是新组建的，管理上一塌糊涂，哎。对写代码的热情被慢慢的消耗，很多时候我都在想，什么才是有意义的工作，怎样才能发挥自己最大的价值，究竟该选择什么方向努力。希望能尽快步入正轨吧。</p>
-<h3 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h3><p>四月份飞了重庆，当初说好带她去重庆的，结果是自己一个人去，中间在三生有信还看到一个女生一边抹着眼泪，一边给某人写着寄语。</p>
-<p>五月份第一次远程骑行到十三陵，摔了膝盖疼了好几天，骑行中间还突然下了一场雨，感觉好狼狈，由于没有远程骑行经验，中间轮子还掉了两次。。。最后终于在十一点多回家，累到倒床就睡。</p>
-<p>上周末搬了家，终于从一个“北京村”，搬到了另一个“北京村”，好在新的“村”是个小区，虽然环境不是那么理想，但终于脱离了那种杂乱的环境，为了再接再厉吧！</p>
-<p>今年可以说是熬夜最多的一年，更多的还是因为生活中一些不如意的事情吧。有些时候我是一个很情绪化的人，遇到一些苦恼的事情，就会像很多很多，最后一觉醒来，也就没那么多烦恼。前一段时间，终于狠心办了张健身卡，终于第一次去健身房，想想也是自 工作以来，很少去健身房锻炼了，以后还是要规律饮食，勤去健身房才好。</p>
-<h3 id="阅读"><a href="#阅读" class="headerlink" title="阅读"></a>阅读</h3><p>《人类简史》 终于完结了一下，真的是从2017年读到2018年，拖延症太可怕</p>
-<p>《黑客与画家》 思想论的东西，和写代码有关，不得不佩服格雷厄姆思想的深刻，毕竟是硅谷创业之父啊</p>
-<p>《引爆点》 有点心理学的意味，大多是在地铁上读完的，其实生活中很多的行为都是被潜移默化的影响</p>
-<p>《商业的本质》 管理学，大师的作品，正好自己也有兴趣，正好就在地铁上完成吧</p>
-<p>《小王子》 重读了一遍，还是有很多不同的感受</p>
-<p>《无比无杂的心绪》 很符合今年上半年的心绪，又是偶然发现，村上村树的作品，写的很深刻，直入内心的触动，需要多读几遍</p>
-<p>《独居的一年》 感觉有昆德拉的影子在里面，正在读</p>
-<p>距离2019年还有五个月的时间，希望自己能在不断的思考中，更成熟、更深刻、更充实。</p>
+<h3 id="二、修改键盘布局-因为树莓派默认英国键盘布局，会导致出错"><a href="#二、修改键盘布局-因为树莓派默认英国键盘布局，会导致出错" class="headerlink" title="二、修改键盘布局(因为树莓派默认英国键盘布局，会导致出错"></a>二、修改键盘布局(因为树莓派默认英国键盘布局，会导致出错</h3><pre><code>sudo raspi-config
+</code></pre><blockquote>
+<ol>
+<li>Locals Options</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol>
+<li>Choose Keyword Layout</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol>
+<li>Generic 104-key PC #键盘101布局和104布局</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol>
+<li>English(US, alternative international)</li>
+</ol>
+</blockquote>
+<p>重启系统</p>
+<pre><code>reboot
+</code></pre><h3 id="三、设置远程登录，使用xshell操作"><a href="#三、设置远程登录，使用xshell操作" class="headerlink" title="三、设置远程登录，使用xshell操作"></a>三、设置远程登录，使用xshell操作</h3><p>开启22号端口<br>    sudo raspi-config</p>
+<blockquote>
+<p>1、Advanced Options</p>
+</blockquote>
+<blockquote>
+<p>2、SSH Enable</p>
+</blockquote>
+<p>树莓派默认pi用户，开启root用户<br>    sudo passwd root</p>
+<pre><code>sudo passwd --unlock root
 
+su root
+</code></pre><p>设置允许root用户远程登录系统</p>
+<pre><code>vi /etc/ssh/sshd_config
+</code></pre><blockquote>
+<p>PermitRootLogin yes</p>
+</blockquote>
+<pre><code>reboot
+</code></pre><h3 id="四、配置WiFi"><a href="#四、配置WiFi" class="headerlink" title="四、配置WiFi"></a>四、配置WiFi</h3><pre><code>su root
+vi /etc/wpa_supplicant/wpa_supplicant.conf
+</code></pre><blockquote>
+<p>network={</p>
+<pre><code>ssid=&quot;wifi名称&quot;
+
+psk=&quot;wifi密码&quot;
+</code></pre><p>}</p>
+</blockquote>
+<p>重启查看网络</p>
+<pre><code>reboot
+ifconfig wlan0
+</code></pre><h3 id="五、卸载系统自带vim，安装vim-自带vim上下左右键盘为ABCD"><a href="#五、卸载系统自带vim，安装vim-自带vim上下左右键盘为ABCD" class="headerlink" title="五、卸载系统自带vim，安装vim(自带vim上下左右键盘为ABCD)"></a>五、卸载系统自带vim，安装vim(自带vim上下左右键盘为ABCD)</h3><pre><code>apt-get remove vim-common
+apt-get install vim
+</code></pre><h3 id="六、修改镜像源"><a href="#六、修改镜像源" class="headerlink" title="六、修改镜像源"></a>六、修改镜像源</h3><p>vi /etc/apt/sources.list</p>
+<p>deb <a href="http://mirrors.aliyun.com/raspbian/raspbian/" target="_blank" rel="noopener">http://mirrors.aliyun.com/raspbian/raspbian/</a> stretch main contrib non-free rpi<br>deb-src <a href="http://mirrors.aliyun.com/raspbian/raspbian/" target="_blank" rel="noopener">http://mirrors.aliyun.com/raspbian/raspbian/</a> stretch main contrib non-free rpi </p>
+<pre><code>vi /etc/apt/sources.list.d/raspi.list
+</code></pre><p>更新源</p>
+<pre><code>sudo apt-get update
+sudo apt-get upgrade -y
+</code></pre>
       
     </div>
     
@@ -433,7 +502,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/三十而立/" rel="tag"># 三十而立</a>
+            <a href="/tags/树莓派/" rel="tag"># 树莓派</a>
           
         </div>
       
@@ -446,8 +515,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/12/spring-boot-1/" rel="next" title="Spring boot源码分析(1)">
-                <i class="fa fa-chevron-left"></i> Spring boot源码分析(1)
+              <a href="/2018/04/21/javaCrawler/" rel="next" title="java爬虫技术">
+                <i class="fa fa-chevron-left"></i> java爬虫技术
               </a>
             
           </div>
@@ -456,8 +525,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/25/go-base/" rel="prev" title="Go语言基础入门">
-                Go语言基础入门 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/26/raspberry-snowboy/" rel="prev" title="树莓派实现简易的语音识别">
+                树莓派实现简易的语音识别 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -645,7 +714,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#爱情"><span class="nav-text">爱情</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作"><span class="nav-text">工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生活"><span class="nav-text">生活</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阅读"><span class="nav-text">阅读</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、安装树莓派系统"><span class="nav-text">一、安装树莓派系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、修改键盘布局-因为树莓派默认英国键盘布局，会导致出错"><span class="nav-text">二、修改键盘布局(因为树莓派默认英国键盘布局，会导致出错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、设置远程登录，使用xshell操作"><span class="nav-text">三、设置远程登录，使用xshell操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、配置WiFi"><span class="nav-text">四、配置WiFi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、卸载系统自带vim，安装vim-自带vim上下左右键盘为ABCD"><span class="nav-text">五、卸载系统自带vim，安装vim(自带vim上下左右键盘为ABCD)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、修改镜像源"><span class="nav-text">六、修改镜像源</span></a></li></ol></div>
             
 
           </div>
@@ -795,9 +864,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://wangwanchao.wang/2018/07/24/Thirtysomething/';
-          this.page.identifier = '2018/07/24/Thirtysomething/';
-          this.page.title = '三十而立(Thirtysomething)';
+          this.page.url = 'http://wangwanchao.wang/2018/04/26/raspberry-base/';
+          this.page.identifier = '2018/04/26/raspberry-base/';
+          this.page.title = '树莓派系统搭建踩坑';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://wangsirblog.disqus.com/embed.js';

@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="树莓派," />
+  <meta name="keywords" content="java, 多线程," />
 
 
 
@@ -98,18 +98,18 @@
 
 
 
-<meta name="description" content="###">
-<meta name="keywords" content="树莓派">
+<meta name="description" content="Sychronized">
+<meta name="keywords" content="java, 多线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="树莓派实现简易的语音识别">
-<meta property="og:url" content="http://wangwanchao.wang/2018/04/26/raspberry-snowboy/index.html">
+<meta property="og:title" content="Synchronized">
+<meta property="og:url" content="http://wangwanchao.wang/2018/08/07/thread-lock/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
-<meta property="og:description" content="###">
+<meta property="og:description" content="Sychronized">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-26T11:45:57.492Z">
+<meta property="og:updated_time" content="2018-08-06T16:33:07.847Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="树莓派实现简易的语音识别">
-<meta name="twitter:description" content="###">
+<meta name="twitter:title" content="Synchronized">
+<meta name="twitter:description" content="Sychronized">
 
 
 
@@ -138,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://wangwanchao.wang/2018/04/26/raspberry-snowboy/"/>
+  <link rel="canonical" href="http://wangwanchao.wang/2018/08/07/thread-lock/"/>
 
 
 
 
 
-  <title>树莓派实现简易的语音识别 | Wangsir's Blog</title>
+  <title>Synchronized | Wangsir's Blog</title>
   
 
 
@@ -321,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/04/26/raspberry-snowboy/">
+    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/08/07/thread-lock/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wanchao">
@@ -338,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">树莓派实现简易的语音识别</h1>
+          <h1 class="post-title" itemprop="name headline">Synchronized</h1>
         
 
         <div class="post-meta">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T19:45:06+08:00">
-                2018-04-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T00:02:44+08:00">
+                2018-08-07
               </time>
             
 
@@ -361,6 +361,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -369,9 +391,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/04/26/raspberry-snowboy/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/07/thread-lock/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/04/26/raspberry-snowboy/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/07/thread-lock/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -399,7 +421,7 @@
       
 
       
-        <p>###</p>
+        <p>Sychronized</p>
 
       
     </div>
@@ -417,7 +439,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/树莓派/" rel="tag"># 树莓派</a>
+            <a href="/tags/java-多线程/" rel="tag"># java, 多线程</a>
           
         </div>
       
@@ -430,8 +452,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/26/raspberry-base/" rel="next" title="树莓派系统搭建踩坑">
-                <i class="fa fa-chevron-left"></i> 树莓派系统搭建踩坑
+              <a href="/2018/08/07/thread-pool/" rel="next" title="线程池">
+                <i class="fa fa-chevron-left"></i> 线程池
               </a>
             
           </div>
@@ -439,10 +461,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/06/class-interface/" rel="prev" title="类和接口">
-                类和接口 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -754,9 +772,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://wangwanchao.wang/2018/04/26/raspberry-snowboy/';
-          this.page.identifier = '2018/04/26/raspberry-snowboy/';
-          this.page.title = '树莓派实现简易的语音识别';
+          this.page.url = 'http://wangwanchao.wang/2018/08/07/thread-lock/';
+          this.page.identifier = '2018/08/07/thread-lock/';
+          this.page.title = 'Synchronized';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://wangsirblog.disqus.com/embed.js';

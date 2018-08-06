@@ -98,18 +98,18 @@
 
 
 
-<meta name="description" content="Sychronized">
+<meta name="description" content="synchronizedsychronized的几种不同用法：1、修饰类 锁的对象是该类的所有实例 2、修饰静态方法 锁的对象是该类的所有实例对象 3、修饰方法 锁的对象是调用该方法的实例对象 4、修饰代码块 和修饰方法类似，锁对象都是调用该方法的实例对象 ReentrantLocksynchronize和ReentrantLock的比较ReentranLock使用场景：  需要时间锁、可中断锁、">
 <meta name="keywords" content="java, 多线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Synchronized">
+<meta property="og:title" content="synchronized和ReentrantLock">
 <meta property="og:url" content="http://wangwanchao.wang/2018/08/07/thread-lock/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
-<meta property="og:description" content="Sychronized">
+<meta property="og:description" content="synchronizedsychronized的几种不同用法：1、修饰类 锁的对象是该类的所有实例 2、修饰静态方法 锁的对象是该类的所有实例对象 3、修饰方法 锁的对象是调用该方法的实例对象 4、修饰代码块 和修饰方法类似，锁对象都是调用该方法的实例对象 ReentrantLocksynchronize和ReentrantLock的比较ReentranLock使用场景：  需要时间锁、可中断锁、">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-06T16:33:07.847Z">
+<meta property="og:updated_time" content="2018-08-06T17:08:54.489Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Synchronized">
-<meta name="twitter:description" content="Sychronized">
+<meta name="twitter:title" content="synchronized和ReentrantLock">
+<meta name="twitter:description" content="synchronizedsychronized的几种不同用法：1、修饰类 锁的对象是该类的所有实例 2、修饰静态方法 锁的对象是该类的所有实例对象 3、修饰方法 锁的对象是调用该方法的实例对象 4、修饰代码块 和修饰方法类似，锁对象都是调用该方法的实例对象 ReentrantLocksynchronize和ReentrantLock的比较ReentranLock使用场景：  需要时间锁、可中断锁、">
 
 
 
@@ -144,7 +144,7 @@
 
 
 
-  <title>Synchronized | Wangsir's Blog</title>
+  <title>synchronized和ReentrantLock | Wangsir's Blog</title>
   
 
 
@@ -338,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Synchronized</h1>
+          <h1 class="post-title" itemprop="name headline">synchronized和ReentrantLock</h1>
         
 
         <div class="post-meta">
@@ -421,7 +421,19 @@
       
 
       
-        <p>Sychronized</p>
+        <h2 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h2><h3 id="sychronized的几种不同用法："><a href="#sychronized的几种不同用法：" class="headerlink" title="sychronized的几种不同用法："></a>sychronized的几种不同用法：</h3><p>1、修饰类</p>
+<p>锁的对象是该类的所有实例</p>
+<p>2、修饰静态方法</p>
+<p>锁的对象是该类的所有实例对象</p>
+<p>3、修饰方法</p>
+<p>锁的对象是调用该方法的实例对象</p>
+<p>4、修饰代码块</p>
+<p>和修饰方法类似，锁对象都是调用该方法的实例对象</p>
+<h2 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h2><h2 id="synchronize和ReentrantLock的比较"><a href="#synchronize和ReentrantLock的比较" class="headerlink" title="synchronize和ReentrantLock的比较"></a>synchronize和ReentrantLock的比较</h2><p>ReentranLock使用场景：</p>
+<blockquote>
+<p>需要时间锁、可中断锁、无块结构锁、轮询锁、多个条件变量时使用</p>
+<p>需要可伸缩性、高度竞争的情况下使用</p>
+</blockquote>
 
       
     </div>
@@ -461,6 +473,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/07/mysql-index/" rel="prev" title="mysql-index">
+                mysql-index <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -519,8 +535,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/alifather.jpg"
@@ -535,7 +560,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -628,6 +653,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized"><span class="nav-text">synchronized</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sychronized的几种不同用法："><span class="nav-text">sychronized的几种不同用法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReentrantLock"><span class="nav-text">ReentrantLock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronize和ReentrantLock的比较"><span class="nav-text">synchronize和ReentrantLock的比较</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -774,7 +815,7 @@
         var disqus_config = function () {
           this.page.url = 'http://wangwanchao.wang/2018/08/07/thread-lock/';
           this.page.identifier = '2018/08/07/thread-lock/';
-          this.page.title = 'Synchronized';
+          this.page.title = 'synchronized和ReentrantLock';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://wangsirblog.disqus.com/embed.js';

@@ -98,18 +98,18 @@
 
 
 
-<meta name="description" content="其实去年就一直在做这些东西，只是没有整理出来，这一段时间面试还是遇到很多问jvm的东西，特别整理以下 jvm的默认参数安装完jdk后，先来看一看一些默认参数，以下统一以jdk1.8为例。 java -XX:+PrintFlagsFinal -version | grep :">
+<meta name="description" content="其实去年就一直在做这些东西，只是没有整理出来，这一段时间面试还是遇到很多问jvm的东西，特别整理以下 jvm的默认参数安装完jdk后，先来看一看一些默认参数，以下统一以jdk1.8为例。 java -XX:+PrintFlagsFinal -version | grep : “=”:表示jvm参数的默认值， “:=”:表示被用户或者jvm赋值的参数">
 <meta name="keywords" content="java, jvm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM虚拟机命令详解">
 <meta property="og:url" content="http://wangwanchao.wang/2018/08/07/java-jvm-cmd/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
-<meta property="og:description" content="其实去年就一直在做这些东西，只是没有整理出来，这一段时间面试还是遇到很多问jvm的东西，特别整理以下 jvm的默认参数安装完jdk后，先来看一看一些默认参数，以下统一以jdk1.8为例。 java -XX:+PrintFlagsFinal -version | grep :">
+<meta property="og:description" content="其实去年就一直在做这些东西，只是没有整理出来，这一段时间面试还是遇到很多问jvm的东西，特别整理以下 jvm的默认参数安装完jdk后，先来看一看一些默认参数，以下统一以jdk1.8为例。 java -XX:+PrintFlagsFinal -version | grep : “=”:表示jvm参数的默认值， “:=”:表示被用户或者jvm赋值的参数">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-07T16:04:10.245Z">
+<meta property="og:updated_time" content="2018-08-07T16:12:48.339Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM虚拟机命令详解">
-<meta name="twitter:description" content="其实去年就一直在做这些东西，只是没有整理出来，这一段时间面试还是遇到很多问jvm的东西，特别整理以下 jvm的默认参数安装完jdk后，先来看一看一些默认参数，以下统一以jdk1.8为例。 java -XX:+PrintFlagsFinal -version | grep :">
+<meta name="twitter:description" content="其实去年就一直在做这些东西，只是没有整理出来，这一段时间面试还是遇到很多问jvm的东西，特别整理以下 jvm的默认参数安装完jdk后，先来看一看一些默认参数，以下统一以jdk1.8为例。 java -XX:+PrintFlagsFinal -version | grep : “=”:表示jvm参数的默认值， “:=”:表示被用户或者jvm赋值的参数">
 
 
 
@@ -424,7 +424,9 @@
         <p>其实去年就一直在做这些东西，只是没有整理出来，这一段时间面试还是遇到很多问jvm的东西，特别整理以下</p>
 <h2 id="jvm的默认参数"><a href="#jvm的默认参数" class="headerlink" title="jvm的默认参数"></a>jvm的默认参数</h2><p>安装完jdk后，先来看一看一些默认参数，以下统一以jdk1.8为例。</p>
 <pre><code>java -XX:+PrintFlagsFinal -version | grep :
-</code></pre><a id="more"></a>
+</code></pre><p>“=”:表示jvm参数的默认值，</p>
+<p>“:=”:表示被用户或者jvm赋值的参数</p>
+<a id="more"></a>
 <pre><code> intx CICompilerCount                          := 2                                   {product}
 uintx InitialHeapSize                          := 48234496                            {product}
 uintx MaxHeapSize                              := 742391808                           {product}

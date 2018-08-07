@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="java, jvm," />
 
 
 
@@ -98,13 +98,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Wangsir&#39;s Blog">
-<meta property="og:url" content="http://wangwanchao.wang/archives/page/2/index.html">
+<meta name="description" content="其实去年就一直在做这些东西，只是没有整理出来，这一段时间面试还是遇到很多问jvm的东西，特别整理以下 jvm的默认参数安装完jdk后，先来看一看一些默认参数，以下统一以jdk1.8为例。 java -XX:+PrintFlagsFinal -version | grep :">
+<meta name="keywords" content="java, jvm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM虚拟机命令详解">
+<meta property="og:url" content="http://wangwanchao.wang/2018/08/07/java-jvm-cmd/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
+<meta property="og:description" content="其实去年就一直在做这些东西，只是没有整理出来，这一段时间面试还是遇到很多问jvm的东西，特别整理以下 jvm的默认参数安装完jdk后，先来看一看一些默认参数，以下统一以jdk1.8为例。 java -XX:+PrintFlagsFinal -version | grep :">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-07T16:04:10.245Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Wangsir&#39;s Blog">
+<meta name="twitter:title" content="JVM虚拟机命令详解">
+<meta name="twitter:description" content="其实去年就一直在做这些东西，只是没有整理出来，这一段时间面试还是遇到很多问jvm的东西，特别整理以下 jvm的默认参数安装完jdk后，先来看一看一些默认参数，以下统一以jdk1.8为例。 java -XX:+PrintFlagsFinal -version | grep :">
 
 
 
@@ -133,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://wangwanchao.wang/archives/page/2/"/>
+  <link rel="canonical" href="http://wangwanchao.wang/2018/08/07/java-jvm-cmd/"/>
 
 
 
 
 
-  <title>归档 | Wangsir's Blog</title>
+  <title>JVM虚拟机命令详解 | Wangsir's Blog</title>
   
 
 
@@ -164,7 +169,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -302,411 +307,337 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/08/07/java-jvm-cmd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wanchao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/alifather.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wangsir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">JVM虚拟机命令详解</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T22:14:15+08:00">
+                2018-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 25 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h2 class="archive-year motion-element" id="archive-year-2018">2018</h2>
-          </div>
-        
-        
 
-        
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/07/java-jvm-cmd/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/07/java-jvm-cmd/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/27/cdn-base/" itemprop="url">
-              
-                <span itemprop="name">CDN技术介绍</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-27T18:18:15+08:00"
-              content="2018-07-27" >
-          07-27
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/25/raspberry-facerecognition/" itemprop="url">
-              
-                <span itemprop="name">树莓派实现简单的人脸识别</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-25T17:20:30+08:00"
-              content="2018-07-25" >
-          07-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/25/go-base/" itemprop="url">
-              
-                <span itemprop="name">Go语言基础入门</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-25T14:12:45+08:00"
-              content="2018-07-25" >
-          07-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/24/Thirtysomething/" itemprop="url">
-              
-                <span itemprop="name">三十而立(Thirtysomething)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-24T15:29:55+08:00"
-              content="2018-07-24" >
-          07-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
+        <p>其实去年就一直在做这些东西，只是没有整理出来，这一段时间面试还是遇到很多问jvm的东西，特别整理以下</p>
+<h2 id="jvm的默认参数"><a href="#jvm的默认参数" class="headerlink" title="jvm的默认参数"></a>jvm的默认参数</h2><p>安装完jdk后，先来看一看一些默认参数，以下统一以jdk1.8为例。</p>
+<pre><code>java -XX:+PrintFlagsFinal -version | grep :
+</code></pre><a id="more"></a>
+<pre><code> intx CICompilerCount                          := 2                                   {product}
+uintx InitialHeapSize                          := 48234496                            {product}
+uintx MaxHeapSize                              := 742391808                           {product}
+uintx MaxNewSize                               := 247463936                           {product}
+uintx MinHeapDeltaBytes                        := 524288                              {product}
+uintx NewSize                                  := 15728640                            {product}
+uintx OldSize                                  := 32505856                            {product}
+ bool PrintFlagsFinal                          := true                                {product}
+ bool UseCompressedClassPointers               := true                                {lp64_product}
+ bool UseCompressedOops                        := true                                {lp64_product}
+ bool UseParallelGC                            := true                                {product}
+</code></pre><p>查看参数配置：</p>
+<pre><code>java -XX:+PrintCommandLineFlags -version
+</code></pre><p>-XX:InitialHeapSize=46359872<br>-XX:MaxHeapSize=741757952<br>-XX:+PrintCommandLineFlags<br>-XX:+UseCompressedClassPointers<br>-XX:+UseCompressedOops<br>-XX:+UseParallelGC<br>java version “1.8.0_161”<br>Java(TM) SE Runtime Environment (build 1.8.0_161-b12)<br>Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)</p>
+<h3 id="参数分析"><a href="#参数分析" class="headerlink" title="参数分析"></a>参数分析</h3><p>-XX:+UseParallelGC参数可知，使用的收集器为Parallel Scavenge + Serial Old(PS MarkSweep)组合。</p>
+<h2 id="jstat-统计信息监控"><a href="#jstat-统计信息监控" class="headerlink" title="jstat: 统计信息监控"></a>jstat: 统计信息监控</h2><p>jstat option vmid [interval] [count]</p>
+<h4 id="参数解释："><a href="#参数解释：" class="headerlink" title="参数解释："></a>参数解释：</h4><p>Options — 选项，我们一般使用 -gcutil 查看gc 情况</p>
+<p>vmid — VM 的进程号，即当前运行的java 进程号</p>
+<p>interval– 间隔时间，单位为秒或者毫秒</p>
+<p>count — 打印次数，如果缺省则打印无数次</p>
+<h4 id="具体参数如下："><a href="#具体参数如下：" class="headerlink" title="具体参数如下："></a>具体参数如下：</h4><p>-class：统计class loader行为信息</p>
+<p>-compile：统计编译行为信息</p>
+<p>-gc：统计jdk gc时heap信息</p>
+<p>-gccapacity：统计不同的generations（不知道怎么翻译好，包括新生区，老年区，permanent区）相应的heap容量情况</p>
+<p>-gccause：统计gc的情况，（同-gcutil）和引起gc的事件</p>
+<p>-gcnew：统计gc时，新生代的情况</p>
+<p>-gcnewcapacity：统计gc时，新生代heap容量</p>
+<p>-gcold：统计gc时，老年区的情况</p>
+<p>-gcoldcapacity：统计gc时，老年区heap容量</p>
+<p>-gcpermcapacity：统计gc时，permanent区heap容量</p>
+<p>-gcutil：统计gc时，heap情况</p>
+<p>-printcompilation：不知道干什么的，一直没用过。</p>
+<h4 id="案例分析："><a href="#案例分析：" class="headerlink" title="案例分析："></a>案例分析：</h4><p>S0 — Heap 上的 Survivor space 0 区已使用空间的百分比</p>
+<p>S1 — Heap 上的 Survivor space 1 区已使用空间的百分比</p>
+<p>E — Heap 上的 Eden space 区已使用空间的百分比</p>
+<p>O — Heap 上的 Old space 区已使用空间的百分比</p>
+<p>P — Perm space 区已使用空间的百分比</p>
+<p>YGC — 从应用程序启动到采样时发生 Young GC 的次数</p>
+<p>YGCT– 从应用程序启动到采样时 Young GC 所用的时间( 单位秒 )</p>
+<p>FGC — 从应用程序启动到采样时发生 Full GC 的次数</p>
+<p>FGCT– 从应用程序启动到采样时 Full GC 所用的时间( 单位秒 )</p>
+<p>GCT — 从应用程序启动到采样时用于垃圾回收的总时间( 单位秒)</p>
+<p>jstat -gc 1909</p>
+<pre><code>S0C    S1C    S0U    S1U      EC       EU        OC         OU       MC     MU      CCSC   CCSU     YGC     YGCT    FGC    FGCT     GCT   
 
-        
-        
-        
+3456.0 3456.0 3456.0  0.0   28224.0  23968.9   70124.0    66785.0   43264.0 42270.5 4864.0  4588.8    128    1.487    8    0.779    2.266
+</code></pre><p>jstat -gccapacity 1909</p>
+<pre><code>NGCMN    NGCMX     NGC     S0C   S1C       EC      OGCMN      OGCMX       OGC         OC       MCMN     MCMX      MC     CCSMN    CCSMX     CCSC    YGC    FGC 
 
-        
-        
+5440.0  83968.0  35136.0 3456.0 3456.0  28224.0    10944.0   167936.0    70124.0    70124.0      0.0 1087488.0  43264.0   0.0    1048576.0   4864.0  128     8
+</code></pre><p>jstat -gcutil 1909</p>
+<p>jstat -gcutil 1909 1000 100      #每1000ms打印一次，总共打印100次</p>
+<pre><code>S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT   
 
-        
+0.00   0.00   3.41  60.00  97.54  94.07    129    1.534     9    1.148    2.682
+</code></pre><p>jstat -gcnew 1909</p>
+<pre><code>S0C    S1C    S0U    S1U   TT MTT  DSS      EC       EU     YGC     YGCT  
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+3584.0 3584.0    0.0    0.0  1  15 1728.0  29248.0   2123.2    129    1.534
+</code></pre><p>jstat -gcnewcapacity 1909</p>
+<pre><code>NGCMN      NGCMX       NGC      S0CMX     S0C     S1CMX     S1C       ECMX        EC      YGC   FGC 
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/12/spring-boot-1/" itemprop="url">
-              
-                <span itemprop="name">Spring boot源码分析(1)</span>
-              
-            </a>
-        
-      </h2>
+5440.0    83968.0    36416.0   8384.0   3584.0   8384.0   3584.0    67200.0    29248.0   129     9
+</code></pre><p>jstat -gcold pid</p>
+<p>jstat -gcoldcapacity pid</p>
+<p>jstat -gcpermcapacity pid</p>
+<p>jstat -class 1909</p>
+<pre><code>Loaded  Bytes  Unloaded  Bytes     Time   
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-12T10:34:03+08:00"
-              content="2018-07-12" >
-          07-12
-        </time>
-      </div>
+6688 13143.8       24    31.1      52.45
+</code></pre><p>jstat -compiler 1909</p>
+<pre><code>Compiled Failed Invalid   Time   FailedType FailedMethod
 
-    </header>
-  </article>
+7578      3       0    38.61          1 com/mysql/jdbc/AbandonedConnectionCleanupThread run
+</code></pre><h2 id="jmap"><a href="#jmap" class="headerlink" title="jmap"></a>jmap</h2><p>jmap option vmid</p>
+<h4 id="具体参数如下：-1"><a href="#具体参数如下：-1" class="headerlink" title="具体参数如下："></a>具体参数如下：</h4><p>-dump</p>
+<p>-heap</p>
+<p>-histo</p>
+<p>-finalizeerinfo</p>
+<p>-permstat</p>
+<p>-F</p>
+<h4 id="案例分析：-1"><a href="#案例分析：-1" class="headerlink" title="案例分析："></a>案例分析：</h4><p>使用hprof二进制形式,输出jvm的heap内容到文件，.live子选项是可选的，假如指定live选项,那么只输出活的对象到文件. 【执行过程会暂停应用】</p>
+<p>记录堆内存快照文件，然后利用第三方工具mat分析整个Heap的对象关联情况 【如果添加参数:live，JVM会先触发gc，然后再统计信息。】</p>
+<pre><code>jmap -dump:format=b,file=[filename][pid]
 
+jmap -dump:live,format=b,file=20170509.hprof 1909
+</code></pre><p>打印heap的概要信息，GC使用的算法，heap的配置及wise heap的使用情况.</p>
+<pre><code>jmap -heap 1909
+</code></pre><p>打印每个class的实例数目,内存占用,类全名信息。VM的内部类名字开头会加上前缀”*”. 如果live子参数加上后,只统计活的对象数量. 【如果添加参数:live，JVM会先触发gc，然后再统计信息。】</p>
+<pre><code>jmap -histo:live 1909 | head -n 100 &gt; jmaphisto.log
+</code></pre><p>打印正等候回收的对象的信息</p>
+<pre><code>jmap -finalizerinfo 1283
+</code></pre><p>打印classload和jvm heap永久层的信息. 【执行过程会暂停应用】</p>
+<p>包含每个classloader的名字,活泼性,地址,父classloader和加载的class数量. 另外,内部String的数量和占用内存数也会打印出来.</p>
+<pre><code>jmap -permstat 1909
+</code></pre><p>结合MAT分析。</p>
+<h4 id="补充：保留现场，使用更快的gcore分析"><a href="#补充：保留现场，使用更快的gcore分析" class="headerlink" title="补充：保留现场，使用更快的gcore分析"></a>补充：保留现场，使用更快的gcore分析</h4><ol>
+<li>Linux内核里面生成的core file文件相关的代码</li>
+<li>core dump file 相关的设置</li>
+<li>如何在程序中调用代码生成 core dump file，程序又不用退出。</li>
+<li>使用gdb分析 core dump file 文件</li>
+<li>用gdb 生成core文件</li>
+</ol>
+<h2 id="jstack"><a href="#jstack" class="headerlink" title="jstack"></a>jstack</h2><h4 id="具体参数如下：-2"><a href="#具体参数如下：-2" class="headerlink" title="具体参数如下："></a>具体参数如下：</h4><h4 id="案例分析：-2"><a href="#案例分析：-2" class="headerlink" title="案例分析："></a>案例分析：</h4><p>生成虚拟机当前时刻线程快照:</p>
+<pre><code>jstack -l 1909
+jstack 1909 &gt; jstack.log
+</code></pre><h2 id="jps"><a href="#jps" class="headerlink" title="jps"></a>jps</h2><h2 id="jinfo"><a href="#jinfo" class="headerlink" title="jinfo"></a>jinfo</h2><h2 id="jcmd-新版jdk的命令，用于取代旧版本命令"><a href="#jcmd-新版jdk的命令，用于取代旧版本命令" class="headerlink" title="jcmd: 新版jdk的命令，用于取代旧版本命令"></a>jcmd: 新版jdk的命令，用于取代旧版本命令</h2><h4 id="具体参数如下：-3"><a href="#具体参数如下：-3" class="headerlink" title="具体参数如下："></a>具体参数如下：</h4><h4 id="案例分析：-3"><a href="#案例分析：-3" class="headerlink" title="案例分析："></a>案例分析：</h4><p>查看jvm的pid,类似于jps命令</p>
+<pre><code>jcmd -l
+1283 org.apache.catalina.startup.Bootstrap start
+2293 sun.tools.jcmd.JCmd -l
+27449 org.apache.activemq.apollo.boot.Apollo /usr/local/tbroker/lib\;/usr/local/apollo-1.7.1/lib org.apache.activemq.apollo.cli.Apollo run
 
-
+jps
+1283 Bootstrap
+27449 Apollo
+2315 Jps
+</code></pre><p>查看 JVM 的启动时长：</p>
+<pre><code>jcmd PID VM.uptime
+</code></pre><p>查看 JVM 的类信息：这个可以查看每个类的实例数量和占用空间大小。</p>
+<pre><code>jcmd PID GC.class_histogram
+</code></pre><p>查看 JVM 的线程快照：</p>
+<pre><code>jcmd PID Thread.print
+</code></pre><p>查看 JVM 的Heap Dump：</p>
+<pre><code>jcmd PID GC.heap_dump FILE_NAME
+</code></pre><p><strong>注意</strong>，如果只指定文件名，默认会生成在启动 JVM 的目录里。</p>
+<p>查看 JVM 的属性信息：</p>
+<pre><code>jcmd 1283 VM.system_properties
+1283:
+java.lang.OutOfMemoryError: Java heap space
+</code></pre><p>查看 JVM 的启动参数：注意，可以看到 -X 和 -XX 的参数信息，比较有用。</p>
+<pre><code>jcmd 1283 VM.flags
+1283:
+-XX:CICompilerCount=2 -XX:InitialHeapSize=16777216 -XX:MaxHeapSize=262144000 -XX:MaxNewSize=87359488 -XX:MinHeapDeltaBytes=196608 -XX:NewSize=5570560 -XX:OldSize=11206656 -XX:+UseCompressedClassPointers -XX:+UseCompressedOops 
+</code></pre><p>查看 JVM 的启动命令行：</p>
+<pre><code>jcmd 1283 VM.command_line
+</code></pre><p>对JVM执行 java.lang.System.runFinalization()：</p>
+<pre><code>jcmd 1283 GC.run_finalization
+</code></pre><p>对JVM执行 java.lang.System.gc()：</p>
+<pre><code>jcmd 1283 GC.run
+</code></pre><p><strong>注意：</strong>告诉垃圾收集器打算进行垃圾收集，而垃圾收集器进不进行收集是不确定的。</p>
+<p>查看 JVM 的性能：</p>
+<p>jcmd PID PerfCounter.print</p>
+<p><strong>补充</strong> </p>
+<p>常用命令</p>
+<pre><code>top
+top -p 1909 -H
+free 
+free -m
+</code></pre><p>高内存占用分析</p>
+<pre><code>ps -mp 1909 -o THREAD,tid,time,rss,size,%mem
+</code></pre><p>查看进程内存</p>
+<pre><code>pmap -x 5454
+pmap -q 5454
+pmap -d -q 5454
+</code></pre>
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/16/RedisTemplate/" itemprop="url">
-              
-                <span itemprop="name">RedisTemplate</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-16T10:06:06+08:00"
-              content="2018-06-16" >
-          06-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/13/scala-base/" itemprop="url">
-              
-                <span itemprop="name">Scala基础入门</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-13T06:48:37+08:00"
-              content="2018-05-13" >
-          05-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/13/Weekly20180512/" itemprop="url">
-              
-                <span itemprop="name">周报20180512</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-13T06:28:24+08:00"
-              content="2018-05-13" >
-          05-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/06/Weekly20180501/" itemprop="url">
-              
-                <span itemprop="name">周报20180501</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-06T17:44:56+08:00"
-              content="2018-05-06" >
-          05-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/06/annotation/" itemprop="url">
-              
-                <span itemprop="name">枚举和注解</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-06T15:03:17+08:00"
-              content="2018-05-06" >
-          05-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java-jvm/" rel="tag"># java, jvm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/07/java-jvm-gc/" rel="next" title="java-jvm-gc">
+                <i class="fa fa-chevron-left"></i> java-jvm-gc
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -714,6 +645,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -734,8 +676,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/alifather.jpg"
@@ -843,6 +794,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jvm的默认参数"><span class="nav-text">jvm的默认参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数分析"><span class="nav-text">参数分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jstat-统计信息监控"><span class="nav-text">jstat: 统计信息监控</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参数解释："><span class="nav-text">参数解释：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体参数如下："><span class="nav-text">具体参数如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例分析："><span class="nav-text">案例分析：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jmap"><span class="nav-text">jmap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#具体参数如下：-1"><span class="nav-text">具体参数如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例分析：-1"><span class="nav-text">案例分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充：保留现场，使用更快的gcore分析"><span class="nav-text">补充：保留现场，使用更快的gcore分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jstack"><span class="nav-text">jstack</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#具体参数如下：-2"><span class="nav-text">具体参数如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例分析：-2"><span class="nav-text">案例分析：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jps"><span class="nav-text">jps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jinfo"><span class="nav-text">jinfo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jcmd-新版jdk的命令，用于取代旧版本命令"><span class="nav-text">jcmd: 新版jdk的命令，用于取代旧版本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#具体参数如下：-3"><span class="nav-text">具体参数如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例分析：-3"><span class="nav-text">案例分析：</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -963,11 +930,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
 
 
   
@@ -986,6 +951,18 @@
       <script id="dsq-count-scr" src="https://wangsirblog.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://wangwanchao.wang/2018/08/07/java-jvm-cmd/';
+          this.page.identifier = '2018/08/07/java-jvm-cmd/';
+          this.page.title = 'JVM虚拟机命令详解';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://wangsirblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

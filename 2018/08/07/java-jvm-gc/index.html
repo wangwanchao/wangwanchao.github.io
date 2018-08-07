@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
 <meta property="og:description" content="gc算法1.标记-清除算法(Mark-Sweep): 缺点：  效率不高 产生大量不连续的内存碎片">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-07T16:55:47.888Z">
+<meta property="og:updated_time" content="2018-08-07T17:00:54.103Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvm垃圾回收器">
 <meta name="twitter:description" content="gc算法1.标记-清除算法(Mark-Sweep): 缺点：  效率不高 产生大量不连续的内存碎片">
@@ -449,7 +449,24 @@
 <p>2.安全点</p>
 <p>3.安全区域</p>
 <h2 id="gc回收器"><a href="#gc回收器" class="headerlink" title="gc回收器"></a>gc回收器</h2><p>常用的参数</p>
-<p>|—:  |:–:|<br>|参数  |描述 |<br>|UseSerialGC      | client模式下的默认值，Serial + Serial Old收集器                 |<br>|UseParallelGC    | Server模式下的默认值，Parallel Scavenge + Serial Old收集器      |</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UseSerialGC</td>
+<td style="text-align:center">client模式下的默认值，Serial + Serial Old收集器</td>
+</tr>
+<tr>
+<td>UseParallelGC</td>
+<td style="text-align:center">Server模式下的默认值，Parallel Scavenge + Serial Old收集器</td>
+</tr>
+</tbody>
+</table>
 <p>1.Serial</p>
 <p>2.ParNew</p>
 <p>3.Parallel Scavenge</p>

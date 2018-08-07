@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="spring, 事务," />
 
 
 
@@ -98,14 +98,18 @@
 
 
 
+<meta name="description" content="事务的7种传播机制TransactionDefinition接口中定义了7种类型的事务传播机制： PROPAGATION_REQUIRED: 支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择，也是 Spring 默认的事务的传播。 PROPAGATION_REQUIRES_NEW: 新建事务，如果当前存在事务，把当前事务挂起。新建的事务将和被挂起的事务没有任何关系，是两个独立的事务">
+<meta name="keywords" content="spring, 事务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spring-transaction">
+<meta property="og:title" content="Spring的事务机制">
 <meta property="og:url" content="http://wangwanchao.wang/2018/08/07/spring-transaction/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
+<meta property="og:description" content="事务的7种传播机制TransactionDefinition接口中定义了7种类型的事务传播机制： PROPAGATION_REQUIRED: 支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择，也是 Spring 默认的事务的传播。 PROPAGATION_REQUIRES_NEW: 新建事务，如果当前存在事务，把当前事务挂起。新建的事务将和被挂起的事务没有任何关系，是两个独立的事务">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-06T17:06:03.544Z">
+<meta property="og:updated_time" content="2018-08-07T13:52:35.773Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="spring-transaction">
+<meta name="twitter:title" content="Spring的事务机制">
+<meta name="twitter:description" content="事务的7种传播机制TransactionDefinition接口中定义了7种类型的事务传播机制： PROPAGATION_REQUIRED: 支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择，也是 Spring 默认的事务的传播。 PROPAGATION_REQUIRES_NEW: 新建事务，如果当前存在事务，把当前事务挂起。新建的事务将和被挂起的事务没有任何关系，是两个独立的事务">
 
 
 
@@ -140,7 +144,7 @@
 
 
 
-  <title>spring-transaction | Wangsir's Blog</title>
+  <title>Spring的事务机制 | Wangsir's Blog</title>
   
 
 
@@ -334,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">spring-transaction</h1>
+          <h1 class="post-title" itemprop="name headline">Spring的事务机制</h1>
         
 
         <div class="post-meta">
@@ -356,6 +360,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index">
+                    <span itemprop="name">spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -395,7 +421,63 @@
       
 
       
-        
+        <h2 id="事务的7种传播机制"><a href="#事务的7种传播机制" class="headerlink" title="事务的7种传播机制"></a>事务的7种传播机制</h2><p>TransactionDefinition接口中定义了7种类型的事务传播机制：</p>
+<p>PROPAGATION_REQUIRED: 支持当前事务，如果当前没有事务，就新建一个事务。<strong>这是最常见的选择，也是 Spring 默认的事务的传播</strong>。</p>
+<p>PROPAGATION_REQUIRES_NEW: 新建事务，如果当前存在事务，把当前事务挂起。新建的事务将和被挂起的事务没有任何关系，是两个独立的事务，外层事务失败回滚之后，不能回滚内层事务执行的结果，内层事务失败抛出异常，外层事务捕获，也可以不处理回滚操作</p>
+<p>PROPAGATION_SUPPORTS: 支持当前事务，如果当前没有事务，就以非事务方式执行。</p>
+<p>PROPAGATION_MANDATORY: 支持当前事务，如果当前没有事务，就抛出异常。</p>
+<p>PROPAGATION_NOT_SUPPORTED: 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。</p>
+<p>PROPAGATION_NEVER: 以非事务方式执行，如果当前存在事务，则抛出异常。</p>
+<p>PROPAGATION_NESTED   </p>
+<a id="more"></a>
+<h2 id="事务的4种隔离级别"><a href="#事务的4种隔离级别" class="headerlink" title="事务的4种隔离级别"></a>事务的4种隔离级别</h2><p>ISOLATION_DEFAULT: <strong>PlatfromTransactionManager默认的隔离级别</strong>，使用数据库默认的事务隔离级别。另外四个与 JDBC 的隔离级别相对应。</p>
+<p>ISOLATION_READ_UNCOMMITTED: 这是事务最低的隔离级别，它充许另外一个事务可以看到这个事务未提交的数据。这种隔离级别会产生脏读，不可重复读和幻像读。</p>
+<p>ISOLATION_READ_COMMITTED: 保证一个事务修改的数据提交后才能被另外一个事务读取。另外一个事务不能读取该事务未提交的数据。可以防止脏读</p>
+<p>ISOLATION_REPEATABLE_READ: 事务隔离级别可以防止脏读，不可重复读。但是可能出现幻像读。</p>
+<p>ISOLATION_SERIALIZABLE: 花费最高代价但是最可靠的事务隔离级别。事务被处理为顺序执行。</p>
+<h2 id="事务失效的情况"><a href="#事务失效的情况" class="headerlink" title="事务失效的情况"></a>事务失效的情况</h2><p>1、MySQL数据表的引擎必须为InnoDB，MyISAM引擎不支持事务</p>
+<p>2、调用的类必须是由Spring容器管理的代理类</p>
+<p>jdk代理</p>
+<p>cglib代理</p>
+<p>3、调用的方法必须是public方法，这是由Spring的AOP特性决定的</p>
+<p>4、抛出runtimeException才能回滚。</p>
+<p>事务默认支持CheckException不会滚，unCheckException回滚，如果需要checkException回滚，注解需要标明@Transactional(rollbackFor=Exception.class)</p>
+<p>5、事务传播策略在内部方法调用时将不起作用</p>
+<p>情景1：</p>
+<pre><code>public void insert2(Person person, Book book){
+    insert(person, book);
+}
+
+@Transactional
+public void insert(Person person, Book book){
+    insertPerson(person);
+
+    insertBook(book);
+}
+
+personServiceImpl.insert(person, book)事务起作用
+
+personServiceImpl.insert2(person, book)事务不起作用
+</code></pre><p>解决方案1：</p>
+<blockquote>
+<p>增加&lt;aop:config proxy-target-class=”true” expose-proxy=”true”&gt;&lt;/aop:config&gt;</p>
+<p>在外层调用内层的事务方法时使用AopContext代理 </p>
+</blockquote>
+<pre><code>public void insert2(Person person, Book book){
+    ((PersonServiceImpl)AopContext.currentProxy()).insert(person, book);
+}
+</code></pre><p>解决方案2：</p>
+<blockquote>
+<p>增加&lt;aop:config proxy-target-class=”true”&gt;&lt;/aop:config&gt;</p>
+<p>在外层调用内层的事务方法时使用Spring的IOC容器代理 </p>
+</blockquote>
+<pre><code>@Autowired
+private ApplicationContext ctx;
+
+public void insert2(Person person, Book book){
+    ctx.getBean(PersonServiceImpl.class).insert(person, book);;
+}
+</code></pre>
       
     </div>
     
@@ -409,6 +491,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/spring-事务/" rel="tag"># spring, 事务</a>
+          
+        </div>
       
 
       
@@ -428,6 +516,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/07/java-jvm/" rel="prev" title="java-jvm">
+                java-jvm <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -486,8 +578,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/alifather.jpg"
@@ -502,7 +603,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -513,7 +614,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -524,7 +625,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -595,6 +696,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#事务的7种传播机制"><span class="nav-text">事务的7种传播机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务的4种隔离级别"><span class="nav-text">事务的4种隔离级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务失效的情况"><span class="nav-text">事务失效的情况</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -741,7 +858,7 @@
         var disqus_config = function () {
           this.page.url = 'http://wangwanchao.wang/2018/08/07/spring-transaction/';
           this.page.identifier = '2018/08/07/spring-transaction/';
-          this.page.title = 'spring-transaction';
+          this.page.title = 'Spring的事务机制';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://wangsirblog.disqus.com/embed.js';

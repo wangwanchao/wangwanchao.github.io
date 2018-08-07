@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="mysql, 索引," />
 
 
 
@@ -98,14 +98,18 @@
 
 
 
+<meta name="description" content="索引失效的问题in、not in、like、or不走索引">
+<meta name="keywords" content="mysql, 索引">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql-index">
+<meta property="og:title" content="mysql索引">
 <meta property="og:url" content="http://wangwanchao.wang/2018/08/07/mysql-index/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
+<meta property="og:description" content="索引失效的问题in、not in、like、or不走索引">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-06T17:03:58.624Z">
+<meta property="og:updated_time" content="2018-08-07T09:34:10.045Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql-index">
+<meta name="twitter:title" content="mysql索引">
+<meta name="twitter:description" content="索引失效的问题in、not in、like、or不走索引">
 
 
 
@@ -140,7 +144,7 @@
 
 
 
-  <title>mysql-index | Wangsir's Blog</title>
+  <title>mysql索引 | Wangsir's Blog</title>
   
 
 
@@ -334,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">mysql-index</h1>
+          <h1 class="post-title" itemprop="name headline">mysql索引</h1>
         
 
         <div class="post-meta">
@@ -356,6 +360,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -395,7 +421,8 @@
       
 
       
-        
+        <h2 id="索引失效的问题"><a href="#索引失效的问题" class="headerlink" title="索引失效的问题"></a>索引失效的问题</h2><p>in、not in、like、or不走索引</p>
+
       
     </div>
     
@@ -409,6 +436,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql-索引/" rel="tag"># mysql, 索引</a>
+          
+        </div>
       
 
       
@@ -490,8 +523,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/alifather.jpg"
@@ -506,7 +548,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -517,7 +559,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -528,7 +570,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -599,6 +641,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#索引失效的问题"><span class="nav-text">索引失效的问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -745,7 +803,7 @@
         var disqus_config = function () {
           this.page.url = 'http://wangwanchao.wang/2018/08/07/mysql-index/';
           this.page.identifier = '2018/08/07/mysql-index/';
-          this.page.title = 'mysql-index';
+          this.page.title = 'mysql索引';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://wangsirblog.disqus.com/embed.js';

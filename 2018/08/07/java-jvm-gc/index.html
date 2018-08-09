@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
 <meta property="og:description" content="gc算法1.标记-清除算法(Mark-Sweep): 缺点：  效率不高 产生大量不连续的内存碎片">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-07T17:09:18.347Z">
+<meta property="og:updated_time" content="2018-08-09T09:17:28.704Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvm垃圾回收器">
 <meta name="twitter:description" content="gc算法1.标记-清除算法(Mark-Sweep): 缺点：  效率不高 产生大量不连续的内存碎片">
@@ -512,7 +512,31 @@
 <p>可预测的停顿：这是G1相比CMS的一大优势，降低停顿时间时G1和CMS共同的关注点，但G1除了追求低停顿，还能建立可预测的停顿时间模型</p>
 </blockquote>
 <p>缺点：</p>
-<h2 id="内存分配、回收策略"><a href="#内存分配、回收策略" class="headerlink" title="内存分配、回收策略"></a>内存分配、回收策略</h2>
+<h2 id="内存分配、回收策略"><a href="#内存分配、回收策略" class="headerlink" title="内存分配、回收策略"></a>内存分配、回收策略</h2><p>Minor GC: 指发生在新生代的垃圾回收动作</p>
+<p>Full GC/Major GC: 指发生在老年代的GC，出现Full GC，经常会伴随至少一次Minor GC;</p>
+<p>1、对象优先在新生代Eden区分配，当Eden区没有足够空间进行分配时，虚拟机将发起一次Minor GC</p>
+<p>2、大对象直接进入老年代。大对象典型的就是那些很长的字符串、数组</p>
+<p>参数-XX:PretenureSizeThreshold可以设定大对象的标准</p>
+<p>3、长期存活的对象将进入老年代(默认是15岁)</p>
+<p>Eden区对象经过Minor GC后，年龄增1，然后在Survivor每经历一次Minor GC，年龄增长1，达到指定年龄，进入老年代</p>
+<p>参数-XX:MaxTenuringThreshold</p>
+<p>4、动态年龄判定</p>
+<p>如果在Survivor区，相同年龄的所有对象大小总和大于Survivor空间的一半，年龄大于等于该年龄的对象可以直接进入老年代。【可以破坏规则3】</p>
+<p>5、空间分配担保</p>
+<h3 id="GC触发"><a href="#GC触发" class="headerlink" title="GC触发"></a>GC触发</h3><p>Minor GC触发条件：</p>
+<blockquote>
+<p>Eden区没有足够空间分配时，触发</p>
+</blockquote>
+<p>Full GC触发条件：</p>
+<blockquote>
+<p>显式调用System.gc()时</p>
+<p>方法区空间不足</p>
+<p>老年代空间不足</p>
+<p>Eden区对象执行Minor GC后，进入老年代的所有对象和大于老年代可用内存时，触发Full GC</p>
+<p>Eden + From执行Minor GC时，如果存活对象大于To内存区，则直接进入老年代，如果老年代的可用内存小于该对象，则触发Full GC</p>
+</blockquote>
+<p><strong>注意:</strong>jdk1.6_24之后，只要老年代的连续空间大于新生代对象总大小或者历次晋升的平均大小，就会执行Minor GC,否则进行Full GC</p>
+
       
     </div>
     
@@ -741,7 +765,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gc算法"><span class="nav-text">gc算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#案例分析：HotSpot的实现"><span class="nav-text">案例分析：HotSpot的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gc回收器"><span class="nav-text">gc回收器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存分配、回收策略"><span class="nav-text">内存分配、回收策略</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gc算法"><span class="nav-text">gc算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#案例分析：HotSpot的实现"><span class="nav-text">案例分析：HotSpot的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gc回收器"><span class="nav-text">gc回收器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存分配、回收策略"><span class="nav-text">内存分配、回收策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GC触发"><span class="nav-text">GC触发</span></a></li></ol></li></ol></div>
             
 
           </div>

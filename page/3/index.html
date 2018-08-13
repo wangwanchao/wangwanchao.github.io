@@ -741,7 +741,124 @@
       
         
           
-            
+            <p>熟悉Spring Boot项目搭建的同学都知道基本的配置。</p>
+<p>首先看Application main类需要基本的注解@SpringBootApplication：</p>
+<pre><code>@RestController
+@SpringBootApplication
+public class AutoconfigDemoTestApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(AutoconfigDemoTestApplication.class, args);
+    }
+}
+</code></pre><p>进入@SpringBootApplication可以看到：</p>
+<pre><code>@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan(excludeFilters = {
+        @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
+        @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })
+public @interface SpringBootApplication {
+
+}
+</code></pre><p>除去基本的元注解，进入@SpringBootConfiguration，可以看到是一些基本的注解：</p>
+<pre><code>@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Configuration
+public @interface SpringBootConfiguration {
+
+}
+</code></pre><p>进入注解@EnableAutoConfiguration，可以看到除了注解@AutoConfigurationPackage，还有一个@Import(AutoConfigurationImportSelector.class)：</p>
+<pre><code>@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@AutoConfigurationPackage
+@Import(AutoConfigurationImportSelector.class)
+public @interface EnableAutoConfiguration {
+
+    String ENABLED_OVERRIDE_PROPERTY = &quot;spring.boot.enableautoconfiguration&quot;;
+
+    //
+    Class&lt;?&gt;[] exclude() default {};
+
+    //
+    String[] excludeName() default {};
+
+}
+</code></pre><p>@AutoConfigurationPackage是一些：</p>
+<pre><code>@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@Import(AutoConfigurationPackages.Registrar.class)
+public @interface AutoConfigurationPackage {
+
+}
+</code></pre><p>进入AutoConfigurationImportSelector类，可以看到方法selectImports来确定要导入的类：</p>
+<pre><code>@Override
+public String[] selectImports(AnnotationMetadata annotationMetadata) {
+    if (!isEnabled(annotationMetadata)) {
+        return NO_IMPORTS;
+    }
+    AutoConfigurationMetadata autoConfigurationMetadata = AutoConfigurationMetadataLoader
+            .loadMetadata(this.beanClassLoader);
+    //
+    AnnotationAttributes attributes = getAttributes(annotationMetadata);
+    List&lt;String&gt; configurations = getCandidateConfigurations(annotationMetadata,
+            attributes);
+    configurations = removeDuplicates(configurations);
+    Set&lt;String&gt; exclusions = getExclusions(annotationMetadata, attributes);
+    checkExcludedClasses(configurations, exclusions);
+    configurations.removeAll(exclusions);
+    configurations = filter(configurations, autoConfigurationMetadata);
+    fireAutoConfigurationImportEvents(configurations, exclusions);
+    return StringUtils.toStringArray(configurations);
+}
+</code></pre><p>先看方法getCandidateConfigurations，回头有时间再慢慢分析其它方法：<br>    protected List<string> getCandidateConfigurations(AnnotationMetadata metadata,<br>            AnnotationAttributes attributes) {<br>        List<string> configurations = SpringFactoriesLoader.loadFactoryNames(<br>                getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader());<br>        Assert.notEmpty(configurations,<br>                “No auto configuration classes found in META-INF/spring.factories. If you “</string></string></p>
+<pre><code>                    + &quot;are using a custom packaging, make sure that file is correct.&quot;);
+    return configurations;
+}
+</code></pre><p>再看SpringFactoriesLoader.loadFactoryNames，可以知道最终读取的是所有jar包META-INF目录下的spring.factories文件：<br>    public static final String FACTORIES_RESOURCE_LOCATION = “META-INF/spring.factories”;</p>
+<pre><code>public static List&lt;String&gt; loadFactoryNames(Class&lt;?&gt; factoryClass, @Nullable ClassLoader classLoader) {
+    String factoryClassName = factoryClass.getName();
+    return loadSpringFactories(classLoader).getOrDefault(factoryClassName, Collections.emptyList());
+}
+
+private static Map&lt;String, List&lt;String&gt;&gt; loadSpringFactories(@Nullable ClassLoader classLoader) {
+    MultiValueMap&lt;String, String&gt; result = cache.get(classLoader);
+    if (result != null) {
+        return result;
+    }
+
+    try {
+        Enumeration&lt;URL&gt; urls = (classLoader != null ?
+                classLoader.getResources(FACTORIES_RESOURCE_LOCATION) :
+                ClassLoader.getSystemResources(FACTORIES_RESOURCE_LOCATION));
+        result = new LinkedMultiValueMap&lt;&gt;();
+        while (urls.hasMoreElements()) {
+            URL url = urls.nextElement();
+            UrlResource resource = new UrlResource(url);
+            Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+            for (Map.Entry&lt;?, ?&gt; entry : properties.entrySet()) {
+                List&lt;String&gt; factoryClassNames = Arrays.asList(
+                        StringUtils.commaDelimitedListToStringArray((String) entry.getValue()));
+                result.addAll((String) entry.getKey(), factoryClassNames);
+            }
+        }
+        cache.put(classLoader, result);
+        return result;
+    }
+    catch (IOException ex) {
+        throw new IllegalArgumentException(&quot;Unable to load factories from location [&quot; +
+                FACTORIES_RESOURCE_LOCATION + &quot;]&quot;, ex);
+    }
+}
+</code></pre>
           
         
       

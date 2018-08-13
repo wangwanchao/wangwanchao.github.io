@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
 <meta property="og:description" content="Spring Boot封装了很多的注解类，所以回顾一下注解 java内置注解3种标准注解：@Override @Desprecated @Suppress Warnings">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-13T12:11:43.131Z">
+<meta property="og:updated_time" content="2018-08-13T12:15:15.301Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java注解">
 <meta name="twitter:description" content="Spring Boot封装了很多的注解类，所以回顾一下注解 java内置注解3种标准注解：@Override @Desprecated @Suppress Warnings">
@@ -465,8 +465,7 @@ public @interface Test{
     public int id() default -1;
     public String description() default &quot;&quot;;
 }
-</code></pre><p>注解嵌套：注解作为注解的元素</p>
-<p>例如：<br>    @Target(ElementType.METHOD)<br>    @Retention(RetentionPolicy.RUNTIME)<br>    public @interface Test{<br>        public int id() default -1;<br>        public String description() default “”;<br>    }</p>
+</code></pre><h3 id="注解嵌套：注解作为注解的元素"><a href="#注解嵌套：注解作为注解的元素" class="headerlink" title="注解嵌套：注解作为注解的元素"></a>注解嵌套：注解作为注解的元素</h3><p>例如：<br>    @Target(ElementType.METHOD)<br>    @Retention(RetentionPolicy.RUNTIME)<br>    public @interface Test{<br>        public int id() default -1;<br>        public String description() default “”;<br>    }</p>
 <pre><code>@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Test2{
@@ -476,8 +475,7 @@ public @interface Test2{
 
 @Test2(sid = 10, test = @Test(description=&quot;test&quot;))
 String testAnnotation;
-</code></pre><p>组合注解：注解上除了元注解，还会有其他的注解</p>
-<p>例如：</p>
+</code></pre><h3 id="组合注解：注解上除了元注解，还会有其他的注解"><a href="#组合注解：注解上除了元注解，还会有其他的注解" class="headerlink" title="组合注解：注解上除了元注解，还会有其他的注解"></a>组合注解：注解上除了元注解，还会有其他的注解</h3><p>例如：</p>
 <pre><code>@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -491,7 +489,7 @@ public @interface SpringBootApplication {
     ...
 }
 </code></pre><p>可以看到SpringBootApplication注解除了元注解，还有@SpringBootConfiguration、@EnableAutoCOnfiguration、@ComponentScan注解</p>
-
+<h3 id="条件注解"><a href="#条件注解" class="headerlink" title="条件注解"></a>条件注解</h3>
       
     </div>
     
@@ -716,7 +714,7 @@ public @interface SpringBootApplication {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java内置注解"><span class="nav-text">java内置注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3种标准注解："><span class="nav-text">3种标准注解：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4种元注解："><span class="nav-text">4种元注解：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java内置注解"><span class="nav-text">java内置注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3种标准注解："><span class="nav-text">3种标准注解：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4种元注解："><span class="nav-text">4种元注解：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注解嵌套：注解作为注解的元素"><span class="nav-text">注解嵌套：注解作为注解的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合注解：注解上除了元注解，还会有其他的注解"><span class="nav-text">组合注解：注解上除了元注解，还会有其他的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件注解"><span class="nav-text">条件注解</span></a></li></ol></li></ol></div>
             
 
           </div>

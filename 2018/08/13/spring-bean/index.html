@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="java, 多线程," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -98,18 +98,17 @@
 
 
 
-<meta name="description" content="synchronizedsychronized的几种不同用法：1、修饰类 锁的对象是该类的所有实例 2、修饰静态方法 锁的对象是该类的所有实例对象 3、修饰方法 锁的对象是调用该方法的实例对象 4、修饰代码块 和修饰方法类似，锁对象都是调用该方法的实例对象 ReentrantLocksynchronize和ReentrantLock的比较ReentranLock使用场景：  需要时间锁、可中断锁、">
-<meta name="keywords" content="java, 多线程">
+<meta name="description" content="Spring的东西有很多不经常用，就会忘记，还是要多记录一下。其实bean这一块儿有很多的东西要梳理，以后慢慢还债">
 <meta property="og:type" content="article">
-<meta property="og:title" content="synchronized和ReentrantLock">
-<meta property="og:url" content="http://wangwanchao.wang/2018/08/07/thread-lock/index.html">
+<meta property="og:title" content="spring bean分析">
+<meta property="og:url" content="http://wangwanchao.wang/2018/08/13/spring-bean/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
-<meta property="og:description" content="synchronizedsychronized的几种不同用法：1、修饰类 锁的对象是该类的所有实例 2、修饰静态方法 锁的对象是该类的所有实例对象 3、修饰方法 锁的对象是调用该方法的实例对象 4、修饰代码块 和修饰方法类似，锁对象都是调用该方法的实例对象 ReentrantLocksynchronize和ReentrantLock的比较ReentranLock使用场景：  需要时间锁、可中断锁、">
+<meta property="og:description" content="Spring的东西有很多不经常用，就会忘记，还是要多记录一下。其实bean这一块儿有很多的东西要梳理，以后慢慢还债">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-06T17:08:54.489Z">
+<meta property="og:updated_time" content="2018-08-13T15:10:23.150Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="synchronized和ReentrantLock">
-<meta name="twitter:description" content="synchronizedsychronized的几种不同用法：1、修饰类 锁的对象是该类的所有实例 2、修饰静态方法 锁的对象是该类的所有实例对象 3、修饰方法 锁的对象是调用该方法的实例对象 4、修饰代码块 和修饰方法类似，锁对象都是调用该方法的实例对象 ReentrantLocksynchronize和ReentrantLock的比较ReentranLock使用场景：  需要时间锁、可中断锁、">
+<meta name="twitter:title" content="spring bean分析">
+<meta name="twitter:description" content="Spring的东西有很多不经常用，就会忘记，还是要多记录一下。其实bean这一块儿有很多的东西要梳理，以后慢慢还债">
 
 
 
@@ -138,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="http://wangwanchao.wang/2018/08/07/thread-lock/"/>
+  <link rel="canonical" href="http://wangwanchao.wang/2018/08/13/spring-bean/"/>
 
 
 
 
 
-  <title>synchronized和ReentrantLock | Wangsir's Blog</title>
+  <title>spring bean分析 | Wangsir's Blog</title>
   
 
 
@@ -321,7 +320,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/08/07/thread-lock/">
+    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/08/13/spring-bean/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wanchao">
@@ -338,7 +337,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">synchronized和ReentrantLock</h1>
+          <h1 class="post-title" itemprop="name headline">spring bean分析</h1>
         
 
         <div class="post-meta">
@@ -350,8 +349,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T00:02:44+08:00">
-                2018-08-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T21:34:09+08:00">
+                2018-08-13
               </time>
             
 
@@ -361,28 +360,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -391,9 +368,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/07/thread-lock/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/13/spring-bean/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/07/thread-lock/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/13/spring-bean/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -421,19 +398,35 @@
       
 
       
-        <h2 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h2><h3 id="sychronized的几种不同用法："><a href="#sychronized的几种不同用法：" class="headerlink" title="sychronized的几种不同用法："></a>sychronized的几种不同用法：</h3><p>1、修饰类</p>
-<p>锁的对象是该类的所有实例</p>
-<p>2、修饰静态方法</p>
-<p>锁的对象是该类的所有实例对象</p>
-<p>3、修饰方法</p>
-<p>锁的对象是调用该方法的实例对象</p>
-<p>4、修饰代码块</p>
-<p>和修饰方法类似，锁对象都是调用该方法的实例对象</p>
-<h2 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h2><h2 id="synchronize和ReentrantLock的比较"><a href="#synchronize和ReentrantLock的比较" class="headerlink" title="synchronize和ReentrantLock的比较"></a>synchronize和ReentrantLock的比较</h2><p>ReentranLock使用场景：</p>
-<blockquote>
-<p>需要时间锁、可中断锁、无块结构锁、轮询锁、多个条件变量时使用</p>
-<p>需要可伸缩性、高度竞争的情况下使用</p>
-</blockquote>
+        <p>Spring的东西有很多不经常用，就会忘记，还是要多记录一下。其实bean这一块儿有很多的东西要梳理，以后慢慢还债</p>
+<a id="more"></a>
+<h2 id="bean生命周期"><a href="#bean生命周期" class="headerlink" title="bean生命周期"></a>bean生命周期</h2><ol>
+<li>实例化BeanFactoryPostProcessor实现类; </li>
+<li>BeanFactoryPostProcessor#postProcessBeanFactory();</li>
+<li>实例化BeanPostProcessor实现类</li>
+<li>实例化InstantiationAwareBeanPostProcessorAdapter实现类</li>
+<li>InstantiationAwareBeanPostProcessorAdapter#postProcessBeforeInstatiation()</li>
+<li>bean构造器</li>
+<li>InstantiationAwareBeanPostProcessorAdapter#postProcessPropertyValues()</li>
+<li>bean设置属性值; </li>
+<li>如果实现了BeanNameAware接口,调用setBeanName设置Bean的ID或者Name; </li>
+<li>如果实现BeanFactoryAware接口,调用setBeanFactory 设置BeanFactory; </li>
+<li>如果实现ApplicationContextAware,调用setApplicationContext设置ApplicationContext </li>
+<li>调用BeanPostProcessor#postProcessBeforeInitialization(); </li>
+<li>调用InitializingBean#afterPropertiesSet(); </li>
+<li>调用bean属性中设置的init-method方法； </li>
+<li>调用BeanPostProcessor#postProcessAfterInitialization();</li>
+<li>InstantiationAwareBeanPostProcessorAdapter#postProcessAfterInstatiation()</li>
+</ol>
+<p>DiposibelBean#destroy()<br>执行bean属性中设置的destroy-method方法</p>
+<h2 id="多bean加载顺序"><a href="#多bean加载顺序" class="headerlink" title="多bean加载顺序"></a>多bean加载顺序</h2><ol>
+<li>xml配置的bean优先于注解bean</li>
+<li>优先加载BeanPostProcessor实现的bean; </li>
+<li>按bean文件(例如import标签)和bean的定义顺序装载,</li>
+<li>如果顺序执行中，beanA通过属性ref引用别的beanB，加载完beanA后，加载beanB，然后再顺序执行</li>
+<li>如果beanA属性中depen-on依赖beanB，则会优先装载beanB，然后装载beanA，然后顺序装载</li>
+<li>BeanFactoryUtils类也会改变Bean的加载顺序</li>
+</ol>
 
       
     </div>
@@ -449,12 +442,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/java-多线程/" rel="tag"># java, 多线程</a>
-          
-        </div>
-      
 
       
       
@@ -464,8 +451,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/07/thread-pool/" rel="next" title="线程池">
-                <i class="fa fa-chevron-left"></i> 线程池
+              <a href="/2018/08/13/java-annotation/" rel="next" title="java注解">
+                <i class="fa fa-chevron-left"></i> java注解
               </a>
             
           </div>
@@ -473,10 +460,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/07/mysql-index/" rel="prev" title="mysql索引">
-                mysql索引 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -663,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized"><span class="nav-text">synchronized</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sychronized的几种不同用法："><span class="nav-text">sychronized的几种不同用法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReentrantLock"><span class="nav-text">ReentrantLock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronize和ReentrantLock的比较"><span class="nav-text">synchronize和ReentrantLock的比较</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#bean生命周期"><span class="nav-text">bean生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多bean加载顺序"><span class="nav-text">多bean加载顺序</span></a></li></ol></div>
             
 
           </div>
@@ -813,9 +796,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://wangwanchao.wang/2018/08/07/thread-lock/';
-          this.page.identifier = '2018/08/07/thread-lock/';
-          this.page.title = 'synchronized和ReentrantLock';
+          this.page.url = 'http://wangwanchao.wang/2018/08/13/spring-bean/';
+          this.page.identifier = '2018/08/13/spring-bean/';
+          this.page.title = 'spring bean分析';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://wangsirblog.disqus.com/embed.js';

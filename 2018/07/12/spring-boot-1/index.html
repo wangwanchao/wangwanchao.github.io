@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
 <meta property="og:description" content="熟悉Spring Boot项目搭建的同学都知道基本的配置。 首先看Application main类需要基本的注解@SpringBootApplication： @RestController @SpringBootApplication public class AutoconfigDemoTestApplication {      public static void main(String">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-13T13:16:58.383Z">
+<meta property="og:updated_time" content="2018-08-13T13:33:51.017Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring boot注解自动装配原理分析">
 <meta name="twitter:description" content="熟悉Spring Boot项目搭建的同学都知道基本的配置。 首先看Application main类需要基本的注解@SpringBootApplication： @RestController @SpringBootApplication public class AutoconfigDemoTestApplication {      public static void main(String">
@@ -431,7 +431,8 @@ public class AutoconfigDemoTestApplication {
         SpringApplication.run(AutoconfigDemoTestApplication.class, args);
     }
 }
-</code></pre><p>进入@SpringBootApplication可以看到：</p>
+</code></pre><a id="more"></a>
+<p>进入@SpringBootApplication可以看到：</p>
 <pre><code>@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -485,6 +486,7 @@ public String[] selectImports(AnnotationMetadata annotationMetadata) {
     if (!isEnabled(annotationMetadata)) {
         return NO_IMPORTS;
     }
+    // 加载&quot;META-INF/spring-autoconfigure-metadata.properties&quot;
     AutoConfigurationMetadata autoConfigurationMetadata = AutoConfigurationMetadataLoader
             .loadMetadata(this.beanClassLoader);
     //
@@ -655,7 +657,7 @@ private static Map&lt;String, List&lt;String&gt;&gt; loadSpringFactories(@Nullab
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -318,6 +318,169 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/07/25/raspberry-facerecognition/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wanchao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/alifather.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wangsir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/25/raspberry-facerecognition/" itemprop="url">树莓派实现简单的人脸识别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T17:20:30+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/25/raspberry-facerecognition/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/25/raspberry-facerecognition/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><strong>硬件需求：</strong></p>
+<blockquote>
+<p>树莓派开发板</p>
+<p>pi摄像头</p>
+<p>16g内存卡</p>
+<p>读卡器</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/25/raspberry-facerecognition/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/07/25/go-base/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -740,8 +903,7 @@
 
       
         
-          
-            <p>熟悉Spring Boot项目搭建的同学都知道基本的配置。</p>
+          <p>熟悉Spring Boot项目搭建的同学都知道基本的配置。</p>
 <p>首先看Application main类需要基本的注解@SpringBootApplication：</p>
 <pre><code>@RestController
 @SpringBootApplication
@@ -751,115 +913,14 @@ public class AutoconfigDemoTestApplication {
         SpringApplication.run(AutoconfigDemoTestApplication.class, args);
     }
 }
-</code></pre><p>进入@SpringBootApplication可以看到：</p>
-<pre><code>@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Inherited
-@SpringBootConfiguration
-@EnableAutoConfiguration
-@ComponentScan(excludeFilters = {
-        @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
-        @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })
-public @interface SpringBootApplication {
-
-}
-</code></pre><p>除去基本的元注解，进入@SpringBootConfiguration，可以看到是一些基本的注解：</p>
-<pre><code>@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Configuration
-public @interface SpringBootConfiguration {
-
-}
-</code></pre><p>进入注解@EnableAutoConfiguration，可以看到除了注解@AutoConfigurationPackage，还有一个@Import(AutoConfigurationImportSelector.class)：</p>
-<pre><code>@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Inherited
-@AutoConfigurationPackage
-@Import(AutoConfigurationImportSelector.class)
-public @interface EnableAutoConfiguration {
-
-    String ENABLED_OVERRIDE_PROPERTY = &quot;spring.boot.enableautoconfiguration&quot;;
-
-    //
-    Class&lt;?&gt;[] exclude() default {};
-
-    //
-    String[] excludeName() default {};
-
-}
-</code></pre><p>@AutoConfigurationPackage是一些：</p>
-<pre><code>@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Inherited
-@Import(AutoConfigurationPackages.Registrar.class)
-public @interface AutoConfigurationPackage {
-
-}
-</code></pre><p>进入AutoConfigurationImportSelector类，可以看到方法selectImports来确定要导入的类：</p>
-<pre><code>@Override
-public String[] selectImports(AnnotationMetadata annotationMetadata) {
-    if (!isEnabled(annotationMetadata)) {
-        return NO_IMPORTS;
-    }
-    AutoConfigurationMetadata autoConfigurationMetadata = AutoConfigurationMetadataLoader
-            .loadMetadata(this.beanClassLoader);
-    //
-    AnnotationAttributes attributes = getAttributes(annotationMetadata);
-    List&lt;String&gt; configurations = getCandidateConfigurations(annotationMetadata,
-            attributes);
-    configurations = removeDuplicates(configurations);
-    Set&lt;String&gt; exclusions = getExclusions(annotationMetadata, attributes);
-    checkExcludedClasses(configurations, exclusions);
-    configurations.removeAll(exclusions);
-    configurations = filter(configurations, autoConfigurationMetadata);
-    fireAutoConfigurationImportEvents(configurations, exclusions);
-    return StringUtils.toStringArray(configurations);
-}
-</code></pre><p>先看方法getCandidateConfigurations，回头有时间再慢慢分析其它方法：<br>    protected List<string> getCandidateConfigurations(AnnotationMetadata metadata,<br>            AnnotationAttributes attributes) {<br>        List<string> configurations = SpringFactoriesLoader.loadFactoryNames(<br>                getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader());<br>        Assert.notEmpty(configurations,<br>                “No auto configuration classes found in META-INF/spring.factories. If you “</string></string></p>
-<pre><code>                    + &quot;are using a custom packaging, make sure that file is correct.&quot;);
-    return configurations;
-}
-</code></pre><p>再看SpringFactoriesLoader.loadFactoryNames，可以知道最终读取的是所有jar包META-INF目录下的spring.factories文件：<br>    public static final String FACTORIES_RESOURCE_LOCATION = “META-INF/spring.factories”;</p>
-<pre><code>public static List&lt;String&gt; loadFactoryNames(Class&lt;?&gt; factoryClass, @Nullable ClassLoader classLoader) {
-    String factoryClassName = factoryClass.getName();
-    return loadSpringFactories(classLoader).getOrDefault(factoryClassName, Collections.emptyList());
-}
-
-private static Map&lt;String, List&lt;String&gt;&gt; loadSpringFactories(@Nullable ClassLoader classLoader) {
-    MultiValueMap&lt;String, String&gt; result = cache.get(classLoader);
-    if (result != null) {
-        return result;
-    }
-
-    try {
-        Enumeration&lt;URL&gt; urls = (classLoader != null ?
-                classLoader.getResources(FACTORIES_RESOURCE_LOCATION) :
-                ClassLoader.getSystemResources(FACTORIES_RESOURCE_LOCATION));
-        result = new LinkedMultiValueMap&lt;&gt;();
-        while (urls.hasMoreElements()) {
-            URL url = urls.nextElement();
-            UrlResource resource = new UrlResource(url);
-            Properties properties = PropertiesLoaderUtils.loadProperties(resource);
-            for (Map.Entry&lt;?, ?&gt; entry : properties.entrySet()) {
-                List&lt;String&gt; factoryClassNames = Arrays.asList(
-                        StringUtils.commaDelimitedListToStringArray((String) entry.getValue()));
-                result.addAll((String) entry.getKey(), factoryClassNames);
-            }
-        }
-        cache.put(classLoader, result);
-        return result;
-    }
-    catch (IOException ex) {
-        throw new IllegalArgumentException(&quot;Unable to load factories from location [&quot; +
-                FACTORIES_RESOURCE_LOCATION + &quot;]&quot;, ex);
-    }
-}
 </code></pre>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/12/spring-boot-1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1733,137 +1794,6 @@ private static Map&lt;String, List&lt;String&gt;&gt; loadSpringFactories(@Nullab
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/04/26/raspberry-snowboy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wanchao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/alifather.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wangsir's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/26/raspberry-snowboy/" itemprop="url">树莓派实现简易的语音识别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T19:45:06+08:00">
-                2018-04-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/04/26/raspberry-snowboy/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/04/26/raspberry-snowboy/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>###</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1914,7 +1844,7 @@ private static Map&lt;String, List&lt;String&gt;&gt; loadSpringFactories(@Nullab
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

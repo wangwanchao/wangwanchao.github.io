@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
 <meta property="og:description" content="ThreadLocal的底层实现主要方法：setpublic void set(T value) {     Thread t = Thread.currentThread();     ThreadLocalMap map = getMap(t);     if (map != null)         map.set(this, value);     else         create">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-11T03:56:13.999Z">
+<meta property="og:updated_time" content="2018-08-11T04:08:19.183Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Threadlocal原理分析">
 <meta name="twitter:description" content="ThreadLocal的底层实现主要方法：setpublic void set(T value) {     Thread t = Thread.currentThread();     ThreadLocalMap map = getMap(t);     if (map != null)         map.set(this, value);     else         create">
@@ -567,8 +567,8 @@ public static void main(String[] args){
 设值前：子线程获取threadLocal:123
 设值后：子线程获取threadLocal:234
 </code></pre><h3 id="ThreadLocal的应用场景"><a href="#ThreadLocal的应用场景" class="headerlink" title="ThreadLocal的应用场景"></a>ThreadLocal的应用场景</h3><p>1.实现单个线程单例以及单个线程上下文信息存储，比如交易id等</p>
-<p>2.实现对象线程安全，</p>
-<p>3.承载一些线程相关的数据，避免在方法中来回传递参数</p>
+<p>2.实现对象线程安全，例如：数据库连接</p>
+<p>3.承载一些线程相关的数据，避免在方法中来回传递参数。例如：Session管理</p>
 <h3 id="InheritableThreadLocal的应用场景"><a href="#InheritableThreadLocal的应用场景" class="headerlink" title="InheritableThreadLocal的应用场景"></a>InheritableThreadLocal的应用场景</h3><p>1、用户标识</p>
 <p>2、事务标识</p>
 
@@ -610,6 +610,10 @@ public static void main(String[] args){
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/11/java-reference/" rel="prev" title="java-reference">
+                java-reference <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -693,7 +697,7 @@ public static void main(String[] args){
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -715,7 +719,7 @@ public static void main(String[] args){
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -98,15 +98,18 @@
 
 
 
+<meta name="description" content="基于平常很少会看底层的实现，又频繁用到这些，所以简单看一下HashMap中几个主要方法的底层实现： put(K, V) resize(int) get(Object) containsKey(Object) size()">
 <meta name="keywords" content="java，集合">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java-hashmap">
+<meta property="og:title" content="java集合之hashmap">
 <meta property="og:url" content="http://wangwanchao.wang/2018/08/09/java-hashmap/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
+<meta property="og:description" content="基于平常很少会看底层的实现，又频繁用到这些，所以简单看一下HashMap中几个主要方法的底层实现： put(K, V) resize(int) get(Object) containsKey(Object) size()">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-09T10:38:29.323Z">
+<meta property="og:updated_time" content="2018-08-14T15:28:47.071Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java-hashmap">
+<meta name="twitter:title" content="java集合之hashmap">
+<meta name="twitter:description" content="基于平常很少会看底层的实现，又频繁用到这些，所以简单看一下HashMap中几个主要方法的底层实现： put(K, V) resize(int) get(Object) containsKey(Object) size()">
 
 
 
@@ -141,7 +144,7 @@
 
 
 
-  <title>java-hashmap | Wangsir's Blog</title>
+  <title>java集合之hashmap | Wangsir's Blog</title>
   
 
 
@@ -335,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">java-hashmap</h1>
+          <h1 class="post-title" itemprop="name headline">java集合之hashmap</h1>
         
 
         <div class="post-meta">
@@ -418,7 +421,158 @@
       
 
       
-        
+        <p>基于平常很少会看底层的实现，又频繁用到这些，所以简单看一下HashMap中几个主要方法的底层实现：</p>
+<p>put(K, V)</p>
+<p>resize(int)</p>
+<p>get(Object)</p>
+<p>containsKey(Object)</p>
+<p>size()</p>
+<a id="more"></a>
+<h2 id="put-K-V-方法"><a href="#put-K-V-方法" class="headerlink" title="put(K, V)方法"></a>put(K, V)方法</h2><pre><code>public V put(K key, V value) {
+    if (table == EMPTY_TABLE) {
+        inflateTable(threshold);
+    }
+    if (key == null)
+        return putForNullKey(value);
+    // 先对map做一次查找，查看是否包含该元组，如果存在，则直接返回
+    int hash = hash(key);
+    // 返回 h &amp; (table.length-1)
+    int i = indexFor(hash, table.length);
+    for (Entry&lt;K,V&gt; e = table[i]; e != null; e = e.next) {
+        Object k;
+        if (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) {
+            V oldValue = e.value;
+            e.value = value;
+            e.recordAccess(this);
+            return oldValue;
+        }
+    }
+    // 每次对map修改一次，modCount加1
+    modCount++;
+    // i：bucketIndex
+    addEntry(hash, key, value, i);
+    return null;
+}
+
+// 添加
+void addEntry(int hash, K key, V value, int bucketIndex) {
+    if ((size &gt;= threshold) &amp;&amp; (null != table[bucketIndex])) {
+        //自动扩容，并重新哈希
+        resize(2 * table.length);
+        hash = (null != key) ? hash(key) : 0;
+        bucketIndex = indexFor(hash, table.length);
+    }
+
+    createEntry(hash, key, value, bucketIndex);
+}
+
+// 在冲突链表头部插入新的entry
+void createEntry(int hash, K key, V value, int bucketIndex) {
+    Entry&lt;K,V&gt; e = table[bucketIndex];
+    table[bucketIndex] = new Entry&lt;&gt;(hash, key, value, e);
+    size++;
+}
+
+static class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {
+    final K key;
+    V value;
+    Entry&lt;K,V&gt; next;
+    int hash;
+
+    ...
+}
+</code></pre><p>可以看到先通过hash(key)和table.length求得一个下标i，然后去遍历table[i]后面的Entry&lt;K,V&gt;链表,查找是否已经存储过该对象，如果存储过，则返回存储的e.value，并且重新赋值新的value；否则添加Entry</p>
+<p>扩容机制可以看到，如果size &gt; threshold，则执行resize(2 * table.length)，</p>
+<ol>
+<li>在new HashMap()中默认threashold = DEFAULT_INITIAL_CAPACITY=16，否则为自定义值</li>
+<li>在put(K,V)的时候先执行了inflateTable(threshold)，inflateTable中int capacity = roundUpToPowerOf2(toSize)，</li>
+<li>所以inflateTable后现在threshold = capacity*0.75；</li>
+</ol>
+<p>同时可以看到在createEntry中size++，即当元素个数&gt;=0.75capacity时，扩容为2table.length = 2capacity</p>
+<pre><code>private void inflateTable(int toSize) {
+    // Find a power of 2 &gt;= toSize
+    int capacity = roundUpToPowerOf2(toSize);
+
+    threshold = (int) Math.min(capacity * loadFactor, MAXIMUM_CAPACITY + 1);
+    table = new Entry[capacity];
+    initHashSeedAsNeeded(capacity);
+}
+
+private static int roundUpToPowerOf2(int number) {
+    // assert number &gt;= 0 : &quot;number must be non-negative&quot;;
+    return number &gt;= MAXIMUM_CAPACITY
+            ? MAXIMUM_CAPACITY
+            : (number &gt; 1) ? Integer.highestOneBit((number - 1) &lt;&lt; 1) : 1;
+}
+</code></pre><h2 id="resize-int-方法"><a href="#resize-int-方法" class="headerlink" title="resize(int)方法"></a>resize(int)方法</h2><pre><code>void resize(int newCapacity) {
+    Entry[] oldTable = table;
+    int oldCapacity = oldTable.length;
+        threshold = Integer.MAX_VALUE;
+        if (oldCapacity == MAXIMUM_CAPACITY) {
+        return;
+    }
+
+    Entry[] newTable = new Entry[newCapacity];
+
+    // 扩容后进行重hash操作
+    transfer(newTable, initHashSeedAsNeeded(newCapacity));
+    table = newTable;
+    threshold = (int)Math.min(newCapacity * loadFactor, MAXIMUM_CAPACITY + 1);
+}
+
+void transfer(Entry[] newTable, boolean rehash) {
+    int newCapacity = newTable.length;
+
+    // 遍历元素重hash
+    for (Entry&lt;K,V&gt; e : table) {
+        while(null != e) {
+            Entry&lt;K,V&gt; next = e.next;
+            if (rehash) {
+                e.hash = null == e.key ? 0 : hash(e.key);
+            }
+            int i = indexFor(e.hash, newCapacity);
+            e.next = newTable[i];
+            newTable[i] = e;
+            e = next;
+        }
+    }
+}
+</code></pre><p>可以看到在resize后，要对所有的元素重hash进行存储</p>
+<h2 id="get-Object"><a href="#get-Object" class="headerlink" title="get(Object)"></a>get(Object)</h2><pre><code>public V get(Object key) {
+    if (key == null)
+        return getForNullKey();
+    Entry&lt;K,V&gt; entry = getEntry(key);
+
+    return null == entry ? null : entry.getValue();
+}
+
+final Entry&lt;K,V&gt; getEntry(Object key) {
+    if (size == 0) {
+        return null;
+    }
+
+    //先通过hash()函数得到key对应buckets的下标，然后依次遍历冲突链表
+    int hash = (key == null) ? 0 : hash(key);
+    for (Entry&lt;K,V&gt; e = table[indexFor(hash, table.length)];
+         e != null;
+         e = e.next) {
+        Object k;
+        if (e.hash == hash &amp;&amp;
+            ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+            return e;
+    }
+    return null;
+}
+</code></pre><p>可以看到其实查找元素就是先通过hash(key)定位到数组，然后再去遍历数组后的链表</p>
+<h2 id="containsKey-Object"><a href="#containsKey-Object" class="headerlink" title="containsKey(Object)"></a>containsKey(Object)</h2><pre><code>public boolean containsKey(Object key) {
+    return getEntry(key) != null;
+}
+</code></pre><p>可以看到其实containsKey(Object)走的也是一个get(Object)</p>
+<h2 id="size"><a href="#size" class="headerlink" title="size()"></a>size()</h2><pre><code>public int size() {
+    return size;
+}
+</code></pre><p>可以看到HashMap查找长度，其实就是返回了一个属性，Java集合中大多都是返回size属性，不同的是ConcurrentHashMap需要实时去查找。因为ConcurrentHashMap是线程安全的</p>
+
       
     </div>
     
@@ -519,8 +673,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/alifather.jpg"
@@ -535,7 +698,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -628,6 +791,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#put-K-V-方法"><span class="nav-text">put(K, V)方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resize-int-方法"><span class="nav-text">resize(int)方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get-Object"><span class="nav-text">get(Object)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#containsKey-Object"><span class="nav-text">containsKey(Object)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#size"><span class="nav-text">size()</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -774,7 +953,7 @@
         var disqus_config = function () {
           this.page.url = 'http://wangwanchao.wang/2018/08/09/java-hashmap/';
           this.page.identifier = '2018/08/09/java-hashmap/';
-          this.page.title = 'java-hashmap';
+          this.page.title = 'java集合之hashmap';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://wangsirblog.disqus.com/embed.js';

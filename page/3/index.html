@@ -318,6 +318,191 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/07/27/thread-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wanchao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/alifather.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wangsir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/27/thread-1/" itemprop="url">Java并发编程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-27T23:12:48+08:00">
+                2018-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/27/thread-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/27/thread-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>synchronized</p>
+<p>public static void synchronized </p>
+<h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><p>当且仅当满足以下所有条件时，才应该使用volatile变量：</p>
+<p>对变量的写入操作不依赖变量的当前值，或者你能确保只有单个线程更新变量的值；</p>
+<p>该变量不会与其它状态变量一起纳入不变性条件中；</p>
+<p>在访问变量时不需要加锁。</p>
+<p>发布：</p>
+<p>逸出：</p>
+<p>构造过程导致this引用逸出的常见错误：</p>
+<p>1、在构造函数中启动一个线程。在构造函数中创建线程并没有错误，但最好不要立即启动它，而是通过一个sart/initialize方法启动它。</p>
+<p>2、在构造函数中调用一个可改写的实例方法时(既不是私有方法，也不是终结方法)</p>
+<p>如果在构造函数中注册一个事件监听器或者启动线程，那么可以使用一个私有的构造函数和一个公共的工厂方法。</p>
+<p>线程封闭：如果仅在单线程内访问数据，就不需要同步，这种技术被称为线程封闭</p>
+<p>应用场景：</p>
+<blockquote>
+<p>在Swing中大量使用</p>
+<p>JDBC的Connection对象</p>
+</blockquote>
+<p>1、Ad-hoc线程封闭：维护线程封闭性的职责完全由程序来承担</p>
+<p>Demo:</p>
+<p>2、栈封闭：将对象封闭在栈内，只能通过局部变量才能访问</p>
+<p>Demo:</p>
+<p>3、TreadLocal类:</p>
+<p>场景：</p>
+<blockquote>
+<p>通常用于防止对可变的单实例变量、全局变量进行共享</p>
+</blockquote>
+<p>Demo:</p>
+<pre><code>private static ThreadLocal&lt;Connection&gt; connection = new ThreadLocal&lt;Connection&gt;(){};
+</code></pre><h2 id="同步工具类"><a href="#同步工具类" class="headerlink" title="同步工具类"></a>同步工具类</h2><p>闭锁(CountdownLatch)：</p>
+<p>FutureTask</p>
+<p>信号量(Semphore):</p>
+<p>栅栏(CyclicBarrier):</p>
+<h3 id="基本的任务排队方法"><a href="#基本的任务排队方法" class="headerlink" title="基本的任务排队方法"></a>基本的任务排队方法</h3><p>1、无界队列</p>
+<p>2、有界队列</p>
+<p>3、同步移交</p>
+<p>SynchronousQueue</p>
+<p>ArrayBlockingQueue</p>
+<p>LinkedBlockingQueue</p>
+<p>PriorityBlockingQueue</p>
+<h3 id="饱和策略"><a href="#饱和策略" class="headerlink" title="饱和策略"></a>饱和策略</h3><p>AbortPolicy</p>
+<p>CallerRunsPolicy</p>
+<p>DiscardPolicy</p>
+<p>DiscardOldestPolicy</p>
+<h2 id=""><a href="#" class="headerlink" title="#"></a>#</h2><p>Synchronized和ReentrantLock</p>
+<p>独占锁和读写锁(ReentrantReadWriteLock/ReadWriteLock)</p>
+<p>ConcurrentHashMap(ConcurrentMap)</p>
+<h2 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h2><p>基于AQS实现的类：</p>
+<p>CountDownLatch</p>
+<p>Semaphore</p>
+<p>FutureTask</p>
+<p>SynchronousQueue</p>
+<p>ReentrantLock</p>
+<p>ReentrantReadWriteLock</p>
+<h2 id="原子变量与非阻塞同步机制"><a href="#原子变量与非阻塞同步机制" class="headerlink" title="原子变量与非阻塞同步机制"></a>原子变量与非阻塞同步机制</h2><h2 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h2><p>Happens-Before原则：</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/07/27/cdn-base/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1657,145 +1842,6 @@ public class AutoconfigDemoTestApplication {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/05/06/class-interface/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wanchao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/alifather.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wangsir's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/06/class-interface/" itemprop="url">类和接口</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T10:23:45+08:00">
-                2018-05-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/05/06/class-interface/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/06/class-interface/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="第14条"><a href="#第14条" class="headerlink" title="第14条"></a>第14条</h4><p>退化类：</p>
-<p>改进：</p>
-<p>(1)如果类可以在它所在的包外部进行访问，就提供访问方法，以保留将来改变该类的内部表示法的灵活性(但是如果域是不可变的final,直接public暴露)</p>
-<p>反例：java.awt.Point/Dimension类</p>
-<p>(2)如果类是包级私有的，或是私有的嵌套类，可以直接暴露它的数据域</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/06/class-interface/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1846,7 +1892,7 @@ public class AutoconfigDemoTestApplication {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

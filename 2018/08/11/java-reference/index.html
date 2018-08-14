@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="java, jvm," />
 
 
 
@@ -98,14 +98,18 @@
 
 
 
+<meta name="description" content="强引用只要强引用还存在，垃圾回收器永远不会回收被引用的对象 Object obj = new Object()">
+<meta name="keywords" content="java, jvm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java-reference">
+<meta property="og:title" content="java中的引用类型">
 <meta property="og:url" content="http://wangwanchao.wang/2018/08/11/java-reference/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
+<meta property="og:description" content="强引用只要强引用还存在，垃圾回收器永远不会回收被引用的对象 Object obj = new Object()">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-11T03:58:29.320Z">
+<meta property="og:updated_time" content="2018-08-14T04:01:30.909Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java-reference">
+<meta name="twitter:title" content="java中的引用类型">
+<meta name="twitter:description" content="强引用只要强引用还存在，垃圾回收器永远不会回收被引用的对象 Object obj = new Object()">
 
 
 
@@ -140,7 +144,7 @@
 
 
 
-  <title>java-reference | Wangsir's Blog</title>
+  <title>java中的引用类型 | Wangsir's Blog</title>
   
 
 
@@ -334,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">java-reference</h1>
+          <h1 class="post-title" itemprop="name headline">java中的引用类型</h1>
         
 
         <div class="post-meta">
@@ -356,6 +360,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -395,7 +421,16 @@
       
 
       
-        
+        <h2 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h2><p>只要强引用还存在，垃圾回收器永远不会回收被引用的对象</p>
+<p>Object obj = new Object()</p>
+<a id="more"></a>
+<h2 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h2><p>在系统发生内存溢出之前，将会把这些对象列进回收范围进行第二次回收</p>
+<p>JDK1.2+的SoftReference</p>
+<h2 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h2><p>比软引用更弱一些，当垃圾收集器工作时，无论当前内存是否足够，都会回收只被弱引用关联的对象</p>
+<p>JDK1.2+的WeakReference</p>
+<h2 id="虚引用-幽灵引用-幻影引用"><a href="#虚引用-幽灵引用-幻影引用" class="headerlink" title="虚引用(幽灵引用/幻影引用)"></a>虚引用(幽灵引用/幻影引用)</h2><p>它是最弱的一种引用，一个对象即使有虚引用，也会被回收。为对象设置虚引用的目的就是在这个对象被收集器回收时收到一个系统通知</p>
+<p>JDK1.2+的PhantomReference</p>
+
       
     </div>
     
@@ -409,6 +444,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java-jvm/" rel="tag"># java, jvm</a>
+          
+        </div>
       
 
       
@@ -490,8 +531,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/alifather.jpg"
@@ -528,7 +578,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -599,6 +649,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#强引用"><span class="nav-text">强引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软引用"><span class="nav-text">软引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弱引用"><span class="nav-text">弱引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚引用-幽灵引用-幻影引用"><span class="nav-text">虚引用(幽灵引用/幻影引用)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -745,7 +811,7 @@
         var disqus_config = function () {
           this.page.url = 'http://wangwanchao.wang/2018/08/11/java-reference/';
           this.page.identifier = '2018/08/11/java-reference/';
-          this.page.title = 'java-reference';
+          this.page.title = 'java中的引用类型';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://wangsirblog.disqus.com/embed.js';

@@ -813,6 +813,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -852,29 +874,20 @@
 
       
         
-          
-            <h2 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h2><p>设计原则：要依赖抽象，不要依赖具体类</p>
+          <h2 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h2><p>设计原则：要依赖抽象，不要依赖具体类</p>
 <p>避免违反依赖倒置原则的建议：</p>
 <blockquote>
 <p>变量不可以持有具体类的引用</p>
 <p>不要让类派生自具体类</p>
 <p>不要覆盖基类中已实现的方法</p>
 </blockquote>
-<h2 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h2><p>Spring的BeanFactory</p>
-<h2 id="建设者模式-生成器模式"><a href="#建设者模式-生成器模式" class="headerlink" title="建设者模式/生成器模式"></a>建设者模式/生成器模式</h2><p>Spring中BeanDefinitionBuilder</p>
-<h2 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h2><p>Spring中ProxyFactoryBean</p>
-<h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><p>设计原则：针对接口编程，而不是针对实现编程</p>
-<p>spring中MethodNameResolver + ParameterMethodNameResolver</p>
-<h2 id="模板方法模式"><a href="#模板方法模式" class="headerlink" title="模板方法模式"></a>模板方法模式</h2><p>Spring中AbstractApplicationCOntext.obtainFreshBeanFactory、refreshBeanFactory、getBeanFactory + GenericApplicationContext</p>
-<h2 id="策略、模板、状态3中设计模式的对比"><a href="#策略、模板、状态3中设计模式的对比" class="headerlink" title="策略、模板、状态3中设计模式的对比"></a>策略、模板、状态3中设计模式的对比</h2><h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><p>Spring中bean的作用域scope=”prototype”</p>
-<p>优点：</p>
-<p>向客户隐藏制造新实例的复杂性</p>
-<p>提供客户能够产生未知类型实例对象的选项</p>
-<p>在某些环境下，复制对象比创建新对象更有效</p>
-<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>Spring中AbstractApplicationContext.addApplicationListener + ApplicationListener + ApplicationEventMulticaster</p>
-<h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><p>Spring中AOP使用load-time-weaving针对AspectJ、CGLIB使用不同的逻辑</p>
-<h2 id="装饰者模式"><a href="#装饰者模式" class="headerlink" title="装饰者模式"></a>装饰者模式</h2><h2 id="适配器模式、装饰者模式的区别"><a href="#适配器模式、装饰者模式的区别" class="headerlink" title="适配器模式、装饰者模式的区别"></a>适配器模式、装饰者模式的区别</h2>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/12/spring-design-pattern/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -940,7 +953,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/11/java-reference/" itemprop="url">java-reference</a></h1>
+                <a class="post-title-link" href="/2018/08/11/java-reference/" itemprop="url">java中的引用类型</a></h1>
         
 
         <div class="post-meta">
@@ -962,6 +975,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1002,9 +1037,15 @@
 
       
         
-          
-            
-          
+          <h2 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h2><p>只要强引用还存在，垃圾回收器永远不会回收被引用的对象</p>
+<p>Object obj = new Object()</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/11/java-reference/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1904,7 +1945,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

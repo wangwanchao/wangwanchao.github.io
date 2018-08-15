@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="java, jvm," />
+  <meta name="keywords" content="java, 集合," />
 
 
 
@@ -98,18 +98,18 @@
 
 
 
-<meta name="description" content="gc算法1.标记-清除算法(Mark-Sweep): 缺点：  效率不高 产生大量不连续的内存碎片">
-<meta name="keywords" content="java, jvm">
+<meta name="description" content="集合的东西是很常用的类，今天抽时间看看源码，加深印象">
+<meta name="keywords" content="java, 集合">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jvm垃圾回收器">
-<meta property="og:url" content="http://wangwanchao.wang/2018/08/07/java-jvm-gc/index.html">
+<meta property="og:title" content="java集合之ArrayList和LinkedList">
+<meta property="og:url" content="http://wangwanchao.wang/2018/08/15/java-list/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
-<meta property="og:description" content="gc算法1.标记-清除算法(Mark-Sweep): 缺点：  效率不高 产生大量不连续的内存碎片">
+<meta property="og:description" content="集合的东西是很常用的类，今天抽时间看看源码，加深印象">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-09T09:17:28.704Z">
+<meta property="og:updated_time" content="2018-08-15T14:58:09.417Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jvm垃圾回收器">
-<meta name="twitter:description" content="gc算法1.标记-清除算法(Mark-Sweep): 缺点：  效率不高 产生大量不连续的内存碎片">
+<meta name="twitter:title" content="java集合之ArrayList和LinkedList">
+<meta name="twitter:description" content="集合的东西是很常用的类，今天抽时间看看源码，加深印象">
 
 
 
@@ -138,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://wangwanchao.wang/2018/08/07/java-jvm-gc/"/>
+  <link rel="canonical" href="http://wangwanchao.wang/2018/08/15/java-list/"/>
 
 
 
 
 
-  <title>jvm垃圾回收器 | Wangsir's Blog</title>
+  <title>java集合之ArrayList和LinkedList | Wangsir's Blog</title>
   
 
 
@@ -321,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/08/07/java-jvm-gc/">
+    <link itemprop="mainEntityOfPage" href="http://wangwanchao.wang/2018/08/15/java-list/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wanchao">
@@ -338,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">jvm垃圾回收器</h1>
+          <h1 class="post-title" itemprop="name headline">java集合之ArrayList和LinkedList</h1>
         
 
         <div class="post-meta">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T22:09:54+08:00">
-                2018-08-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-15T18:15:54+08:00">
+                2018-08-15
               </time>
             
 
@@ -391,9 +391,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/07/java-jvm-gc/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/15/java-list/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/07/java-jvm-gc/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/15/java-list/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -421,121 +421,247 @@
       
 
       
-        <h2 id="gc算法"><a href="#gc算法" class="headerlink" title="gc算法"></a>gc算法</h2><p>1.标记-清除算法(Mark-Sweep):</p>
-<p>缺点：</p>
-<blockquote>
-<p>效率不高</p>
-<p>产生大量不连续的内存碎片</p>
-</blockquote>
+        <p>集合的东西是很常用的类，今天抽时间看看源码，加深印象</p>
 <a id="more"></a>
-<p>2.复制算法</p>
-<p>优点：</p>
-<blockquote>
-<p>实现简单，运行高效</p>
-</blockquote>
-<p>缺点：</p>
-<blockquote>
-<p>内存浪费</p>
-</blockquote>
-<p>商业用例：</p>
-<pre><code>Eden:Survivor = 8:1
-</code></pre><p>3.标记-整理算法/标记-压缩算法</p>
-<p>4.分代收集算法</p>
-<blockquote>
-<p>新生代：复制算法</p>
-<p>老年代：标记-清除/标记-整理</p>
-</blockquote>
-<h3 id="案例分析：HotSpot的实现"><a href="#案例分析：HotSpot的实现" class="headerlink" title="案例分析：HotSpot的实现"></a>案例分析：HotSpot的实现</h3><p>1.枚举根节点</p>
-<p>2.安全点</p>
-<p>3.安全区域</p>
-<h2 id="gc回收器"><a href="#gc回收器" class="headerlink" title="gc回收器"></a>gc回收器</h2><p>常用的参数</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>UseSerialGC</td>
-<td style="text-align:center">client模式下的默认值，Serial + Serial Old收集器</td>
-</tr>
-<tr>
-<td>UseParallelGC</td>
-<td style="text-align:center">Server模式下的默认值，Parallel Scavenge + Serial Old收集器</td>
-</tr>
-</tbody>
-</table>
-<p>1.Serial</p>
-<p>2.ParNew</p>
-<p>3.Parallel Scavenge</p>
-<p>4.Serial Old</p>
-<p>5.Parallel Old</p>
-<p>6.CMS(并发低停顿收集器), 基于标记-清除算法</p>
-<p>目标：以获取最短回收停顿时间</p>
-<p>原理：</p>
-<blockquote>
-<p>初始标记</p>
-<p>并发标记</p>
-<p>重新标记</p>
-<p>并发清除</p>
-</blockquote>
-<p>优点：</p>
-<p>缺点：</p>
-<blockquote>
-<p>对CPU资源非常敏感</p>
-<p>无法处理浮动垃圾</p>
-<p>产生大量空间碎片</p>
-</blockquote>
-<p>7.G1</p>
-<p>目标：</p>
-<p>原理：</p>
-<blockquote>
-<p>概念：<br>优先列表</p>
-<p>Region</p>
-<p>Remembered Set</p>
-<p>Write Barrier</p>
-<p>CarTable</p>
-</blockquote>
-<blockquote>
-<p>初始标记</p>
-<p>并发标记</p>
-<p>最终标记</p>
-<p>筛选回收</p>
-</blockquote>
-<p>优点：</p>
-<blockquote>
-<p>并行与并发</p>
-<p>分代收集</p>
-<p>空间整合：与CMS的标记-清除算法不同，G1整理看是标记-整理算法，局部(Region)看则是复制算法，不会产生内存碎片。</p>
-<p>可预测的停顿：这是G1相比CMS的一大优势，降低停顿时间时G1和CMS共同的关注点，但G1除了追求低停顿，还能建立可预测的停顿时间模型</p>
-</blockquote>
-<p>缺点：</p>
-<h2 id="内存分配、回收策略"><a href="#内存分配、回收策略" class="headerlink" title="内存分配、回收策略"></a>内存分配、回收策略</h2><p>Minor GC: 指发生在新生代的垃圾回收动作</p>
-<p>Full GC/Major GC: 指发生在老年代的GC，出现Full GC，经常会伴随至少一次Minor GC;</p>
-<p>1、对象优先在新生代Eden区分配，当Eden区没有足够空间进行分配时，虚拟机将发起一次Minor GC</p>
-<p>2、大对象直接进入老年代。大对象典型的就是那些很长的字符串、数组</p>
-<p>参数-XX:PretenureSizeThreshold可以设定大对象的标准</p>
-<p>3、长期存活的对象将进入老年代(默认是15岁)</p>
-<p>Eden区对象经过Minor GC后，年龄增1，然后在Survivor每经历一次Minor GC，年龄增长1，达到指定年龄，进入老年代</p>
-<p>参数-XX:MaxTenuringThreshold</p>
-<p>4、动态年龄判定</p>
-<p>如果在Survivor区，相同年龄的所有对象大小总和大于Survivor空间的一半，年龄大于等于该年龄的对象可以直接进入老年代。【可以破坏规则3】</p>
-<p>5、空间分配担保</p>
-<h3 id="GC触发"><a href="#GC触发" class="headerlink" title="GC触发"></a>GC触发</h3><p>Minor GC触发条件：</p>
-<blockquote>
-<p>Eden区没有足够空间分配时，触发</p>
-</blockquote>
-<p>Full GC触发条件：</p>
-<blockquote>
-<p>显式调用System.gc()时</p>
-<p>方法区空间不足</p>
-<p>老年代空间不足</p>
-<p>Eden区对象执行Minor GC后，进入老年代的所有对象和大于老年代可用内存时，触发Full GC</p>
-<p>Eden + From执行Minor GC时，如果存活对象大于To内存区，则直接进入老年代，如果老年代的可用内存小于该对象，则触发Full GC</p>
-</blockquote>
-<p><strong>注意:</strong>jdk1.6_24之后，只要老年代的连续空间大于新生代对象总大小或者历次晋升的平均大小，就会执行Minor GC,否则进行Full GC</p>
+<h1 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h1><p>可以看到ArrayList的默认初始化大小为10，</p>
+<pre><code>private static final int DEFAULT_CAPACITY = 10;
+</code></pre><h2 id="插入元素"><a href="#插入元素" class="headerlink" title="插入元素"></a>插入元素</h2><h3 id="add-E-e"><a href="#add-E-e" class="headerlink" title="add(E e)"></a>add(E e)</h3><pre><code>public boolean add(E e) {
+    // 扩容机制，
+    ensureCapacityInternal(size + 1);  // Increments modCount!!
+
+    // 直接在数组末尾插入元素
+    elementData[size++] = e;
+    return true;
+}
+
+// 扩容
+private void ensureCapacityInternal(int minCapacity) {
+    if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
+        minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);
+    }
+
+    ensureExplicitCapacity(minCapacity);
+}
+
+private void ensureExplicitCapacity(int minCapacity) {
+    modCount++;
+
+    // overflow-conscious code
+    if (minCapacity - elementData.length &gt; 0)
+        grow(minCapacity);
+}
+
+private void grow(int minCapacity) {
+    // overflow-conscious code
+    int oldCapacity = elementData.length;
+    int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);
+    if (newCapacity - minCapacity &lt; 0)
+        newCapacity = minCapacity;
+    if (newCapacity - MAX_ARRAY_SIZE &gt; 0)
+        newCapacity = hugeCapacity(minCapacity);
+    // minCapacity is usually close to size, so this is a win:
+    elementData = Arrays.copyOf(elementData, newCapacity);
+}
+</code></pre><h3 id="add-int-index-E-element"><a href="#add-int-index-E-element" class="headerlink" title="add(int index, E element)"></a>add(int index, E element)</h3><pre><code>public void add(int index, E element) {
+    rangeCheckForAdd(index);
+
+    ensureCapacityInternal(size + 1);  // Increments modCount!!
+    System.arraycopy(elementData, index, elementData, index + 1,
+                     size - index);
+    elementData[index] = element;
+    size++;
+}
+</code></pre><p>可以看到在指定位置index插入元素的时候才会导致元素的移动</p>
+<h2 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h2><pre><code>public E get(int index) {
+    rangeCheck(index);
+
+    return elementData(index);
+}
+
+@SuppressWarnings(&quot;unchecked&quot;)
+E elementData(int index) {
+    return (E) elementData[index];
+}
+</code></pre><p>时间复杂度为O(1)</p>
+<h2 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h2><h3 id="remove-int-index"><a href="#remove-int-index" class="headerlink" title="remove(int index)"></a>remove(int index)</h3><pre><code>public E remove(int index) {
+    rangeCheck(index);
+
+    modCount++;
+    E oldValue = elementData(index);
+
+    // 向前移动的元素的位置
+    int numMoved = size - index - 1;
+    if (numMoved &gt; 0)
+        System.arraycopy(elementData, index+1, elementData, index,
+                         numMoved);
+    elementData[--size] = null; // clear to let GC do its work
+
+    return oldValue;
+}
+
+// 原生方法
+public static native void arraycopy(Object src,  int  srcPos,
+                                    Object dest, int destPos,
+                                    int length);
+</code></pre><p>可以看到删除指定index的元素后，后面的所有元素向前移动。时间复杂度为O(n)</p>
+<h3 id="remove-Object-o"><a href="#remove-Object-o" class="headerlink" title="remove(Object o)"></a>remove(Object o)</h3><pre><code>public boolean remove(Object o) {
+    if (o == null) {
+        for (int index = 0; index &lt; size; index++)
+            if (elementData[index] == null) {
+                fastRemove(index);
+                return true;
+            }
+    } else {
+        for (int index = 0; index &lt; size; index++)
+            if (o.equals(elementData[index])) {
+                fastRemove(index);
+                return true;
+            }
+    }
+    return false;
+}
+
+private void fastRemove(int index) {
+    modCount++;
+    int numMoved = size - index - 1;
+    if (numMoved &gt; 0)
+        System.arraycopy(elementData, index+1, elementData, index,
+                         numMoved);
+    elementData[--size] = null; // clear to let GC do its work
+}
+</code></pre><p>删除指定对象Object的元素，也会导致后面的元素向前移动，只不过中间多了对象的比较过程，时间复杂度为O(n)</p>
+<h1 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h1><h2 id="插入元素-1"><a href="#插入元素-1" class="headerlink" title="插入元素"></a>插入元素</h2><h3 id="add-E-e-1"><a href="#add-E-e-1" class="headerlink" title="add(E e)"></a>add(E e)</h3><pre><code>// 在链表末尾插入元素
+public boolean add(E e) {
+    linkLast(e);
+    return true;
+}
+
+// 尾插法
+void linkLast(E e) {
+    final Node&lt;E&gt; l = last;
+    final Node&lt;E&gt; newNode = new Node&lt;&gt;(l, e, null);
+    last = newNode;
+    if (l == null)
+        //初始链表为空，这是插入第一个元素
+        first = newNode;
+    else
+        l.next = newNode;
+    size++;
+    modCount++;
+}
+</code></pre><p>插入元素默认为尾插法，所以时间复杂度为O(1)</p>
+<h3 id="add-int-index-E-element-1"><a href="#add-int-index-E-element-1" class="headerlink" title="add(int index, E element)"></a>add(int index, E element)</h3><pre><code>public void add(int index, E element) {
+    // 检查插入位置是否合法
+    checkPositionIndex(index);
+
+    if (index == size)
+        // 插入位置是末尾，包括列表为空的情况
+        linkLast(element);
+    else
+        linkBefore(element, node(index));
+}
+
+void linkBefore(E e, Node&lt;E&gt; succ) {
+    // 先根据index找到要插入的位置，再修改引用，完成插入操作
+    final Node&lt;E&gt; pred = succ.prev;
+    final Node&lt;E&gt; newNode = new Node&lt;&gt;(pred, e, succ);
+    succ.prev = newNode;
+    // 插入位置为0，即插入第一个节点
+    if (pred == null)
+        first = newNode;
+    else
+        pred.next = newNode;
+    size++;
+    modCount++;
+}
+</code></pre><p>如果指定index，仍然需要去遍历链表，时间复杂度为O(n)</p>
+<h2 id="修改元素"><a href="#修改元素" class="headerlink" title="修改元素"></a>修改元素</h2><pre><code>public E set(int index, E element) {
+    checkElementIndex(index);
+
+    // 先找到指定位置节点
+    Node&lt;E&gt; x = node(index);
+    E oldVal = x.item;
+    x.item = element;
+
+    // 修改元素后返回旧值
+    return oldVal;
+}
+</code></pre><p>修改元素也是先找到节点，然后修改value，时间复杂度为O(n)</p>
+<h2 id="查找元素-1"><a href="#查找元素-1" class="headerlink" title="查找元素"></a>查找元素</h2><pre><code>public E get(int index) {
+    checkElementIndex(index);
+    return node(index).item;
+}
+
+// 因为链表是双向的，具体从开始往后找还是从后往前找需要判断
+Node&lt;E&gt; node(int index) {
+    // assert isElementIndex(index);
+
+    if (index &lt; (size &gt;&gt; 1)) {
+        Node&lt;E&gt; x = first;
+        for (int i = 0; i &lt; index; i++)
+            x = x.next;
+        return x;
+    } else {
+        Node&lt;E&gt; x = last;
+        for (int i = size - 1; i &gt; index; i--)
+            x = x.prev;
+        return x;
+    }
+}
+</code></pre><p>查找index的元素，需要遍历链表，时间复杂度为O(n)</p>
+<h2 id="删除元素-1"><a href="#删除元素-1" class="headerlink" title="删除元素"></a>删除元素</h2><h3 id="remove-int-index-1"><a href="#remove-int-index-1" class="headerlink" title="remove(int index)"></a>remove(int index)</h3><pre><code>public E remove(int index) {
+    checkElementIndex(index);
+    return unlink(node(index));
+}
+
+E unlink(Node&lt;E&gt; x) {
+    // assert x != null;
+    final E element = x.item;
+    final Node&lt;E&gt; next = x.next;
+    final Node&lt;E&gt; prev = x.prev;
+
+    if (prev == null) {
+        first = next;
+    } else {
+        prev.next = next;
+        x.prev = null;
+    }
+
+    if (next == null) {
+        last = prev;
+    } else {
+        next.prev = prev;
+        x.next = null;
+    }
+
+    x.item = null;
+    size--;
+    modCount++;
+    return element;
+}
+</code></pre><h3 id="remove-Object-o-1"><a href="#remove-Object-o-1" class="headerlink" title="remove(Object o)"></a>remove(Object o)</h3><pre><code>public boolean remove(Object o) {
+    if (o == null) {
+        for (Node&lt;E&gt; x = first; x != null; x = x.next) {
+            if (x.item == null) {
+                unlink(x);
+                return true;
+            }
+        }
+    } else {
+        for (Node&lt;E&gt; x = first; x != null; x = x.next) {
+            if (o.equals(x.item)) {
+                unlink(x);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+</code></pre><p>可以看到删除元素，也会先遍历查找到节点，然后再删除，时间复杂度为O(n)。</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>从源码可以看出<br>1、 get(int index)、set(int index, E element)，ArrayList明显快于LinkedList，因为LinkedList需要移动指针</p>
+<p>2、add(E) ArrayList和LinkedList都是直接插入尾部</p>
+<p>3、add(int index, E element) ArrayList需要移动后面的元素，LinkedList需要遍历指针(需要具体分析)</p>
+<p>4、remove(int index)/remove(Object o) ArrayList需要移动后面的元素，LinkedList需要遍历指针(需要具体分析)</p>
 
       
     </div>
@@ -553,7 +679,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java-jvm/" rel="tag"># java, jvm</a>
+            <a href="/tags/java-集合/" rel="tag"># java, 集合</a>
           
         </div>
       
@@ -566,8 +692,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/07/java-jvm/" rel="next" title="java-jvm">
-                <i class="fa fa-chevron-left"></i> java-jvm
+              <a href="/2018/08/14/java-concurrenthashmap/" rel="next" title="java集合之ConcurrentHashMap">
+                <i class="fa fa-chevron-left"></i> java集合之ConcurrentHashMap
               </a>
             
           </div>
@@ -576,8 +702,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/07/java-jvm-cmd/" rel="prev" title="JVM虚拟机命令详解">
-                JVM虚拟机命令详解 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/15/java-treemap/" rel="prev" title="java-treemap">
+                java-treemap <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -765,7 +891,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gc算法"><span class="nav-text">gc算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#案例分析：HotSpot的实现"><span class="nav-text">案例分析：HotSpot的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gc回收器"><span class="nav-text">gc回收器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存分配、回收策略"><span class="nav-text">内存分配、回收策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GC触发"><span class="nav-text">GC触发</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ArrayList"><span class="nav-text">ArrayList</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#插入元素"><span class="nav-text">插入元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#add-E-e"><span class="nav-text">add(E e)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-int-index-E-element"><span class="nav-text">add(int index, E element)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找元素"><span class="nav-text">查找元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除元素"><span class="nav-text">删除元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#remove-int-index"><span class="nav-text">remove(int index)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove-Object-o"><span class="nav-text">remove(Object o)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LinkedList"><span class="nav-text">LinkedList</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#插入元素-1"><span class="nav-text">插入元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#add-E-e-1"><span class="nav-text">add(E e)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-int-index-E-element-1"><span class="nav-text">add(int index, E element)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改元素"><span class="nav-text">修改元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找元素-1"><span class="nav-text">查找元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除元素-1"><span class="nav-text">删除元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#remove-int-index-1"><span class="nav-text">remove(int index)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove-Object-o-1"><span class="nav-text">remove(Object o)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-text">总结：</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -915,9 +1041,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://wangwanchao.wang/2018/08/07/java-jvm-gc/';
-          this.page.identifier = '2018/08/07/java-jvm-gc/';
-          this.page.title = 'jvm垃圾回收器';
+          this.page.url = 'http://wangwanchao.wang/2018/08/15/java-list/';
+          this.page.identifier = '2018/08/15/java-list/';
+          this.page.title = 'java集合之ArrayList和LinkedList';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://wangsirblog.disqus.com/embed.js';

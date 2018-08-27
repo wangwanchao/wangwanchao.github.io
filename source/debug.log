@@ -1,0 +1,15 @@
+{"name":"hexo","hostname":"GGGGEEK","pid":24740,"level":20,"msg":"Hexo version: 3.6.0","time":"2018-04-15T03:59:47.530Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":24740,"level":20,"msg":"Working directory: F:\\www.wangwanchao.wang\\hexo\\","time":"2018-04-15T03:59:47.534Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":24740,"level":20,"msg":"Config loaded: F:\\www.wangwanchao.wang\\hexo\\_config.yml","time":"2018-04-15T03:59:47.654Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":24740,"level":20,"msg":"Plugin loaded: hexo-generator-index","time":"2018-04-15T03:59:47.669Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":24740,"level":20,"msg":"Plugin loaded: hexo-generator-category","time":"2018-04-15T03:59:47.672Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":24740,"level":20,"msg":"Plugin loaded: hexo-deployer-git","time":"2018-04-15T03:59:47.704Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":24740,"level":20,"msg":"Plugin loaded: hexo-generator-tag","time":"2018-04-15T03:59:47.706Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":24740,"level":20,"msg":"Plugin loaded: hexo-generator-archive","time":"2018-04-15T03:59:47.709Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":24740,"level":20,"msg":"Plugin loaded: hexo-renderer-marked","time":"2018-04-15T03:59:47.715Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":24740,"level":20,"msg":"Plugin loaded: hexo-renderer-stylus","time":"2018-04-15T03:59:47.716Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":24740,"level":20,"msg":"Plugin loaded: hexo-renderer-ejs","time":"2018-04-15T03:59:47.719Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":24740,"level":20,"msg":"Plugin loaded: hexo-server","time":"2018-04-15T03:59:47.808Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":24740,"level":20,"msg":"Database saved","time":"2018-04-15T03:59:47.813Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":19564,"level":50,"msg":"Local hexo not found in F:\\www.wangwanchao.wang\\hexo","time":"2018-04-15T15:30:44.835Z","v":0}
+{"name":"hexo","hostname":"GGGGEEK","pid":19564,"level":50,"msg":"Try running: 'npm install hexo --save'","time":"2018-04-15T15:30:44.836Z","v":0}

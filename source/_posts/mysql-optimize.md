@@ -9,6 +9,16 @@ MySQL优化，把项目中常用的总结出来，形成方法论的东西。
 
 <!-- more -->
 
+## 库表结构设计优化 ##
+
+
+
+
+
+## 索引优化 ##
+
+## 查询优化 ##
+
 ### LIKE ###
 
 	SELECT column FROM table WHERE field LIKE '%keyword%';
@@ -29,8 +39,6 @@ MySQL优化，把项目中常用的总结出来，形成方法论的东西。
 4. FIND_IN_SET('substr', field)
 
 
-### IN、NOT IN ###
-
 
 ### int/datetime/timstamp时间存储
 
@@ -49,5 +57,6 @@ MySQL优化，把项目中常用的总结出来，形成方法论的东西。
 对于InnoDB引擎，建立索引的情况下，效率从高到低：
 
 	int > datetime（直接和时间比较） > timestamp（直接和时间比较）> UNIX_TIMESTAMP(timestamp) > UNIX_TIMESTAMP(datetime)。
+
 
 

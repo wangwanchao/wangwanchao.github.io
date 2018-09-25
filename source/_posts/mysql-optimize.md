@@ -19,7 +19,7 @@ MySQL优化，把项目中常用的总结出来，形成方法论的东西。
 
 ## 查询优化 ##
 
-### LIKE ###
+### 1、LIKE ###
 
 	SELECT column FROM table WHERE field LIKE '%keyword%';
 
@@ -40,7 +40,11 @@ MySQL优化，把项目中常用的总结出来，形成方法论的东西。
 
 
 
-### int/datetime/timstamp时间存储
+### 2、IN、NOT IN ###
+
+
+
+### 3、int/datetime/timstamp时间存储
 
 对于MyISAM引擎，不建立索引的情况下（推荐），效率从高到低：
 
@@ -57,6 +61,11 @@ MySQL优化，把项目中常用的总结出来，形成方法论的东西。
 对于InnoDB引擎，建立索引的情况下，效率从高到低：
 
 	int > datetime（直接和时间比较） > timestamp（直接和时间比较）> UNIX_TIMESTAMP(timestamp) > UNIX_TIMESTAMP(datetime)。
+	
+
+### 4、固定长度的表更快
+
+避免VARCHAR、TEXT、BLOB字段
 
 
 

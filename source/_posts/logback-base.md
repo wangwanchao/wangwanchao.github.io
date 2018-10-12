@@ -6,7 +6,7 @@ categories: logback
 ---
 以前写过关于logging4j的配置，后来用logback，也没仔细分析过，在工作中遇到不同的用法，就来分析一下。
 
-刚开始常用的是：其实这是最正规的写法
+1、刚开始常用的是：其实这是最正规的写法
 
 	logger.debug("massage:{}, code:{}", msg, code)
 	
@@ -20,6 +20,12 @@ categories: logback
 		logger.debug("massage:{}" + msg + "code:{}" + code)
 	}
 
+2、开始使用
+
+	private final Logger logger = LoggerFactory.getLogger(xxx.class);
+	
+使用Lombok和注解@Slf4j可以省略原始代码
+
 
 <!-- more -->
 
@@ -29,7 +35,7 @@ categories: logback
 
 1. root 所有logger的祖先
 2. logger 所有logger之间根据name命名构成父子关系
-3. appender 日志可以打印到console、file、logstash，additivity标签用于控制日志打印
+3. appender 日志可以打印到console、file、mysql、logstash，additivity标签用于控制日志打印
 4. ContextName 
 5. ContextListener
 6. 变量 可以指定默认值 ${fileName:-logback.log}
@@ -101,7 +107,7 @@ Logback整合Spring boot，有两种配置方式：
 logging:
     file:   # 日志文件,绝对路径或相对路径
     #path:   # 保存日志文件目录路径 file和path两者二选一
-    config: # 日志配置文件,Spring Boot默认使用classpath路径下的日志配置文件,如:logback.xml
+    config: # 日志配置文件,Spring Boot默认使用classpath路径下的日志配置文件,如:logback.xml、logback-spring.xml
     level:  # 日志级别
         root: info
         org.springframework.web: DEBUG # 配置spring web日志级别，类似于logger标签

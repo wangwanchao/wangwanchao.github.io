@@ -1,8 +1,8 @@
 ---
 title: mysql优化
 date: 2018-09-14 00:23:08
-tags: mysql
-categories: mysql
+tags: MySQL
+categories: MySQL
 ---
 MySQL优化，把项目中常用的总结出来，形成方法论的东西。
 

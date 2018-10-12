@@ -1,8 +1,8 @@
 ---
 title: mysql中的锁lock
 date: 2018-08-07 01:04:31
-tags: mysql
-categories: mysql
+tags: MySQL
+categories: MySQL
 ---
 
 ## 锁的分类 ##

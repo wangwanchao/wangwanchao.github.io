@@ -1,8 +1,8 @@
 ---
 title: mysql主从复制
 date: 2018-08-08 22:17:15
-tags: mysql,
-categories: mysql
+tags: MySQL,
+categories: MySQL
 ---
 ## 主要解决的问题： ##
 

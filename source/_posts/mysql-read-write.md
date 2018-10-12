@@ -1,8 +1,8 @@
 ---
 title: mysql读写分离机制
 date: 2018-09-08 22:18:37
-tags: mysql
-categories: mysql
+tags: MySQL
+categories: MySQL
 ---
 
 MySQL读写分离

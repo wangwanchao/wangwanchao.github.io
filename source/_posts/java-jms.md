@@ -6,12 +6,11 @@ categories: java
 ---
 开发中多多少少接触过一些消息队列，但是对原生的JMS(Java Message Service: Java消息服务)了解较少。
 
-
 <!-- more -->
 
 ## JMS ##
 
-JMS API是一个消息服务的标准。
+JMS API是一个消息服务的标准/规范。
 
 ### P2P模式 ###
 
@@ -53,6 +52,8 @@ JMS API是一个消息服务的标准。
 6. 消息监听者 MessageLister
 
 
+JMS用到JNDI机制，用于查找、访问发送目标/消息来源
+
 ### JMS协议结构 ###
 
 
@@ -61,7 +62,10 @@ JMS API是一个消息服务的标准。
 
 1. ActiveMQ完全支持JMS1.1和J2EE1.4规范。
 
-	ActiveMQ特性
+	ActiveMQ特性：
+
+	> 应用协议： OpenWire,Stomp REST,WS Notification,XMPP,AMQP
+
 2. JBoss HornetQ
 3. Joram
 4. MantaRay

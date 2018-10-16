@@ -2,7 +2,7 @@
 title: Spring boot注解自动装配原理分析
 date: 2018-07-12 10:34:03
 tags: java, springboot, 源码
-categories: java
+categories: SpringBoot
 ---
 熟悉Spring Boot项目搭建的同学都知道基本的配置。
 

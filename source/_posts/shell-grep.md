@@ -190,7 +190,7 @@ Miscellaneous:
 
 	-B, --before-context=NUM  打印以文本起始的NUM 行
 	-A, --after-context=NUM   打印以文本结尾的NUM 行
-	-C, --context=NUM         打印输出文本NUM 行
+	-C, --context=NUM         打印输出文本前后各NUM行
 	-NUM                      same as --context=NUM
 	  --group-separator=SEP use SEP as a group separator
 	  --no-group-separator  use empty string as a group separator
@@ -201,7 +201,11 @@ Miscellaneous:
 	-u, --unix-byte-offsets   report offsets as if CRs were not there
 	                        (MSDOS/Windows)
 
-
+### 用例：
+	
+	显示匹配行和它后面的10行
+	grep -A 10 pattern file.txt
+	
 
 ## egrep ##
 

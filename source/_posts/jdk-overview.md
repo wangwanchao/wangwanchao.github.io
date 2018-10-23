@@ -4,59 +4,136 @@ date: 2018-10-17 00:21:01
 tags: java
 categories: java
 ---
-目前jdk已经升级到jdk11，大多还停留在jdk7/8上，jdk的快速迭代，让人非常兴奋，下面大致罗列一下jdk的新特性：
+目前jdk已经升级到jdk11，大多还停留在jdk6/7/8上，jdk的快速迭代，让人非常兴奋，下面大致罗列一下jdk的新特性：
 
 <!-- more -->
 
 ## jdk8 ##
 
-1. Lambda表达式和Functional接口
+### 一. Lambda表达式和Functional接口
 
-	接口的默认与静态方法
+1. 接口的默认与静态方法
 
+2. 方法引用：
+		
 	方法引用
 
-	重复注解
+		对象::实例方法名
+		类::静态方法名
+		类::实例方法名
+	
+	构造器引用
+	
+		类::new
 
-	更好的类型推测机制
+	数组引用
+	
+		Type[]::new
+	
+3. 重复注解
 
-	扩展注解： ElementType.TYPE_USE、 ElementType.TYPE_PARAMETER；可以为任何代码添加注解(接口、异常)
+4. 更好的类型推测机制
 
-2. 编译器新特性
+5. 扩展注解： ElementType.TYPE_USE、 ElementType.TYPE_PARAMETER；可以为任何代码添加注解(接口、异常)
+
+### 二. 编译器新特性
 
 	通过'-parameters'参数可以将方法参数名添加到字节码
 
-3. 类库的新特性
+### 三. 类库的新特性
 
-	Optional：解决空指针异常
+1. Optional：解决空指针异常
 
-	Stream：
+```
+	Consumer<T>
 
-	Date/Time API
+	Supplier<T>
+	
+	Function<T, R>
+	
+	Predicate<T>
+	
+	Comparator<T>
+```
 
-	Base64：Base64编码成为类库标准
+2. Stream：
 
-	并行：parallelSort()、
+	filter过滤
 
-	并发：java.util.concurrent包
+	sort排序
+	
+	map映射
+	
+	match匹配
+	
+	reduce规约
+
+
+3. Date/Time API
+
+	Instant
+	
+	Clock时钟
+	
+	Timezones时区
+	
+	LocalTime/LocalDate/LocalDateTime本地时间
+	
+	**注意：**和java.text.SimpleDateFormat不同的是，DateTimeFormatter是不可变的，所以它是线程安全的。
+
+4. Base64：Base64编码成为类库标准
+
+5. 并行：parallelSort()、
+
+6. 并发：java.util.concurrent包
 	
 	> ConcurrentHashMap增加新方法支持聚集
 	> ForkJoinPool增加新方法支持共有资源池
 	> locks.StampedLock，用来替换locks.ReadWriteLock
 	> atomic包下增加DoubleAccumulator、DoubleAdder、LongAccumulator、LongAdder
+	
+7. 集合
 
-4. Java工具
+	HashMap
 
-	Norshorn引擎 jjs
+	链表 + 红黑树
+	
+	ConcurrentHashMap
+	
+	采用了CAS算法
 
-	类依赖分析器 jdeps：可以用来分析'.class'、目录、jar
 
-5. JVM新特性
+### 四. Java工具
 
-	PermGen空间被Metaspace取代，
+1. Norshorn引擎 jjs
+
+2. 类依赖分析器 jdeps：可以用来分析'.class'、目录、jar
+
+### 五. JVM新特性
+
+1. PermGen空间被Metaspace取代，
 		
 		-XX:PermSize      -XX:MetaSpaceSize
 		-XX:MaxPermSize   -XX:MaxMetaspaceSize
+		
+### 六. 安全性
+
+	
+
+### 七. IO/NIO改进
+
+1. 改进java.nio.charset.Charset的实现，精简了 jre/lib/charsets.jar 包；优化了 String(byte[],*) 构造方法和 String.getBytes() 方法的性能
+2. 新增API
+
+		BufferedReader.line(): 返回文本行的流 Stream<String>
+	
+		File.lines(Path, Charset):返回文本行的流 Stream<String>
+		
+		File.list(Path): 遍历当前目录下的文件和目录
+		
+		File.walk(Path, int, FileVisitOption): 遍历某一个目录下的所有文件和指定深度的子目录
+		
+		File.find(Path, int, BiPredicate, FileVisitOption... ): 查找相应的文件
 
 ## jdk9 ##
 

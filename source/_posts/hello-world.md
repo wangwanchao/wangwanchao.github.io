@@ -1,19 +1,35 @@
 ---
 title: Hello World
+date: 2018-03-02 11:11:11
+tags: Hello
+categories: Hello
 ---
 Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
-## Quick Start
+## 实战
 
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=444267928&auto=1&height=66"></iframe>
 
 ### 新建博客
 
 ``` bash
-$ hexo new "My New Post"/hexo new post go-base
+$ hexo new "My New Post"/hexo new post hello-world
 ```
 
-More info: [Writing](https://hexo.io/docs/writing.html)
+详情: [Writing](https://hexo.io/docs/writing.html)
+
+
+### 生成草稿
+
+```bash
+$ hexo new draft hello-world
+```
+
+### 发布草稿
+
+```bash
+$ hexo publish [post] hello-world
+```
 
 ### 运行服务
 
@@ -21,7 +37,7 @@ More info: [Writing](https://hexo.io/docs/writing.html)
 $ hexo server/hexo s
 ```
 
-More info: [Server](https://hexo.io/docs/server.html)
+详情: [Server](https://hexo.io/docs/server.html)
 
 ### 生成静态文件
 
@@ -29,7 +45,7 @@ More info: [Server](https://hexo.io/docs/server.html)
 $ hexo generate/hexo g
 ```
 
-More info: [Generating](https://hexo.io/docs/generating.html)
+详情: [Generating](https://hexo.io/docs/generating.html)
 
 ### 发布博客到github
 
@@ -37,4 +53,4 @@ More info: [Generating](https://hexo.io/docs/generating.html)
 $ hexo deploy/hexo d
 ```
 
-More info: [Deployment](https://hexo.io/docs/deployment.html)
+详情: [Deployment](https://hexo.io/docs/deployment.html)

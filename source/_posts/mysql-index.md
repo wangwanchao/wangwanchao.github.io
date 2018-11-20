@@ -1,3 +1,10 @@
+---
+title: MySQL索引
+date: 2018-09-28 23:53:05
+tags: MySQL
+categories: MySQL
+---
+
 索引类型
 
 1. B-Tree索引 InnoDB引擎使用的是B+Tree
@@ -13,6 +20,7 @@
 3. 空间数据索引(R-Tree)
 4. 全文索引
 
+<!-- more -->
 
 MyISAM和InnoDB的不同：
 

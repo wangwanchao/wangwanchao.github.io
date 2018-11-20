@@ -1,8 +1,8 @@
 ---
 title: jdk版本特性概览
 date: 2018-10-17 00:21:01
-tags: java
-categories: java
+tags: Java
+categories: Java
 ---
 目前jdk已经升级到jdk11，大多还停留在jdk6/7/8上，jdk的快速迭代，让人非常兴奋，下面大致罗列一下jdk的新特性：
 
@@ -10,7 +10,7 @@ categories: java
 
 ## jdk8 ##
 
-### 一. Lambda表达式和Functional接口
+### 1. Lambda表达式和Functional接口
 
 1. 接口的默认与静态方法
 
@@ -36,11 +36,11 @@ categories: java
 
 5. 扩展注解： ElementType.TYPE_USE、 ElementType.TYPE_PARAMETER；可以为任何代码添加注解(接口、异常)
 
-### 二. 编译器新特性
+### 2. 编译器新特性
 
 	通过'-parameters'参数可以将方法参数名添加到字节码
 
-### 三. 类库的新特性
+### 3. 类库的新特性
 
 1. Optional：解决空指针异常
 
@@ -103,24 +103,24 @@ categories: java
 	采用了CAS算法
 
 
-### 四. Java工具
+### 4. Java工具
 
 1. Norshorn引擎 jjs
 
 2. 类依赖分析器 jdeps：可以用来分析'.class'、目录、jar
 
-### 五. JVM新特性
+### 5. JVM新特性
 
 1. PermGen空间被Metaspace取代，
 		
 		-XX:PermSize      -XX:MetaSpaceSize
 		-XX:MaxPermSize   -XX:MaxMetaspaceSize
 		
-### 六. 安全性
+### 6. 安全性
 
 	
 
-### 七. IO/NIO改进
+### 7. IO/NIO改进
 
 1. 改进java.nio.charset.Charset的实现，精简了 jre/lib/charsets.jar 包；优化了 String(byte[],*) 构造方法和 String.getBytes() 方法的性能
 2. 新增API

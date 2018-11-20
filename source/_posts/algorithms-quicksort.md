@@ -1,3 +1,10 @@
+---
+title: 快排
+date: 2018-09-28 23:53:05
+tags: Algorithms
+categories: Algorithms
+---
+
 ## java语言实现
 ```
 

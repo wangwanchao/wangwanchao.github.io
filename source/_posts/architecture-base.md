@@ -1,8 +1,8 @@
 ---
 title: 架构基础
 date: 2018-09-28 23:53:05
-tags: architect
-categories: architect
+tags: Architect
+categories: Architect
 ---
 经历了一些小系统，"麻雀虽小五脏俱全"，结合自己的经历，谈一些自己的看法。在我看来，架构更多的就是结合不同的业务场景，选择不同的组件去构建一个高可用、高并发、可扩展的系统。
 
@@ -14,9 +14,13 @@ categories: architect
 
 Zuul: 不完全支持异步，需要很好的配合限流熔断，否则容易造成资源耗尽、雪崩效应。
 
-Nginx
+Zuul2:
 
-Kong
+Spring Cloud Gateway:
+
+Nginx:
+
+Kong:
 
 ## 2、服务发现 ##
 
@@ -61,7 +65,19 @@ ELK
 
 Zipkin: 不够成熟，不能算一款企业级产品
 
+Naver Pinpoint:
+
 Spring Cloud Seleuth:
+
+Hydra:
+
+eagleye:
+
+Jaeger:
+
+Skywalking:
+
+OpenTracing:规范
 
 
 ## 7、度量监控 Metrics ##

@@ -1,12 +1,15 @@
 ---
 title: Java并发编程
 date: 2018-07-27 23:12:48
-tags:
+tags: Java
+categories: Java
 ---
 synchronized
 
 public static void synchronized 
 
+
+<!-- more -->
 
 ## volatile
 

@@ -1,8 +1,8 @@
 ---
 title: OLTP和OLAP技术
 date: 2018-09-18 20:52:29
-tags: bigdata
-categories: bigdata
+tags: Bigdata
+categories: Bigdata
 ---
 ## OLTP
 

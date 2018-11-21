@@ -1,8 +1,8 @@
 ---
 title: Kafka环境搭建
 date: 2018-08-28 20:38:34
-tags: kafka
-categories: kafka
+tags: Kafka
+categories: Kafka
 ---
 去年使用消息队列时接触到Apache Apollo，是IBM用Scala语言开发的，适用于物联网行业。kafka作为消息队列，大多使用在互联网行业，幸运的是也是用Scala语言开发的。
 

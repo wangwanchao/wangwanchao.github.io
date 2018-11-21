@@ -5,7 +5,7 @@ tags: MySQL
 categories: MySQL
 ---
 
-索引类型
+## 索引类型 ##
 
 1. B-Tree索引 InnoDB引擎使用的是B+Tree
 
@@ -22,9 +22,9 @@ categories: MySQL
 
 <!-- more -->
 
-MyISAM和InnoDB的不同：
+### MyISAM和InnoDB的不同： ###
 
-myisam使用前缀压缩使索引更小，而InnoDB按照原数据格式进行存储。
+MyISAM使用前缀压缩使索引更小，而InnoDB按照原数据格式进行存储。
 
 MyISAM索引通过数据的物理位置引用被索引的行，而InnoDB则根据主键饮用被索引的行。
 

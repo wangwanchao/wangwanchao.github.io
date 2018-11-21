@@ -1,40 +1,40 @@
 ---
 title: Spring的事务机制
 date: 2018-08-07 01:06:03
-tags: spring, 事务
-categories: spring
+tags: Spring, 事务
+categories: Spring
 ---
 ## 事务的7种传播机制 ##
 
 TransactionDefinition接口中定义了7种类型的事务传播机制：
 
-PROPAGATION_REQUIRED: 支持当前事务，如果当前没有事务，就新建一个事务。**这是最常见的选择，也是 Spring 默认的事务的传播**。
+1. PROPAGATION_REQUIRED: 支持当前事务，如果当前没有事务，就新建一个事务。**这是最常见的选择，也是 Spring 默认的事务的传播**。
 
-PROPAGATION_REQUIRES_NEW: 新建事务，如果当前存在事务，把当前事务挂起。新建的事务将和被挂起的事务没有任何关系，是两个独立的事务，外层事务失败回滚之后，不能回滚内层事务执行的结果，内层事务失败抛出异常，外层事务捕获，也可以不处理回滚操作
+2. PROPAGATION_REQUIRES_NEW: 新建事务，如果当前存在事务，把当前事务挂起。新建的事务将和被挂起的事务没有任何关系，是两个独立的事务，**外层事务失败回滚之后，不能回滚内层事务执行的结果**，内层事务失败抛出异常，外层事务捕获，也可以不处理回滚操作
 
-PROPAGATION_SUPPORTS: 支持当前事务，如果当前没有事务，就以非事务方式执行。
+3. PROPAGATION_SUPPORTS: 支持当前事务，如果当前没有事务，就以非事务方式执行。
 
-PROPAGATION_MANDATORY: 支持当前事务，如果当前没有事务，就抛出异常。
+4. PROPAGATION_MANDATORY: 支持当前事务，如果当前没有事务，就抛出异常。
 
-PROPAGATION_NOT_SUPPORTED: 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
+5. PROPAGATION_NOT_SUPPORTED: 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
 
-PROPAGATION_NEVER: 以非事务方式执行，如果当前存在事务，则抛出异常。
+6. PROPAGATION_NEVER: 以非事务方式执行，如果当前存在事务，则抛出异常。
 
-PROPAGATION_NESTED   
+7. PROPAGATION_NESTED: 嵌套事务   
 
 <!--more -->
 
-## 事务的4种隔离级别 ##
+## 事务的5种隔离级别 ##
 
-ISOLATION_DEFAULT: **PlatfromTransactionManager默认的隔离级别**，使用数据库默认的事务隔离级别。另外四个与 JDBC 的隔离级别相对应。
+1. ISOLATION_DEFAULT: **PlatfromTransactionManager默认的隔离级别**，使用后端数据库默认的事务隔离级别。另外四个与JDBC的隔离级别相对应。MySQL默认使用REPEATABLE_READ，Oracle默认采用READ_COMMITED
 
-ISOLATION_READ_UNCOMMITTED: 这是事务最低的隔离级别，它充许另外一个事务可以看到这个事务未提交的数据。这种隔离级别会产生脏读，不可重复读和幻像读。
+2. ISOLATION_READ_UNCOMMITTED: 这是事务最低的隔离级别，它充许另外一个事务可以看到这个事务未提交的数据。这种隔离级别会产生脏读，不可重复读和幻像读。
 
-ISOLATION_READ_COMMITTED: 保证一个事务修改的数据提交后才能被另外一个事务读取。另外一个事务不能读取该事务未提交的数据。可以防止脏读
+3. ISOLATION_READ_COMMITTED: 保证一个事务修改的数据提交后才能被另外一个事务读取。另外一个事务不能读取该事务未提交的数据。**可以防止脏读**
 
-ISOLATION_REPEATABLE_READ: 事务隔离级别可以防止脏读，不可重复读。但是可能出现幻像读。
+4. ISOLATION_REPEATABLE_READ: 事务隔离级别可以防止脏读，不可重复读。但是可能出现幻像读。
 
-ISOLATION_SERIALIZABLE: 花费最高代价但是最可靠的事务隔离级别。事务被处理为顺序执行。
+5. ISOLATION_SERIALIZABLE: 花费最高代价但是最可靠的事务隔离级别。事务被处理为顺序执行。
 
 ## 事务失效的情况 ##
 

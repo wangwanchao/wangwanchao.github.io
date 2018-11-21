@@ -1,12 +1,14 @@
 ---
 title: Elasticsearch搜索
 date: 2018-08-29 12:35:37
-tags: elasticsearch
-categories: elasticsearch
+tags: Elasticsearch
+categories: Elasticsearch
 ---
 去年接触过一些ELK环境的搭建，用来处理日志信息，涉及到的东西很多，回头慢慢整理，今天先回顾一下ES
 
 ## 环境搭建 ##
+
+依赖于JDK，对jdk版本、内存有要求，否则会启动失败
 
 ### tar.gz安装 ###
 
@@ -14,7 +16,7 @@ categories: elasticsearch
 
 ### rpm安装 ###
 
-1. 直接安装
+1. 直接安装，默认创建用户组
 
 		rpm -ivh elasticsearch-6.4.0.rpm
 	
@@ -29,14 +31,25 @@ categories: elasticsearch
 		 sudo systemctl start elasticsearch.service
 		Created elasticsearch keystore in /etc/elasticsearch
 
-2. 启动服务
+2. 修改配置文件
+
+	配置文件一般存放在/etc/elasticsearch目录下
+
+		vi elasticsearch.yml
+		开启远程访问
+		network.host 0.0.0.0
+		修改端口
+		
+	
+
+3. 启动服务
 
 		sudo systemctl daemon-reload
 		sudo systemctl enable elasticsearch.service
 		sudo systemctl start elasticsearch.service
 
 	
-3. 测试启动状态
+4. 测试启动状态
 	
 		netstat -lntp | grep -E "9200|9300"
 

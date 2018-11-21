@@ -1,10 +1,12 @@
 ---
-title: flink-base
+title: Flink框架基础
 date: 2018-10-25 14:30:35
 tags: Flink
-categories: Flink
+categories: BigData
 ---
 根据官网示例，跑一下
+
+### Centos7安装flink
 
 1. 启动flink
 
@@ -14,9 +16,10 @@ categories: Flink
 	flink自带WebUI，可以通过浏览器访问：localhost:8081
 	
 <!-- more -->
+
 2. IDEA根据flink-quickstart-scala框架创建demo项目
 
-	```
+``` bash
 
 	package com.wang
 	
@@ -103,13 +106,16 @@ categories: Flink
 	  case class WordWithCount(word: String, count: Long)
 	}
 
-	```
+
+```
+
 3. mvn编译项目
 
 	mvn package/install编译过程报错
 	
 		error: could not find implicit value for evidence parameter of type org.apache.flink.api.common.typeinfo.TypeInformation[String]
 		[ERROR]       .flatMap { w => w.split("\\s") }
+
 	说这是因为程序需要一个隐形参数导致的，引用包改为'	import org.apache.flink.streaming.api.scala._
 '重新编译，解决问题
 
@@ -159,4 +165,15 @@ categories: Flink
 		cd $FLINK_HOME/libexec
 		bin/stop-cluster.sh
 
+### Mac安装
 
+mac安装flink
+
+	brew install apache-flink
+	brew info apache-flink
+	cd $FLINK_HOME
+	./libexec/bin/start-cluster.sh
+	
+WebUI访问：
+	
+	./libexec/bin/stop-cluster.sh

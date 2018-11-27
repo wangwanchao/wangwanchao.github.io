@@ -1,12 +1,13 @@
 ---
-title: nexus私服
+title: Nexus私服
 date: 2018-09-23 13:21:06
-tags: nexus
-categoties: nexus
+tags: Nexus
+categoties: Nexus
 ---
 
 
 ## 环境搭建 ##
+
 
 
 ## nexus模块 ##

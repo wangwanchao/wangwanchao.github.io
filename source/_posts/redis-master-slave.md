@@ -1,8 +1,8 @@
 ---
-title: redis主从模式
+title: Redis主从模式
 date: 2018-09-01 18:02:23
-tags: redis
-categories: redis
+tags: Redis
+categories: Redis
 ---
 
 ## Redis主从复制原理 ##

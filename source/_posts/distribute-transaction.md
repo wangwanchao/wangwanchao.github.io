@@ -1,17 +1,15 @@
 ---
 title: java分布式事务
 date: 2018-09-09 08:47:52
-tags: java
-categories: java
+tags: Java
+categories: Java
 ---
-
-
 
 本地事务:
 
 JDBC事务:
 
-XA事务:分布式事务规范，定义了(全局)事务管理器(Transaction Manager)和(局部)资源管理器(Resource Manager)之间的接口。
+XA事务(传统事务):分布式事务规范，定义了(全局)事务管理器(Transaction Manager)和(局部)资源管理器(Resource Manager)之间的接口。
 
 JTA(Java Transaction API)事务:在JTA中，事务管理器抽象为javax.transaction.TransactionManager接口，通过底层事务服务(JTS Java Transaction Service)实现。一般由容器进行管理。
 
@@ -21,33 +19,50 @@ JTA(Java Transaction API)事务:在JTA中，事务管理器抽象为javax.transa
 
 方案：
 
-1. 事务补偿机制(TCC)
+## 1. 事务补偿机制(TCC) ##
 
-	TRYING阶段：主要对业务进行检测及资源预留。
+业务S，对外提供服务，服务消费者M决定服务cancel还是commit
 
-	CONFIRMING阶段：业务提交，默认如果TRYING阶段执行成功，CONFIRMING阶段就一定能成功。
+TRYING阶段：主要对业务进行检测及资源预留。
 
-	CANCELING阶段：业务回滚
+CONFIRMING阶段：业务提交，默认如果TRYING阶段执行成功，CONFIRMING阶段就一定能成功。
 
-	应用场景：基于web service/rpc/jms等构建的高度自治的分布式系统接口
+CANCELING阶段：业务回滚
 
+### 应用场景： ###
 
-2. 两阶段提交(2PC)
+基于web service/rpc/jms等构建的高度自治的分布式系统接口
+
+### 传统事务和TCC事务的区别 ###
+
+传统事务机制 = TCC事务机制Try + TCC事务机制Confirm
+
+传统事务： 业务逻辑部分访问资源实现数据存储，由业务系统负责；事务处理部分通过协调资源管理器以实现事务管理，由事务管理器负责
+
+TCC事务：业务逻辑和事务管理关系复杂。
+
+[基于TCC的ByteTCC](https://github.com/liuyangming/ByteTCC/)
+
+[基于XA两阶段的ByteJTA](https://github.com/liuyangming/ByteJTA/)
+
+## 2. 两阶段提交(2PC) ##
 
 	第一阶段：准备阶段
 
 	第二阶段：提交阶段
 
 
-3. 一阶段提交(1PC)
+## 3. 一阶段提交(1PC) ##
 
 	应用场景：基于数据库分片(sharding)
-4. 三阶段提交(3PC)
-5. 消息队列实现(异步确保型事务)
+## 4. 三阶段提交(3PC) ##
+
+
+## 5. 消息队列实现(异步确保型事务) ##
 
 	通过MQ消息队列实现，需要保证消息的成功发送和消费。
 
-6. eBay方案(BASE)
+## 6. eBay方案(BASE) ##
 
 	核心：保证服务接口的幂等性。
 

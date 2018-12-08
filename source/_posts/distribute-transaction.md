@@ -2,24 +2,27 @@
 title: java分布式事务
 date: 2018-09-09 08:47:52
 tags: java
-categories: java
+categories: 分布式
 ---
+[数据一致性](https://www.infoq.cn/article/solution-of-distributed-system-transaction-consistency)
 
+1. 本地事务:
 
+2. JDBC事务:
 
-本地事务:
+3. XA事务: 分布式事务规范，定义了(全局)事务管理器TM(Transaction Manager)和(局部)资源管理器RM(Resource Manager)之间的接口。
 
-JDBC事务:
+4. JTA(Java Transaction API)事务: 符合X/Open DTP模型。在JTA中，事务管理器抽象为javax.transaction.TransactionManager接口，通过底层事务服务(JTS Java Transaction Service)实现。一般由容器进行管理。WebLogic、Websphere提供了JTA的实现和支持，Tomcat需要借助第三方框架Jotm、Automikos实现
 
-XA事务:分布式事务规范，定义了(全局)事务管理器(Transaction Manager)和(局部)资源管理器(Resource Manager)之间的接口。
-
-JTA(Java Transaction API)事务:在JTA中，事务管理器抽象为javax.transaction.TransactionManager接口，通过底层事务服务(JTS Java Transaction Service)实现。一般由容器进行管理。
-
-幂等性:
+5. 幂等性: 针对一个操作，无论执行多少次，产生的结果和返回的结果都是一致的。常用于表单的重复提交、支付接口的调用。
+	> 状态机幂等：有限状态机，例如：订单等单据类业务，存在很长的状态流转。
+	>
+	> 对外提供的接口保证幂等：请求接口需要携带source+seq字段，存储在数据库作唯一索引，防止多次提交。当请求过来时，先到数据库查一下，再做处理
+	
 
 <!-- more -->
 
-方案：
+## 解决方案：
 
 1. 事务补偿机制(TCC)
 

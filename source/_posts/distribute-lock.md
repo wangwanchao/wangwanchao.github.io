@@ -1,8 +1,13 @@
 ---
 title: 分布式之分布式锁
 date: 2018-08-28 11:01:29
+<<<<<<< HEAD
 tags: Java
 categories: Java
+=======
+tags: java
+categories: 分布式
+>>>>>>> 811e6bd830e98ed64c74fa5e0917ff8568625b5f
 ---
 CAP理论：
 
@@ -25,44 +30,60 @@ P Partition tolerance 容错性
 非阻塞：没有获取到锁直接返回获取锁失败
 
 ## 实现方式： ##
+[参考1](https://juejin.im/post/5c05f233e51d4524860fc51a)
 
-1. 基于数据库
+[参考2]()
 
-	有多种实现方式：
+### 1. 基于数据库
+
+#### 	有多种实现方式：
 	
-		基于乐观锁：通过维护数据的版本号(version)实现
+基于乐观锁：通过维护数据的版本号(version)实现
 	
-		基于悲观锁：select * from tablename for update;
+	update table_xxx set name=#name#,version=version+1 where version=#version#
 	
-	缺点：
-		
-		数据库的可用性、性能对分布式锁影响很大
-		不具备可重入性。锁释放前，行数据一直存在。
-		没有锁失效机制。web服务宕机，导致锁未释放
-		
-		
+通过条件限制(适用于库存模型、扣除份额、回滚份额，性能更好)
 	
+	update table_xxx set avai_amount=avai_amount-#subAmount# where avai_amount-#subAmount# >= 0	
+都可以通过增加主键索引、唯一索引来优化：
 
-2. 基于Redis、Memcached、tair缓存
+	update table_xxx set name=#name#,version=version+1 where id=#id# and version=#version#
 
-	主要依赖于redis自身的原子操作。
-
-	**注意：**redis集群模式的分布式锁，可以采用Redlock机制。对应的Java框架Redisson。
-
-	优点：
-
-	缺点：
-
-3. 基于ZooKeeper
-
-	使用zk的临时节点来实现分布式锁。
-
-	优点：具备高可用、可重入、阻塞锁特性，可解决失效死锁问题。
+	update table_xxx set avai_amount=avai_amount-#subAmount# where id=#id# and 
+avai_amount-#subAmount# >= 0
 	
-	缺点：因为需要频繁的创建和删除节点，性能上不如Redis方式。
+基于悲观锁：
+
+	select * from tablename for update;
+	
+缺点：
+	
+> 数据库的可用性、性能对分布式锁影响很大
+> 
+> 不具备可重入性。锁释放前，行数据一直存在。
+> 
+> 没有锁失效机制。web服务宕机，导致锁未释放
+
+### 2. 基于Redis、Memcached、tair缓存
+
+主要依赖于redis自身的原子操作。
+
+**注意：**redis集群模式的分布式锁，可以采用Redlock机制。对应的Java框架Redisson。
+
+优点：
+
+缺点：
+
+### 3. 基于ZooKeeper
+
+使用zk的临时节点来实现分布式锁。
+
+优点：具备高可用、可重入、阻塞锁特性，可解决失效死锁问题。
+	
+缺点：因为需要频繁的创建和删除节点，性能上不如Redis方式。
 	
 	
-	[Curator框架](http://curator.apache.org/)
+[Curator框架](http://curator.apache.org/)
 
 
 https://blog.csdn.net/xlgen157387/article/details/79036337

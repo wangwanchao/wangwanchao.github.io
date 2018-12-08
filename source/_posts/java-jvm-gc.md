@@ -2,7 +2,7 @@
 title: jvm垃圾回收器
 date: 2018-08-07 22:09:54
 tags: java, jvm
-categories: java
+categories: JVM
 ---
 
 ## gc算法 ##
@@ -103,16 +103,16 @@ categories: java
 
 原理：
 
-> 概念：
-> 优先列表
-> 
-> Region
-> 
-> Remembered Set
-> 
-> Write Barrier
-> 
-> CarTable
+概念：
+优先列表
+
+Region
+
+Remembered Set
+
+Write Barrier
+
+CarTable
 
 
 > 初始标记
@@ -144,6 +144,8 @@ Minor GC: 指发生在新生代的垃圾回收动作
 
 Full GC/Major GC: 指发生在老年代的GC，出现Full GC，经常会伴随至少一次Minor GC;
 
+**如果更细粒度，Major GC可以认为只对老年的GC，而Full GC是对整个堆来说的。**
+
 1、对象优先在新生代Eden区分配，当Eden区没有足够空间进行分配时，虚拟机将发起一次Minor GC
 
 2、大对象直接进入老年代。大对象典型的就是那些很长的字符串、数组
@@ -164,20 +166,24 @@ Eden区对象经过Minor GC后，年龄增1，然后在Survivor每经历一次Mi
 
 ### GC触发 ###
 
+[参考](https://blog.csdn.net/chenleixing/article/details/46706039)
+
 Minor GC触发条件：
 
 > Eden区没有足够空间分配时，触发
 
 Full GC触发条件：
 
->显式调用System.gc()时
+>1. 显式调用System.gc()。可以通过-XX:+ DisableExplicitGC禁止显式调用
 >
->方法区空间不足
+>2. 方法区(永生代)空间不足。方法区在HotSpot中又被称为永生代/永生区。如果被占满，在未配置为CMS GC的情况下，会执行一次Full GC，如果空间还是不足，则抛出异常java.lang.OutOfMemoryError: PermGen space 
 >
->老年代空间不足
+>3. 老年代空间不足。出现的原因：新生代对象转入；分配大对象、大数组。如果Full GC后空间仍然不够，则抛出java.lang.OutOfMemoryError: Java heap space 
 >
->Eden区对象执行Minor GC后，进入老年代的所有对象和大于老年代可用内存时，触发Full GC
+>4. Eden区对象执行Minor GC后，进入老年代的所有对象和大于老年代可用内存时，触发Full GC
 >
->Eden + From执行Minor GC时，如果存活对象大于To内存区，则直接进入老年代，如果老年代的可用内存小于该对象，则触发Full GC
+>5. (promotion failed)Eden + From执行Minor GC时，如果存活对象大于To内存区，则直接进入老年代，如果老年代的可用内存小于该对象，则触发Full GC
+> 
+>6. (concurrent mode failure)执行CMS GC的过程中同时有对象要放入老年代，而此时老年代空间不足，则执行一次Full GC 
 
 **注意:**jdk1.6_24之后，只要老年代的连续空间大于新生代对象总大小或者历次晋升的平均大小，就会执行Minor GC,否则进行Full GC

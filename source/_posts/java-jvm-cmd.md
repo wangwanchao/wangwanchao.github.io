@@ -2,7 +2,7 @@
 title: JVM虚拟机命令详解
 date: 2018-08-07 22:14:15
 tags: java, jvm
-categories: java
+categories: JVM
 ---
 其实去年就一直在做这些东西，只是没有整理出来，这一段时间面试还是遇到很多问jvm的东西，特别整理以下
 ## jvm的默认参数 ##
@@ -34,15 +34,15 @@ categories: java
 
 	java -XX:+PrintCommandLineFlags -version
 
--XX:InitialHeapSize=46359872 
--XX:MaxHeapSize=741757952 
--XX:+PrintCommandLineFlags 
--XX:+UseCompressedClassPointers 
--XX:+UseCompressedOops 
--XX:+UseParallelGC 
-java version "1.8.0_161"
-Java(TM) SE Runtime Environment (build 1.8.0_161-b12)
-Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)
+	-XX:InitialHeapSize=46359872 
+	-XX:MaxHeapSize=741757952 
+	-XX:+PrintCommandLineFlags 
+	-XX:+UseCompressedClassPointers 
+	-XX:+UseCompressedOops 
+	-XX:+UseParallelGC 
+	java version "1.8.0_161"
+	Java(TM) SE Runtime Environment (build 1.8.0_161-b12)
+	Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)
 
 ### 参数分析 ###
 

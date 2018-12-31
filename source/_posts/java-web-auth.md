@@ -50,6 +50,11 @@ components:
 
 ### OAuth2.0
 
+1. 授权码模式
+2. 简化模式
+3. 密码模式
+4. 客户端模式
+
 ### OpenID Connect实现
 
 ## Shiro

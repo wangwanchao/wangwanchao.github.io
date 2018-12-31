@@ -1,8 +1,8 @@
 ---
 title: java中的错误与异常
 date: 2018-09-21 11:47:10
-tags: java
-categories: java
+tags: Java
+categories: Java
 ---
 Web项目中的异常处理，什么时候该处理异常，什么抛出异常，总感觉没有形成一套理论的形式，不同的团队遇到不同的处理，但是大致流程一致。
 
@@ -87,4 +87,6 @@ finally代码块一定会在try/catch代码块return之前执行，如果finally
 2. 不用使用try包含太多的代码逻辑，
 3. 避免使用Catch All语句：Catch All即catch(Throwable t)，扩大异常的范围不利于排查错误
 4. 不要忽略已捕获的异常：对于捕获的异常应该进行处理提高代码的健壮性，而不是只打印跟踪栈信息。
+5. 不要使用异常控制流程，异常越早抛出越好
+6. 尽量不要捕获/抛出类似Exception这样笼统的异常，应该具体化
 

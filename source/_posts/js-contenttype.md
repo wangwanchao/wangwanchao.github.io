@@ -1,8 +1,8 @@
 ---
 title: js-contenttype
 date: 2018-12-24 11:16:21
-tags:
-categpries:
+tags: JavaScript
+categpries: JavaScript
 ---
 ## none
 

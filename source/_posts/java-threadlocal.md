@@ -100,7 +100,7 @@ categories: java
 
 ## ThreadLocal会导致内存泄漏吗? ##
 
-看到一篇博客讲不会发生内存泄漏，原因是Entry是一个弱引用，如果entry.get()=null，entry会被擦除
+1. 看到一篇博客讲不会发生内存泄漏，原因是Entry是一个弱引用，如果entry.get()=null，entry会被擦除
 
 	static class ThreadLocalMap {
 
@@ -122,9 +122,11 @@ categories: java
             }
         }
 
-[技术小黑屋](https://droidyue.com/blog/2016/03/13/learning-threadlocal-in-java/ "技术小黑屋")
+	[技术小黑屋](https://droidyue.com/blog/2016/03/13/learning-threadlocal-in-java/ "技术小黑屋")
 
+2. 还有一篇博客说会导致内存泄漏，
 
+	[Servlet](http://www.codeceo.com/article/threadlocal-leak-analyze.html)
 
 ## ThreadLocal和InheritableThreadLocal的区别 ##
 

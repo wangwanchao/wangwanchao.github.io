@@ -1,12 +1,17 @@
 ---
-title: spark-base
+title: Spark单机环境搭建
 date: 2018-10-25 16:06:52
 tags: Spark
 categories: Spark
 ---
-
+启动Spark
+	
+	cd  $SPARK_HOME
 	bin/spark-shell 
 	val textFile = spark.read.textFile("README.md")
+	
+	textFile.count()
+	textFile.first()
 
 报错：
 

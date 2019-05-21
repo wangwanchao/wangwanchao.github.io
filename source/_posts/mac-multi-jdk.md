@@ -7,16 +7,19 @@ categories: Mac
 
 dmg按照步骤安装jdk，我目前感兴趣的主要是jdk8、jdk11，所以这里只有两个版本
 
-```
-java -version
-which java
-ll /usr/bin/java
-cd /System/Library/Frameworks/JavaVM.framework/Versions
+<!-- more -->
 
-# 查看可用的jdk版本
-ls
-ll
-```
+查看jdk版本、安装目录
+
+	java -version
+	which java
+	ll /usr/bin/java
+	cd /System/Library/Frameworks/JavaVM.framework/Versions
+
+查看可用的jdk版本
+
+	ls
+	ll
 
 查看已经安装的jdk
 

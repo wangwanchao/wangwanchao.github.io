@@ -10,6 +10,8 @@ categories: Java
 
 ## jdk8 ##
 
+[OracleJDk8文档](https://docs.oracle.com/en/java/javase/12/gctuning/garbage-first-garbage-collector-tuning.html#GUID-90E30ACA-8040-432E-B3A0-1E0440AB556A)
+
 ### 1. Lambda表达式和Functional接口
 
 1. 接口的默认与静态方法
@@ -160,7 +162,7 @@ categories: Java
 
 [OpenJDK10](https://openjdk.java.net/projects/jdk/10/)
 
-[下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)
+[OracleJDK下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)
 
 ### 主要新特性 ###
 
@@ -203,11 +205,14 @@ categories: Java
 
 继jdk8后的大版本LTS
 
-[Oracle JDK下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
+[OpenJDK11下载](https://jdk.java.net/java-se-ri/11)
 
-[OpenJDk11](https://openjdk.java.net/projects/jdk/11/)
+[OpenJDK11文档](https://openjdk.java.net/projects/jdk/11/)
 
-[文档](https://docs.oracle.com/en/java/javase/11/)
+[OracleJDK下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
+
+[Oracle文档](https://docs.oracle.com/en/java/javase/11/)
+
 
 既然都到了JDK11，那就跟着英文文档来一波吧！
 
@@ -251,11 +256,14 @@ categories: Java
 ## jdk12 ##
 jdk12发布了，jdk20还会远吗
 
-[Oracle JDK下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html)
+[OpenJDK下载](https://jdk.java.net/12/)
 
-[OpenJDk12](https://openjdk.java.net/projects/jdk/12/)
+[OpenJDk12文档](https://openjdk.java.net/projects/jdk/12/)
 
-[文档](https://docs.oracle.com/en/java/javase/12/)
+[OracleJDK下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html)
+
+[Oracle文档](https://docs.oracle.com/en/java/javase/12/)
+
 
 ### 新特性 ###
 

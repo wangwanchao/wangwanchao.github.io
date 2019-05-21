@@ -1,7 +1,7 @@
 ---
 title: 写在2019上班的第二天
 date: 2019-02-12 20:09:26
-tags: Life
+tags: life
 categpries: Life
 ---
 从2019年元旦开始，就在筹划写一篇总结，一直拖到今天。

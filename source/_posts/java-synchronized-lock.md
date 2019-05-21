@@ -2,9 +2,13 @@
 title: synchronized和ReentrantLock
 date: 2018-08-07 00:02:44
 tags: java, 多线程
-categories: java
+categories: Java
 ---
-## synchronized ##
+Java内置锁和Lock
+
+<!-- more -->
+
+## 1、synchronized ##
 
 ### sychronized的几种不同用法： ###
 
@@ -27,10 +31,10 @@ categories: java
 和修饰方法类似，锁对象都是调用该方法的实例对象
 
 
-## ReentrantLock ##
+## 2、ReentrantLock ##
 
 
-## synchronize和ReentrantLock的比较 ##
+## 3、synchronize和ReentrantLock的比较 ##
 
 
 

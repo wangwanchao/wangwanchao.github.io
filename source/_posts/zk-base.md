@@ -1,10 +1,10 @@
 ---
 title: ZooKeeper环境搭建
 date: 2018-08-28 17:51:15
-tags: Zookeeper
-categories: Zookeeper
+tags: ZooKeeper
+categories: ZooKeeper
 ---
-Zookeeper环境搭建，把以前的东西整理一下，
+ZooKeeper环境搭建，把以前的东西整理一下，
 
 ## 单节点环境 ##
 

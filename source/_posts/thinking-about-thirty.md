@@ -2,7 +2,7 @@
 title: 三十而立(Thirtysomething)
 date: 2018-07-24 15:29:55
 tags: life, thirty
-categories: life
+categories: Life
 ---
 虽说不是三十，却也是即将奔三。
    

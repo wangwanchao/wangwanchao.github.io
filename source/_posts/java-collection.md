@@ -2,7 +2,7 @@
 title: java集合类Collection和Collections的区别
 date: 2018-09-10 20:47:04
 tags: java
-categories: java
+categories: Java
 ---
 
 java.util.COllection是一个集合接口，而java.util.Collections作为集合的工具类。

@@ -5,7 +5,7 @@ tags: java, jvm
 categories: JVM
 ---
 
-## gc算法 ##
+## GC算法 ##
 
 1.标记-清除算法(Mark-Sweep):
 
@@ -61,18 +61,19 @@ categories: JVM
 |UseSerialGC      | client模式下的默认值，Serial + Serial Old收集器                 |
 |UseParallelGC    | Server模式下的默认值，Parallel Scavenge + Serial Old收集器      |
 
-1.Serial
+### 1. Serial ###
 
-2.ParNew
+### 2. ParNew ###
 
+### 3. Parallel Scavenge ###
 
-3.Parallel Scavenge
+### 4. Serial Old ###
 
-4.Serial Old
+### 5. Parallel Old ###
 
-5.Parallel Old
+### 6. CMS ###
 
-6.CMS(并发低停顿收集器), 基于标记-清除算法
+(并发低停顿收集器), 基于标记-清除算法
 
 目标：以获取最短回收停顿时间
 
@@ -97,7 +98,7 @@ categories: JVM
 > 产生大量空间碎片
 
 
-7.G1
+### 7. G1 ###
 
 目标：
 
@@ -136,7 +137,27 @@ CarTable
 
 缺点：
 
+### 8. ZGC ###
 
+目标：
+
+> GC停顿时间不超过10ms
+> 处理堆从MB到TB
+> 相比G1减少了15%的吞吐量
+> 
+
+### 9. Shenandoah GC ###
+
+
+对比：
+
+Zing/Azul有一个低停顿的收集器，但是没有贡献到OpenJDK。
+
+ZGC是基于colored pointers的收集器。Shenandoah GC是基于brook pointer的收集器。
+
+G1可以并行、并发的工作，但是不能并发的evacuation。
+
+CMS并发标记，在停顿期间复制年轻代，但是不压缩老年代。结果导致更多的时间管理剩余空间和碎片空间。
 
 ## 内存分配、回收策略 ##
 

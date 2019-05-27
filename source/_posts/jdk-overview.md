@@ -4,11 +4,13 @@ date: 2018-10-17 00:21:01
 tags: Java
 categories: Java
 ---
-目前jdk已经升级到jdk11，大多还停留在jdk6/7/8上，jdk的快速迭代，让人非常兴奋，下面大致罗列一下jdk的新特性：
+目前jdk已经升级到jdk12，大多还停留在jdk6/7/8上，jdk的快速迭代，让人非常兴奋，下面大致罗列一下jdk的新特性：
 
 <!-- more -->
 
 ## jdk8 ##
+
+[OracleJDk8文档](https://docs.oracle.com/en/java/javase/12/gctuning/garbage-first-garbage-collector-tuning.html#GUID-90E30ACA-8040-432E-B3A0-1E0440AB556A)
 
 ### 1. Lambda表达式和Functional接口
 
@@ -160,7 +162,7 @@ categories: Java
 
 [OpenJDK10](https://openjdk.java.net/projects/jdk/10/)
 
-[下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)
+[OracleJDK下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)
 
 ### 主要新特性 ###
 
@@ -203,11 +205,14 @@ categories: Java
 
 继jdk8后的大版本LTS
 
-[Oracle JDK下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
+[OpenJDK11下载](https://jdk.java.net/java-se-ri/11)
 
-[OpenJDk11](https://openjdk.java.net/projects/jdk/11/)
+[OpenJDK11文档](https://openjdk.java.net/projects/jdk/11/)
 
-[文档](https://docs.oracle.com/en/java/javase/11/)
+[OracleJDK下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
+
+[Oracle文档](https://docs.oracle.com/en/java/javase/11/)
+
 
 既然都到了JDK11，那就跟着英文文档来一波吧！
 
@@ -247,3 +252,33 @@ categories: Java
 >335: Deprecate the Nashorn JavaScript Engine
 >
 >336: Deprecate the Pack200 Tools and API
+
+## jdk12 ##
+jdk12发布了，jdk20还会远吗
+
+[OpenJDK下载](https://jdk.java.net/12/)
+
+[OpenJDk12文档](https://openjdk.java.net/projects/jdk/12/)
+
+[OracleJDK下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html)
+
+[Oracle文档](https://docs.oracle.com/en/java/javase/12/)
+
+
+### 新特性 ###
+
+>189:	Shenandoah: A Low-Pause-Time Garbage Collector (Experimental)
+>
+>230:	Microbenchmark Suite
+>
+>325:	Switch Expressions (Preview)
+>
+>334:	JVM Constants API
+>
+>340:	One AArch64 Port, Not Two
+>
+>341:	Default CDS Archives
+>
+>344:	Abortable Mixed Collections for G1
+>
+>346:	Promptly Return Unused Committed Memory from G1

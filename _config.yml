@@ -73,6 +73,7 @@ pagination_dir: page
 
 # Extensions landscape huno next
 ## Plugins: https://hexo.io/plugins/
+plugins: hexo-generate-feed
 ## Themes: https://hexo.io/themes/
 theme: next
 
@@ -87,8 +88,8 @@ deploy:
 social:
   Github: https://github.com/wangwanchao
   CSDN: https://blog.csdn.net/zhongyuemengxiang
-  cnblogs: http://www.cnblogs.com/wangwanchao/
-  StackOverflow:
+  # CNBlogs: http://www.cnblogs.com/wangwanchao/
+  # StackOverflow:
 
 #comment
 #duoshuo:

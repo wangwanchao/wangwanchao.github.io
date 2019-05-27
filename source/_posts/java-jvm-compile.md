@@ -2,18 +2,25 @@
 title: java编译器
 date: 2018-09-02 10:31:41
 tags: java
-categories: java
+categories: Java
 ---
 编译器是一门很深入的模块，完全理解需要很深厚的功底，就是所谓的"内功"，例如《编译原理》，回头接着好好撸
 
-## 前端编译 ##
+编译器在JJava中根据不同大致分为3部分：
 
-把.java文件编译成.class文件的过程。例如：Javac, ECJ
+前端编译器：Javac、增量编译器ECJ
 
+JIT编译器：HotSpot中的C1(Client Compiler)、C2(Server Compiler)编译器
 
-编译过程：
+AOT编译器：GNU Compiler for the Java(GCJ)、Excelsior JET
 
 <!-- more -->
+
+## 静态提前编译 AOT ##
+
+直接把.java文件编译成机器码的过程。例如：GCJ, JET
+
+编译过程：
 
 1. 解析与填充符号表
 
@@ -106,9 +113,7 @@ Java编译器和C/C++编译器的对比：
 
 
 
-## 静态提前编译 AOT ##
 
-直接把.java文件编译成机器码的过程。例如：GCJ, JET
 
 
 

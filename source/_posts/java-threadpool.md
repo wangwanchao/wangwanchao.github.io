@@ -91,3 +91,5 @@ JDK提供了4种饱和策略：
              Executors.defaultThreadFactory(), defaultHandler);
     }
 可以看到默认情况下，使用DefaultThreadFactory线程工厂，AbortPolicy策略
+
+## Thread Pool使用不当导致的死锁 ##

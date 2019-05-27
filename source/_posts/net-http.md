@@ -1,11 +1,10 @@
 ---
 layout: '[post]'
 title: HTTP协议
-tags: Net
-categories: Net
+tags: NetWork
+categories: NetWork
 date: 2018-11-21 17:54:35
 ---
-
 HTTP协议一直在演进，最近出了HTTP3，基于UDP协议的QUIC协议
 
 <!-- more -->

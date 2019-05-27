@@ -1,10 +1,12 @@
 ---
 title: OSI网络协议
 date: 2018-11-25 12:07:05
-tags: Net
-categpries: Net
+tags: NetWork
+categpries: NetWork
 ---
+计算机网络模型
 
+<!-- more -->
 
 # OSI参考模型 #
 

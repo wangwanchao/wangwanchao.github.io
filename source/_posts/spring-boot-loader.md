@@ -6,6 +6,10 @@ categories: SpringBoot
 ---
 熟悉Spring Boot项目搭建的同学都知道基本的配置。
 
+<!-- more -->
+
+## 原理 ##
+
 首先看Application main类需要基本的注解@SpringBootApplication：
 
 	@RestController
@@ -17,7 +21,6 @@ categories: SpringBoot
 		}
 	}
 
-<!-- more -->
 
 进入@SpringBootApplication可以看到：
 
@@ -99,6 +102,7 @@ categories: SpringBoot
 	}
 
 先看方法getCandidateConfigurations，回头有时间再慢慢分析其它方法：
+	
 	protected List<String> getCandidateConfigurations(AnnotationMetadata metadata,
 			AnnotationAttributes attributes) {
 		List<String> configurations = SpringFactoriesLoader.loadFactoryNames(
@@ -146,3 +150,29 @@ categories: SpringBoot
 					FACTORIES_RESOURCE_LOCATION + "]", ex);
 		}
 	}
+
+## Fat jar ##
+
+### PropertiesLauncher加载规则： ###
+
+> loader.properties属性，先在loader.home中查找； 再去classpath根路径查找； 最后到`classpath:/BOOT-INF/classes`中查找;第一次找到的即使用
+> 
+> 如果loader.config.location没有配置，loader.home下的属性文件会覆盖默认的属性文件
+> loader.path可以包括目录、文件路径、jar包中的目录`dependencies.jar!/lib`、正则匹配；文件路径可以是loader.home指定的路径或者文件系统中以`jar:file:`前缀开头的路径
+> 
+> loader.path如果为空，默认放在`BOOT-INF/lib`下，同时loader.path不能用来配置loader.properties的存放路径
+> 
+> 变量的搜索路径顺序：环境变量、系统变量、loader.properties、外部的manifest文件、内部的manifest文件
+
+### 打包限制规则： ###
+
+1. zip压缩，必须使用ZipEntry.STORED方法压缩
+2. SystemClassLoader，加载class文件使用Thread.getContextClassLoader()，使用ClassLoader.getSystemClassLoader()加载会导致失败，由于java.util.Logging类使用SystemClassLoader加载，所以需要重写Logging的继承类
+
+
+### 可执行jar的其他构建方法 ###
+
+1. Maven Shade Plugin
+2. JarClassLoader
+3. OneJar
+4. Gradle Shadow Plugin

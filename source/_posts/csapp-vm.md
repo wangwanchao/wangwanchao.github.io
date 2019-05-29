@@ -1,9 +1,12 @@
 ---
 title: 深入理解计算机系统--内存
-date: 2018-09-28 23:53:05
 tags: CSAPP
 categories: CSAPP
+date: 2018-09-28 23:53:05
 ---
+内存管理
+
+<!-- more -->
 
 虚拟内存：
 

@@ -1,9 +1,12 @@
 ---
-title: spring-design-pattern
+title: Spring--设计模式
 date: 2018-08-12 21:22:53
 tags: java
-categories: java
+categories: Spring
 ---
+Spring是一个非常值得学习的框架，一些优秀的设计模式值得分析。
+
+<!-- more -->
 ## 简单工厂模式 ##
 
 

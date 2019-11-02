@@ -4,9 +4,11 @@ date: 2018-09-27 16:30:55
 tags: Maven
 categories: Maven
 ---
-一直在用maven，其实对maven并没有非常深入理解，任重道远啊。最近一个项目编译的时候，开始使用Plugins--install--install:install命令，编译报错：
+一直在用maven，其实对maven并没有非常深入理解，任重道远啊。最近一个项目编译的时候，开始使用Plugins--install--install:install命令，
 
 <!-- more -->
+
+编译报错：
 
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-install-plugin:2.5.2:install (default-cli) on project StarTeamCollisionUtil: The packaging for this project did not assign a file to the build artifact -> [Help 1]
 
@@ -17,18 +19,20 @@ categories: Maven
 mvn clean install在每个周期中会运行所有的命令，包括：compile、package、test等等。
 
 mvn clean install:install则只会install一个命令，甚至不包括compile、package
+
 ## 仓库
-本地仓库
+1. 本地仓库
 
-远程仓库
+2. 远程仓库
 
-中央仓库
+3. 中央仓库
 
 先从本地仓库查找，再从私服查找，最后再到远处、中央仓库查找。
 
 ## setting.xml
 ### 镜像
 用于配置速度更快的的仓库镜像，mirrorOf可以配置'central,*'不同仓库
+
 ```
 <mirrors>  
     <mirror>  
@@ -40,8 +44,6 @@ mvn clean install:install则只会install一个命令，甚至不包括compile�
 </mirrors>  
   
 ```
-
-
 
 ## pom.xml
 ### packaging类型
@@ -81,12 +83,14 @@ false，则会传递下去。
 
 #### 排除依赖
 
+```
 	<exclusions>
 		<exclusion>
         	<groupId>xxx</groupId>
         	<artifactId>xxx</artifactId>
     	</exclusion>
 	</exclusions>
+```
 
 ### Lifecycle生命周期
 

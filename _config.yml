@@ -73,7 +73,7 @@ pagination_dir: page
 
 # Extensions landscape huno next
 ## Plugins: https://hexo.io/plugins/
-plugins: hexo-generate-feed
+#plugins: hexo-generate-feed
 ## Themes: https://hexo.io/themes/
 theme: next
 
@@ -101,3 +101,17 @@ social:
 #  enable: false
 #  shortname: wangsirblog
 #  count: true
+
+# Search 
+search:
+  path: ./public/search.xml
+  field: post
+  format: html
+  limit: 100
+
+# Reading time count
+symbols_count_time:
+  symbols: true
+  time: true
+  total_symbols: true
+  total_time: true

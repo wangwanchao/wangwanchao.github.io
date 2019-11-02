@@ -1,5 +1,5 @@
 ---
-title: Redis主从模式
+title: Redis主从模式(六)
 date: 2018-09-01 18:02:23
 tags: Redis
 categories: Redis
@@ -58,8 +58,6 @@ psync2主要让redis在从实例重启和主实例故障切换场景下，也能
 命令传播阶段
 	
 	心跳检测
-
-	
 
 ### 主观下线、客观下线 ###
 

@@ -2,7 +2,7 @@
 title: 求一个数组中重复出现次数最多的数字以及出现次数
 date: 2018-08-14 11:00:24
 tags: algorithms, java, go
-categories: algorithms
+categories: Algorithms
 ---
 ## java语言实现 ##
 

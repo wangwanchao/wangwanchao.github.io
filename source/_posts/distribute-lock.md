@@ -1,13 +1,8 @@
 ---
 title: 分布式之分布式锁
 date: 2018-08-28 11:01:29
-<<<<<<< HEAD
-tags: Java
-categories: Java
-=======
 tags: java
 categories: 分布式
->>>>>>> 811e6bd830e98ed64c74fa5e0917ff8568625b5f
 ---
 CAP理论：
 

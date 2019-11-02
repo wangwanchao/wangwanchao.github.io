@@ -1,20 +1,17 @@
 ---
-title: java编译器
+title: java编译器(五)
 date: 2018-09-02 10:31:41
-tags: java
-categories: Java
+tags: java,jvm
+categories: JVM
 ---
 编译器是一门很深入的模块，完全理解需要很深厚的功底，就是所谓的"内功"，例如《编译原理》，回头接着好好撸
 
-编译器在JJava中根据不同大致分为3部分：
-
-前端编译器：Javac、增量编译器ECJ
-
-JIT编译器：HotSpot中的C1(Client Compiler)、C2(Server Compiler)编译器
-
-AOT编译器：GNU Compiler for the Java(GCJ)、Excelsior JET
-
 <!-- more -->
+编译器在Java中根据不同大致分为3部分：
+
+1. 前端编译器：Javac、增量编译器ECJ
+2. JIT编译器：HotSpot中的C1(Client Compiler)、C2(Server Compiler)编译器
+3. AOT编译器：GNU Compiler for the Java(GCJ)、Excelsior JET
 
 ## 静态提前编译 AOT ##
 
@@ -97,15 +94,11 @@ HotSpot采用基于计数器探测，为每个方法准备了:方法调用计数
 3. 方法内联
 4. 逃逸分析
 
-
-Java编译器和C/C++编译器的对比：
+### Java编译器和C/C++编译器的对比：
 
 优点：
-
 > 调用频率预测
-> 
 > 分支频率预测
-> 
 > 裁剪未被选择的分支
 
 

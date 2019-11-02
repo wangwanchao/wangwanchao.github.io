@@ -2,17 +2,16 @@
 title: shell常用命令之sed
 date: 2018-08-27 20:32:18
 tags: linux, shell
-categories: linux
+categories: Linux
 ---
 sed是一个比较高级的命令，回头再细细整理
 
+<!-- more -->
 ## sed ##
 
 用法: sed [选项]... {脚本(如果没有其他脚本)} [输入文件]...
 
 选项：
-
-<!-- more -->
 
 	-n, --quiet, --silent
 	             取消自动打印模式空间

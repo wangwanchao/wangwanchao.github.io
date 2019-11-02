@@ -2,9 +2,11 @@
 title: logback配置文件
 date: 2018-10-12 11:03:05
 tags: logback
-categories: logback
+categories: Java
 ---
 以前写过关于logging4j的配置，后来用logback，也没仔细分析过，在工作中遇到不同的用法，就来分析一下。
+
+<!-- more -->
 
 1、刚开始常用的是：其实这是最正规的写法
 
@@ -26,9 +28,6 @@ categories: logback
 	
 使用Lombok和注解@Slf4j可以省略原始代码
 
-
-<!-- more -->
-
 ## Logback的体系结构
 
 ### logback标签
@@ -45,17 +44,19 @@ categories: logback
 	> property 
 		```<property scope="" name="" value="" />  <property file=".properties" /> <property resource=".properties" />```
 	> 
-	> 运行时定义变量 ```<define clas=""> </define>```
+	> 运行时定义变量 ``` <define clas=""> </define> ```
 	>
-	> 从JNDI获取变量 ```<insertFromJNDI env-entry-name="" as="" />```
+	> 从JNDI获取变量 ``` <insertFromJNDI env-entry-name="" as="" /> ```
 7. include 一个配置文件中可以包含另一个配置文件 ```<include file=""/> <include resource=""/> <include url=""/>```
-8. 配置全局信息 ```<configuration debug="true" scan="true" scanPeriod="30 seconds" packagingData="true">...</configuration>```
+8. 配置全局信息 
 
-	> debug指定打印正常启动日志信息
-	> 
-	> scan、scanPeriod指定配置文件自动热加载
-	> 
-	> packagingData指定打印异常堆栈时打印jar包信息
+```<configuration debug="true" scan="true" scanPeriod="30 seconds" packagingData="true">...</configuration>```
+
+> debug指定打印正常启动日志信息
+> 
+> scan、scanPeriod指定配置文件自动热加载
+> 
+> packagingData指定打印异常堆栈时打印jar包信息
 	单位milliseconds、seconds、minutes、
 
 ### logback配置文件生命周期
@@ -66,7 +67,9 @@ categories: logback
 Logback整合Spring boot，有两种配置方式：
 
 ### xml配置
+
 ```
+
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
@@ -104,6 +107,7 @@ Logback整合Spring boot，有两种配置方式：
 ### yml配置
 
 ```	
+
 logging:
     file:   # 日志文件,绝对路径或相对路径
     #path:   # 保存日志文件目录路径 file和path两者二选一
@@ -115,6 +119,7 @@ logging:
     pattern:
         console: %d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger- %msg%n
         file: %d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger- %msg%n
+        
 ```
 
 

@@ -2,7 +2,7 @@
 title: Threadlocal原理分析
 date: 2018-08-11 10:16:46
 tags: java, threadlocal
-categories: java
+categories: Java
 ---
 ## ThreadLocal的底层实现 ##
 

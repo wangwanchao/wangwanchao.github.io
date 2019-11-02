@@ -2,16 +2,15 @@
 title: 跨域请求
 date: 2018-12-13 01:12:29
 tags: 
-categpries:
+categpries: js
 ---
 [Spring跨域文档](https://spring.io/blog/2015/06/08/cors-support-in-spring-framework)
 
+<!-- more -->
 ## 跨域原理 ##
 
 
 ## 前端方案 ##
-
-
 
 
 ## 后端方案 ##
@@ -84,20 +83,19 @@ CORS跨域的规则可以自由定制：
 
 2. 基于XML方式
 
-	<mvc:cors>
-
-		<mvc:mapping path="/api/**"
-			allowed-origins="http://domain1.com, http://domain2.com"
-			allowed-methods="GET, PUT"
-			allowed-headers="header1, header2, header3"
-			exposed-headers="header1, header2" allow-credentials="false"
-			max-age="123" />
+```
+<mvc:cors>
+	<mvc:mapping path="/api/**"
+		allowed-origins="http://domain1.com, http://domain2.com"
+		allowed-methods="GET, PUT"
+		allowed-headers="header1, header2, header3"
+		exposed-headers="header1, header2" allow-credentials="false"
+		max-age="123" />
 	
-		<mvc:mapping path="/resources/**"
-			allowed-origins="http://domain1.com" />
-	
-	</mvc:cors>
-
+	<mvc:mapping path="/resources/**"
+		allowed-origins="http://domain1.com" />	
+</mvc:cors>
+```
 **注意：使用Spring Security**
 
 	<http>
@@ -108,24 +106,25 @@ CORS跨域的规则可以自由定制：
 
 3. 基于Filter方式
 
-	@Configuration
-	public class MyConfiguration {
+```
+@Configuration
+public class MyConfiguration {
 	
-		@Bean
-		public FilterRegistrationBean corsFilter() {
-			UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-			CorsConfiguration config = new CorsConfiguration();
-			config.setAllowCredentials(true);
-			config.addAllowedOrigin("http://domain1.com");
-			config.addAllowedHeader("*");
-			config.addAllowedMethod("*");
-			source.registerCorsConfiguration("/**", config);
-			FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-			bean.setOrder(0);
-			return bean;
-		}
+	@Bean
+	public FilterRegistrationBean corsFilter() {
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(true);
+		config.addAllowedOrigin("http://domain1.com");
+		config.addAllowedHeader("*");
+		config.addAllowedMethod("*");
+		source.registerCorsConfiguration("/**", config);
+		FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+		bean.setOrder(0);
+		return bean;
 	}
-
+}
+```
 [参考1](https://www.jianshu.com/p/87e1ef68794c)
 
 [参考2](https://blog.csdn.net/pinebud55/article/details/60874725)

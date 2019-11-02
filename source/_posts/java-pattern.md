@@ -1,5 +1,5 @@
 ---
-title: java中范型
+title: java--范型
 date: 2018-12-26 00:57:06
 tags: Java
 categpries: Java
@@ -9,6 +9,7 @@ categpries: Java
 <!-- more -->
 
 ### 范型擦除
+范型只在编译阶段有效，在生成字节码后类型会被擦除。范型可以用在范型类、范型接口、范型方法
 
 ### 范型标识
 
@@ -19,7 +20,7 @@ categpries: Java
 5. N - Number（数值类型）
 6. ？ -  表示不确定的java类型，是类型通配符，代表所有类型。？不会进行类型推断
 
-### 通配符
+### 通配符，范型上下边界
 <?>
 
 <? extends T>
@@ -27,3 +28,18 @@ categpries: Java
 <? super T>
 
 ### 范型数组
+注意：** 不能创建一个确定类型的范型数组 **
+
+例如：
+```
+List<String>[] ls = new ArrayList<String>[10];  // 错误
+List<?>[] ls = new ArrayList<?>[10];  // 正确
+List<String>[] ls = new ArrayList[10];  // 正确
+```
+
+### 静态方法和范型
+
+```
+public static <T> void test(T t) {
+}
+```

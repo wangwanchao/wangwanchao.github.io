@@ -1,38 +1,31 @@
 ---
-title: Java虚拟机
+title: Java虚拟机(一)
 date: 2018-09-28 23:53:05
-tags: Java
-categories: Java
+tags: java, jvm
+categories: JVM
 ---
+JVM运行时栈帧模型
+
+<!-- more --> 
 ## Java内存区域
 
 ### 程序计数器
-
 可以看作当前线程所执行的字节码的行号执行器。通过改变这个计数器的值来选取下一条要执行的字节码指令。
 
 每个线程有自己独立的程序计数器，各线程之间计数器互不影响，独立存储。
 
-<!-- more --> 
-
 ### Java虚拟机栈
-
 线程私有，生命周期和线程相同。
-
 描述的Java方法执行的内存模型，每个方法在执行时都会创建一个栈帧：
 > 存储局部变量表、
-> 
 > 操作数栈、
-> 
 > 动态链接、
-> 
 > 方法出口。
 
 ### 本地方法栈
-
-和Java虚拟机栈类似，
+和Java虚拟机栈类似，用于存储本地方法的执行栈
 
 ### Java堆
-
 被所有线程共享的一块区域，在虚拟机启动时创建。该内存区的唯一目的就是存放对象实例。
 
 逃逸分析技术：
@@ -42,23 +35,44 @@ categories: Java
 标量替换
 
 ### 方法区
-
 所有线程共享的内存区。用于存储：
-
 > 被虚拟机加载的类信息：
-> 
 > 常量
-> 
 > 静态变量
-> 
 > 即时编译器编译后的代码
-> 
 
 #### 运行时常量池
 
 属于方法区的一部分。Class文件中的常量池在类加载后也会进入方法区的运行时常量池。还有常量池：编译期生成的各种字面量、符号引用、直接引用()。
 
 例如String.intern()方法。
+
+#### PernGen和Metaspace
+PermGen：
+永久代只是方法区在HotSpot虚拟机中的一种实现。其它类型的虚拟机没有永久代的概念。
+
+jdk1.7:
+原来存储在永久代的部分数据，现在分配到Java Heap/Native Heap。
+
+jdk1.8:
+> 符号引用转移到native heap
+> 字面量转移到Java heap
+> 类的静态变量转移到Java heap
+> 参数`-XX:PermSize -XX:MaxPermSize`已经失效
+> MetaSpac不在jvm中，而是使用本地内存，默认情况下，仅受本地内存限制，
+> 参数`-XX:MetaspaceSize -XX:MaxMetaspaceSize`，用于限制元数据区空间，**默认**大小为20MB
+> 参数`-XX:MinMetaspaceFreeRation -XX:MaxMetaspaceFreeRation`，用于控制GC后剩余空间容纳的百分比
+> 参数`-XX:MinMetaspaceExpansion -XX:MaxMetaspaceExpansion`，用于控制元空间增长幅度
+> 参数`-XX:+UseCompressedClassPointers -XX:+UseCompressedOops`会在Metaspace空间分配空间，导致默认20MB失效
+
+Metaspace的优点：
+> jar包和应用的class文件存放在永久代，如果jar包很多，可能导致永久代溢出
+> 每个应用都有自己的永久代，改用Metaspace后，应用可以共享同样的class内存空间，例如：两个项目都引用rt.jar，在元空间只保留一份
+
+Metaspace对GC性能的提升：
+> Full GC中，指向元数据的指针不需要扫描，减少了GC开销；减少了GC Roots对象的扫描
+> 元空间只有少量的指针指向Java heap，
+> 避免了元数据压缩的开销
 
 ### 直接内存
 

@@ -2,17 +2,16 @@
 title: shell常用命令之grep
 date: 2018-08-27 19:38:31
 tags: linux, shell
-categories: linux
+categories: Linux
 ---
 一些常用的shell命令、参数还是需要整理一下，以防每次都要去查询
 
+<!-- more -->
 ## 正则表达式 ##
 
 ### 基本的正则表达式： ### 
 
 1. 元字符： 
-
-<!-- more -->
 
 	'.':匹配任意单个字符 
 	

@@ -1,5 +1,5 @@
 ---
-title: Redis内存淘汰策略
+title: Redis内存淘汰策略(三)
 date: 2018-12-16 21:59:23
 tags: Redis
 categpries: Redis
@@ -13,7 +13,6 @@ Redis用于缓存的内存不足时，如何处理新写入需要申请额外空
 设置淘汰策略：
 	config get maxmemory
 	config get maxmemory-policy
-
 
 ## 6种淘汰策略 ##
 

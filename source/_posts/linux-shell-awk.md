@@ -2,10 +2,11 @@
 title: shell常用命令之awk
 date: 2018-08-27 22:01:10
 tags: linux, shell
-categories: linux
+categories: Linux
 ---
 awk同样作为高级命令，需要不断地完善
 
+<!-- more -->
 ## awk ##
 
 用法：
@@ -15,8 +16,6 @@ awk同样作为高级命令，需要不断地完善
 	awk [POSIX or GNU style options] [--] 'program' file ...
 
 选项：
-
-<!-- more -->
 
 POSIX options:		GNU long options: (standard)
 

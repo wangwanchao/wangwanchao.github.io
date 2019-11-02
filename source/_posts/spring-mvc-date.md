@@ -2,7 +2,7 @@
 title: SpringMVC时间传值问题
 date: 2018-09-18 10:45:25
 tags: Spring
-categories： Spring
+categories: Spring
 ---
 最近新入职公司，接手一个老项目，代码是多个人开发的，风格各异，中间就遇到时间传值问题，在VO层，有的传值Date，有的传值String
 

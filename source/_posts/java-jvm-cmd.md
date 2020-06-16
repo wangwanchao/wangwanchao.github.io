@@ -5,6 +5,8 @@ tags: java, jvm
 categories: JVM
 ---
 其实去年就一直在做这些东西，只是没有整理出来，这一段时间面试还是遇到很多问jvm的东西，特别整理以下
+
+<!-- more -->
 ## jvm的默认参数 ##
 
 安装完jdk后，先来看一看一些默认参数，以下统一以jdk1.8为例。
@@ -14,8 +16,6 @@ categories: JVM
 "=":表示jvm参数的默认值，
 
 ":=":表示被用户或者jvm赋值的参数
-
-<!-- more -->
 
      intx CICompilerCount                          := 2                                   {product}
     uintx InitialHeapSize                          := 48234496                            {product}
@@ -307,9 +307,6 @@ jmap option vmid
 查看 JVM 的性能：
 
 jcmd PID PerfCounter.print
-
-
-
 
 **补充** 
 

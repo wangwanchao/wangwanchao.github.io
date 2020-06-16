@@ -1,10 +1,12 @@
 ---
-title: mysql中的锁lock
+title: mysql中的锁lock(三)
 date: 2018-08-07 01:04:31
 tags: MySQL
 categories: MySQL
 ---
+MySQL中的锁机制
 
+<!-- more -->
 ## 锁的分类 ##
 
 ### 1. 表级锁(MyISAM)： ###
@@ -15,7 +17,6 @@ categories: MySQL
 > 
 > 锁定力度大，发生锁冲突概率最高，并发度低
 
-<!-- more -->
 
 #### 表共享读锁、表独占写锁 ####
 	
@@ -101,3 +102,4 @@ local：
 	> 
 	> 粒度介于两者之间，并发度一般
 
+## 实战演练 ##

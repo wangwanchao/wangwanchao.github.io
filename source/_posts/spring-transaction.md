@@ -8,19 +8,19 @@ categories: Spring
 
 TransactionDefinition接口中定义了7种类型的事务传播机制：
 
-1. PROPAGATION_REQUIRED: 支持当前事务，如果当前没有事务，就新建一个事务。**这是最常见的选择，也是 Spring 默认的事务的传播**。
+1. REQUIRED: 支持当前事务，如果当前没有事务，就新建一个事务。**这是最常见的选择，也是 Spring 默认的事务的传播**。
 
-2. PROPAGATION_REQUIRES_NEW: 新建事务，如果当前存在事务，把当前事务挂起。新建的事务将和被挂起的事务没有任何关系，是两个独立的事务，**外层事务失败回滚之后，不能回滚内层事务执行的结果**，内层事务失败抛出异常，外层事务捕获，也可以不处理回滚操作
+2. REQUIRES_NEW: 新建事务，如果当前存在事务，把当前事务挂起。新建的事务将和被挂起的事务没有任何关系，是两个独立的事务，**外层事务失败回滚之后，不能回滚内层事务执行的结果**，内层事务失败抛出异常，外层事务捕获，也可以不处理回滚操作
 
-3. PROPAGATION_SUPPORTS: 支持当前事务，如果当前没有事务，就以非事务方式执行。
+3. SUPPORTS: 支持当前事务，如果当前没有事务，就以非事务方式执行。
 
-4. PROPAGATION_MANDATORY: 支持当前事务，如果当前没有事务，就抛出异常。
+4. MANDATORY: 支持当前事务，如果当前没有事务，就抛出异常。
 
-5. PROPAGATION_NOT_SUPPORTED: 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
+5. NOT_SUPPORTED: 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
 
-6. PROPAGATION_NEVER: 以非事务方式执行，如果当前存在事务，则抛出异常。
+6. NEVER: 以非事务方式执行，如果当前存在事务，则抛出异常。
 
-7. PROPAGATION_NESTED: 嵌套事务   
+7. NESTED: 嵌套事务
 
 <!--more -->
 
@@ -38,7 +38,7 @@ TransactionDefinition接口中定义了7种类型的事务传播机制：
 
 ## 事务失效的情况 ##
 
-1、MySQL数据表的引擎必须为InnoDB，MyISAM引擎不支持事务
+1、MySQL数据表的引擎必须为InnoDB，MyISAM引擎不支持事务; static事务方法失效; 在controller层调用失效; catch异常不处理
 
 2、调用的类必须是由Spring容器管理的代理类
 
@@ -46,27 +46,60 @@ jdk代理
 
 cglib代理
 
-3、调用的方法必须是public方法，这是由Spring的AOP特性决定的
+3、调用的方法必须是public方法，这是由Spring的AOP特性决定的。
+
+这样修饰符可以有两种选择：
+private: 使用@Transactional注解编译报错`Methods annotated with @Transactional must be overridable`
+
+protected: 事务不生效
+
+public: 必须在接口内，如果在controller内，事务不生效
+
 
 4、抛出runtimeException才能回滚。
 
-事务默认支持CheckException不会滚，unCheckException回滚，如果需要checkException回滚，注解需要标明@Transactional(rollbackFor=Exception.class)
+事务默认支持checked Exception不回滚，unCheckException回滚。
+如果需要checked Exception回滚，注解需要标明@Transactional(rollbackFor=Exception.class)，或者try-catch后throw new RuntimeException
 
-5、事务传播策略在内部方法调用时将不起作用
+5、事务传播策略在内部方法调用时(自调用问题)
 
 情景1：
 
-	public void insert2(Person person, Book book){
+	@Override
+	public void insert(Person person, Book book){
         insert(person, book);
     }
 
+	@Override
     @Transactional
-    public void insert(Person person, Book book){
+    public void insert2(Person person, Book book){
         insertPerson(person);
 
         insertBook(book);
     }
 	
+	// 调用
+	personServiceImpl.insert(person, book)事务不起作用
+
+	personServiceImpl.insert2(person, book)事务起作用
+
+情景2：
+
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED)
+	public void insert(Person person, Book book){
+        insert(person, book);
+    }
+
+	@Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void insert2(Person person, Book book){
+        insertPerson(person);
+
+        insertBook(book);
+    }
+	
+	// 调用
 	personServiceImpl.insert(person, book)事务起作用
 
 	personServiceImpl.insert2(person, book)事务不起作用
@@ -77,19 +110,34 @@ cglib代理
 > 
 > 在外层调用内层的事务方法时使用AopContext代理 
   
-	public void insert2(Person person, Book book){
-        ((PersonServiceImpl)AopContext.currentProxy()).insert(person, book);
+	@Transactional(propagation = Propagation.REQUIRED)
+    @Override
+	public void insert(Person person, Book book){
+        ((PersonServiceImpl)AopContext.currentProxy()).insert2(person, book);
     }
 
 解决方案2：
 
-> 增加<aop:config proxy-target-class="true"></aop:config>
-> 
 > 在外层调用内层的事务方法时使用Spring的IOC容器代理 
   	
 	@Autowired
     private ApplicationContext ctx;
 
-	public void insert2(Person person, Book book){
-        ctx.getBean(PersonServiceImpl.class).insert(person, book);;
+	@Transactional(propagation = Propagation.REQUIRED)
+    @Override
+	public void insert(Person person, Book book){
+        ctx.getBean(PersonServiceImpl.class).insert2(person, book);;
+    }
+
+解决方案3：
+
+> 注入自身类
+  	
+	@Autowired
+    private BookService bookService;
+
+	@Transactional(propagation = Propagation.REQUIRED)
+    @Override
+	public void insert(Person person, Book book){
+        bookService.insert2(person, book);;
     }

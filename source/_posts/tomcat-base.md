@@ -9,8 +9,7 @@ Tomcat作为常见的Servlet容器，我接触的从最初的SSH/SSM架构，Tom
 <!-- more -->
 
 ## 整体架构
-架构示意图：
-<image src=""/>
+![架构示意图：](https://impwang.oss-cn-beijing.aliyuncs.com/tomcat/tomcat-base.png)
 
 ### Server
 Server包含一个或多个Service

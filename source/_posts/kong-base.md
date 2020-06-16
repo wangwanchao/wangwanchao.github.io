@@ -1,10 +1,10 @@
 ---
-title: Kong网关--
+title: Kong网关
 date: 2019-08-29 14:29:21
 tags: SpringCloud
 categpries: SpringCloud
 ---
-
+网关
 
 <!-- more -->
 ## Centos7安装

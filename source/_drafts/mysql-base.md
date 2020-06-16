@@ -6,6 +6,7 @@ categpries: MySQL
 ---
 MySQL有三种版本，
 
+<!-- more -->
 
 ## MySQL ##
 

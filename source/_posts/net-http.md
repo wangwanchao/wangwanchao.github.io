@@ -1,7 +1,7 @@
 ---
 layout: '[post]'
 title: HTTP协议
-tags: NetWork
+tags: 网络协议
 categories: NetWork
 date: 2018-11-21 17:54:35
 ---
@@ -48,6 +48,5 @@ SPDY协议：Google开发的下一代网络协议，并不是用来替代HTTP协
 2. spdy请求可以具有优先级，客户端可以要求服务器优先发送重要资源；http1.1一个非关键请求可以阻塞服务器对后面请求的处理
 3. spdy允许压缩头部，减少HTTP头部大小，减少带宽占用；http1.1头部冗余，User-Agent、Host重复发送
 4. spdy服务器可以主动给客户端推送数据；http1.1只要客户端可以发送请求
-
 
 ## HTTP3 ##

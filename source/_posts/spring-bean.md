@@ -1,7 +1,7 @@
 ---
-title: spring bean分析
+title: spring bean注入过程(3)
 date: 2018-08-13 21:34:09
-tags: Spring
+tags: spring
 categories: Spring
 ---
 Spring的东西有很多不经常用，就会忘记，还是要多记录一下。其实bean这一块儿有很多的东西要梳理，以后慢慢还债

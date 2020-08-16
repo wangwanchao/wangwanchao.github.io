@@ -1,10 +1,10 @@
 ---
-title: 微服务--断路器(三)
+title: 微服务--断路器(四)
 date: 2019-01-17 21:20:00
-tags: springcloud
-categpries: Architecture
+tags: 
+categpries: SpringCloud
 ---
-服务之间的依赖，导致一个环节出问题，如果遇到高并发，就会导致资源耗尽，从而影响其它服务的调用，所以引入了断路器的概念
+服务之间的依赖，导致一个环节出问题，如果遇到高并发，就会导致资源耗尽，从而影响其它服务的调用，所以引入了断路器的概念。
 
 <!-- more -->
 ## Hystrix ##
@@ -18,7 +18,7 @@ categpries: Architecture
 ### 配置属性：
 ```
 circuitBreaker:
-	requestVolumeThreshold: 20   		#滑动窗口大小
+	requestVolumeThreshold: 20   	#滑动窗口大小，默认20次
 	sleepWindowInMilliseconds: 5000  #过多久断路器再次检测是否开启
 	errorThresholdPercentage: 50  	#错误率
 
@@ -32,7 +32,11 @@ circuitBreaker:
 4. 缓存：请求缓存、请求合并
 5. 实时监控、报警
 
-## Sentinel ##
+### 线程池和信号量的区别
+线程池：
+
+信号量：
+## Sentinel(阿里) ##
 ### 原理
 
 

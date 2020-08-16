@@ -4,7 +4,6 @@ date: 2018-12-16 21:59:41
 tags: Redis
 categpries: Redis
 ---
-简单记录，回头需要深入再做整理
 
 <!-- more -->
 

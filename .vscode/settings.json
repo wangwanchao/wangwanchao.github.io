@@ -1,0 +1,4 @@
+{
+    "maven.pomfile.autoUpdateEffectivePOM": true,
+    "files.autoSave": "onFocusChange"
+}

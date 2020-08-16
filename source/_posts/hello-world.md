@@ -5,7 +5,8 @@ tags: Hello
 categories: Hello
 top: true
 ---
-“间歇性踌躇满志，持续性混吃等死”，在这条路上见过了太多太多的大佬，默默的做一个小码农，当然能够有点产出是最好的:)
+从高中上网都不会的小白，到从事这个行业，我知道我是真心地喜欢这个行业，只不过一直在探索最终的方向，如果可以，我真的希望自己可以写到退休，然后达到研究者的水平，像linus torvalds一样
+最后，在这条路上见过了太多太多的大佬。我的目标就是成为这样的大佬，做出自己的开源产品:)
 博客间歇式更新
 
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=444267928&auto=1&height=66"></iframe>

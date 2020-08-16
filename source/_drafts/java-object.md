@@ -4,15 +4,65 @@ date: 2019-06-10 23:21:14
 tags: java
 categpries: Java
 ---
-Object是所有类的父类。
+Object是所有类的父类。这样的设计便于扩展，类中所有的方法分为final方法、非final方法。非final方法都有明确的“通用约束”，在重写时，需要遵守。
 
 <!-- more -->
 Object类方法结构：
 
 <image src="https://impwang.oss-cn-beijing.aliyuncs.com/java/object.png"/>
 
-## equals、hashCode
+## equals()、hashCode()
+### equals()
+约束：
+1. 自反性
+2. 对称性
+3. 传递性
+4. 一致性
+5. 非空性
 
+不需要重写的场景：
+
+需要重写的场景：
+
+### hashCode()
+约束：
+> 每个覆盖了equals()方法的类，必须覆盖hashCode()方法
+> equals() 相等的对象hashCode()必须相等，但hashCode()相等的对象不一定相等
+> 一个好的散列函数为不相等的对象生成不相等的散列码
+
+hashCode的实现原理：
+1. 计算单个属性hashCode 
+    boolean/Boolean: 
+    byte/short/char/int: (int)f
+    long：
+    float
+    double
+    对象：递归计算
+    数组：遍历数组计算
+2. 计算对象hashCode 取一个素数s，一个初始hashCode，计算整个对象所有域的和
+hashCode = 素数 * hashCode + hashCode(field)
+
+优化：
+1. 如果一个类是不可变的，计算hashCode开销比较大，则可以将hashCode散列在对象内部
+2. 如果某种Class类型大多数对象会被用作散列键，在创建实例的时候计算hashCode；否则可以选择“延迟初始化”，知道第一次被调用时初始化
+
+## clone
+约定：
+
+
+1. 使用clone()方法拷贝时，需要实现Cloneable接口，否则抛出`CloneNotSupportedException`异常。改变了Object类中clone方法的protected属性
+
+拷贝构造器：
+
+拷贝工厂：
+
+## finalize
+垃圾回收中的应用：
+
+注意事项：
+Java语言规范并不保证finalize会被执行。
+`System.gc`和`System.runFinalization`方法也无法保证finalize被执行。
+使用finalize存在严重的性能损耗。
 
 ## wait、notify、notifyAll
 原理：

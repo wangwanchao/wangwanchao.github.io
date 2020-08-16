@@ -7,7 +7,6 @@ categpries: SpringCloud
 著名的CAP理论，Eureka满足AP理论，ZK、Consul满足CP理论
 
 <!-- more -->
-最早接触的是zk，当时没怎么分析，水货
 ## Zookeeper
 ### 原理
 

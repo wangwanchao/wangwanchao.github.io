@@ -1,7 +1,7 @@
 ---
-title: Redis内存淘汰策略(三)
+title: Redis内存策略(三)
 date: 2018-12-16 21:59:23
-tags: Redis
+tags: 内存
 categpries: Redis
 ---
 Redis用于缓存的内存不足时，如何处理新写入需要申请额外空间的数据。
@@ -14,7 +14,10 @@ Redis用于缓存的内存不足时，如何处理新写入需要申请额外空
 	config get maxmemory
 	config get maxmemory-policy
 
-## 6种淘汰策略 ##
+## 分配策略
+
+## 淘汰策略
+### 6种淘汰策略
 
 1. volatile-lru:从已设置过期时间的内存数据集中挑选最近最少使用的数据 淘汰；
 2. volatile-ttl: 从已设置过期时间的内存数据集中挑选即将过期的数据 淘汰；

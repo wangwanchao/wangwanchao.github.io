@@ -1,10 +1,10 @@
 ---
 title: 微服务--注册中心(二)
 date: 2019-01-23 10:32:01
-tags: SpringCloud
+tags: 注册中心
 categpries: SpringCloud
 ---
-著名的CAP理论，Eureka满足AP理论，ZK、Consul满足CP理论
+著名的CAP理论，Eureka满足AP理论，ZK、Consul满足CP理论。
 
 <!-- more -->
 ## Zookeeper
@@ -19,6 +19,12 @@ categpries: SpringCloud
 ### 特点
 1. 服务注册快，不需要将注册信息同步到其他节点
 2. 不同的节点注册信息可以不一致，保证了高可用A
+
+
+### 自我保护机制
+
+### 平滑上下限/无感知
+
 
 ## Consul
 ### 原理

@@ -1,9 +1,14 @@
-title: 线程池
-date: 2018-08-07 00:00:57
-tags: java, 多线程
-categories: java
 ---
-"Stay hungry,Stay foolish", 要时刻保持学习的激情，要经常温故而知新
+title: 线程池
+tags: 线程池
+categories: Java
+date: 2018-08-07 00:00:57
+categpries:
+---
+
+目前的经验，实际中一般应用在发送邮件、发送短信的场景
+
+<!-- more -->
 
 ## Executors中的静态工厂方法 ##
 
@@ -19,8 +24,6 @@ categories: java
 
 **注意：**以上两个允许创建线程数为Integer.MAX_VALUE,可能创建大量线程，导致OOM
 
-<!-- more -->
-
 ## ThreadPoolExecutor ##
 
 ### 创建与销毁 ###
@@ -34,7 +37,6 @@ categories: java
                           RejectedExecutionHandler handler) {
 
 	}
-
 
 corePoolSize:没有任务执行时线程池的大小，当工作队列满了的时候，才会创建超出该数量的线程
 
@@ -75,8 +77,6 @@ JDK提供了4种饱和策略：
 > DiscardPolicy:当新提交的任务无法保存到队列时，该策略将抛弃该任务
 >
 > DiscardOldestPolicy:该策略将抛弃下一个被执行的任务(即最早排队而尚未执行的任务)，然后重新提交新任务
-
-
 
 ### 线程工厂 ###
 

@@ -1,20 +1,10 @@
 ---
 title: java集合之HashMap
 date: 2018-08-09 17:26:39
-tags: java, 集合
-categories: java
+tags: 集合
+categories: Java
 ---
-基于平常很少会看底层的实现，又频繁用到这些，所以简单看一下HashMap中几个主要方法的底层实现：
-
-put(K, V)
-
-resize(int)
-
-get(Object)
-
-containsKey(Object)
-
-size()
+hasmap在jdk1.7和jdk1.8中做了很大的改进，
 
 <!-- more -->
 

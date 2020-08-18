@@ -1,9 +1,11 @@
 ---
 title: java集合之ConcurrentHashMap
-date: 2018-08-14 23:32:43
-tags: java, 集合
+tags: 'java, 集合'
 categories: java
+date: 2018-08-14 23:32:43
+categpries:
 ---
+
 不同于HashMap,ConcurrentHashMap是线程安全的。
 
 put(K, V)

@@ -6,7 +6,6 @@ categpries: RocketMQ
 ---
 消息队列
 
-
 <!-- more -->
 ## 单节点模式
 ### 启动服务

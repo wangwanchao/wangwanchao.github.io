@@ -1,7 +1,7 @@
 ---
 title: MySQL索引
 date: 2018-09-28 23:53:05
-tags: MySQL
+tags: 索引
 categories: MySQL
 ---
 

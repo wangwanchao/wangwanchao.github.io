@@ -28,6 +28,9 @@ categpries: SpringCloud
 如何判断并发量最小呢？ServerStats有个属性activeRequestCount，这个属性记录的就是server的并发量。轮询所有的server，选择其中activeRequestCount最小的那个server，就是并发量最小的服务节点。
 
 #### ZoneAvoidanceRule
+策略描述：复合判断server所在区域的性能和server的可用性，来选择server返回。
+
+### 自定义负载均衡策略
 
 ## Feign
 

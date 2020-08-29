@@ -1,7 +1,7 @@
 ---
-title: mysql分库分表技术
+title: MySQL分库分表技术
 date: 2018-09-17 17:24:13
-tags: MySQL
+tags: 分库分表
 categories: MySQL
 ---
 分库分表主要针对大流量用户网站，但是作为有追求的程序员，还是要熟悉理论，用的时候方便快速上手解决业务问题，毕竟生活主要还是Crud Boy

@@ -1,7 +1,7 @@
 ---
 title: Redis缓存过期策略(四)
 date: 2018-12-16 21:59:41
-tags: Redis
+tags: 缓存
 categpries: Redis
 ---
 

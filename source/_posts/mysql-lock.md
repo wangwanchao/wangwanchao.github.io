@@ -1,7 +1,7 @@
 ---
 title: mysql中的锁lock(三)
 date: 2018-08-07 01:04:31
-tags: MySQL
+tags: 锁
 categories: MySQL
 ---
 MySQL中的锁机制
@@ -17,17 +17,16 @@ MySQL中的锁机制
 > 
 > 锁定力度大，发生锁冲突概率最高，并发度低
 
-
 #### 表共享读锁、表独占写锁 ####
 	
 MyISAM在执行select语句时，会自动给相关表加读锁；
 执行insert/update/delete	语句时，自动加写锁；
-
+```
 	LOCK tables table1 read local, table2 read local;
 	select ***
 	select ***
 	Unlock tables;
-
+```
 local：
 
 锁升级：
@@ -91,8 +90,6 @@ local：
 
 
 #### 间隙锁 ####
-
-
 
 ### 3. 页面锁： ###
 

@@ -1,7 +1,7 @@
 ---
 title: Java虚拟机(一)
 date: 2018-09-28 23:53:05
-tags: java, jvm
+tags: jvm
 categories: JVM
 ---
 JVM运行时栈帧模型

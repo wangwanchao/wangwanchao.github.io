@@ -223,21 +223,17 @@ jmap option vmid
 #### 具体参数如下： ####
 
 
-
 #### 案例分析： ####
 
 生成虚拟机当前时刻线程快照:
-
+```
 	jstack -l 1909
 	jstack 1909 > jstack.log
-
+```
 ## jps ##
 
 
 ## jinfo ##
-
-
-
 
 
 ## jcmd: 新版jdk的命令，用于取代旧版本命令##

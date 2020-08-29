@@ -1,7 +1,7 @@
 ---
 title: java中spi机制
 date: 2018-09-07 23:35:22
-tags: java
+tags: spi
 categories: java
 ---
 今天阅读dubbo源码的时候，看到SPI机制，咦？Java还有这种机制...瞬间觉得自己太弱鸡了...现在补课中

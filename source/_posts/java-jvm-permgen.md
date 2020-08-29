@@ -1,12 +1,13 @@
 ---
 title: java永久代、元数据区
 date: 2019-11-14 13:53:32
-tags:
+tags: jvm
 categpries: JVM
 ---
 今天在维护一个jsp + tomcat的老项目中，开始使用JRE1.8运行，没有问题，切换到JRE1.7运行就报错:
-	
-	java.lang.OutOfMemoryError: PermGen space
+```
+java.lang.OutOfMemoryError: PermGen space
+```
 添加运行时参数`-XX:MaxPermSize=512m`解决问题，这里涉及到jvm运行时内存的变化。
 
 <!-- more -->

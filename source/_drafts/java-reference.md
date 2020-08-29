@@ -1,7 +1,7 @@
 ---
 title: java中的引用类型
 date: 2018-08-11 11:58:29
-tags: java, jvm
+tags: 弱引用
 categories: Java
 ---
 ## 强引用 ##

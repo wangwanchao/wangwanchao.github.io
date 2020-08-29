@@ -13,7 +13,8 @@ categpries: Redis
 
 
 ## Redis4
-
+新特性变更历史：
+> 增加内存碎片整理
 
 ## Redis5
 

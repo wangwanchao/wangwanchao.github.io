@@ -126,4 +126,8 @@ Metaspace对GC性能的提升：
 
 访问速度快，节省了一次指针定位的时间开销
 
+## Win10编译OpenJDK8
 
+
+
+## Deepin编译OpenJDK8

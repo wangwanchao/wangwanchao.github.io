@@ -11,11 +11,11 @@ top: true
 2020，我的目标：成为这样的大佬，未来做出自己的开源产品:)(2020.08.01)
 博客间歇式更新 PS: 今年对很多东西有了重新的认识，整个博客的内容，大部分会推翻，重新构建(2020.08.27)
 凡事问一下：
-1. 是什么？what
-2. 用来做什么？for
-3. 解决了什么问题？solve
-4. 设计原理是什么？design
-5. 你自己如何实现中间件？practice
+1. 她是什么？what
+2. 她用来做什么？for
+3. 她解决了什么问题？solve
+4. 她的设计原理是什么？design
+5. 你自己如何实现她？practice
 
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=444267928&auto=1&height=66"></iframe>
 

@@ -16,3 +16,36 @@ categpries: NetWork
 
 <!-- more -->
 一次无法理解的东西，我可能会分很长时间补充(待续...)
+
+
+
+
+
+## Cloudflare基于Rust实现的quiche
+
+
+
+### 
+Windows
+Exit any running-instance of Chrome.
+Right click on your "Chrome" shortcut.
+Choose properties.
+At the end of your "Target:" line add the command line flags. For example:
+--disable-gpu-vsync
+With that example flag, it should look like below (replacing "--disable-gpu-vsync" with any other command line flags you want to use):
+chrome.exe --disable-gpu-vsync
+Launch Chrome like normal with the shortcut.
+macOS
+Quit any running instance of Chrome.
+Run your favorite Terminal application.
+In the terminal, run commands like below (replacing "--remote-debugging-port=9222" with any other command line flags you want to use):
+/Applications/Chromium.app/Contents/MacOS/Chromium --remote-debugging-port=9222
+
+# For Google Chrome you'll need to escape spaces like so:
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
+Linux
+Quit any running instance of Chrome.
+Run your favorite terminal emulator.
+In the terminal, run commands like below (replacing "--remote-debugging-port=9222" with any other command line flags you want to use):
+chromium-browser --remote-debugging-port=9222
+google-chrome --foo --bar=2

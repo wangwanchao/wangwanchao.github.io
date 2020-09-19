@@ -4,7 +4,7 @@ date: 2020-08-27 23:07:26
 tags:
 categpries: Redis
 ---
-
+Redis升级到了6.x版本，也增加了多线程的功能，再也不用被问为啥使用单线程快了。
 
 <!-- more -->
 
@@ -64,4 +64,9 @@ make[1]: *** [server.o] 错误 1
 make[1]: 离开目录“/usr/local/redis-6.0.6/src”
 make: *** [all] 错误 2
 ```
-解决方法：启用临时gcc9.3.1
+解决方法：启用临时gcc9.3.1，打开新的shell后gcc版本重新复原
+```
+yum -y install centos-release-scl
+yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils
+scl enable devtoolset-9 bash
+```

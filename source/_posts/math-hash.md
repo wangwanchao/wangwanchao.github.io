@@ -28,3 +28,7 @@ public static int mock(String id, int count, int total) {
   }
 ```
 思路：
+$$
+
+
+$$

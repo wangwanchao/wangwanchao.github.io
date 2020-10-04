@@ -53,16 +53,17 @@ curl -XGET localhost:9200
 ```
 
 ### 常用命令 ###
+命令格式
 ```
 curl -X<REST Verb> <Node>:<Port>/<Index>/<Type>/<ID>
 ```
 参数：
-　　<REST Verb>：REST风格的语法谓词
-　　<Node>:节点ip
-　　<port>:节点端口号，默认9200
-　　<Index>:索引名
-　　<Type>:索引类型
-　　<ID>:操作对象的ID号
+REST Verb：REST风格的语法谓词
+Node:节点ip
+Port:节点端口号，默认9200
+Index:索引名
+Type:索引类型
+ID:操作对象的ID号
 
 查看健康状态
 ```
@@ -128,6 +129,9 @@ vi config/kibana.yml
 ```
 
 3. 访问'localhost:5601'使用kibana
+
+## 集群
+
 
 ## 原理 ##
 我个人的理解ES和MySQL的大致原理类似，无非都是对数据的存储，无非是基于内存模式，索引分析更快，更适用于全文搜索。
@@ -277,3 +281,23 @@ strict: 对新字段抛出异常。
 ### 搜索
 #### 全字段搜索
 `_all`代表匹配全部字段。如果不需要，也可以通过在映射中设置**禁用**。也可以在单独的字段上设置`"include_in_all": true`只针对个别字段全局过滤。
+
+#### 得分
+`_score`表示相关性评分，用来表示匹配的相关性。
+fuzzy查询
+term查询
+terms查询
+
+#### 执行计划
+ES也有类似于MySQL执行计划的explain命令，可以对查询路径进行分析。
+```
+GET /_search?explain=true
+{
+   "query"   : { 
+     "match" : { 
+       "title" : "wangsir blog" 
+     }
+   }
+}
+```
+

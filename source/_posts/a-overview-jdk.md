@@ -1,13 +1,33 @@
 ---
 title: jdk版本特性概览(一)
-date: 2018-10-17 00:21:01
+date: 2020-12-09 00:21:01
 tags: java,jdk
 categories: Java
 ---
-目前jdk已经升级到jdk12，大多还停留在jdk6/7/8上，jdk的快速迭代，让人非常兴奋，下面大致罗列一下jdk的新特性：
+不知不觉OpenJDK16快要发布了，大多还停留在jdk6/7/8上，jdk的快速迭代，让人非常兴奋。JDK发布版本分为过渡版本和长时间支持版本(LTS)，一般在生产中采用LTS版本可以满足长期维护。下面大致罗列一下jdk的新特性。
 
 <!-- more -->
-## jdk8 ##
+来给jdk15比个yeah!
+
+## JDK15
+
+### 新特性
+> 339:	Edwards-Curve数字签名算法 (EdDSA)
+> 360:	密封类 (预览)
+> 371:	隐藏类
+> 372:	移除了Nashorn JS引擎
+> 373:	重新实现了DatagramSocket API
+> 374:	禁用并弃用了偏向锁
+> 375:	Pattern Matching for instanceof (二次预览)
+> 377:	ZGC: 可扩展的低延迟的垃圾收集器 (生产阶段)
+> 378:	文本块
+> 379:	Shenandoah: 低停顿时间垃圾收集器 (从实验阶段进入生产阶段)
+> 381:	移除了对Solaris和SPARC的支持
+> 383:	Foreign-Memory Access API (Second Incubator)
+> 384:	Records (二次预览)
+> 385:	Deprecate RMI Activation for Removal
+
+## JDK1.8 LTS ##
 [OpenJDK1.8下载](https://jdk.java.net/java-se-ri/8)
 <!--[OracleJDK8文档]()
 -->
@@ -16,42 +36,26 @@ categories: Java
 ### Lambda表达式和Functional接口
 
 1. 接口的默认与静态方法
-
 2. 方法引用：
-	方法引用
-	
-		对象::实例方法名
-		类::静态方法名
-		类::实例方法名
-	
-	构造器引用
-	
-		类::new
-
-	数组引用
-	
-		Type[]::new
-	
+	对象::实例方法名
+	类::静态方法名
+	类::实例方法名
+	构造器引用 类::new
+	数组引用`Type[]::new`
 3. 重复注解
-
 4. 更好的类型推测机制
-
 5. 扩展注解： ElementType.TYPE_USE、 ElementType.TYPE_PARAMETER；可以为任何代码添加注解(接口、异常)
 
 ### 编译器新特性
-
-	通过'-parameters'参数可以将方法参数名添加到字节码
+通过`-parameters`参数可以将方法参数名添加到字节码
 
 ### 类库的新特性
 1. Optional：解决空指针异常
-
-```
 	Consumer<T>
 	Supplier<T>
 	Function<T, R>
 	Predicate<T>
 	Comparator<T>
-```
 
 2. Stream：
 	filter过滤
@@ -73,11 +77,10 @@ categories: Java
 5. 并行：parallelSort()、
 
 6. 并发：java.util.concurrent包
-	
-	> ConcurrentHashMap增加新方法支持聚集
-	> ForkJoinPool增加新方法支持共有资源池
-	> locks.StampedLock，用来替换locks.ReadWriteLock
-	> atomic包下增加DoubleAccumulator、DoubleAdder、LongAccumulator、LongAdder
+> ConcurrentHashMap增加新方法支持聚集
+> ForkJoinPool增加新方法支持共有资源池
+> locks.StampedLock，用来替换locks.ReadWriteLock
+> atomic包下增加DoubleAccumulator、DoubleAdder、LongAccumulator、LongAdder
 	
 7. 集合
 	HashMap：链表 + 红黑树
@@ -88,24 +91,22 @@ categories: Java
 2. 类依赖分析器 jdeps：可以用来分析'.class'、目录、jar
 
 ### JVM新特性
-1. PermGen空间被Metaspace取代，
-		
-		-XX:PermSize      -XX:MetaSpaceSize
-		-XX:MaxPermSize   -XX:MaxMetaspaceSize
-		
+1. PermGen空间被Metaspace取代
+	-XX:PermSize      -XX:MetaSpaceSize
+	-XX:MaxPermSize   -XX:MaxMetaspaceSize
+
 ### 安全性
 
 ### IO/NIO改进
 1. 改进java.nio.charset.Charset的实现，精简了 jre/lib/charsets.jar 包；优化了 String(byte[],*) 构造方法和 String.getBytes() 方法的性能
 2. 新增API
+	BufferedReader.line(): 返回文本行的流 Stream<String>
+	File.lines(Path, Charset):返回文本行的流 Stream<String>
+	File.list(Path): 遍历当前目录下的文件和目录
+	File.walk(Path, int, FileVisitOption): 遍历某一个目录下的所有文件和指定深度的子目录
+	File.find(Path, int, BiPredicate, FileVisitOption... ): 查找相应的文件
 
-		BufferedReader.line(): 返回文本行的流 Stream<String>
-		File.lines(Path, Charset):返回文本行的流 Stream<String>
-		File.list(Path): 遍历当前目录下的文件和目录
-		File.walk(Path, int, FileVisitOption): 遍历某一个目录下的所有文件和指定深度的子目录
-		File.find(Path, int, BiPredicate, FileVisitOption... ): 查找相应的文件
-
-## jdk9 ##
+## JDK9 ##
 [OpenJDK9](https://openjdk.java.net/projects/jdk9/)
 
 "Java SE 9 has reached end of support. Users of Java SE 9 should switch to Java SE 10."
@@ -205,9 +206,9 @@ categories: Java
 > 299: Reorganize Documentation
 
 
-## jdk10 ##
-[OpenJDK10文档](https://openjdk.java.net/projects/jdk/10/)
+## JDK10 ##
 
+[OpenJDK10文档](https://openjdk.java.net/projects/jdk/10/)
 [OracleJDK下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)
 
 ### 新特性 ###
@@ -224,16 +225,12 @@ categories: Java
 > 319: 根证书
 > 322: Time-Based Release Versioning
 
-## jdk11 ##
+## JDK11 LTS ##
 
 继jdk8后的大版本LTS
-
 [OpenJDK11下载](https://jdk.java.net/java-se-ri/11)
-
 [OpenJDK11文档](https://openjdk.java.net/projects/jdk/11/)
-
 [OracleJDK下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
-
 [Oracle文档](https://docs.oracle.com/en/java/javase/11/)
 
 ### 新特性 ###
@@ -256,15 +253,12 @@ categories: Java
 >335: 废除了JS解析器Nashorn
 >336: 弃用Pack200工具类和API
 
-## jdk12 ##
+## JDK12 ##
 jdk12发布了，jdk20还会远吗?
 
 [OpenJDK下载](https://jdk.java.net/12/)
-
 [OpenJDK12文档](https://openjdk.java.net/projects/jdk/12/)
-
 [OracleJDK12下载](https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html)
-
 [OracleJDK12文档](https://docs.oracle.com/en/java/javase/12/)
 
 ### 新特性 ###
@@ -278,7 +272,6 @@ jdk12发布了，jdk20还会远吗?
 >344:	G1实现可中止的Mixed GC：如果G1发现collection set重复尝试选择的region数量错误，就会选择一种增量的方式：把collection set分成两部分(强制的、可选择的)。G1回收强制性部分后，如果还有时间就开始以一种更细粒度回收可选择性部分，粒度3取决于时间，更多是一次一个region。当预测足够准确后，可选择部分就会越来越小，直到collection set全部变成强制性。当预测不精确后，下次会重新分成两部分
 >346:	Promptly Return Unused Committed Memory from G1
 
-
 ## JDK13
 
 ### 新特性 ###
@@ -288,23 +281,23 @@ jdk12发布了，jdk20还会远吗?
 >354:	Switch语法(预览)
 >355:	文本块(预览)
 
-
-## JDK14
+## JDK14 LTS
 [OpenJDK14源码](https://jdk.java.net/java-se-ri/14)
 
-305:	Pattern Matching for instanceof (预览)
-343:	Packaging Tool (孵化阶段)
-345:	NUMA-Aware Memory Allocation for G1
-349:	JFR Event Streaming
-352:	Non-Volatile Mapped Byte Buffers
-358:	更有用的NullPointerExceptions
-359:	Records (Preview)
-361:	Switch语法(预览)
-362:	废除了对Solaris和SPARC的支持
-363:	移除了Concurrent Mark Sweep (CMS)垃圾回收器
-364:	ZGC在macOS平台的实现
-365:	ZGC在Windows平台的实现
-366:	弃用ParallelScavenge + SerialOld GC组合模式
-367:	移除Pack200工具类和API
-368:	Text Blocks (二次预览)
-370:	Foreign-Memory Access API (孵化阶段)
+> 305:	Pattern Matching for instanceof (预览)
+> 343:	Packaging Tool (孵化阶段)
+> 345:	NUMA-Aware Memory Allocation for G1
+> 349:	JFR Event Streaming
+> 352:	Non-Volatile Mapped Byte Buffers
+> 358:	更有用的NullPointerExceptions
+> 359:	Records (Preview)
+> 361:	Switch语法(预览)
+> 362:	废除了对Solaris和SPARC的支持
+> 363:	移除了Concurrent Mark Sweep (CMS)垃圾回收器
+> 364:	ZGC在macOS平台的实现
+> 365:	ZGC在Windows平台的实现
+> 366:	弃用ParallelScavenge + SerialOld GC组合模式
+> 367:	移除Pack200工具类和API
+> 368:	Text Blocks (二次预览)
+> 370:	Foreign-Memory Access API (孵化阶段)
+

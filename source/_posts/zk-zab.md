@@ -22,9 +22,6 @@ ZAB(Zookeeper Atomic Broadcast)：ZooKeeper原子消息广播协议，因为paxo
 写请求分为leader、follower/observer两种接收
 #### 写leader
 
-
-
-
 #### 写follower/observer
 follower/observer接收到写请求都会转发到leader，再由leader
 做一些ACK机制处理

@@ -33,6 +33,7 @@ local：
 
 ### 2. 行级锁(InnoDB)： ###
 
+特性：
 >开销大，加锁慢
 >
 >会导致死锁
@@ -42,22 +43,16 @@ local：
 #### 事务ACID ####
 
 原子性
-
 一致性
-
 隔离性
-
 持久性
 
 #### 事务带来的问题 ####
 
 更新丢失
-
-脏读
-
-不可重复度
-
-幻读
+脏读：
+不可重复度：
+幻读：
 
 #### 事务的隔离级别 ####
 
@@ -72,24 +67,27 @@ local：
 |可序列化(Serializable)|	最高级别，事务级|	否|	否|	否|
 
 查看系统行级锁占用
-
-	show status like 'innodb_row_lock%';
-
-#### 共享锁(S)、排他锁(X) ####
-
-显式加锁：
-
-	共享锁（S）：SELECT * FROM table_name WHERE ... LOCK IN SHARE MODE
-	排他锁（X）：SELECT * FROM table_name WHERE ... FOR UPDATE
+```
+show status like 'innodb_row_lock%';
+```
 
 #### 意向共享锁(IS)、意向排他锁(IX) ####
 
-这两种锁都是**表锁**
+这两种锁都是**表锁**，这两种意向锁和共享锁、排他锁有兼容、互斥的关系，在获取共享锁和排他锁之前必须先获取意向锁，而这两种锁都是数据库自动添加的，不需要开发人员显式添加。
 
 **注意：**只有通过索引条件检索数据，InnoDB才会使用行级锁，否则，InnoDB将使用表锁！
 
+#### 共享锁(S)、排他锁(X) ####
+这两种锁都是行锁。
+显式加锁：
+```
+共享锁（S）：SELECT * FROM table_name WHERE ... LOCK IN SHARE MODE
+排他锁（X）：SELECT * FROM table_name WHERE ... FOR UPDATE
+```
 
 #### 间隙锁 ####
+使用范围查询时，该条件作用在索引上，InnoDB会对符合条件的范围加锁，索引键值在范围内但是该记录并不存在的称为“间隙”，这些间隙也会被加锁。间隙锁 + 行锁 = Next-Key锁。
+
 
 ### 3. 页面锁： ###
 

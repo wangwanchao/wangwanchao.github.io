@@ -5,7 +5,6 @@ categories: Java
 date: 2018-08-07 00:00:57
 categpries:
 ---
-
 目前的经验，实际中一般应用在发送邮件、发送短信的场景
 
 <!-- more -->

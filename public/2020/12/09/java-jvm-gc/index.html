@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="jvm,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Wangsir's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="垃圾回收器应该是架构师必备的核心技能，从回收算法、回收器、GC Roots、安全点/安全区域、分配策略、回收策略，整个过程都需要清晰。最后通过配置参数进行调优。这是一篇持续更新的博客，随着认知的变化、GC的更新不断更新">
+<meta name="keywords" content="jvm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jvm垃圾回收">
+<meta property="og:url" content="http://impwang.cn/2020/12/09/java-jvm-gc/index.html">
+<meta property="og:site_name" content="Wangsir&#39;s Blog">
+<meta property="og:description" content="垃圾回收器应该是架构师必备的核心技能，从回收算法、回收器、GC Roots、安全点/安全区域、分配策略、回收策略，整个过程都需要清晰。最后通过配置参数进行调优。这是一篇持续更新的博客，随着认知的变化、GC的更新不断更新">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-12-09T15:58:50.450Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jvm垃圾回收">
+<meta name="twitter:description" content="垃圾回收器应该是架构师必备的核心技能，从回收算法、回收器、GC Roots、安全点/安全区域、分配策略、回收策略，整个过程都需要清晰。最后通过配置参数进行调优。这是一篇持续更新的博客，随着认知的变化、GC的更新不断更新">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://impwang.cn/2020/12/09/java-jvm-gc/">
+
+
+
+
+
+  <title>jvm垃圾回收 | Wangsir's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wangsir's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://impwang.cn/2020/12/09/java-jvm-gc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wanchao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/alifather.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wangsir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">jvm垃圾回收</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-09T14:41:46+08:00">
+                2020-12-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/12/09/java-jvm-gc/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/09/java-jvm-gc/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>垃圾回收器应该是架构师必备的核心技能，从回收算法、回收器、GC Roots、安全点/安全区域、分配策略、回收策略，整个过程都需要清晰。最后通过配置参数进行调优。<br>这是一篇持续更新的博客，随着认知的变化、GC的更新不断更新</p>
+<a id="more"></a>
+<h2 id="GC算法"><a href="#GC算法" class="headerlink" title="GC算法"></a>GC算法</h2><h3 id="1-标记-清除算法-Mark-Sweep"><a href="#1-标记-清除算法-Mark-Sweep" class="headerlink" title="1. 标记-清除算法(Mark-Sweep):"></a>1. 标记-清除算法(Mark-Sweep):</h3><p>缺点：</p>
+<blockquote>
+<p>效率不高</p>
+<p>产生大量不连续的内存碎片</p>
+</blockquote>
+<h3 id="2-复制算法"><a href="#2-复制算法" class="headerlink" title="2. 复制算法"></a>2. 复制算法</h3><p>优点：</p>
+<blockquote>
+<p>实现简单，运行高效</p>
+</blockquote>
+<p>缺点：</p>
+<blockquote>
+<p>内存浪费</p>
+</blockquote>
+<p>商业用例：<br><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Eden:Survivor = <span class="number">8</span>:<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="3-标记-整理算法-标记-压缩算法"><a href="#3-标记-整理算法-标记-压缩算法" class="headerlink" title="3. 标记-整理算法/标记-压缩算法"></a>3. 标记-整理算法/标记-压缩算法</h3><h3 id="4-分代收集算法"><a href="#4-分代收集算法" class="headerlink" title="4. 分代收集算法"></a>4. 分代收集算法</h3><blockquote>
+<p>新生代：复制算法<br>老年代：标记-清除/标记-整理</p>
+</blockquote>
+<h2 id="安全点-安全区域"><a href="#安全点-安全区域" class="headerlink" title="安全点/安全区域"></a>安全点/安全区域</h2><p>1.枚举根节点</p>
+<p>2.安全点</p>
+<p>3.安全区域</p>
+<h2 id="回收算法"><a href="#回收算法" class="headerlink" title="回收算法"></a>回收算法</h2><p>年轻代：复制算法<br>老年代：</p>
+<ol>
+<li>标记-清除</li>
+<li>标记-整理<br>分代算法：年轻代使用复制算法，老年代使用标记清除/标记整理</li>
+</ol>
+<h2 id="回收器"><a href="#回收器" class="headerlink" title="回收器"></a>回收器</h2><h3 id="年轻代收集器"><a href="#年轻代收集器" class="headerlink" title="年轻代收集器"></a>年轻代收集器</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">收集器</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">算法</th>
+<th style="text-align:center">过程</th>
+<th style="text-align:center">优点</th>
+<th style="text-align:center">缺点</th>
+<th style="text-align:center">参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Serial</td>
+<td style="text-align:center">单线程，使用一个CPU/一个线程完成垃圾收集工作，收集过程必须STW，直到收集结束</td>
+<td style="text-align:center">复制算法</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">简单高效</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">ParNew</td>
+<td style="text-align:center">多线程，基于Serial的多线程版本，默认GC线程数等于CPU数量。除了Serial，只有ParNew可以和老年代的CMS收集器搭配</td>
+<td style="text-align:center">复制算法</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">在单CPU下性能不如Serial</td>
+<td style="text-align:center">ParallelGCThreads:GC线程数</td>
+</tr>
+<tr>
+<td style="text-align:left">Parallel Scavenge</td>
+<td style="text-align:center">并行，多线程，目标是达到可控制的吞吐量</td>
+<td style="text-align:center">复制算法</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">MaxGCPauseMillis:GC停顿时间;GCTimeRatio:GC停顿时间比例;UseAdaptiveSizePolicy:自适应调整参数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="老年代收集器"><a href="#老年代收集器" class="headerlink" title="老年代收集器"></a>老年代收集器</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">收集器</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">算法</th>
+<th style="text-align:center">过程</th>
+<th style="text-align:center">优点</th>
+<th style="text-align:center">缺点</th>
+<th style="text-align:center">参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Serial Old</td>
+<td style="text-align:center">单线程</td>
+<td style="text-align:center">标记-整理</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">Parallel Old</td>
+<td style="text-align:center">多线程</td>
+<td style="text-align:center">标记-整理</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">在吞吐量、CPU资源敏感的场景，优先考虑Parallel Scavenge + Parallel Old</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">CMS</td>
+<td style="text-align:center">并发，最短停顿时间</td>
+<td style="text-align:center">标记-清除</td>
+<td style="text-align:center">初始标记(STW)；并发标记；重新标记(STW)；并发清除</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">并发对CPU资源敏感；无法处理浮动垃圾导致并发模式失败；空间碎片导致无法分配大对象</td>
+<td style="text-align:center">CMSInitiatingOccupancyFraction:设置老年代占用率达到该阈值后，执行一次FullGC;+UseCMSCompactAtFullCollection:空间不足执行FullGC时同时执行碎片整理;CMSFullGCsBeforeCompaction:执行多少次不压缩的FullGC后执行一次碎片整理;</td>
+</tr>
+</tbody>
+</table>
+<p>CMS、G1垃圾回收都采用<strong>三色标记法</strong>，但是具体实现不同：<br>思想：将对象标记为黑、灰、白三种颜色</p>
+<blockquote>
+<p>从<code>GC Root</code>对象向下查找，根据三色标记法标记出所有连接的对象<br>第一次并发标记后，会产生浮动垃圾，即灰色对象，这时候进行一次STW的短暂停顿对灰色对象进行扫描标记<br>GC线程扫描所有内存，找出被标记为白色的对象。</p>
+</blockquote>
+<p><strong>规则</strong><br>黑色：该对象已经被标记过了，且该对象下的属性也全部都被标记过了。(存活对象)<br>灰色：该对象已经被标记过了，但该对象下的属性没有全被标记完。(存活对象下存在垃圾)<br>白色：该对象没有被标记过。(垃圾对象)</p>
+<h3 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h3><p>(并发低停顿收集器), 基于标记-清除算法<br>目标：主要针对老年代，以获取最短回收停顿时间</p>
+<h4 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h4><h4 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h4><blockquote>
+<p>初始标记：stop-the-world，仅仅标记GC Roots能关联到的对象<br>并发标记：进行GC Roots Tracing的过程<br>重新标记：stop-the-world，修正并发标记期间程序运行变化的对象<br>并发清除：用户程序同时运行</p>
+</blockquote>
+<h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><ol>
+<li><p>对CPU资源非常敏感：</p>
+<blockquote>
+<p>并发处理对CPU要求就比较高，占用一部分线程，会导致吞吐量降低。<br><strong>默认</strong>垃圾回收线程数量(NUM(cpu) + 3)/4；<br>CPU不足4个时，对应用的影响就会比较大</p>
+</blockquote>
+</li>
+<li>无法处理浮动垃圾：concurrent mode failure(并发模式失败)<blockquote>
+<p>浮动垃圾：并发清理和用户程序同时运行，这样在清理期间就会产生对象垃圾，这部分垃圾需要留到下一次GC去处理，就会产生浮动垃圾。<br>由于用户程序需要同时运行，所以老年代需要为用户程序预留一部分空间，预留空间无法满足用户程序，就会导致<code>Concurrent Mode Failure</code>，接着产生Full GC<br>jdk1.5增加参数<code>-XX:CMSInitiatingOccupancyFraction</code>，老年代使用超过该阈值，触发CMS垃圾回收，如果老年代不是增长太快，可以适当调高该值<br>jdk1.6<br>参数<code>-XX:ConGCThreads=N</code>，可以设置垃圾收集线程数量</p>
+</blockquote>
+</li>
+<li>产生大量空间碎片：promoration failure(晋升失败)<blockquote>
+<p>标记-清除算法会导致空间碎片，碎片过多在大对象分配的时候，虽然有足够的时间，无法找到连续空间，不得不触发一次Full GC<br>参数<code>-XX:+UseCMSCompactAtFullCollection</code>，默认开启，在执行Full GC的时候，开启内存碎片的整理<br>参数<code>-XX:CMSFullGCsBeforeCompaction</code>，默认值为0，用于控制执行多少次不压缩的Full GC后执行一次带压缩的Full GC。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">详解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-XX:+UseConcMarkSweepGC</td>
+<td style="text-align:center">激活CMS收集器</td>
+</tr>
+<tr>
+<td>-XX:ConcGCThreads</td>
+<td style="text-align:center">设置CMS线程的数量</td>
+</tr>
+<tr>
+<td>-XX:+UseCMSInitiatingOccupancyOnly</td>
+<td style="text-align:center">只根据老年代使用比例来决定是否进行CMS</td>
+</tr>
+<tr>
+<td>-XX:CMSInitiatingOccupancyFraction</td>
+<td style="text-align:center">设置触发CMS老年代回收的内存使用率占比</td>
+</tr>
+<tr>
+<td>-XX:+CMSParallelRemarkEnabled</td>
+<td style="text-align:center">并行运行最终标记阶段，加快最终标记的速度</td>
+</tr>
+<tr>
+<td>-XX:+UseCMSCompactAtFullCollection</td>
+<td style="text-align:center">每次触发CMS Full GC的时候都整理一次碎片</td>
+</tr>
+<tr>
+<td>-XX:CMSFullGCsBeforeCompaction</td>
+<td style="text-align:center">经过几次CMS Full GC的时候整理一次碎片</td>
+</tr>
+<tr>
+<td>-XX:+CMSClassUnloadingEnabled</td>
+<td style="text-align:center">让CMS可以收集永久带，默认不会收集</td>
+</tr>
+<tr>
+<td>-XX:+CMSScavengeBeforeRemark</td>
+<td style="text-align:center">最终标记之前强制进行一个Minor GC</td>
+</tr>
+<tr>
+<td>-XX:+ExplicitGCInvokesConcurrent</td>
+<td style="text-align:center">当调用System.gc()的时候，执行并行gc，只有在CMS或者G1下该参数才</td>
+</tr>
+</tbody>
+</table>
+<h3 id="G1"><a href="#G1" class="headerlink" title="G1"></a>G1</h3><p>目标：</p>
+<h4 id="原理：-1"><a href="#原理：-1" class="headerlink" title="原理："></a>原理：</h4><p>概念：<br>优先列表</p>
+<h5 id="Region："><a href="#Region：" class="headerlink" title="Region："></a>Region：</h5><blockquote>
+<p>默认堆内存分为1024个region分区。每个region大小相等<br>region分为：Eden Survivor Old Humongous(巨型对象)，垃圾收集时，一个对象可以跨region<br>参数<code>-XX:G1HeapRegionSize</code>可以设置region大小，最小1Mb，最大32Mb</p>
+</blockquote>
+<h5 id="CSet-Collection-Set"><a href="#CSet-Collection-Set" class="headerlink" title="CSet(Collection Set)"></a>CSet(Collection Set)</h5><p>一组可被回收的Region分区的集合。</p>
+<h5 id="RSet-Remembered-Set-："><a href="#RSet-Remembered-Set-：" class="headerlink" title="RSet(Remembered Set)："></a>RSet(Remembered Set)：</h5><p>每个Region都有一个RSet，RSet其实是Card的集合，这个RSet用来记录其它Region引用自身Region内部对象的信息，对象可以跨代引用，<code>old-&gt;young</code>或者<code>young-&gt;old</code>，这样垃圾回收时只需要扫描RSet</p>
+<h5 id="CarTable"><a href="#CarTable" class="headerlink" title="CarTable"></a>CarTable</h5><blockquote>
+<p>CardTable是一种特殊类型的RSet，JVM使用一个字节数组作为CardTable，每一个字节都指向一个Card(512字节)，<br>老年代分为多个Card，如果Card中有指向年轻代的对象，则标记为<code>Dirty Card</code>，执行<code>Young GC</code>只需要扫描<code>Dirty Card</code>即可<br>底层使用<code>Bit Map</code>结构存储</p>
+</blockquote>
+<h5 id="SATB-Snapchat-At-The-Beginning-："><a href="#SATB-Snapchat-At-The-Beginning-：" class="headerlink" title="SATB(Snapchat-At-The-Beginning)："></a>SATB(Snapchat-At-The-Beginning)：</h5><blockquote>
+<p>并发GC时用户程序同时运行，可能会生成新对象，所以在GC前，会先执行SATB，生成快照记录存活的对象<br>每个Region记录两个TAMS(top-at-mark-start)指针，GC过程中生成的新对象，在TAMS上的对象就是新分配的对象<br>Write Barrier</p>
+</blockquote>
+<h4 id="垃圾回收-1"><a href="#垃圾回收-1" class="headerlink" title="垃圾回收"></a>垃圾回收</h4><h5 id="全局并发标记阶段"><a href="#全局并发标记阶段" class="headerlink" title="全局并发标记阶段"></a>全局并发标记阶段</h5><blockquote>
+<p>初始标记：stop-the-world，仅仅标记GC Roots能关联到的对象<br>并发标记：<br>最终标记：stop-the-world，会处理在并发标记阶段write barrier记录下来的对象；与CMS最大的差别就是，CMS会扫描整个GC Roots，包括Eden区<br>筛选回收：stop-the-world，这一阶段并不会收集垃圾，而是根据停顿预测模型预测出CSet，等待下一个Evacuation阶段回收</p>
+</blockquote>
+<h5 id="拷贝存活对象阶段-Evacuation"><a href="#拷贝存活对象阶段-Evacuation" class="headerlink" title="拷贝存活对象阶段 Evacuation"></a>拷贝存活对象阶段 Evacuation</h5><blockquote>
+<p>stop-the-world，将一部分region中的存活对象拷贝到另一部分region，只剩下垃圾对象的region被记录在CSet，<br>evacuation failure：堆空间垃圾太多，导致无法完成region之间的拷贝，导致执行一次Full GC。类似于CMS的<code>promoration failure</code>。</p>
+</blockquote>
+<h5 id="收集模式"><a href="#收集模式" class="headerlink" title="收集模式"></a>收集模式</h5><p>Young GC：<br>Mix GC：</p>
+<h4 id="优点：-1"><a href="#优点：-1" class="headerlink" title="优点："></a>优点：</h4><ol>
+<li>并行与并发</li>
+<li>分代收集</li>
+<li><p>空间整合：</p>
+<blockquote>
+<p>与CMS的标记-清除算法不同，G1整体看是标记-整理算法，局部(Region)看则是复制算法，不会产生内存碎片。</p>
+</blockquote>
+</li>
+<li><p>可预测的停顿：</p>
+<blockquote>
+<p>这是G1相比CMS的一大优势，降低停顿时间时G1和CMS共同的关注点，但G1除了追求低停顿，还能建立可预测的停顿时间模型<br>参数<code>-XX:MaxGCPauseMillis</code>，可以设置停顿时间</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="缺点：-1"><a href="#缺点：-1" class="headerlink" title="缺点："></a>缺点：</h4><h4 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h4><ol>
+<li>不断调优停顿时间</li>
+<li>不设置新生代/老年代大小，由JVM自动调整，设置大小后会导致停顿时间设置失效</li>
+<li>关注Evacuation Failure问题</li>
+</ol>
+<h4 id="参数：-1"><a href="#参数：-1" class="headerlink" title="参数："></a>参数：</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">详解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-XX:+UseG1GC</td>
+<td style="text-align:center">使用 G1 垃圾收集器</td>
+</tr>
+<tr>
+<td>-XX:MaxGCPauseMillis=200</td>
+<td style="text-align:center">设置期望达到的最大GC停顿时间指标（JVM会尽力实现，但不保证达到）</td>
+</tr>
+<tr>
+<td>-XX:InitiatingHeapOccupancyPercent=45</td>
+<td style="text-align:center">启动并发GC周期时的堆内存占用百分比. G1之类的垃圾收集器用它来触发并发GC周期,基于整个堆的使用率,而不只是某一代内存的使用比. 值为 0 则表示”一直执行GC循环”. 默认值为 45</td>
+</tr>
+<tr>
+<td>-XX:NewRatio=n</td>
+<td style="text-align:center">新生代与老生代(new/old generation)的大小比例(Ratio). 默认值为 2</td>
+</tr>
+<tr>
+<td>-XX:SurvivorRatio=n</td>
+<td style="text-align:center">eden/survivor 空间大小的比例(Ratio). 默认值为 8.</td>
+</tr>
+<tr>
+<td>-XX:MaxTenuringThreshold=n</td>
+<td style="text-align:center">提升年老代的最大临界值(tenuring threshold). 默认值15</td>
+</tr>
+<tr>
+<td>-XX:ParallelGCThreads=n</td>
+<td style="text-align:center">设置垃圾收集器在并行阶段使用的线程数,默认值随JVM运行的平台不同而不同.</td>
+</tr>
+<tr>
+<td>-XX:ConcGCThreads=n</td>
+<td style="text-align:center">并发垃圾收集器使用的线程数量. 默认值随JVM运行的平台不同而不同.</td>
+</tr>
+<tr>
+<td>-XX:G1ReservePercent=n</td>
+<td style="text-align:center">设置堆内存保留为假天花板的总量,以降低提升失败的可能性. 默认值是 10.</td>
+</tr>
+<tr>
+<td>-XX:G1HeapRegionSize=n</td>
+<td style="text-align:center">使用G1时Java堆会被分为大小统一的的区(region)。此参数可以指定每个heap区的大小. 默认值将根据 heap size 算出最优解. 最小值为 1Mb, 最大值为 32Mb.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ZGC"><a href="#ZGC" class="headerlink" title="ZGC"></a>ZGC</h3><h4 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h4><blockquote>
+<p>GC停顿时间不超过10ms<br>处理堆从MB到TB<br>相比G1减少了15%的吞吐量</p>
+</blockquote>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><h3 id="Shenandoah-GC"><a href="#Shenandoah-GC" class="headerlink" title="Shenandoah GC"></a>Shenandoah GC</h3><p>目标：低停顿时间</p>
+<h3 id="混合收集器"><a href="#混合收集器" class="headerlink" title="混合收集器"></a>混合收集器</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">收集器</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">算法</th>
+<th style="text-align:center">过程</th>
+<th style="text-align:center">优点</th>
+<th style="text-align:center">缺点</th>
+<th style="text-align:center">参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">+UseG1GC</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">+UseZGC</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="回收器组合"><a href="#回收器组合" class="headerlink" title="回收器组合"></a>回收器组合</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">收集器组合</th>
+<th style="text-align:center">收集器</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">+UseSerialGC</td>
+<td style="text-align:center">Serial + Serial Old</td>
+<td style="text-align:center">jdk运行在client模式下默认组合</td>
+</tr>
+<tr>
+<td style="text-align:left">+UseParNewGC</td>
+<td style="text-align:center">ParNew + Serial Old</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">+UseConcMarkSweepGC</td>
+<td style="text-align:center">ParNew + CMS/Serial Old</td>
+<td style="text-align:center">老年代在并发模式失败后开启Serial Old</td>
+</tr>
+<tr>
+<td style="text-align:left">+UseParrallelGC</td>
+<td style="text-align:center">Parallel Scavenge + Serial Old(PS MarkSweep)</td>
+<td style="text-align:center">jdk运行在server模式下默认开启</td>
+</tr>
+<tr>
+<td style="text-align:left">+UseParallelGC</td>
+<td style="text-align:center">Parallel Scavenge + Parallel Old</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">+UseG1GC</td>
+<td style="text-align:center">G1</td>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="内存分配、回收策略"><a href="#内存分配、回收策略" class="headerlink" title="内存分配、回收策略"></a>内存分配、回收策略</h2><p>Minor GC: 指发生在新生代的垃圾回收动作</p>
+<p>Full GC/Major GC: 指发生在老年代的GC，出现Full GC，经常会伴随至少一次Minor GC;</p>
+<p><strong>如果更细粒度，Major GC可以认为只对老年的GC，而Full GC是对整个堆来说的。</strong></p>
+<blockquote>
+<p>1、对象优先在新生代Eden区分配，当Eden区没有足够空间进行分配时，虚拟机将发起一次Minor GC<br>2、大对象直接进入老年代。大对象典型的就是那些很长的字符串、数组 参数-XX:PretenureSizeThreshold可以设定大对象的标准<br>3、长期存活的对象将进入老年代(默认是15岁)<br>Eden区对象经过Minor GC后，年龄增1，然后在Survivor每经历一次Minor GC，年龄增长1，达到指定年龄，进入老年代<br>参数-XX:MaxTenuringThreshold<br>4、动态年龄判定<br>如果在Survivor区，相同年龄的所有对象大小总和大于Survivor空间的一半，年龄大于等于该年龄的对象可以直接进入老年代。【可以破坏规则3】<br>5、空间分配担保</p>
+</blockquote>
+<h3 id="GC触发"><a href="#GC触发" class="headerlink" title="GC触发"></a>GC触发</h3><p>Minor GC触发条件：</p>
+<blockquote>
+<p>Eden区没有足够空间分配时，触发</p>
+</blockquote>
+<p>Full GC触发条件：</p>
+<blockquote>
+<ol>
+<li>显式调用System.gc()。可以通过-XX:+ DisableExplicitGC禁止显式调用</li>
+<li>方法区(永生代)空间不足。方法区在HotSpot中又被称为永生代/永生区。如果被占满，在未配置为CMS GC的情况下，会执行一次Full GC，如果空间还是不足，则抛出异常java.lang.OutOfMemoryError: PermGen space </li>
+<li>老年代空间不足。出现的原因：新生代对象转入；分配大对象、大数组。如果Full GC后空间仍然不够，则抛出java.lang.OutOfMemoryError: Java heap space </li>
+<li>Eden区对象执行Minor GC后，进入老年代的所有对象和大于老年代可用内存时，触发Full GC</li>
+<li>(promotion failed)Eden + From执行Minor GC时，如果存活对象大于To内存区，则直接进入老年代，如果老年代的可用内存小于该对象，则触发Full G</li>
+<li>(concurrent mode failure)执行CMS GC的过程中同时有对象要放入老年代，而此时老年代空间不足，则执行一次Full GC </li>
+</ol>
+</blockquote>
+<p><strong>注意:</strong>jdk1.6_24之后，只要老年代的连续空间大于新生代对象总大小或者历次晋升的平均大小，就会执行Minor GC，否则进行Full GC</p>
+<h2 id="JVM参数"><a href="#JVM参数" class="headerlink" title="JVM参数"></a>JVM参数</h2><h3 id="内存参数"><a href="#内存参数" class="headerlink" title="内存参数"></a>内存参数</h3><p>-Xms：初始堆。默认为物理内存的1/64。<br>-Xmx：最大堆。默认为物理内存的1/4。<br>-Xmn：新生代/年轻代大小。增大年轻代后，老年代会减小，官方建议为整个堆的3/8.<br><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">年轻代大小 = eden + survivor</span><br><span class="line">整个堆大小 = 年轻代大小 + 老年代大小 + 永久代大小(<span class="number">1.8</span>之后弃用)</span><br></pre></td></tr></table></figure></p>
+<p>-XX:NewRatio: 年轻代与老年代的比值。<br>-XX:SurvivorRatio: Eden区与Survicor区的比值。<br>-XX:PermSize：永久代初始大小。默认为物理内存的1/64。<br>-XX:MaxPermSize：永久代最大值。默认为物理内存的1/4。</p>
+<h3 id="编译参数"><a href="#编译参数" class="headerlink" title="编译参数"></a>编译参数</h3><p>-XX:LargePageSizeInBytes: 内存页的大小，默认为，可能会影响Perm。<br>-XX:+UseFastAccessorMethods：<br>-XX:+UseBiasedLocking<br>-XX:PretenureSizeThreshold<br>-XX:TLABWasteTargetPercent：TLAB占Eden区的百分比，默认1%。<br>-XX:SoftRefLRUPolicyMSPerMB<br>-XX:+UseCompressedClassPointers<br>-XX:+UseCompressedOops -XX:-UseLargePagesIndividualAllocation</p>
+<p>-XX:G1ConcRefinementThreads=4 -XX:GCDrainStackTargetSize=64 -XX:InitialHeapSize=130694848<br>-XX:MaxHeapSize=2091117568<br>-XX:MinHeapSize=6815736<br>-XX:+PrintCommandLineFlags -XX:ReservedCodeCacheSize=251658240<br>-XX:+SegmentedCodeCache </p>
+<h3 id="日志参数"><a href="#日志参数" class="headerlink" title="日志参数"></a>日志参数</h3><p>-XX:+PrintHeapAtGC：打印GC前后的堆栈信息<br>-XX:+PrintTLAB： 查看TLAB空间的使用情况<br>-Xloggc 日志文件存放位置<br>-XX:+PrintGCDateStamps 打印每个年代对象分布情况<br>-XX:+PrintGCDateStamps / -XX:+PrintGCTimeStamps<br>-XX:+PrintGCApplicationStoppedTime：<br>-XX:+PrintGCApplicationConcurrentTime：打印除了GC之外引起JVM STW的时间<br>-XX:+PrintSafepointStatistics：<br>-XX:PrintSafepointStatisticsCount=1：</p>
+<h2 id="GC调优"><a href="#GC调优" class="headerlink" title="GC调优"></a>GC调优</h2><p>GC性能调优大致有两个指标：</p>
+<ol>
+<li>吞吐量：工作线程运行时间/总的运行时间</li>
+<li>停顿时间：STW时间</li>
+</ol>
+<h3 id="调优方向"><a href="#调优方向" class="headerlink" title="调优方向"></a>调优方向</h3><ol>
+<li><p>Heap大小<br>Xms、Xmx设置为相同值，避免申请内存带来的压力。</p>
+</li>
+<li><p>年轻代大小<br>年轻代太小，就会导致频繁的Minor GC；太大则占用老年代空间，导致频繁的Full GC；<br>响应时间优先：<br>吞吐量优先：</p>
+</li>
+<li><p>老年代大小<br>响应时间优先：<br>吞吐量优先：</p>
+</li>
+<li><p>CMS收集器<br>使用CMS的好处是用尽量少的年轻代，经验值是128M－256M， 然后老年代可以大一些，由于老年代并发收集， 这样能保证系统低延迟的吞吐效率。<br>实际上cms的收集停顿时间非常的短，2G的内存， 大约20－80ms的应用程序停顿时间。<br>并发模式失败：GC线程在并发标记/并发清理阶段，用户工作线程仍然并发运行，导致浮动垃圾，如果老年代剩余空间不足，则会导致’并发模式失败’。<br>晋升失败：<code>Eden + From Survivor</code>区对象经过Minor GC进入<code>To Survivor</code>，To Survivor空间不足，再次进入<code>Old gen</code>老年代，老年代空间也不足，则会执行<code>Full GC</code>，同时抛出晋升失败<code>Promotion faild</code>。关于晋升失败，前辈大概总结出来一个公式：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CMSInitiatingOccupancyFraction &lt;= ((<span class="name">Xmx-Xmn</span>)-(<span class="name">Xmn-Xmn/</span>(<span class="name">SurvivorRatior+2</span>)))/(<span class="name">Xmx-Xmn</span>)*100</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jvm/" rel="tag"><i class="fa fa-tag"></i> jvm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/09/a-overview-jdk/" rel="next" title="jdk版本特性概览(一)">
+                <i class="fa fa-chevron-left"></i> jdk版本特性概览(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/09/devops-publish/" rel="prev" title="devops-publish">
+                devops-publish <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/alifather.jpg" alt="wanchao">
+          <p class="site-author-name" itemprop="name">wanchao</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">99</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wangwanchao" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://blog.csdn.net/zhongyuemengxiang" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      CSDN
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GC算法"><span class="nav-text">GC算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-标记-清除算法-Mark-Sweep"><span class="nav-text">1. 标记-清除算法(Mark-Sweep):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-复制算法"><span class="nav-text">2. 复制算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-标记-整理算法-标记-压缩算法"><span class="nav-text">3. 标记-整理算法/标记-压缩算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-分代收集算法"><span class="nav-text">4. 分代收集算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全点-安全区域"><span class="nav-text">安全点/安全区域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回收算法"><span class="nav-text">回收算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回收器"><span class="nav-text">回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#年轻代收集器"><span class="nav-text">年轻代收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#老年代收集器"><span class="nav-text">老年代收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMS"><span class="nav-text">CMS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理："><span class="nav-text">原理：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#垃圾回收"><span class="nav-text">垃圾回收</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优点："><span class="nav-text">优点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点："><span class="nav-text">缺点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数："><span class="nav-text">参数：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G1"><span class="nav-text">G1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理：-1"><span class="nav-text">原理：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Region："><span class="nav-text">Region：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CSet-Collection-Set"><span class="nav-text">CSet(Collection Set)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RSet-Remembered-Set-："><span class="nav-text">RSet(Remembered Set)：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CarTable"><span class="nav-text">CarTable</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SATB-Snapchat-At-The-Beginning-："><span class="nav-text">SATB(Snapchat-At-The-Beginning)：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#垃圾回收-1"><span class="nav-text">垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#全局并发标记阶段"><span class="nav-text">全局并发标记阶段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#拷贝存活对象阶段-Evacuation"><span class="nav-text">拷贝存活对象阶段 Evacuation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#收集模式"><span class="nav-text">收集模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优点：-1"><span class="nav-text">优点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点：-1"><span class="nav-text">缺点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳实践"><span class="nav-text">最佳实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数：-1"><span class="nav-text">参数：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZGC"><span class="nav-text">ZGC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#目标"><span class="nav-text">目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数"><span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shenandoah-GC"><span class="nav-text">Shenandoah GC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混合收集器"><span class="nav-text">混合收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回收器组合"><span class="nav-text">回收器组合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存分配、回收策略"><span class="nav-text">内存分配、回收策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GC触发"><span class="nav-text">GC触发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM参数"><span class="nav-text">JVM参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内存参数"><span class="nav-text">内存参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译参数"><span class="nav-text">编译参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志参数"><span class="nav-text">日志参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC调优"><span class="nav-text">GC调优</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调优方向"><span class="nav-text">调优方向</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wanchao</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+    本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span> |
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a> |
+  <span class="post-count">博客全站共63.2k字</span>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://wangsirblog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://impwang.cn/2020/12/09/java-jvm-gc/';
+          this.page.identifier = '2020/12/09/java-jvm-gc/';
+          this.page.title = 'jvm垃圾回收';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://wangsirblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "./public/search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="java,jdk,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Wangsir's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="不知不觉OpenJDK16快要发布了，大多还停留在jdk6/7/8上，jdk的快速迭代，让人非常兴奋。JDK发布版本分为过渡版本和长时间支持版本(LTS)，一般在生产中采用LTS版本可以满足长期维护。下面大致罗列一下jdk的新特性。">
+<meta name="keywords" content="java,jdk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jdk版本特性概览(一)">
+<meta property="og:url" content="http://impwang.cn/2020/12/09/a-overview-jdk/index.html">
+<meta property="og:site_name" content="Wangsir&#39;s Blog">
+<meta property="og:description" content="不知不觉OpenJDK16快要发布了，大多还停留在jdk6/7/8上，jdk的快速迭代，让人非常兴奋。JDK发布版本分为过渡版本和长时间支持版本(LTS)，一般在生产中采用LTS版本可以满足长期维护。下面大致罗列一下jdk的新特性。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-12-09T15:16:33.854Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jdk版本特性概览(一)">
+<meta name="twitter:description" content="不知不觉OpenJDK16快要发布了，大多还停留在jdk6/7/8上，jdk的快速迭代，让人非常兴奋。JDK发布版本分为过渡版本和长时间支持版本(LTS)，一般在生产中采用LTS版本可以满足长期维护。下面大致罗列一下jdk的新特性。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://impwang.cn/2020/12/09/a-overview-jdk/">
+
+
+
+
+
+  <title>jdk版本特性概览(一) | Wangsir's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wangsir's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://impwang.cn/2020/12/09/a-overview-jdk/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wanchao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/alifather.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wangsir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">jdk版本特性概览(一)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-09T00:21:01+08:00">
+                2020-12-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/12/09/a-overview-jdk/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/09/a-overview-jdk/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>不知不觉OpenJDK16快要发布了，大多还停留在jdk6/7/8上，jdk的快速迭代，让人非常兴奋。JDK发布版本分为过渡版本和长时间支持版本(LTS)，一般在生产中采用LTS版本可以满足长期维护。下面大致罗列一下jdk的新特性。</p>
+<a id="more"></a>
+<p>来给jdk15比个yeah!</p>
+<h2 id="JDK15"><a href="#JDK15" class="headerlink" title="JDK15"></a>JDK15</h2><h3 id="新特性"><a href="#新特性" class="headerlink" title="新特性"></a>新特性</h3><blockquote>
+<p>339:    Edwards-Curve数字签名算法 (EdDSA)<br>360:    密封类 (预览)<br>371:    隐藏类<br>372:    移除了Nashorn JS引擎<br>373:    重新实现了DatagramSocket API<br>374:    禁用并弃用了偏向锁<br>375:    Pattern Matching for instanceof (二次预览)<br>377:    ZGC: 可扩展的低延迟的垃圾收集器 (生产阶段)<br>378:    文本块<br>379:    Shenandoah: 低停顿时间垃圾收集器 (从实验阶段进入生产阶段)<br>381:    移除了对Solaris和SPARC的支持<br>383:    Foreign-Memory Access API (Second Incubator)<br>384:    Records (二次预览)<br>385:    Deprecate RMI Activation for Removal</p>
+</blockquote>
+<h2 id="JDK1-8-LTS"><a href="#JDK1-8-LTS" class="headerlink" title="JDK1.8 LTS"></a>JDK1.8 LTS</h2><p><a href="https://jdk.java.net/java-se-ri/8" target="_blank" rel="noopener">OpenJDK1.8下载</a><br><!--[OracleJDK8文档]()
+--></p>
+<p>特性表详细的list没有找到，自己手动整理了一下</p>
+<h3 id="Lambda表达式和Functional接口"><a href="#Lambda表达式和Functional接口" class="headerlink" title="Lambda表达式和Functional接口"></a>Lambda表达式和Functional接口</h3><ol>
+<li>接口的默认与静态方法</li>
+<li>方法引用：<br> 对象::实例方法名<br> 类::静态方法名<br> 类::实例方法名<br> 构造器引用 类::new<br> 数组引用<code>Type[]::new</code></li>
+<li>重复注解</li>
+<li>更好的类型推测机制</li>
+<li>扩展注解： ElementType.TYPE_USE、 ElementType.TYPE_PARAMETER；可以为任何代码添加注解(接口、异常)</li>
+</ol>
+<h3 id="编译器新特性"><a href="#编译器新特性" class="headerlink" title="编译器新特性"></a>编译器新特性</h3><p>通过<code>-parameters</code>参数可以将方法参数名添加到字节码</p>
+<h3 id="类库的新特性"><a href="#类库的新特性" class="headerlink" title="类库的新特性"></a>类库的新特性</h3><ol>
+<li><p>Optional：解决空指针异常<br> Consumer<t><br> Supplier<t><br> Function&lt;T, R&gt;<br> Predicate<t><br> Comparator<t></t></t></t></t></p>
+</li>
+<li><p>Stream：<br> filter过滤<br> sort排序<br> map映射<br> match匹配<br> reduce规约</p>
+</li>
+<li><p>Date/Time API<br> Instant<br> Clock时钟<br> Timezones时区<br> LocalTime/LocalDate/LocalDateTime本地时间</p>
+<p> <strong>注意：</strong>和java.text.SimpleDateFormat不同的是，DateTimeFormatter是不可变的，所以它是线程安全的。</p>
+</li>
+<li><p>Base64：Base64编码成为类库标准</p>
+</li>
+<li><p>并行：parallelSort()、</p>
+</li>
+<li><p>并发：java.util.concurrent包</p>
+<blockquote>
+<p>ConcurrentHashMap增加新方法支持聚集<br>ForkJoinPool增加新方法支持共有资源池<br>locks.StampedLock，用来替换locks.ReadWriteLock<br>atomic包下增加DoubleAccumulator、DoubleAdder、LongAccumulator、LongAdder</p>
+</blockquote>
+</li>
+<li><p>集合<br> HashMap：链表 + 红黑树<br> ConcurrentHashMap：采用了CAS算法</p>
+</li>
+</ol>
+<h3 id="Java工具"><a href="#Java工具" class="headerlink" title="Java工具"></a>Java工具</h3><ol>
+<li>Norshorn引擎 jjs</li>
+<li>类依赖分析器 jdeps：可以用来分析’.class’、目录、jar</li>
+</ol>
+<h3 id="JVM新特性"><a href="#JVM新特性" class="headerlink" title="JVM新特性"></a>JVM新特性</h3><ol>
+<li>PermGen空间被Metaspace取代<br> -XX:PermSize      -XX:MetaSpaceSize<br> -XX:MaxPermSize   -XX:MaxMetaspaceSize</li>
+</ol>
+<h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3><h3 id="IO-NIO改进"><a href="#IO-NIO改进" class="headerlink" title="IO/NIO改进"></a>IO/NIO改进</h3><ol>
+<li>改进java.nio.charset.Charset的实现，精简了 jre/lib/charsets.jar 包；优化了 String(byte[],*) 构造方法和 String.getBytes() 方法的性能</li>
+<li>新增API<br> BufferedReader.line(): 返回文本行的流 Stream<string><br> File.lines(Path, Charset):返回文本行的流 Stream<string><br> File.list(Path): 遍历当前目录下的文件和目录<br> File.walk(Path, int, FileVisitOption): 遍历某一个目录下的所有文件和指定深度的子目录<br> File.find(Path, int, BiPredicate, FileVisitOption… ): 查找相应的文件</string></string></li>
+</ol>
+<h2 id="JDK9"><a href="#JDK9" class="headerlink" title="JDK9"></a>JDK9</h2><p><a href="https://openjdk.java.net/projects/jdk9/" target="_blank" rel="noopener">OpenJDK9</a></p>
+<p>“Java SE 9 has reached end of support. Users of Java SE 9 should switch to Java SE 10.”<br><strong>注意：</strong>官网明确表明，jdk9已经不被支持，用户可以切到jdk10</p>
+<h3 id="新特性-1"><a href="#新特性-1" class="headerlink" title="新特性"></a>新特性</h3><blockquote>
+<p>102: Process API Updates<br>110: HTTP 2 Client: HTTP/2 用于替换’HttpURLConnection’<br>143: Improve Contended Locking: 锁争用机制<br>158: Unified JVM Logging<br>165: Compiler Control: 编译控制<br>193: Variable Handles: 操作变量<br>197: Segmented Code Cache: 代码分段缓存<br>199: Smart Java Compilation, Phase Two: 更智能的Java编译器<br>200: The Modular JDK<br>201: Modular Source Code<br>211: Elide Deprecation Warnings on Import Statements<br>212: Resolve Lint and Doclint Warnings<br>213: Milling Project Coin<br>214: Remove GC Combinations Deprecated in JDK 8<br>215: Tiered Attribution for javac<br>216: Process Import Statements Correctly<br>217: Annotations Pipeline 2.0: 注解2.0<br>219: Datagram Transport Layer Security (DTLS)<br>220: Modular Run-Time Images<br>221: Simplified Doclet API<br>222: 增加jshell(Read-Eval-Print Loop)REPL交互<br>223: New Version-String Scheme:<br>224: HTML5 Javadoc<br>225: Javadoc Search<br>226: UTF-8 Property Files<br>227: Unicode 7.0<br>228: Add More Diagnostic Commands<br>229: Create PKCS12 Keystores by Default<br>231: Remove Launch-Time JRE Version Selection<br>232: Improve Secure Application Performance<br>233: Generate Run-Time Compiler Tests Automatically<br>235: Test Class-File Attributes Generated by javac<br>236: JS解析API<br>237: Linux/AArch64 Port<br>238: Multi-Release JAR Files: 多版本的jars<br>240: 移除JVM TI hprof Agent<br>241: 移除jhat工具<br>243: Java-Level JVM Compiler Interface<br>244: TLS Application-Layer Protocol Negotiation Extension<br>245: Validate JVM Command-Line Flag Arguments<br>246: Leverage CPU Instructions for GHASH and RSA<br>247: Compile for Older Platform Versions<br>248: 默认G1为垃圾收集器<br>249: OCSP Stapling for TLS<br>250: Store Interned Strings in CDS Archives<br>251: Multi-Resolution Images<br>252: Use CLDR Locale Data by Default<br>253: Prepare JavaFX UI Controls &amp; CSS APIs for Modularization<br>254: Compact Strings: 压缩字符串<br>255: Merge Selected Xerces 2.11.0 Updates into JAXP<br>256: BeanInfo Annotations<br>257: Update JavaFX/Media to Newer Version of GStreamer<br>258: HarfBuzz Font-Layout Engine<br>259: 栈跟踪API<br>260: Encapsulate Most Internal APIs<br>261: 模块化<br>262: TIFF Image I/O<br>263: HiDPI Graphics on Windows and Linux<br>264: Platform Logging API and Service<br>265: Marlin Graphics Renderer<br>266: More Concurrency Updates<br>267: 支持Unicode 8.0<br>268: XML Catalogs<br>269: Convenience Factory Methods for Collections<br>270: Reserved Stack Areas for Critical Sections<br>271: 统一GC日志<br>272: Platform-Specific Desktop Features<br>273: DRBG-Based SecureRandom Implementations<br>274: Enhanced Method Handles<br>275: Modular Java Application Packaging<br>276: Dynamic Linking of Language-Defined Object Models<br>277: Enhanced Deprecation<br>278: Additional Tests for Humongous Objects in G1<br>279: Improve Test-Failure Troubleshooting<br>280: Indify String Concatenation<br>281: HotSpot C++ Unit-Test Framework<br>282: Java链接jlink<br>283: Enable GTK 3 on Linux<br>284: New HotSpot Build System<br>285: Spin-Wait Hints<br>287: SHA-3 Hash Algorithms<br>288: Disable SHA-1 Certificates<br>289: 废除了Applet API<br>290: Filter Incoming Serialization Data<br>291: 放弃Concurrent Mark Sweep (CMS)垃圾收集器<br>292: Implement Selected ECMAScript 6 Features in Nashorn<br>294: Linux/s390x Port<br>295: Ahead-of-Time (AOT)编译<br>297: Unified arm32/arm64 Port<br>298: 移除Demos和Samples代码<br>299: Reorganize Documentation</p>
+</blockquote>
+<h2 id="JDK10"><a href="#JDK10" class="headerlink" title="JDK10"></a>JDK10</h2><p><a href="https://openjdk.java.net/projects/jdk/10/" target="_blank" rel="noopener">OpenJDK10文档</a><br><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html" target="_blank" rel="noopener">OracleJDK下载</a></p>
+<h3 id="新特性-2"><a href="#新特性-2" class="headerlink" title="新特性"></a>新特性</h3><blockquote>
+<p>286: Local-Variable Type Inference:<br>296: 合并JDK到一个仓库<br>304: Garbage-Collector Interface<br>307: G1支持并行Full GC<br>310: 程序类数据共享<br>312: Thread-Local Handshakes: 握手操作是一个回调操作，当线程处于一个安全状态时被调用，目前支持x64平台，可以使用<code>-XX:ThreadLocalHandshakes</code>选项，默认为true<br>313: 移除javah生成工具<br>314: Additional Unicode Language-Tag Extensions<br>316: 堆分配在可以选择内存设备：有些系统提供non-DRAM内存，例如：NTFS DAX模式、ext4 DAX模式，这种模式提供了一种映射到物理内存的虚拟内存直接映射。可使用<code>-XX:AllocateHeapAt=&lt;path&gt;</code>选项配置，<code>-Xmx, -Xms</code>等其他参数正常工作，注意：1.确保该文件的权限，2.当应用终止时移除该文件<br>317: 基于Java的JIT编译器(实验阶段)<br>319: 根证书<br>322: Time-Based Release Versioning</p>
+</blockquote>
+<h2 id="JDK11-LTS"><a href="#JDK11-LTS" class="headerlink" title="JDK11 LTS"></a>JDK11 LTS</h2><p>继jdk8后的大版本LTS<br><a href="https://jdk.java.net/java-se-ri/11" target="_blank" rel="noopener">OpenJDK11下载</a><br><a href="https://openjdk.java.net/projects/jdk/11/" target="_blank" rel="noopener">OpenJDK11文档</a><br><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html" target="_blank" rel="noopener">OracleJDK下载</a><br><a href="https://docs.oracle.com/en/java/javase/11/" target="_blank" rel="noopener">Oracle文档</a></p>
+<h3 id="新特性-3"><a href="#新特性-3" class="headerlink" title="新特性"></a>新特性</h3><blockquote>
+<p>181: Nest-Based Access Control<br>309: Dynamic Class-File Constants: 动态的类文件常量<br>315: Improve Aarch64 Intrinsics<br>318: Epsilon: 一个空操作收集器<br>320: 移除了JavaEE和CORBA模块<br>321: HTTP Client (标准)<br>323: Local-Variable Syntax for Lambda Parameters<br>324: 支持Curve25519和Curve448的key协议<br>327: 支持Unicode 10<br>328: 飞行记录器JFR<br>329: ChaCha20 and Poly1305 xx20和Poly1305加密算法<br>330: Launch Single-File Source-Code Programs<br>331: Low-Overhead Heap Profiling: 低开销的堆分配采样<br>332: TLS升级为1.3<br>333: ZGC(实验阶段): 可扩展低延时的垃圾收集器<br>335: 废除了JS解析器Nashorn<br>336: 弃用Pack200工具类和API</p>
+</blockquote>
+<h2 id="JDK12"><a href="#JDK12" class="headerlink" title="JDK12"></a>JDK12</h2><p>jdk12发布了，jdk20还会远吗?</p>
+<p><a href="https://jdk.java.net/12/" target="_blank" rel="noopener">OpenJDK下载</a><br><a href="https://openjdk.java.net/projects/jdk/12/" target="_blank" rel="noopener">OpenJDK12文档</a><br><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html" target="_blank" rel="noopener">OracleJDK12下载</a><br><a href="https://docs.oracle.com/en/java/javase/12/" target="_blank" rel="noopener">OracleJDK12文档</a></p>
+<h3 id="新特性-4"><a href="#新特性-4" class="headerlink" title="新特性"></a>新特性</h3><blockquote>
+<p>189:    Shenandoah(实验阶段): 低停顿的垃圾收集器<br>230:    Microbenchmark Suite<br>325:    Switch语法<br>334:    JVM Constants API<br>340:    One AArch64 Port, Not Two<br>341:    Default CDS Archives<br>344:    G1实现可中止的Mixed GC：如果G1发现collection set重复尝试选择的region数量错误，就会选择一种增量的方式：把collection set分成两部分(强制的、可选择的)。G1回收强制性部分后，如果还有时间就开始以一种更细粒度回收可选择性部分，粒度3取决于时间，更多是一次一个region。当预测足够准确后，可选择部分就会越来越小，直到collection set全部变成强制性。当预测不精确后，下次会重新分成两部分<br>346:    Promptly Return Unused Committed Memory from G1</p>
+</blockquote>
+<h2 id="JDK13"><a href="#JDK13" class="headerlink" title="JDK13"></a>JDK13</h2><h3 id="新特性-5"><a href="#新特性-5" class="headerlink" title="新特性"></a>新特性</h3><blockquote>
+<p>350:    Dynamic CDS Archives<br>351:    ZGC: Uncommit Unused Memory<br>353:    重新实现了Socket API<br>354:    Switch语法(预览)<br>355:    文本块(预览)</p>
+</blockquote>
+<h2 id="JDK14-LTS"><a href="#JDK14-LTS" class="headerlink" title="JDK14 LTS"></a>JDK14 LTS</h2><p><a href="https://jdk.java.net/java-se-ri/14" target="_blank" rel="noopener">OpenJDK14源码</a></p>
+<blockquote>
+<p>305:    Pattern Matching for instanceof (预览)<br>343:    Packaging Tool (孵化阶段)<br>345:    NUMA-Aware Memory Allocation for G1<br>349:    JFR Event Streaming<br>352:    Non-Volatile Mapped Byte Buffers<br>358:    更有用的NullPointerExceptions<br>359:    Records (Preview)<br>361:    Switch语法(预览)<br>362:    废除了对Solaris和SPARC的支持<br>363:    移除了Concurrent Mark Sweep (CMS)垃圾回收器<br>364:    ZGC在macOS平台的实现<br>365:    ZGC在Windows平台的实现<br>366:    弃用ParallelScavenge + SerialOld GC组合模式<br>367:    移除Pack200工具类和API<br>368:    Text Blocks (二次预览)<br>370:    Foreign-Memory Access API (孵化阶段)</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java-jdk/" rel="tag"><i class="fa fa-tag"></i> java,jdk</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/08/os-17/" rel="next" title="第十七天 + 第十八天">
+                <i class="fa fa-chevron-left"></i> 第十七天 + 第十八天
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/09/java-jvm-gc/" rel="prev" title="jvm垃圾回收">
+                jvm垃圾回收 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/alifather.jpg" alt="wanchao">
+          <p class="site-author-name" itemprop="name">wanchao</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">99</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wangwanchao" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://blog.csdn.net/zhongyuemengxiang" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      CSDN
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK15"><span class="nav-text">JDK15</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新特性"><span class="nav-text">新特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK1-8-LTS"><span class="nav-text">JDK1.8 LTS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambda表达式和Functional接口"><span class="nav-text">Lambda表达式和Functional接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译器新特性"><span class="nav-text">编译器新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类库的新特性"><span class="nav-text">类库的新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java工具"><span class="nav-text">Java工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM新特性"><span class="nav-text">JVM新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全性"><span class="nav-text">安全性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO-NIO改进"><span class="nav-text">IO/NIO改进</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK9"><span class="nav-text">JDK9</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新特性-1"><span class="nav-text">新特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK10"><span class="nav-text">JDK10</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新特性-2"><span class="nav-text">新特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK11-LTS"><span class="nav-text">JDK11 LTS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新特性-3"><span class="nav-text">新特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK12"><span class="nav-text">JDK12</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新特性-4"><span class="nav-text">新特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK13"><span class="nav-text">JDK13</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新特性-5"><span class="nav-text">新特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK14-LTS"><span class="nav-text">JDK14 LTS</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wanchao</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+    本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span> |
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a> |
+  <span class="post-count">博客全站共63.2k字</span>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://wangsirblog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://impwang.cn/2020/12/09/a-overview-jdk/';
+          this.page.identifier = '2020/12/09/a-overview-jdk/';
+          this.page.title = 'jdk版本特性概览(一)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://wangsirblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "./public/search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

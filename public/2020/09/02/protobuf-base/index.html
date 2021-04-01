@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Wangsir's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="17年在异构系统通信中尝试使用pb作为序列化中间价，最后因为嵌入式系统问题，最后采用了jsonrpc。首先来一波：  pb是什么？what pb用来做什么？for pb解决了什么问题？solve pb的设计原理是什么？design 你自己如何实现pb？practice  1) pb是一个灵活的、高效的、自动化的序列化框架。更小、更快、更简单。(蜜汁自信？可能我还没体会到)2) 基本上可以说解决了异">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Protobuf Buffers">
+<meta property="og:url" content="http://impwang.cn/2020/09/02/protobuf-base/index.html">
+<meta property="og:site_name" content="Wangsir&#39;s Blog">
+<meta property="og:description" content="17年在异构系统通信中尝试使用pb作为序列化中间价，最后因为嵌入式系统问题，最后采用了jsonrpc。首先来一波：  pb是什么？what pb用来做什么？for pb解决了什么问题？solve pb的设计原理是什么？design 你自己如何实现pb？practice  1) pb是一个灵活的、高效的、自动化的序列化框架。更小、更快、更简单。(蜜汁自信？可能我还没体会到)2) 基本上可以说解决了异">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-09-05T08:03:41.923Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Protobuf Buffers">
+<meta name="twitter:description" content="17年在异构系统通信中尝试使用pb作为序列化中间价，最后因为嵌入式系统问题，最后采用了jsonrpc。首先来一波：  pb是什么？what pb用来做什么？for pb解决了什么问题？solve pb的设计原理是什么？design 你自己如何实现pb？practice  1) pb是一个灵活的、高效的、自动化的序列化框架。更小、更快、更简单。(蜜汁自信？可能我还没体会到)2) 基本上可以说解决了异">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://impwang.cn/2020/09/02/protobuf-base/">
+
+
+
+
+
+  <title>Protobuf Buffers | Wangsir's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wangsir's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://impwang.cn/2020/09/02/protobuf-base/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wanchao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/alifather.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wangsir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Protobuf Buffers</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-02T22:33:41+08:00">
+                2020-09-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/09/02/protobuf-base/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/02/protobuf-base/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>17年在异构系统通信中尝试使用pb作为序列化中间价，最后因为嵌入式系统问题，最后采用了jsonrpc。<br>首先来一波：</p>
+<ol>
+<li>pb是什么？what</li>
+<li>pb用来做什么？for</li>
+<li>pb解决了什么问题？solve</li>
+<li>pb的设计原理是什么？design</li>
+<li>你自己如何实现pb？practice</li>
+</ol>
+<p>1) pb是一个灵活的、高效的、自动化的序列化框架。更小、更快、更简单。(蜜汁自信？可能我还没体会到)<br>2) 基本上可以说解决了异构的序列化问题<br>3) 序列化/反序列化文件有几种方式：</p>
+<ol>
+<li>使用jdk自带框架序列化。但是它有太多的问题，《Effective Java》中第213条明确指出。而且无法在异构系统之间实现共享数据，例如和C++或Python</li>
+<li>你也可以自定义一种方式对数据进行编码成一个字符串，这种方式可能在运行时有一定的性能损耗，但比较适合简单的数据序列化。</li>
+<li>序列化为XML。由于XML的可读性，这种方式也很多，在大多数语言中都有相应的开源库，但是XML占用空间，编码/解码需要耗费极大的性能。除此之外，遍历XML DOM树比遍历简单的类属性更复杂。<br>4)<br>5) <a id="more"></a>
+</li>
+</ol>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>流程：</p>
+<ol>
+<li>定义<code>.proto</code>文件，文件按照proto的语法编写</li>
+<li>使用protoc编译器编译<code>.proto</code>文件，生成包含setters/getters的文件</li>
+<li>Java调用pb框架API</li>
+</ol>
+<h3 id="安装protoc编译器"><a href="#安装protoc编译器" class="headerlink" title="安装protoc编译器"></a>安装protoc编译器</h3><h3 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>protobuf</span><br></pre></td></tr></table></figure>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>Linux系统下直接下载解压，解压后自动生成一个bin文件夹<br><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget protoc<span class="number">-3.13</span><span class="number">.0</span>-linux-x86_64.zip</span><br><span class="line">unzip  protoc<span class="number">-3.13</span><span class="number">.0</span>-linux-x86_64.zip</span><br><span class="line">bin/protoc --version</span><br></pre></td></tr></table></figure></p>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>win系统和linux一样生成一个包含执行程序的bin文件夹</p>
+<h3 id="编译文件"><a href="#编译文件" class="headerlink" title="编译文件"></a>编译文件</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc <span class="attribute">-I</span>=<span class="variable">$SRC_DIR</span> <span class="attribute">--java_out</span>=<span class="variable">$DST_DIR</span> <span class="variable">$SRC_DIR</span>/addressbook.proto</span><br></pre></td></tr></table></figure>
+<p>java_out：指定生成文件的根路径，</p>
+<h2 id="proto语法"><a href="#proto语法" class="headerlink" title="proto语法"></a>proto语法</h2><p>proto2和proto3语法不一致，但是在不同的语言中语法一致，例如C++和Java中，最后通过protoc编译器编译为相应的类。</p>
+<p><strong>注意：</strong> pb不支持继承<br><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">"proto2"</span>;    <span class="comment">// 指定语法版本</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> tutorial;     <span class="comment">// 指定包路径，防止命名冲突，</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">option</span> java_package = <span class="string">"com.example.tutorial"</span>;   <span class="comment">// 指定生成Java类路径，如果为定义，则使用package值作为生成路径</span></span><br><span class="line"><span class="keyword">option</span> java_outer_classname = <span class="string">"AddressBookProtos"</span>;    <span class="comment">// 指定包含以下所有类定义的文件，在这里生成的AddressBookProtos会包含以下Person、AddressBook内部类。如果未指定，则使用该文件名的驼峰命名法取代。</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Person</span> </span>&#123;    <span class="comment">// 等于一个类，最后会生成Class类</span></span><br><span class="line">  <span class="keyword">required</span> <span class="built_in">string</span> name = <span class="number">1</span>;     <span class="comment">// required表明该字段必须有值，否则认为实例未初始化，创建未实例化的对象会抛出RuntimeException。反序列化一个未初始化对象则抛出IOException</span></span><br><span class="line">  <span class="keyword">required</span> <span class="built_in">int32</span> id = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">optional</span> <span class="built_in">string</span> email = <span class="number">3</span>;    <span class="comment">// 该字段可以不设值，如果不设值，则使用默认值。number-0, strings-"", bool-false, 嵌套的message-默认实例/message的原型。</span></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">enum</span> <span class="title">PhoneType</span> </span>&#123;    <span class="comment">// 等于枚举类</span></span><br><span class="line">    MOBILE = <span class="number">0</span>;</span><br><span class="line">    HOME = <span class="number">1</span>;</span><br><span class="line">    WORK = <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">message</span> <span class="title">PhoneNumber</span> </span>&#123;</span><br><span class="line">    <span class="keyword">required</span> <span class="built_in">string</span> number = <span class="number">1</span>;   </span><br><span class="line">    <span class="keyword">optional</span> PhoneType type = <span class="number">2</span> [default = HOME];  <span class="comment">// 使用default定义默认值，</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">repeated</span> PhoneNumber phones = <span class="number">4</span>;    <span class="comment">// 表明该字段可以重复任意次数，可以看作一个动态数组</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">AddressBook</span> </span>&#123;</span><br><span class="line">  <span class="keyword">repeated</span> Person people = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>每个message生成相应类的同时会伴随生成一个Builder类，该类用来创建类实例，其实就是<code>建造者模式</code>。message对应类只有getters方法，相应的Builder类则包含setters/getters。生成所有的方法遵守‘驼峰命名法’。<br>clear(): 每个属性都会有一个clear方法用来对属性清空。<br>count(): repated字段还有count方法用来计数，setter/getter对指定索引index操作，add()添加单个元素，add()添加集合。其实就是一个List。</p>
+<h3 id="枚举类-嵌套类"><a href="#枚举类-嵌套类" class="headerlink" title="枚举类/嵌套类"></a>枚举类/嵌套类</h3><h3 id="Message-Builder公共方法"><a href="#Message-Builder公共方法" class="headerlink" title="Message/Builder公共方法"></a>Message/Builder公共方法</h3><p>isInitialized(): checks if all the required fields have been set.<br>toString(): returns a human-readable representation of the message, particularly useful for debugging.<br>mergeFrom(Message other): (builder only) merges the contents of other into this message, overwriting singular scalar fields, merging composite fields, and concatenating repeated fields.<br>clear(): (builder only) clears all the fields back to the empty state.</p>
+<h3 id="序列化-反序列化"><a href="#序列化-反序列化" class="headerlink" title="序列化/反序列化"></a>序列化/反序列化</h3><p>byte[] toByteArray();: serializes the message and returns a byte array containing its raw bytes.<br>static Person parseFrom(byte[] data);: parses a message from the given byte array.<br>void writeTo(OutputStream output);: serializes the message and writes it to an OutputStream.<br>static Person parseFrom(InputStream input);: reads and parses a message from an InputStream.</p>
+<h3 id="扩展pb"><a href="#扩展pb" class="headerlink" title="扩展pb"></a>扩展pb</h3><p>在开发过程中，毫无疑问需要扩展<code></code>proto`文件，如果新文件需要向后兼容，旧文件需要向前兼容，则在更新的proto文件中需要遵守一些规则：</p>
+<ol>
+<li>不能改变任何属性的tag值</li>
+<li>不能添加/删除任何required标志字段</li>
+<li>可以删除optional/repeated字段</li>
+<li>在添加optional/repeated字段时，必须使用新的tag数值，该数值应该是从未出现过的，即使使用该数值的字段已经被删除</li>
+</ol>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>理解pb的编码/序列化原理之前，首先需要理解变长数值<code>varints</code>，<code>varints</code>使用一个或者多个字节对一个整数序列化，越小的数字使用的字节数越少。<br>在<code>varints</code>中，除了最后一个字节外，每一个字节都有msb set。msb set表明接下来还有多少字节，每一个字节的低7位用来存储’二位补码’。pb默认采用<code>least significant group first</code>，其实就是LSB的一个变种(杂种)。</p>
+<p>序列化/反序列化的核心规则还是下面这些：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">序列化后类型</th>
+<th style="text-align:left">占位</th>
+<th style="text-align:left">实际类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:left">变长</td>
+<td style="text-align:left">int32, int64, uint32, uint64, sint32, sint64, bool, enum</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left">64位/8字节</td>
+<td style="text-align:left">fixed64, sfixed64, double</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left">长度界定(需要指定后续字节长度)</td>
+<td style="text-align:left">string, bytes, embedded messages, packed repeated fields</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:left">Start group</td>
+<td style="text-align:left">groups (deprecated)</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:left">End group</td>
+<td style="text-align:left">groups (deprecated)</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:left">32位/4字节</td>
+<td style="text-align:left">fixed32, sfixed32, float</td>
+</tr>
+</tbody>
+</table>
+<p>例如：</p>
+<ol>
+<li>单字节<br>0000 0001 // 数值1，单字节，所以不需要设置msb</li>
+<li>多字节<br>1010 1100 0000 0010 // 数值300？小朋友，你脑子里是否有很多问号？<br>计算步骤：<br>1) 首先去除每一个字节的msb位，即第一位。得到：010 1100 000 0010，这时候其实是两个组(010 1100) (000 0010)<br>2) 根据<code>least significant group first</code>规则，得到：000 0010 010 1100，十进制为300</li>
+</ol>
+<h3 id="message"><a href="#message" class="headerlink" title="message"></a>message</h3><p>众所众知，message其实就是key-value的键值对，每个key都对应一个数值number。序列化后的二进制对每个key的存储以tag为键，而在<code>.proto</code>文件定义的类型、key作为反序列化使用。(一切协议皆是约定，只不过对扩展性、通用性做了封装，才有了好坏之分)。<br>序列化把所以key-value编码为字节流，反序列化是解析器所以对于增加新的属性后，解析器仍然可以解析旧的编码格式。二进制存储中每个key实际上是<code>(field_number &lt;&lt; 3) | wire_type</code>，type用来指定value占用的字节数。大多数语言实现中都将这个key称为tag。<br>例如：<br>000 1000  //<br>96 01  // 150</p>
+<h3 id="有符号整数"><a href="#有符号整数" class="headerlink" title="有符号整数"></a>有符号整数</h3><h3 id="非变长数值"><a href="#非变长数值" class="headerlink" title="非变长数值"></a>非变长数值</h3><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>定义proto，设置对象name=”testing”<br><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="built_in">string</span> name = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>writeTo(OutputStream output)方法生成的二进制<br><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span> <span class="number">07</span> <span class="number">74</span> <span class="number">65</span> <span class="number">73</span> <span class="number">74</span> <span class="number">69</span> <span class="number">6</span>e <span class="number">67</span>  <span class="comment">// ..testing</span></span><br></pre></td></tr></table></figure></p>
+<p>writeDelimitedTo(OutputStream output)方法生成的二进制<br><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">09</span> <span class="number">12</span> <span class="number">07</span> <span class="number">74</span> <span class="number">65</span> <span class="number">73</span> <span class="number">74</span> <span class="number">69</span> <span class="number">6</span>e <span class="number">67</span>  <span class="comment">// ...testing</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="嵌套message"><a href="#嵌套message" class="headerlink" title="嵌套message"></a>嵌套message</h3><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="built_in">string</span> name = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">message</span> <span class="title">Desc</span> </span>&#123;</span><br><span class="line">    <span class="built_in">int32</span> a = <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Desc desc = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>只对Person.Desc二进制序列化<br><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">08 </span><span class="number">96</span> <span class="number">01</span></span><br></pre></td></tr></table></figure></p>
+<p>在Person中填充属性对Person序列化<br><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span> <span class="number">07</span> <span class="number">74</span> <span class="number">65</span> <span class="number">73</span> <span class="number">74</span> <span class="number">69</span> <span class="number">6</span>e <span class="number">67</span> <span class="number">1</span>a <span class="number">03</span> <span class="number">08</span> <span class="number">96</span> <span class="number">01</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="optional-repeated元素"><a href="#optional-repeated元素" class="headerlink" title="optional/repeated元素"></a>optional/repeated元素</h3><p>增加repeated属性，girl属性添加’test’值<br><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="built_in">string</span> name = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">message</span> <span class="title">Desc</span> </span>&#123;</span><br><span class="line">    <span class="built_in">int32</span> a = <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Desc desc = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">repeated</span> <span class="built_in">string</span> girl = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>序列化后的二进制<br><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span> <span class="number">07</span> <span class="number">74</span> <span class="number">65</span> <span class="number">73</span> <span class="number">74</span> <span class="number">69</span> <span class="number">6</span>e <span class="number">67</span> <span class="number">1</span>a <span class="number">03</span> <span class="number">08</span> <span class="number">96</span> <span class="number">01</span> <span class="number">22</span> <span class="number">04</span></span><br><span class="line"><span class="number">74</span> <span class="number">65</span> <span class="number">73</span> <span class="number">74</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="字段顺序"><a href="#字段顺序" class="headerlink" title="字段顺序"></a>字段顺序</h3><p>id=1，序列化<br><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">08</span> <span class="number">12</span> <span class="number">12</span> <span class="number">07</span> <span class="number">74</span> <span class="number">65</span> <span class="number">73</span> <span class="number">74</span> <span class="number">69</span> <span class="number">6</span>e <span class="number">67</span> <span class="number">1</span>a <span class="number">03</span> <span class="number">08</span> <span class="number">96</span> <span class="number">01</span> </span><br><span class="line"><span class="number">22</span> <span class="number">04</span> <span class="number">74</span> <span class="number">65</span> <span class="number">73</span> <span class="number">74</span></span><br></pre></td></tr></table></figure></p>
+<p>修改id=5，序列化<br><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span> <span class="number">07</span> <span class="number">74</span> <span class="number">65</span> <span class="number">73</span> <span class="number">74</span> <span class="number">69</span> <span class="number">6</span>e <span class="number">67</span> <span class="number">1</span>a <span class="number">03</span> <span class="number">08</span> <span class="number">96</span> <span class="number">01</span> <span class="number">22</span> <span class="number">04</span></span><br><span class="line"><span class="number">74</span> <span class="number">65</span> <span class="number">73</span> <span class="number">74</span> <span class="number">28</span> <span class="number">12</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>MSB(most significant bit)和LSB(least significant bit)的区别是位传输顺序的不同，在二进制表示中，MSB指的是最左端的最高位，LSB指的是左右端的最低位。在并行接口传输中，传输端-接收端没有问题，但是在串行接口中，数据的传输需要保持有序，就需要确定传输的顺序。<code>MSB first</code>从最高位开始传输<br>在SRAM架构中，21根地址线(A0-A20)，8根数据线(D0-D7)</p>
+<h3 id="LSB"><a href="#LSB" class="headerlink" title="LSB"></a>LSB</h3><p>在电脑运算中，LSB比特位用来标记一个数值是奇数还是偶数。按照’按位计数法’的规定，处于右端，有时候也叫低端位/最右端位。<br>在数字密码学中，图片、声音等敏感信息，可以通过使用这种LSB的方式计算、存储来达到加密的效果。</p>
+<p>应用场景：伪随机数生成、密码工具、哈希函数、校验和</p>
+<h3 id="MSB"><a href="#MSB" class="headerlink" title="MSB"></a>MSB</h3><p>在电脑运算中，MSB比特位用来标记一个数值是奇数还是偶数。按照’按位计数法’的规定，处于左端，有时候也叫高端位/最左端位。<br>在有符号二进制数中，MSB相当于符号位，在1位、二位补码表示法中，1代表负数，0代表正数。<br>MSB也支持字节，简写<code>MSbit</code>和<code>MSbyte</code></p>
+<p>Protocol buffers需要安装protoc编译器，重要的是pb支持扩展，即便格式被改变后，仍然可以反序列化旧的格式。</p>
+<h2 id="高级特性"><a href="#高级特性" class="headerlink" title="高级特性"></a>高级特性</h2><p>pb已经超越了简单的访问、序列化。一个最关键的特性就是反射，可以遍历message的所有字段、操作value。反射一个非常有用的就是应用可以实现pb message和XML/JSON的相互转换。<br>发挥你的想象力，pb可以有更广泛的应用场景。</p>
+<p>别说了，看了你的文档，我就是犹大！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/30/jdk-multi/" rel="next" title="不同系统搭建多版本的jdk">
+                <i class="fa fa-chevron-left"></i> 不同系统搭建多版本的jdk
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/09/05/net-quic/" rel="prev" title="QUIC协议">
+                QUIC协议 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/alifather.jpg" alt="wanchao">
+          <p class="site-author-name" itemprop="name">wanchao</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">99</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wangwanchao" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://blog.csdn.net/zhongyuemengxiang" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      CSDN
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装protoc编译器"><span class="nav-text">安装protoc编译器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac"><span class="nav-text">Mac</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux"><span class="nav-text">Linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows"><span class="nav-text">Windows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译文件"><span class="nav-text">编译文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proto语法"><span class="nav-text">proto语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-text">方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举类-嵌套类"><span class="nav-text">枚举类/嵌套类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Message-Builder公共方法"><span class="nav-text">Message/Builder公共方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序列化-反序列化"><span class="nav-text">序列化/反序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展pb"><span class="nav-text">扩展pb</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#message"><span class="nav-text">message</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有符号整数"><span class="nav-text">有符号整数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非变长数值"><span class="nav-text">非变长数值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套message"><span class="nav-text">嵌套message</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#optional-repeated元素"><span class="nav-text">optional/repeated元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字段顺序"><span class="nav-text">字段顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓展"><span class="nav-text">拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LSB"><span class="nav-text">LSB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MSB"><span class="nav-text">MSB</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级特性"><span class="nav-text">高级特性</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wanchao</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+    本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span> |
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a> |
+  <span class="post-count">博客全站共63.2k字</span>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://wangsirblog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://impwang.cn/2020/09/02/protobuf-base/';
+          this.page.identifier = '2020/09/02/protobuf-base/';
+          this.page.title = 'Protobuf Buffers';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://wangsirblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "./public/search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

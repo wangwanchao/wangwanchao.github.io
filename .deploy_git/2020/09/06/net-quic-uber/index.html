@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Wangsir's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="原文 Uber对全球600多个城市的4500名手机用户做了调查，这些手机全部通过无线连接。为了实现实时的性能，App要求低延迟、高可用的网络通信。在动态的、损失率高的网络环境下，HTTP/2表现较差，最后我们追踪到性能差的主要原因还是基于系统实现的TCP比较差。为了定位痛点，我们开始尝试使用QUIC协议，QUIC是一种基于UDP实现的流通信协议，我们可以更好的控制传输协议性能，现在已经被IETF采">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QUIC协议在Uber的实践(译)">
+<meta property="og:url" content="http://impwang.cn/2020/09/06/net-quic-uber/index.html">
+<meta property="og:site_name" content="Wangsir&#39;s Blog">
+<meta property="og:description" content="原文 Uber对全球600多个城市的4500名手机用户做了调查，这些手机全部通过无线连接。为了实现实时的性能，App要求低延迟、高可用的网络通信。在动态的、损失率高的网络环境下，HTTP/2表现较差，最后我们追踪到性能差的主要原因还是基于系统实现的TCP比较差。为了定位痛点，我们开始尝试使用QUIC协议，QUIC是一种基于UDP实现的流通信协议，我们可以更好的控制传输协议性能，现在已经被IETF采">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://impwang.oss-cn-beijing.aliyuncs.com/net/tcp-1.png">
+<meta property="og:image" content="https://impwang.oss-cn-beijing.aliyuncs.com/net/quic-1.png">
+<meta property="og:updated_time" content="2020-09-06T10:28:43.567Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="QUIC协议在Uber的实践(译)">
+<meta name="twitter:description" content="原文 Uber对全球600多个城市的4500名手机用户做了调查，这些手机全部通过无线连接。为了实现实时的性能，App要求低延迟、高可用的网络通信。在动态的、损失率高的网络环境下，HTTP/2表现较差，最后我们追踪到性能差的主要原因还是基于系统实现的TCP比较差。为了定位痛点，我们开始尝试使用QUIC协议，QUIC是一种基于UDP实现的流通信协议，我们可以更好的控制传输协议性能，现在已经被IETF采">
+<meta name="twitter:image" content="https://impwang.oss-cn-beijing.aliyuncs.com/net/tcp-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://impwang.cn/2020/09/06/net-quic-uber/">
+
+
+
+
+
+  <title>QUIC协议在Uber的实践(译) | Wangsir's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wangsir's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://impwang.cn/2020/09/06/net-quic-uber/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wanchao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/alifather.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wangsir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">QUIC协议在Uber的实践(译)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-06T10:09:01+08:00">
+                2020-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/09/06/net-quic-uber/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/06/net-quic-uber/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://eng.uber.com/employing-quic-protocol/" target="_blank" rel="noopener">原文</a></p>
+<p>Uber对全球600多个城市的4500名手机用户做了调查，这些手机全部通过无线连接。为了实现实时的性能，App要求低延迟、高可用的网络通信。在动态的、损失率高的网络环境下，HTTP/2表现较差，最后我们追踪到性能差的主要原因还是基于系统实现的TCP比较差。<br>为了定位痛点，我们开始尝试使用QUIC协议，QUIC是一种基于UDP实现的流通信协议，我们可以更好的控制传输协议性能，现在已经被IETF采纳为HTTP/3协议标准。<br>在测试QUIC后，我们发现在App中整合QUIC相比原来的TCP可以降低末端延迟。可以确定在基于HTTPS的rider/driver apps中可以带来10-30%的延迟。除了在低延迟上的性能表现，QUIC提供了<code>packets流</code>端到端(end-to-end)的控制，这是基于用户空间层面的<br><a id="more"></a></p>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p>在今天的网络中，TCP仍然是HTTPS通信中最广泛使用的通信协议。TCP提供了一种可信的字节流，解决了网络拥塞的复杂性、链路层丢失的问题。HTTPS广泛使用TCP主要还是因为TCP几乎存在于每一个保护TCP协议的系统中，例如负载均衡、HTTPS代理、CDNs，而且TCP在大多数平台、网络中都是开箱即用的。<br>我们的用户在使用Uber过程中位置是动态的，基于TCP的末端延迟很难满足HTTPS的实时特性。</p>
+<h3 id="基于无线网络的TCP"><a href="#基于无线网络的TCP" class="headerlink" title="基于无线网络的TCP"></a>基于无线网络的TCP</h3><p>TCP最开始是为有线网络设计的，有高可预见的连接。然而无线网络有独特的特性和挑战。</p>
+<ol>
+<li>首先，由于干扰、信号衰减，无线网很容易丢失信号。这些都会导致RTTs更高或者变化、丢包。例如：WiFi很容易被微波、蓝牙、其他类型的信号波干扰。蜂窝网因为周围环境建筑物、干扰、附近基站的影响，很容易丢失信号</li>
+<li>为了在宽带和丢包中解决间歇的网络抖动问题，蜂窝网使用了更大的缓冲来接收突发流量。更大的buffer导致排队，结果是更长的延迟。由于超时，TCP通常把队列这种情况认为丢失，接着需要重传直到buffer继续被填满，这种问题称为缓存溢出<code>bufferbloat</code>。</li>
+<li>蜂窝网性能不同的用户、不同区域、不同时间也不一样。<br><strong>这个地方图片就不展示了，大家都体验过</strong><br>以上这些问题都归结于TCP的低效性，在深入理解TCP之前，我们先思考以下3个问题：</li>
+<li>TCP是手机端用户末端延迟的主要原因吗？</li>
+<li>目前网络RTT、丢包是否变化很大？</li>
+<li>什么因素对TCP中RTT变化、丢包影响较大？</li>
+</ol>
+<h3 id="TCP性能分析"><a href="#TCP性能分析" class="headerlink" title="TCP性能分析"></a>TCP性能分析</h3><p>为了更好地理解我们是怎么分析TCP性能的，首先简单介绍以下TCP通信过程：</p>
+<ol>
+<li>首先，发送端建立三次握手</li>
+<li>建立TLS连接：2-3个的round trips</li>
+</ol>
+<p><img src="https://impwang.oss-cn-beijing.aliyuncs.com/net/tcp-1.png" alt="tcp"><br>在这种情况下，packet丢失、或者ACK丢失，重传机制超时(RTO)后，发送端发起重传，RTO是根据不同的因素动态计算的：发送端和接收端的RTT估值。<br>为了分析TCP性能，我们使用tcpdump收集了印度市场一周内的网络连接情况，然后使用tcptrace进行了分析。除此之外，我们使用app发送请求到测试环境模拟了真实的情况，同时打印上传日志到服务器，然后部署到印度的应用市场。<br>无论是tapdump分析，还是日志分析，这两种分析结果都是一致的。RTT值、末端延迟几乎是中值的6倍，中值比平均值多1s。除此之外，包丢失严重，导致3.5%的重传率。在用户多的地方，丢失率甚至达到7%，例如火车站、机场。<br>相比数据包，对重传SYN、SYN-ACK包，TCP使用了非常保守的RTO值。大多数TCP都使用RTO=1s的初始值，随着包丢失的问题RTO以指数级增长。<br>数据包传输时，在无线网络下，更高的RTO导致网络可用时间更少。我们发现平均重传时间大约是1s，末端时间甚至可以达到30s，这种高延迟导致HTTPS超时、重试，从而导致更大的延迟，恶性循环。</p>
+<h2 id="QUIC"><a href="#QUIC" class="headerlink" title="QUIC"></a>QUIC</h2><p>基于QUIC的HTTP/2被定义为HTTP/3，她取代了HTTPS和TCP协议栈中的一些层，而且QUIC只支持安全数据传输，TLS协议被完全嵌套在QUIC协议中。<br><img src="https://impwang.oss-cn-beijing.aliyuncs.com/net/quic-1.png" alt="QUIC"></p>
+<p>以下就是为什么我们非常强烈的想要在TCP之外引入QUIC的特性：</p>
+<ol>
+<li>0-RTT建立连接。QUIC允许复用建立在之前连接上的安全认证，在第一个round trip过程就可以发送数据，减少了安全连接握手过程。未来，TLS1.3也会支持0-RTT，但是仍然需要TCP的三次握手。</li>
+<li>解决头阻塞问题。HTTP/2针对每个origin使用单个TCP连接来提升性能。但是会导致头阻塞(head-of-line blocking)问题。例如：object A被object B阻塞，A已经丢失，B需要等待A被恢复后进行传输。然而，QUIC每个请求的传输是独立的。</li>
+<li>拥塞控制。QUIC是应用层协议，可以更方便的更新核心算法，大多数TCP都使用CUBIC算法，这种算法不适用对延迟敏感的流量。最近开发的BBR算法，更精确，也优化了延迟。QUIC可以让我们随时启用BBR、更新核心算法。</li>
+<li>丢失恢复。在RTO被触发之前，即使很明显的丢失，QUIC仍然会发起2次丢失探针(TLP tail loss probes)，这种方式不同于TCP的实现。TLP重传丢失前最后的packet触发快速恢复机制。</li>
+<li>优化ACK机制。QUIC中每个packet都携带唯一的序列号，这就解决了区分重传包和延迟包的问题。ACK packet也包括了处理这个packet的时间、在客户端生成该packet的时间。这些因素可以确保QUIC更精确的估算RTT时间。QUIC ACK支持存储256个NACK，帮助发送端更好的执行packet重排序。TCP中的SACK(Selective ACK)没有解决这个问题。</li>
+<li>连接转移。QUIC连接是通过<code>connection ID</code>来标识的。不同于原来的四元组(源IP, 源Port, 目标IP, 目标Port)。这样，当客户端改变了IP地址后，请求不会中断，新的IP地址仍然可以使用旧的<code>connection ID</code>。对于移动端用户来说这是一种很常见的行为。</li>
+</ol>
+<h3 id="QUIC选型的思考"><a href="#QUIC选型的思考" class="headerlink" title="QUIC选型的思考"></a>QUIC选型的思考</h3><p>在确定QUIC之前，我们调研了很多方案来提升TCP性能：</p>
+<ol>
+<li>首先，我们尝试了TCP PoPs(Points of Presence)。发现没有明显的性能提升。</li>
+<li>然后，我们尝试调整TCP参数。在异构服务系统中调整TCP协议栈参数是非常有挑战性的，而且TCP在跨系统 版本中有不同的实现。也很难应用、检验不同的配置。在用户端调整TCP配置更是几乎不可能。尤其像0-RTT这种协议设计的核心几乎不可能通过简单的调参实现提升。</li>
+<li>最后我们评估了一些基于UDP的协议查看是否对我们的应用有用。但是她们缺少工业级的安全特性。而QUIC兼顾了安全、性能。</li>
+</ol>
+<h3 id="QUIC在Uber平台的整合"><a href="#QUIC在Uber平台的整合" class="headerlink" title="QUIC在Uber平台的整合"></a>QUIC在Uber平台的整合</h3><h3 id="QUIC在Google-Cloud-Load-Balancers的开关"><a href="#QUIC在Google-Cloud-Load-Balancers的开关" class="headerlink" title="QUIC在Google Cloud Load Balancers的开关"></a>QUIC在Google Cloud Load Balancers的开关</h3><p>谷歌云负载均衡在response中添加了<code>alt-svc</code>头来支持QUIC。在每个HTTP response中，负载均衡组件都添加了<code>alt-svc</code>头验证是否支持QUIC，客户端收到携带<code>alt-svc</code>头的response后，接下来所有的HTTP请求使用QUIC。一旦负载均衡组件关闭了QUIC，则切换到HTTP2/TCP协议。</p>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><p>性能是我们探索更好协议的首要因素，首先我们在不同的网络环境下进行了网络模拟来研究QUIC如何工作。为了验证QUIC在真实环境的性能收益，我们在公路上进行了仿真测试。</p>
+<h4 id="阶段一"><a href="#阶段一" class="headerlink" title="阶段一"></a>阶段一</h4><h4 id="阶段二"><a href="#阶段二" class="headerlink" title="阶段二"></a>阶段二</h4><p>在第二阶段，我们遇到一些有趣的思考：</p>
+<h4 id="生产阶段"><a href="#生产阶段" class="headerlink" title="生产阶段"></a>生产阶段</h4><p>受前面测试结果的鼓舞我们开始在Android和iOS中支持QUIC，我们在QUIC和TCP之间使用A/B测试来量化QUIC的性能。从不同的维度，我们看到了末端延迟显著的减少。</p>
+<h2 id="展望未来"><a href="#展望未来" class="headerlink" title="展望未来"></a>展望未来</h2><p>在部署QUIC的过程中，无论是强网络还是弱网络，我们已经找到了几种方法来提升APP性能。</p>
+<h3 id="增加QUIC覆盖率"><a href="#增加QUIC覆盖率" class="headerlink" title="增加QUIC覆盖率"></a>增加QUIC覆盖率</h3><p>我们通过对真实场景的分析，大约80%的会话请求完全使用QUIC协议，大约15%的请求使用混合的TCP和QUIC。对于这种混合请求的场景，我们目前的猜想是：出现超时现象时，由于无法区分是UDP失败，还是弱网络环境，代码会自动切换到TCP协议。我们目前正在解决这个问题。</p>
+<h3 id="QUIC优化"><a href="#QUIC优化" class="headerlink" title="QUIC优化"></a>QUIC优化</h3><p>与占用带宽的应用相比，Uber应用对延迟比较敏感。而且我们的应用起初也是使用蜂窝网接入。以我们的经验来看，尽管使用QUIC替换TCP协议，末端延迟仍然非常高。我们团队仍然在探索新的方法来控制拥塞、提升丢失恢复算法来优化QUIC的延迟问题。</p>
+<p><strong>翻译不好，有问题的地方多多反馈(邮箱：<a href="mailto:wwangwanchao@126.com" target="_blank" rel="noopener">wwangwanchao@126.com</a>)</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/05/net-quic/" rel="next" title="QUIC协议">
+                <i class="fa fa-chevron-left"></i> QUIC协议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/09/09/rust-base/" rel="prev" title="rust-base">
+                rust-base <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/alifather.jpg" alt="wanchao">
+          <p class="site-author-name" itemprop="name">wanchao</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">99</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wangwanchao" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://blog.csdn.net/zhongyuemengxiang" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      CSDN
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP"><span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于无线网络的TCP"><span class="nav-text">基于无线网络的TCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP性能分析"><span class="nav-text">TCP性能分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIC"><span class="nav-text">QUIC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#QUIC选型的思考"><span class="nav-text">QUIC选型的思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#QUIC在Uber平台的整合"><span class="nav-text">QUIC在Uber平台的整合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#QUIC在Google-Cloud-Load-Balancers的开关"><span class="nav-text">QUIC在Google Cloud Load Balancers的开关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能分析"><span class="nav-text">性能分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段一"><span class="nav-text">阶段一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段二"><span class="nav-text">阶段二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生产阶段"><span class="nav-text">生产阶段</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#展望未来"><span class="nav-text">展望未来</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#增加QUIC覆盖率"><span class="nav-text">增加QUIC覆盖率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#QUIC优化"><span class="nav-text">QUIC优化</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wanchao</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+    本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span> |
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a> |
+  <span class="post-count">博客全站共63.2k字</span>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://wangsirblog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://impwang.cn/2020/09/06/net-quic-uber/';
+          this.page.identifier = '2020/09/06/net-quic-uber/';
+          this.page.title = 'QUIC协议在Uber的实践(译)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://wangsirblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "./public/search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

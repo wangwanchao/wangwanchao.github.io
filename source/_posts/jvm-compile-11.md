@@ -11,7 +11,7 @@ categpries: JVM
 # 编译源码
 理解jdk和hotspot的关系：
 
-## Linux
+## Linux下编译
 linux主要分两大分支：
 基于apt安装库的分支：Debian, Ubuntu, Deepin
 基于rpm安装库的分支：Fedora, Red Hat, CentOS
@@ -68,6 +68,41 @@ bash configure --enable-debug --with-jvm-variants=server --enable-dtrace
 make JOBS=4 jdk  # 等同于`bash configure --with-jobs=4`
 ```
 可以看到编译后的目录如下：
-![编译目录]()
+![编译目录](https://impwang.oss-cn-beijing.aliyuncs.com/java/jdk-build.png)
 
 # hotspot在IDEA下的调试
+
+### 编写测试代码
+
+```
+mkdir -p examples/com/wang
+
+vi Test.java
+
+package com.wang;
+
+public class Test {
+
+	public static void main(String[] args) {
+		System.out.println("Hello Hotspot");
+	}
+
+}
+
+cd examples
+javac com/wang/Test.java
+```
+
+配置Application
+![demo](https://impwang.oss-cn-beijing.aliyuncs.com/java/hotspot-demo.png)
+
+配置lib库
+![lib](https://impwang.oss-cn-beijing.aliyuncs.com/java/hotspot-env.png)
+
+开始debug
+![debug](https://impwang.oss-cn-beijing.aliyuncs.com/java/hotspot-debug.png)
+
+运行结果
+![result](https://impwang.oss-cn-beijing.aliyuncs.com/java/hotspot-result.png)
+
+待续...

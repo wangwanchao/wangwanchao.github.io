@@ -60,6 +60,7 @@ qemu-system-i386
 ```
 qemu-system-i386 -monitor stdio
 ```
+
 一些常用的调试命令：
 ```
 info block
@@ -80,6 +81,7 @@ apt安装
 apt-get install qemu
 ```
 编译安装
+
 ```
 xz -d
 tar -xvf
@@ -124,7 +126,14 @@ qemu-img create -f qcow2 -o backing_file=ipl.bin
 ### 使用Makefile制作
 
 ## 启动镜像
+```
+qemu-system-i386 -s -S
+```
 
+-s: 启动GDB端口，默认1234。等于`-gdb tcp:1234`
+-S: 加电后CPU挂起 
+-kernel: 
+-m: 
 
 ## 分析镜像
 objdump
@@ -142,7 +151,7 @@ gdb
 ```
 gdb q
 (gdb) target remote localhost:1234
-(gdb) set architecture
+(gdb) set architecture i8086
 (gdb) set disassemble-next-line on
 ```
 

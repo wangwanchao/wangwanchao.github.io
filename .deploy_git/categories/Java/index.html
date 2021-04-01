@@ -102,7 +102,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Wangsir&#39;s Blog">
-<meta property="og:url" content="http://impwang.cn/categories/java/index.html">
+<meta property="og:url" content="http://impwang.cn/categories/Java/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://impwang.cn/categories/java/">
+  <link rel="canonical" href="http://impwang.cn/categories/Java/">
 
 
 
 
 
-  <title>分类: java | Wangsir's Blog</title>
+  <title>分类: Java | Wangsir's Blog</title>
   
 
 
@@ -309,7 +309,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>java<small>分类</small>
+        <h1>Java<small>分类</small>
         </h1>
       </div>
 
@@ -321,17 +321,17 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/08/30/java-proxy/" itemprop="url">
+            <a class="post-title-link" href="/2020/12/09/a-overview-jdk/" itemprop="url">
               
-                <span itemprop="name">java动态代理</span>
+                <span itemprop="name">jdk版本特性概览(一)</span>
               
             </a>
         
       </h2>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-08-30T23:51:41+08:00" content="2018-08-30">
-          08-30
+        <time class="post-time" itemprop="dateCreated" datetime="2020-12-09T00:21:01+08:00" content="2020-12-09">
+          12-09
         </time>
       </div>
 
@@ -347,17 +347,69 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/08/14/java-concurrenthashmap/" itemprop="url">
+            <a class="post-title-link" href="/2020/08/18/java-fork-join/" itemprop="url">
               
-                <span itemprop="name">java集合之ConcurrentHashMap</span>
+                <span itemprop="name">java中Fork/Join</span>
               
             </a>
         
       </h2>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-08-14T23:32:43+08:00" content="2018-08-14">
-          08-14
+        <time class="post-time" itemprop="dateCreated" datetime="2020-08-18T00:45:23+08:00" content="2020-08-18">
+          08-18
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2018/08/09/java-hashmap/" itemprop="url">
+              
+                <span itemprop="name">java集合之HashMap</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2018-08-09T17:26:39+08:00" content="2018-08-09">
+          08-09
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2018/08/07/java-threadpool/" itemprop="url">
+              
+                <span itemprop="name">线程池</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2018-08-07T00:00:57+08:00" content="2018-08-07">
+          08-07
         </time>
       </div>
 
@@ -938,67 +990,6 @@
             }
           }
 
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
           if ('auto' === 'auto') {
             input.addEventListener('input', inputEventFunction);
           } else {

@@ -102,7 +102,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Wangsir&#39;s Blog">
-<meta property="og:url" content="http://impwang.cn/tags/redis/index.html">
+<meta property="og:url" content="http://impwang.cn/tags/Redis/index.html">
 <meta property="og:site_name" content="Wangsir&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://impwang.cn/tags/redis/">
+  <link rel="canonical" href="http://impwang.cn/tags/Redis/">
 
 
 
 
 
-  <title>标签: redis | Wangsir's Blog</title>
+  <title>标签: Redis | Wangsir's Blog</title>
   
 
 
@@ -309,7 +309,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>redis<small>标签</small>
+        <h1>Redis<small>标签</small>
         </h1>
       </div>
 
@@ -321,17 +321,43 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/08/28/redis-redlock/" itemprop="url">
+            <a class="post-title-link" href="/2019/06/07/redis-election/" itemprop="url">
               
-                <span itemprop="name">Redis红锁RedLock在分布式中的应用</span>
+                <span itemprop="name">Redis哨兵机制(七)</span>
               
             </a>
         
       </h2>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-08-28T17:50:15+08:00" content="2018-08-28">
-          08-28
+        <time class="post-time" itemprop="dateCreated" datetime="2019-06-07T00:18:30+08:00" content="2019-06-07">
+          06-07
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2018/09/01/redis-master-slave/" itemprop="url">
+              
+                <span itemprop="name">Redis主从模式(六)</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2018-09-01T18:02:23+08:00" content="2018-09-01">
+          09-01
         </time>
       </div>
 
@@ -933,46 +959,6 @@
 
     // handle and trigger popup window;
     $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
-click(function(e) {
       e.stopPropagation();
       if (isfetched === false) {
         searchFunc(path, 'local-search-input', 'local-search-result');

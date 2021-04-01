@@ -1,6 +1,6 @@
 ---
 title: Kafka环境搭建
-date: 20220-12-21 22:38:34
+date: 2020-12-21 22:38:34
 tags: Kafka
 categories: Kafka
 ---

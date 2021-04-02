@@ -6,4 +6,4 @@ node_modules/
 public/
 .deploy*/
 .vscode
-package-lock.jsonhe
+package-lock.json

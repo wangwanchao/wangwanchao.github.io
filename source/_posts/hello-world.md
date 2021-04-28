@@ -21,8 +21,11 @@ top: true
 
 ## 计划： ##
 
-~~2019主线目标：造轮子(有进步，改了两个开源产品的简单功能，继续努力)~~
-2020主线目标：做出一款自己的产品
+主线目标:
+
+~~2019：造轮子(有进步，改了两个开源产品的简单功能，继续努力)~~
+~~2020：做出一款自己的产品(尝试用Flutter仿写APP，进度只有60%)~~
+2021：工作之余专注于系统内核、数据库内核
 
 <!-- more -->
 ## npm包管理
@@ -52,23 +55,29 @@ cnpm install xxx
 ```
 npm config list
 ```
-### 安装依赖包
+### 依赖包管理
 ```
 npm install hexo-generator-index --save
 ```
-### 卸载依赖包
+卸载依赖包
 ```
 npm uninstall hexo-generator-index --save
 ```
-### 查看安装的模块
+查看安装的模块
 ```
-npm ls --depth 0  
+npm ls --depth 0
 ```
-### 升级npm包
+查看版本
+```
+npm view hexo-generator-index version
+```
+
+### npm升级
+依赖包升级
 ```
 npm update
 ```
-### npm自升级
+npm自升级
 ```
 sudo npm install npm -g
 sudo npm install npm@6.13.4 -g  // 指定升级版本
@@ -84,35 +93,31 @@ $ hexo new "My New Post"/hexo new post hello-world
 ```
 详情: [Writing](https://hexo.io/docs/writing.html)
 
-### 生成草稿
-
+生成草稿
 ```
 $ hexo new draft hello-world
 ```
 
-### 发布草稿
-
+发布草稿
 ``` bash
 $ hexo publish [post] hello-world
 ```
 
-### 生成静态文件
-
+生成静态文件
 ``` bash
 $ hexo generate/hexo g
 ```
 详情: [Generating](https://hexo.io/docs/generating.html)
 
 ### 运行服务
-
 ``` bash
 $ hexo 
 $ hexo server/hexo s  // 本地运行
+$ nohup hexo s -p 80  // 指定端口后台运行
 ```
 详情: [Server](https://hexo.io/docs/server.html)
 
 ### 发布博客到github
-
 ``` bash
 $ hexo deploy/hexo d
 ```
@@ -166,7 +171,6 @@ search:
 ### 添加评论功能
 
 ### 修改域名
-
 
 ### 网站备案
 
@@ -244,6 +248,9 @@ hexo clean
 hexo s
 ```
 ** 加载会变慢，js脚本可以考虑使用镜像 **
+
+## 博客迁移
+服务器迁移
 
 ## 附录
 

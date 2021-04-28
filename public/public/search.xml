@@ -1,6 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hello World</title>
+    <url>/2018/03/02/hello-world/</url>
+    <content><![CDATA[<p>从高中上网都不会的小白，到从事这个行业，我知道我是真心地喜欢这个行业，只不过一直在探索最终的方向，如果可以，我真的希望自己可以写到退休，然后达到研究者的水平，像linus torvalds一样。<br>这个行业有太多太多的偏见，毕竟“文人相轻”的道理还是存在的，你只需要做好自己，追求极致。<br>最后，在这条路上见过了太多太多的大佬。<br>2020，我的目标：成为这样的大佬，未来做出自己的开源产品:)(2020.08.01)<br>博客间歇式更新 PS: 今年对很多东西有了重新的认识，整个博客的内容，大部分会推翻，重新构建(2020.08.27)<br>凡事问一下：</p>
+<ol>
+<li>她是什么？what</li>
+<li>她用来做什么？for</li>
+<li>她解决了什么问题？solve</li>
+<li>她的设计原理是什么？design</li>
+<li>你自己如何实现她？practice</li>
+</ol>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=444267928&auto=1&height=66"></iframe>
+
+<h2 id="计划："><a href="#计划：" class="headerlink" title="计划："></a>计划：</h2><p><del>2019主线目标：造轮子(有进步，改了两个开源产品的简单功能，继续努力)</del><br>2020主线目标：做出一款自己的产品</p>
+<a id="more"></a>
+<h2 id="npm包管理"><a href="#npm包管理" class="headerlink" title="npm包管理"></a>npm包管理</h2><p>现在很多的语言框架都会采用包管理，像Maven、Gradle、Cargo、Go，npm的包管理原理差不多，无非要考虑全局/本地问题、镜像问题、包路径问题。</p>
+<h3 id="配置镜像"><a href="#配置镜像" class="headerlink" title="配置镜像"></a>配置镜像</h3><p>配置淘宝镜像(个人感觉不是很好用)<br><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">npm <span class="built_in">config</span> <span class="built_in">set</span> registry https:<span class="comment">//registry.npm.taobao.org/</span></span><br><span class="line">npm <span class="built_in">config</span> <span class="built_in">get</span> registry</span><br></pre></td></tr></table></figure></p>
+<p>配置代理，npm只支持http，如果使用socks代理，需要安装插件<br><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">npm <span class="built_in">config</span> <span class="built_in">set</span> proxy http:<span class="comment">//127.0.0.1:1087</span></span><br><span class="line">npm <span class="built_in">config</span> <span class="built_in">set</span> https-proxy http:<span class="comment">//127.0.0.1:1087</span></span><br><span class="line"># 设置用户密码的代理</span><br><span class="line">npm <span class="built_in">config</span> <span class="built_in">set</span> proxy <span class="string">"http://username:password@localhost:8080"</span></span><br><span class="line">npm confit <span class="built_in">set</span> https-proxy <span class="string">"http://username:password@localhost:8080"</span></span><br></pre></td></tr></table></figure></p>
+<p>也可以使用cnpm来代替npm<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">sudo npm <span class="keyword">install</span> -g cnpm <span class="comment">--registry=https://registry.npm.taobao.org</span></span><br><span class="line">cnpm <span class="keyword">install</span> xxx</span><br></pre></td></tr></table></figure></p>
+<p>查看配置<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">npm<span class="built_in"> config </span>list</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-<span class="keyword">index</span> <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<h3 id="卸载依赖包"><a href="#卸载依赖包" class="headerlink" title="卸载依赖包"></a>卸载依赖包</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">uninstall</span> hexo-generator-<span class="keyword">index</span> <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<h3 id="查看安装的模块"><a href="#查看安装的模块" class="headerlink" title="查看安装的模块"></a>查看安装的模块</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">ls</span> <span class="params">--depth</span> 0</span><br></pre></td></tr></table></figure>
+<h3 id="升级npm包"><a href="#升级npm包" class="headerlink" title="升级npm包"></a>升级npm包</h3><figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">npm</span> update</span><br></pre></td></tr></table></figure>
+<h3 id="npm自升级"><a href="#npm自升级" class="headerlink" title="npm自升级"></a>npm自升级</h3><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">sudo npm install npm -g</span><br><span class="line">sudo npm install <span class="symbol">npm@</span><span class="number">6.13</span><span class="number">.4</span> -g  <span class="comment">// 指定升级版本</span></span><br></pre></td></tr></table></figure>
+<h2 id="Hexo搭建博客"><a href="#Hexo搭建博客" class="headerlink" title="Hexo搭建博客"></a>Hexo搭建博客</h2><p><a href="https://github.com/theme-next/hexo-theme-next.git" target="_blank" rel="noopener">Hexo GitHub仓库</a></p>
+<h3 id="新建博客"><a href="#新建博客" class="headerlink" title="新建博客"></a>新建博客</h3><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="built_in">new</span> <span class="string">"My New Post"</span>/hexo <span class="built_in">new</span> <span class="built_in">post</span> hello-world</span><br></pre></td></tr></table></figure>
+<p>详情: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="生成草稿"><a href="#生成草稿" class="headerlink" title="生成草稿"></a>生成草稿</h3><figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="keyword">new</span> <span class="type">draft</span> hello-world</span><br></pre></td></tr></table></figure>
+<h3 id="发布草稿"><a href="#发布草稿" class="headerlink" title="发布草稿"></a>发布草稿</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo publish [post] hello-world</span><br></pre></td></tr></table></figure>
+<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate/hexo g</span><br></pre></td></tr></table></figure>
+<p>详情: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo </span><br><span class="line">$ hexo server/hexo s  // 本地运行</span><br></pre></td></tr></table></figure>
+<p>详情: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="发布博客到github"><a href="#发布博客到github" class="headerlink" title="发布博客到github"></a>发布博客到github</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy/hexo d</span><br></pre></td></tr></table></figure>
+<p>详情: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<h2 id="优化博客"><a href="#优化博客" class="headerlink" title="优化博客"></a>优化博客</h2><h3 id="修改主题"><a href="#修改主题" class="headerlink" title="修改主题"></a>修改主题</h3><p>采用Next</p>
+<h3 id="添加RSS，RSS迁移-添加Search本地搜索"><a href="#添加RSS，RSS迁移-添加Search本地搜索" class="headerlink" title="添加RSS，RSS迁移; 添加Search本地搜索"></a>添加RSS，RSS迁移; 添加Search本地搜索</h3><p>rss:<br>hexo-generator-feed插件<br>修改主题下config文件，添加 <code>rss: /atom.xml</code></p>
+<p>search:</p>
+<h3 id="添加博客访问量PV-UV"><a href="#添加博客访问量PV-UV" class="headerlink" title="添加博客访问量PV/UV"></a>添加博客访问量PV/UV</h3><p>两种方法：<br>1). 在<code>$HEXO_BLOG/themes/next/layout/_partials/footer.swig</code>添加’不蒜子’js脚本、统计标签</p>
+<p>2).直接开启config配置</p>
+<h3 id="添加博客字数、阅读时长-修改博客国际化"><a href="#添加博客字数、阅读时长-修改博客国际化" class="headerlink" title="添加博客字数、阅读时长; 修改博客国际化"></a>添加博客字数、阅读时长; 修改博客国际化</h3><p>统计也遇到两种方法：<br>1）、hexo-wordcount插件 + 开启config + 修改post-swig添加统计</p>
+<p>2）、hexo-symbols-count-time插件，只需要开启config即可</p>
+<h3 id="修改博文底部标签样式-添加Read-more"><a href="#修改博文底部标签样式-添加Read-more" class="headerlink" title="修改博文底部标签样式; 添加Read more"></a>修改博文底部标签样式; 添加<code>Read more</code></h3><p>修改模板 <code>$HEXO_BLOG/themes/next/layout/_macro/post.swig</code>，搜索 <code>rel=&quot;tag&quot;&gt;#</code>，将’#’换成<code>&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt;</code></p>
+<h3 id="增加博文置顶功能"><a href="#增加博文置顶功能" class="headerlink" title="增加博文置顶功能"></a>增加博文置顶功能</h3><p>两种方案：<br>1）hexo-generator-index</p>
+<p>2）hexo-generator-index-pin-top</p>
+<p>找到<code>$HEXO_BLOG/themes/next/layout/_macro/post.swig</code>文件，定位到<code>&lt;div class=&quot;post-meta&quot;&gt;</code>标签下，插入代码：</p>
+<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> post.top %&#125;</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-thumb-tack"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">7D26CD</span>&gt;</span>置顶<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-divider"</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="添加评论功能"><a href="#添加评论功能" class="headerlink" title="添加评论功能"></a>添加评论功能</h3><h3 id="修改域名"><a href="#修改域名" class="headerlink" title="修改域名"></a>修改域名</h3><h3 id="网站备案"><a href="#网站备案" class="headerlink" title="网站备案"></a>网站备案</h3><h3 id="支持LaTex"><a href="#支持LaTex" class="headerlink" title="支持LaTex"></a>支持LaTex</h3><p>总结一下<br>markdown文件对LaTex数学公式的支持，最开始在windows上博客编辑使用<code>Markdown Pad 2</code>，可以支持实时预览。最近更换到<code>VSCode</code>，看了支持实时预览的大概几种方案：Tex Live(MaxTex)体积太大；MikTex对中文的支持不是很好；Overleaf采用线上编译模式。<br>最后放弃实时预览，只在编译后的博客中支持。<br>Hexo的Next主题已经提供了对LaTex的支持，只需要使用npm安装插件，编辑config配置文件开启即可，目前Next支持<code>Mathjax</code>和<code>Katex</code>两种编译引擎。<br><strong> 注意：不同的主题配置方式不同 </strong></p>
+<ol>
+<li><p>npm安装插件</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">cd $BLOG_HOME</span><br><span class="line"></span><br><span class="line">安装hexo-math</span><br><span class="line">$ npm <span class="keyword">install</span> hexo-math <span class="comment">--save</span></span><br><span class="line"></span><br><span class="line">卸载默认引擎，安装支持latex的引擎</span><br><span class="line">$ npm <span class="keyword">uninstall</span> hexo-renderer-marked <span class="comment">--save</span></span><br><span class="line">$ npm <span class="keyword">install</span> hexo-renderer-kramed <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改npm插件的编译规则<br>Latex和Markdown的一些语法一致导致render渲染规则存在冲突，可以通过修改插件的正则表达式来避免冲突。</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">vi $BLOG<span class="emphasis">_HOME/node_</span>modules/kramed/lib/rules/inline.js</span><br><span class="line"></span><br><span class="line">调整为</span><br><span class="line">escape: /^\\([<span class="string">`*\[\</span>](<span class="link"></span>)#$+\-.!_&gt;])/,</span><br><span class="line">em: /^\<span class="emphasis">*((?:\*</span>\<span class="emphasis">*|[\s\S])+?)\*</span>(?!\*)/,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改<code>$HEXO_BLOG/themes/next/_config.yml</code>开启功能按钮<br>这里有人在Hexo的根目录下直接修改<code>_config.yml</code>，要注意themes的区别。</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Math Equations Render Support</span></span><br><span class="line"><span class="symbol">math:</span></span><br><span class="line"><span class="symbol">  enable:</span> true</span><br><span class="line">  <span class="meta"># 默认值为true， 只在添加了`mathjax: true`的文章中价值latex脚本。false会在所有的文章页加载`mathjax / katex`脚本</span></span><br><span class="line"><span class="symbol">  per_page:</span> true</span><br><span class="line"><span class="symbol">  engine:</span> mathjax</span><br><span class="line">  <span class="meta">#engine: katex</span></span><br><span class="line"></span><br><span class="line">  <span class="meta"># 安装 hexo-renderer-pandoc (or hexo-renderer-kramed)</span></span><br><span class="line"><span class="symbol">  mathjax:</span></span><br><span class="line"><span class="symbol">    enable:</span> true</span><br><span class="line"><span class="symbol">    per_page:</span> false</span><br><span class="line">		<span class="meta"># 这块儿js文件路径注意是否能正常访问</span></span><br><span class="line">    <span class="meta"># cdn: <span class="comment">//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML</span></span></span><br><span class="line"><span class="symbol">    cdn:</span> <span class="comment">//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML</span></span><br><span class="line">    <span class="meta"># See: https:<span class="comment">//mhchem.github.io/MathJax-mhchem/</span></span></span><br><span class="line">    <span class="meta">#mhchem: <span class="comment">//cdn.jsdelivr.net/npm/mathjax-mhchem@3</span></span></span><br><span class="line">    <span class="meta">#mhchem: <span class="comment">//cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.0</span></span></span><br><span class="line"></span><br><span class="line">  <span class="meta"># 插件2 hexo install hexo-renderer-markdown-it-plus (or hexo-renderer-markdown-it with markdown-it-katex plugin)</span></span><br><span class="line">  <span class="meta"># katex:</span></span><br><span class="line">  <span class="meta">#   cdn: <span class="comment">//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css</span></span></span><br><span class="line">  <span class="meta">#   #cdn: <span class="comment">//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css</span></span></span><br><span class="line"></span><br><span class="line">  <span class="meta">#   copy_tex:</span></span><br><span class="line">  <span class="meta">#     # See: https:<span class="comment">//github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex</span></span></span><br><span class="line">  <span class="meta">#     enable: false</span></span><br><span class="line">  <span class="meta">#     copy_tex_js: <span class="comment">//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js</span></span></span><br><span class="line">  <span class="meta">#     copy_tex_css: <span class="comment">//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文章头添加<code>mathjax: true</code>标识。<br>使用数学公式验证一下</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span><span class="symbol">$</span> evidence_&#123;i&#125;=\sum_&#123;j&#125;W_&#123;ij&#125;x_&#123;j&#125;+b_&#123;i&#125; <span class="symbol">$</span><span class="symbol">$</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span><span class="symbol">$</span> \<span class="built-in">frac</span>&#123;m&#125;&#123;n&#125; %n分之m <span class="symbol">$</span><span class="symbol">$</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>本地启动<br><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="attr">hexo</span> <span class="string">s</span></span><br></pre></td></tr></table></figure></p>
+<p><strong> 加载会变慢，js脚本可以考虑使用镜像 </strong></p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">1. 错误1</span><br><span class="line">seems to be corrupted. Trying <span class="keyword">one</span> <span class="keyword">more</span> time</span><br><span class="line">解决方案</span><br><span class="line">更换网络：数据网络、代理、镜像，墙内世界总有一款适合你</span><br><span class="line"></span><br><span class="line">2. 错误2 权限问题</span><br><span class="line">Unhandled rejection <span class="keyword">Error</span>: EACCES: permission denied, <span class="keyword">mkdir</span></span><br><span class="line">解决方案</span><br><span class="line">sudo chown -R <span class="variable">$USER</span>:<span class="variable">$GROUP</span> ~/.npm</span><br><span class="line">sudo chown -R <span class="variable">$USER</span>:<span class="variable">$GROUP</span> ~/.config</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Hello</category>
+      </categories>
+      <tags>
+        <tag>Hello</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Srping AOP(2)</title>
+    <url>/2021/04/28/spring-aop/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Spring</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Linux环境下编译JDK11(1)</title>
     <url>/2021/03/20/jvm-compile-11/</url>
     <content><![CDATA[<p>第n次编译jdk，以前的编译功力尚浅，之后没再去探索。这次在编译OS之后对C语言有一些更好的理解，希望能够深入JDK。对比<code>OpenJDK1.8-</code>，<code>OpenJDK11+</code>简直是简直是easy模式。</p>
@@ -25,7 +106,7 @@
 </ul>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">make <span class="attribute">JOBS</span>=4 jdk  # 等同于`bash configure <span class="attribute">--with-jobs</span>=4`</span><br></pre></td></tr></table></figure>
 <p>可以看到编译后的目录如下：<br><img src="https://impwang.oss-cn-beijing.aliyuncs.com/java/jdk-build.png" alt="编译目录"></p>
-<h1 id="hotspot在IDEA下的调试"><a href="#hotspot在IDEA下的调试" class="headerlink" title="hotspot在IDEA下的调试"></a>hotspot在IDEA下的调试</h1><h3 id="编写测试代码"><a href="#编写测试代码" class="headerlink" title="编写测试代码"></a>编写测试代码</h3><figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">mkdir -p examples<span class="regexp">/com/</span>wang</span><br><span class="line"></span><br><span class="line">vi Test.java</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.wang;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> Test &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</span><br><span class="line">		System.out.<span class="keyword">println</span>(<span class="string">"Hello Hotspot"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cd examples</span><br><span class="line">javac com<span class="regexp">/wang/</span>Test.java</span><br></pre></td></tr></table></figure>
+<h1 id="hotspot在IDEA下的调试"><a href="#hotspot在IDEA下的调试" class="headerlink" title="hotspot在IDEA下的调试"></a>hotspot在IDEA下的调试</h1><h3 id="编写测试代码"><a href="#编写测试代码" class="headerlink" title="编写测试代码"></a>编写测试代码</h3><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p examples/com/wang</span><br><span class="line"></span><br><span class="line">vi Test.java</span><br><span class="line"></span><br><span class="line">package com.wang;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> &#123;</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">String</span>[] args)</span> </span>&#123;</span><br><span class="line">		System.out.<span class="built_in">println</span>(<span class="string">"Hello Hotspot"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cd examples</span><br><span class="line">javac com/wang/Test.java</span><br></pre></td></tr></table></figure>
 <p>配置Application<br><img src="https://impwang.oss-cn-beijing.aliyuncs.com/java/hotspot-demo.png" alt="demo"></p>
 <p>配置lib库<br><img src="https://impwang.oss-cn-beijing.aliyuncs.com/java/hotspot-env.png" alt="lib"></p>
 <p>开始debug<br><img src="https://impwang.oss-cn-beijing.aliyuncs.com/java/hotspot-debug.png" alt="debug"></p>
@@ -45,14 +126,14 @@
 <a id="more"></a>
 <h2 id="单节点Kafka"><a href="#单节点Kafka" class="headerlink" title="单节点Kafka"></a>单节点Kafka</h2><p>Kafka是依赖于Scala语言的，所以要先安装Scala。</p>
 <h3 id="Linux安装"><a href="#Linux安装" class="headerlink" title="Linux安装"></a>Linux安装</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">kafka_2</span><span class="selector-class">.11-2</span><span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.tgz</span></span><br><span class="line"><span class="selector-tag">tar</span> <span class="selector-tag">-xzvf</span> <span class="selector-tag">kafka_2</span><span class="selector-class">.11-2</span><span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.tgz</span></span><br><span class="line"><span class="selector-tag">mv</span> <span class="selector-tag">kafka_2</span><span class="selector-class">.11-2</span><span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.tgz</span> <span class="selector-tag">kafka</span></span><br></pre></td></tr></table></figure>
-<h3 id="启动zk"><a href="#启动zk" class="headerlink" title="启动zk"></a>启动zk</h3><h4 id="使用独立的zk"><a href="#使用独立的zk" class="headerlink" title="使用独立的zk"></a>使用独立的zk</h4><h4 id="使用kafka内嵌的zk"><a href="#使用kafka内嵌的zk" class="headerlink" title="使用kafka内嵌的zk"></a>使用kafka内嵌的zk</h4><p>启动zk<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">bin/zookeeper-server-start<span class="selector-class">.sh</span> -daemon config/zookeeper.properties</span><br><span class="line"></span><br><span class="line">nohup bin/zookeeper-server-start<span class="selector-class">.sh</span> -daemon config/zookeeper<span class="selector-class">.properties</span> &amp;</span><br></pre></td></tr></table></figure></p>
-<h3 id="启动Kafka，同时注册到zk上"><a href="#启动Kafka，同时注册到zk上" class="headerlink" title="启动Kafka，同时注册到zk上"></a>启动Kafka，同时注册到zk上</h3><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">bin/kafka-server-start<span class="selector-class">.sh</span> config/server.properties</span><br><span class="line"></span><br><span class="line">nohup bin/kafka-server-start<span class="selector-class">.sh</span> config/server<span class="selector-class">.properties</span> &amp;</span><br></pre></td></tr></table></figure>
-<h3 id="创建topic-test"><a href="#创建topic-test" class="headerlink" title="创建topic(test)"></a>创建topic(test)</h3><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">topics</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">create</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">localhost:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">replication</span><span class="literal">-</span><span class="comment">factor</span> <span class="comment">1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">partitions</span> <span class="comment">1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">test</span></span><br></pre></td></tr></table></figure>
+<h3 id="启动zk"><a href="#启动zk" class="headerlink" title="启动zk"></a>启动zk</h3><h4 id="使用独立的zk"><a href="#使用独立的zk" class="headerlink" title="使用独立的zk"></a>使用独立的zk</h4><h4 id="使用kafka内嵌的zk"><a href="#使用kafka内嵌的zk" class="headerlink" title="使用kafka内嵌的zk"></a>使用kafka内嵌的zk</h4><p>启动zk<br><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">bin/zookeeper-<span class="keyword">server</span>-<span class="keyword">start</span>.sh -daemon config/zookeeper.properties</span><br><span class="line"></span><br><span class="line">nohup bin/zookeeper-<span class="keyword">server</span>-<span class="keyword">start</span>.sh -daemon config/zookeeper.properties &amp;</span><br></pre></td></tr></table></figure></p>
+<h3 id="启动Kafka，同时注册到zk上"><a href="#启动Kafka，同时注册到zk上" class="headerlink" title="启动Kafka，同时注册到zk上"></a>启动Kafka，同时注册到zk上</h3><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">bin/kafka-<span class="keyword">server</span>-<span class="keyword">start</span>.sh config/<span class="keyword">server</span>.properties</span><br><span class="line"></span><br><span class="line">nohup bin/kafka-<span class="keyword">server</span>-<span class="keyword">start</span>.sh config/<span class="keyword">server</span>.properties &amp;</span><br></pre></td></tr></table></figure>
+<h3 id="创建topic-test"><a href="#创建topic-test" class="headerlink" title="创建topic(test)"></a>创建topic(test)</h3><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">topics</span><span class="string">.</span><span class="comment">sh</span> --<span class="comment">create</span> --<span class="comment">zookeeper</span> <span class="comment">localhost:2181</span> --<span class="comment">replication</span><span class="literal">-</span><span class="comment">factor</span> <span class="comment">1</span> --<span class="comment">partitions</span> <span class="comment">1</span> --<span class="comment">topic</span> <span class="comment">test</span></span><br></pre></td></tr></table></figure>
 <h3 id="查看topic"><a href="#查看topic" class="headerlink" title="查看topic"></a>查看topic</h3><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">bin/kafka-topics.sh --zookeeper localhost:<span class="number">2181</span> --list</span><br><span class="line"></span><br><span class="line">bin/kafka-topics.sh --zookeeper <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2181</span> --topic test --describe</span><br></pre></td></tr></table></figure>
 <p>消费者分组<br><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">bin/kafka-consumer-groups.sh --bootstrap-server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">9092</span> --list</span><br><span class="line"></span><br><span class="line">bin/kafka-consumer-groups.sh --bootstrap-server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">9092</span> --group test_group --describe</span><br><span class="line"></span><br><span class="line"># 从头开始消费</span><br><span class="line">/usr/local/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:<span class="number">9092</span> --topic test -group test_group --<span class="keyword">from</span>-beginning</span><br></pre></td></tr></table></figure></p>
 <h3 id="生产消息-可以新起一个terminal"><a href="#生产消息-可以新起一个terminal" class="headerlink" title="生产消息(可以新起一个terminal)"></a>生产消息(可以新起一个terminal)</h3><figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">bin/kafka-console-producer.<span class="keyword">sh</span> --broker-<span class="keyword">list</span> localhost:9092 --topic <span class="keyword">test</span></span><br></pre></td></tr></table></figure>
-<h3 id="消费消息-新起一个terminal"><a href="#消费消息-新起一个terminal" class="headerlink" title="消费消息(新起一个terminal)"></a>消费消息(新起一个terminal)</h3><p>旧版本<br><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">console</span><span class="literal">-</span><span class="comment">consumer</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">localhost:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">test</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">from</span><span class="literal">-</span><span class="comment">beginning</span></span><br></pre></td></tr></table></figure></p>
-<p>新版本<br><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">console</span><span class="literal">-</span><span class="comment">consumer</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">bootstrap</span><span class="literal">-</span><span class="comment">server</span> <span class="comment">localhost:9092</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">test</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">from</span><span class="literal">-</span><span class="comment">beginning</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="消费消息-新起一个terminal"><a href="#消费消息-新起一个terminal" class="headerlink" title="消费消息(新起一个terminal)"></a>消费消息(新起一个terminal)</h3><p>旧版本<br><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">console</span><span class="literal">-</span><span class="comment">consumer</span><span class="string">.</span><span class="comment">sh</span> --<span class="comment">zookeeper</span> <span class="comment">localhost:2181</span> --<span class="comment">topic</span> <span class="comment">test</span> --<span class="comment">from</span><span class="literal">-</span><span class="comment">beginning</span></span><br></pre></td></tr></table></figure></p>
+<p>新版本<br><figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">bin/kafka</span><span class="literal">-</span><span class="comment">console</span><span class="literal">-</span><span class="comment">consumer</span><span class="string">.</span><span class="comment">sh</span> --<span class="comment">bootstrap</span><span class="literal">-</span><span class="comment">server</span> <span class="comment">localhost:9092</span> --<span class="comment">topic</span> <span class="comment">test</span> --<span class="comment">from</span><span class="literal">-</span><span class="comment">beginning</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>注意：</strong>这里可能会遇到问题，旧版本启动参数和新版本参数不一样，根据提示修改即可</p>
 <h2 id="Kafka和zk的关系"><a href="#Kafka和zk的关系" class="headerlink" title="Kafka和zk的关系"></a>Kafka和zk的关系</h2><p>Kafka是一个分布式消息系统，多broker就需要一个管理中心，zk作为注册中心，所有的broker、topics都会注册到zk上，进入zk可以看一下：</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">bin/zookeeper-<span class="keyword">shell</span>.<span class="keyword">sh</span> localhos<span class="variable">t:2121</span></span><br></pre></td></tr></table></figure>
@@ -60,7 +141,7 @@
 <p>查看brokers节点：<br><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ls</span> <span class="string">/brokers</span></span><br><span class="line">[ids, topics, seqid]</span><br></pre></td></tr></table></figure></p>
 <p>查看broker0:<br><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">get</span> /brokers/ids/<span class="number">0</span></span><br><span class="line">&#123;<span class="string">"listener_security_protocol_map"</span>:&#123;<span class="string">"PLAINTEXT"</span>:<span class="string">"PLAINTEXT"</span>&#125;,<span class="string">"endpoints"</span>:[<span class="string">"PLAINTEXT://localhost:9092"</span>],<span class="string">"jmx_port"</span>:<span class="number">-1</span>,<span class="string">"host"</span>:<span class="string">"localhost"</span>,<span class="string">"timestamp"</span>:<span class="string">"1535447121995"</span>,<span class="string">"port"</span>:<span class="number">9092</span>,<span class="string">"version"</span>:<span class="number">4</span>&#125;</span><br><span class="line">cZxid = <span class="number">0x2e</span></span><br><span class="line">ctime = Tue Aug <span class="number">28</span> <span class="number">17</span>:<span class="number">05</span>:<span class="number">22</span> CST <span class="number">2018</span></span><br><span class="line">mZxid = <span class="number">0x2e</span></span><br><span class="line">mtime = Tue Aug <span class="number">28</span> <span class="number">17</span>:<span class="number">05</span>:<span class="number">22</span> CST <span class="number">2018</span></span><br><span class="line">pZxid = <span class="number">0x2e</span></span><br><span class="line">cversion = <span class="number">0</span></span><br><span class="line">dataVersion = <span class="number">0</span></span><br><span class="line">aclVersion = <span class="number">0</span></span><br><span class="line">ephemeralOwner = <span class="number">0x1657f0bf1b60003</span></span><br><span class="line">dataLength = <span class="number">188</span></span><br><span class="line">numChildren = <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p>查看topics:<br><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ls</span> <span class="string">/brokers/topics</span></span><br><span class="line">[test, __consumer_offsets]</span><br></pre></td></tr></table></figure></p>
-<p>查看主题test:<br><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">get /brokers/topics/test             </span><br><span class="line"><span class="section">&#123;"version":1,"partitions":&#123;"0":[0]&#125;&#125;</span></span><br><span class="line">cZxid = 0x38</span><br><span class="line">ctime = Tue Aug 28 17:06:39 CST 2018</span><br><span class="line">mZxid = 0x38</span><br><span class="line">mtime = Tue Aug 28 17:06:39 CST 2018</span><br><span class="line">pZxid = 0x3a</span><br><span class="line">cversion = 1</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 36</span><br><span class="line">numChildren = 1</span><br></pre></td></tr></table></figure></p>
+<p>查看主题test:<br><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">get</span> /brokers/topics/test             </span><br><span class="line">&#123;<span class="string">"version"</span>:<span class="number">1</span>,<span class="string">"partitions"</span>:&#123;<span class="string">"0"</span>:[<span class="number">0</span>]&#125;&#125;</span><br><span class="line">cZxid = <span class="number">0x38</span></span><br><span class="line">ctime = Tue Aug <span class="number">28</span> <span class="number">17</span>:<span class="number">06</span>:<span class="number">39</span> CST <span class="number">2018</span></span><br><span class="line">mZxid = <span class="number">0x38</span></span><br><span class="line">mtime = Tue Aug <span class="number">28</span> <span class="number">17</span>:<span class="number">06</span>:<span class="number">39</span> CST <span class="number">2018</span></span><br><span class="line">pZxid = <span class="number">0x3a</span></span><br><span class="line">cversion = <span class="number">1</span></span><br><span class="line">dataVersion = <span class="number">0</span></span><br><span class="line">aclVersion = <span class="number">0</span></span><br><span class="line">ephemeralOwner = <span class="number">0x0</span></span><br><span class="line">dataLength = <span class="number">36</span></span><br><span class="line">numChildren = <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="单节点安全机制"><a href="#单节点安全机制" class="headerlink" title="单节点安全机制"></a>单节点安全机制</h2><h2 id="集群模式"><a href="#集群模式" class="headerlink" title="集群模式"></a>集群模式</h2>]]></content>
       <categories>
         <category>Kafka</category>
@@ -95,7 +176,7 @@
 <h4 id="Ubuntu系统"><a href="#Ubuntu系统" class="headerlink" title="Ubuntu系统"></a>Ubuntu系统</h4><p>命令基本和Deepin系统一样</p>
 <h2 id="Bochs"><a href="#Bochs" class="headerlink" title="Bochs"></a>Bochs</h2><p>这个我个人用的比较少，不是很熟悉。中间在qemu遇到问题时，用来校验过<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install bochs</span><br></pre></td></tr></table></figure></p>
 <p>需要配置<code>.bochsrc</code>文件<br><figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">bochs </span>-f .<span class="keyword">bochsrc</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="系统镜像"><a href="#系统镜像" class="headerlink" title="系统镜像"></a>系统镜像</h1><h2 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像</h2><h3 id="使用dd命令制作"><a href="#使用dd命令制作" class="headerlink" title="使用dd命令制作"></a>使用dd命令制作</h3><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 空镜像ipl.img</span></span><br><span class="line"><span class="selector-tag">dd</span> <span class="keyword">if</span>=/dev/zero of=ipl<span class="selector-class">.img</span> bs=<span class="number">512</span> count=<span class="number">4</span> conv=notrunc</span><br><span class="line"><span class="comment">// ipl.bin输出到ipl.img</span></span><br><span class="line"><span class="selector-tag">dd</span> <span class="keyword">if</span>=ipl<span class="selector-class">.bin</span> of=ipl<span class="selector-class">.img</span> bs=<span class="number">512</span> count=<span class="number">4</span> conv=notrunc</span><br><span class="line"><span class="comment">// 追加模式</span></span><br><span class="line"><span class="selector-tag">dd</span> <span class="keyword">if</span>=haribote<span class="selector-class">.sys</span> of=ipl<span class="selector-class">.img</span> bs=<span class="number">512</span> count=<span class="number">1</span> seek=<span class="number">1</span> conv=notrunc</span><br></pre></td></tr></table></figure>
+<h1 id="系统镜像"><a href="#系统镜像" class="headerlink" title="系统镜像"></a>系统镜像</h1><h2 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像</h2><h3 id="使用dd命令制作"><a href="#使用dd命令制作" class="headerlink" title="使用dd命令制作"></a>使用dd命令制作</h3><figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">// 空镜像ipl.img</span><br><span class="line">dd <span class="attr">if=/dev/zero</span> <span class="attr">of=ipl.img</span> <span class="attr">bs=512</span> <span class="attr">count=4</span> <span class="attr">conv=notrunc</span></span><br><span class="line">// ipl.bin输出到ipl.img</span><br><span class="line">dd <span class="attr">if=ipl.bin</span> <span class="attr">of=ipl.img</span> <span class="attr">bs=512</span> <span class="attr">count=4</span> <span class="attr">conv=notrunc</span></span><br><span class="line">// 追加模式</span><br><span class="line">dd <span class="attr">if=haribote.sys</span> <span class="attr">of=ipl.img</span> <span class="attr">bs=512</span> <span class="attr">count=1</span> <span class="attr">seek=1</span> <span class="attr">conv=notrunc</span></span><br></pre></td></tr></table></figure>
 <h3 id="使用qemu-img制作"><a href="#使用qemu-img制作" class="headerlink" title="使用qemu-img制作"></a>使用qemu-img制作</h3><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">qemu-img create -f qcow2 -o <span class="attribute">backing_file</span>=ipl.bin</span><br></pre></td></tr></table></figure>
 <h3 id="使用Makefile制作"><a href="#使用Makefile制作" class="headerlink" title="使用Makefile制作"></a>使用Makefile制作</h3><h2 id="启动镜像"><a href="#启动镜像" class="headerlink" title="启动镜像"></a>启动镜像</h2><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">qemu-<span class="keyword">system</span>-i386 -s -S</span><br></pre></td></tr></table></figure>
 <p>-s: 启动GDB端口，默认1234。等于<code>-gdb tcp:1234</code><br>-S: 加电后CPU挂起<br>-kernel:<br>-m: </p>
@@ -111,7 +192,7 @@
     <url>/2020/12/19/os-19/</url>
     <content><![CDATA[<p>今天要在系统中运行第一个程序了，有点小激动。但是在编译过程中，程序始终无法正常运行hlt中断，反而会刷新系统页面。最后发现是<code>ld script</code>链接的坑，还是基础不牢啊。</p>
 <a id="more"></a>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="ld-script"><a href="#ld-script" class="headerlink" title="ld script"></a>ld script</h2><p>生成map文件<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">ld -melf hlt<span class="selector-class">.o</span> -o hlt<span class="selector-class">.hrb</span> -M=hlt.map</span><br></pre></td></tr></table></figure></p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="ld-script"><a href="#ld-script" class="headerlink" title="ld script"></a>ld script</h2><p>生成map文件<br><figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">ld -melf <span class="keyword">hlt</span><span class="number">.</span>o -o <span class="keyword">hlt</span><span class="number">.</span>hrb -M=<span class="keyword">hlt</span><span class="number">.</span>map</span><br></pre></td></tr></table></figure></p>
 <h2 id="nasm"><a href="#nasm" class="headerlink" title="nasm"></a>nasm</h2>]]></content>
   </entry>
   <entry>
@@ -213,20 +294,20 @@
 </li>
 </ol>
 <p>jdk代理<br>cglib代理</p>
-<ol start="3">
+<ol>
 <li><p>调用的方法必须是public方法，这是由Spring的AOP特性决定的。<br>Spring的AOP是通过CGlibAopProxy和JdkDynamicAopProxy动态代理实现的，在对方法进行拦截前后AbstractFallbackTransactionAttributeSource#computeTransactionAttribute会检查目标方法是否是public。<br>这样修饰符可以有两种选择：<br>private: 使用@Transactional注解编译报错<code>Methods annotated with @Transactional must be overridable</code><br>protected: 事务不生效<br>public: 必须在接口内，如果在controller内，事务不生效</p>
 </li>
 <li><p>抛出runtimeException异常才能回滚。</p>
 </li>
 </ol>
 <p>默认情况下，事务抛出未检查异常、Error才回滚，如果是已检查异常则不回滚。<br>如果需要checked Exception回滚，注解需要标明@Transactional(rollbackFor=Exception.class)，或者try-catch后throw new RuntimeException</p>
-<ol start="5">
+<ol>
 <li>事务传播策略在内部方法调用时(自调用问题)<br>这是因为在AOP代理下，只有目标方法由外部调用时，目标方法才会由Spring生成的代理对象来管理。<h3 id="情景1："><a href="#情景1：" class="headerlink" title="情景1："></a>情景1：</h3><figure class="highlight aspectj"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(Person person, Book book)</span></span>&#123;</span><br><span class="line">    insert(person, book);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">insert2</span><span class="params">(Person person, Book book)</span></span>&#123;</span><br><span class="line">    insertPerson(person);</span><br><span class="line"></span><br><span class="line">    insertBook(book);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line">personServiceImpl.insert(person, book)事务不起作用</span><br><span class="line"></span><br><span class="line">personServiceImpl.insert2(person, book)事务起作用</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h3 id="情景2："><a href="#情景2：" class="headerlink" title="情景2："></a>情景2：</h3><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="variable">@Override</span></span><br><span class="line"><span class="variable">@Transactional</span>(propagation = Propagation.REQUIRED)</span><br><span class="line">public void insert(Person person, Book book)&#123;</span><br><span class="line">    <span class="selector-tag">insert</span>(person, book);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="selector-tag">Override</span></span><br><span class="line">@<span class="selector-tag">Transactional</span>(propagation = Propagation.REQUIRES_NEW)</span><br><span class="line"><span class="selector-tag">public</span> <span class="selector-tag">void</span> <span class="selector-tag">insert2</span>(Person person, Book book)&#123;</span><br><span class="line">    <span class="selector-tag">insertPerson</span>(person);</span><br><span class="line"></span><br><span class="line">    <span class="selector-tag">insertBook</span>(book);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line"><span class="selector-tag">personServiceImpl</span><span class="selector-class">.insert</span>(person, book)事务起作用</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">personServiceImpl</span><span class="selector-class">.insert2</span>(person, book)事务不起作用</span><br></pre></td></tr></table></figure>
 <h3 id="解决方案1："><a href="#解决方案1：" class="headerlink" title="解决方案1："></a>解决方案1：</h3><blockquote>
-<p>增加&lt;aop:config proxy-target-class=”true” expose-proxy=”true”&gt;&lt;/aop:config&gt;</p>
+<p>增加<aop:config proxy-target-class="true" expose-proxy="true">&lt;/aop:config&gt;</aop:config></p>
 <p>在外层调用内层的事务方法时使用AopContext代理<br><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="variable">@Transactional</span>(propagation = Propagation.REQUIRED)</span><br><span class="line"><span class="variable">@Override</span></span><br><span class="line">public void insert(Person person, Book book)&#123;</span><br><span class="line">    ((<span class="selector-tag">PersonServiceImpl</span>)<span class="selector-tag">AopContext</span><span class="selector-class">.currentProxy</span>())<span class="selector-class">.insert2</span>(person, book);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <h3 id="解决方案2："><a href="#解决方案2：" class="headerlink" title="解决方案2："></a>解决方案2：</h3><blockquote>
@@ -307,7 +388,8 @@
 <li>标记-清除</li>
 <li>标记-整理<br>分代算法：年轻代使用复制算法，老年代使用标记清除/标记整理</li>
 </ol>
-<h2 id="回收器"><a href="#回收器" class="headerlink" title="回收器"></a>回收器</h2><h3 id="年轻代收集器"><a href="#年轻代收集器" class="headerlink" title="年轻代收集器"></a>年轻代收集器</h3><table>
+<h2 id="回收器"><a href="#回收器" class="headerlink" title="回收器"></a>回收器</h2><h3 id="年轻代收集器"><a href="#年轻代收集器" class="headerlink" title="年轻代收集器"></a>年轻代收集器</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th style="text-align:left">收集器</th>
@@ -349,7 +431,9 @@
 </tr>
 </tbody>
 </table>
-<h3 id="老年代收集器"><a href="#老年代收集器" class="headerlink" title="老年代收集器"></a>老年代收集器</h3><table>
+</div>
+<h3 id="老年代收集器"><a href="#老年代收集器" class="headerlink" title="老年代收集器"></a>老年代收集器</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th style="text-align:left">收集器</th>
@@ -390,6 +474,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>CMS、G1垃圾回收都采用<strong>三色标记法</strong>，但是具体实现不同：<br>思想：将对象标记为黑、灰、白三种颜色</p>
 <blockquote>
 <p>从<code>GC Root</code>对象向下查找，根据三色标记法标记出所有连接的对象<br>第一次并发标记后，会产生浮动垃圾，即灰色对象，这时候进行一次STW的短暂停顿对灰色对象进行扫描标记<br>GC线程扫描所有内存，找出被标记为白色的对象。</p>
@@ -414,7 +499,8 @@
 </blockquote>
 </li>
 </ol>
-<h4 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h4><table>
+<h4 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h4><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>参数</th>
@@ -464,6 +550,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h3 id="G1"><a href="#G1" class="headerlink" title="G1"></a>G1</h3><p>目标：</p>
 <h4 id="原理：-1"><a href="#原理：-1" class="headerlink" title="原理："></a>原理：</h4><p>概念：<br>优先列表</p>
 <h5 id="Region："><a href="#Region：" class="headerlink" title="Region："></a>Region：</h5><blockquote>
@@ -503,7 +590,8 @@
 <li>不设置新生代/老年代大小，由JVM自动调整，设置大小后会导致停顿时间设置失效</li>
 <li>关注Evacuation Failure问题</li>
 </ol>
-<h4 id="参数：-1"><a href="#参数：-1" class="headerlink" title="参数："></a>参数：</h4><table>
+<h4 id="参数：-1"><a href="#参数：-1" class="headerlink" title="参数："></a>参数：</h4><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>参数</th>
@@ -553,11 +641,13 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h3 id="ZGC"><a href="#ZGC" class="headerlink" title="ZGC"></a>ZGC</h3><h4 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h4><blockquote>
 <p>GC停顿时间不超过10ms<br>处理堆从MB到TB<br>相比G1减少了15%的吞吐量</p>
 </blockquote>
 <h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><h3 id="Shenandoah-GC"><a href="#Shenandoah-GC" class="headerlink" title="Shenandoah GC"></a>Shenandoah GC</h3><p>目标：低停顿时间</p>
-<h3 id="混合收集器"><a href="#混合收集器" class="headerlink" title="混合收集器"></a>混合收集器</h3><table>
+<h3 id="混合收集器"><a href="#混合收集器" class="headerlink" title="混合收集器"></a>混合收集器</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th style="text-align:left">收集器</th>
@@ -589,7 +679,9 @@
 </tr>
 </tbody>
 </table>
-<h3 id="回收器组合"><a href="#回收器组合" class="headerlink" title="回收器组合"></a>回收器组合</h3><table>
+</div>
+<h3 id="回收器组合"><a href="#回收器组合" class="headerlink" title="回收器组合"></a>回收器组合</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th style="text-align:left">收集器组合</th>
@@ -630,6 +722,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h2 id="内存分配、回收策略"><a href="#内存分配、回收策略" class="headerlink" title="内存分配、回收策略"></a>内存分配、回收策略</h2><p>Minor GC: 指发生在新生代的垃圾回收动作</p>
 <p>Full GC/Major GC: 指发生在老年代的GC，出现Full GC，经常会伴随至少一次Minor GC;</p>
 <p><strong>如果更细粒度，Major GC可以认为只对老年的GC，而Full GC是对整个堆来说的。</strong></p>
@@ -698,7 +791,7 @@
 </ol>
 <h3 id="编译器新特性"><a href="#编译器新特性" class="headerlink" title="编译器新特性"></a>编译器新特性</h3><p>通过<code>-parameters</code>参数可以将方法参数名添加到字节码</p>
 <h3 id="类库的新特性"><a href="#类库的新特性" class="headerlink" title="类库的新特性"></a>类库的新特性</h3><ol>
-<li><p>Optional：解决空指针异常<br> Consumer<t><br> Supplier<t><br> Function&lt;T, R&gt;<br> Predicate<t><br> Comparator<t></t></t></t></t></p>
+<li><p>Optional：解决空指针异常<br> Consumer<t><br> Supplier<t><br> Function<t, r><br> Predicate<t><br> Comparator<t></t></t></t,></t></t></p>
 </li>
 <li><p>Stream：<br> filter过滤<br> sort排序<br> map映射<br> match匹配<br> reduce规约</p>
 </li>
@@ -791,7 +884,7 @@
 <p><strong>注意：</strong>如果JMP的目标地址不是可执行代码，而是TSS，则CPU不执行对EIP、CS的改写，而是执行任务切换。TSS的判断通过读取GDT的设置来确定。<br><figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">set_segmdesc(<span class="name">gdt</span> + <span class="number">3</span>, <span class="number">103</span>, (<span class="name">int</span>) <span class="symbol">&amp;tss_a</span>, AR_TSS32)<span class="comment">;  // 将任务tss_a定义在gdt的3号位置</span></span><br></pre></td></tr></table></figure></p>
 <p>TR寄存器：任务寄存器。记录CPU当前正在运行的任务，存储GDT的编号乘以8的数值(约定规则)。例如：<code>gdt + 3</code>会在TR中存入<code>3*8</code>，</p>
 <p><code>LTR</code>：改变TR寄存器的值，并不会进行任务切换。</p>
-<p><code>JMP FAR</code>: 从指定的内存地址读取4字节数据存入EIP寄存器，继续读取2字节存入CS寄存器。例如：<br><figure class="highlight accesslog"><table><tr><td class="code"><pre><span class="line">JMP		FAR	<span class="string">[ESP+4]</span>    ; <span class="string">[EIP]</span>=<span class="string">[ESP+4]</span>  <span class="string">[CS]</span>=<span class="string">[ESP+8]</span></span><br></pre></td></tr></table></figure></p>
+<p><code>JMP FAR</code>: 从指定的内存地址读取4字节数据存入EIP寄存器，继续读取2字节存入CS寄存器。例如：<br><figure class="highlight inform7"><table><tr><td class="code"><pre><span class="line">JMP		FAR	<span class="comment">[ESP+4]</span>    ; <span class="comment">[EIP]</span>=<span class="comment">[ESP+4]</span>  <span class="comment">[CS]</span>=<span class="comment">[ESP+8]</span></span><br></pre></td></tr></table></figure></p>
 ]]></content>
   </entry>
   <entry>
@@ -823,12 +916,12 @@
 <a id="more"></a>
 <h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>这一部分主要是C语言的编程，对BIOS的操作通过在<code>bootpack.c</code>调用<code>naskfun.asm</code>汇编来实现。</p>
 <ol>
-<li>显示白色<br>bootpack.c调用write_mem8()方法来实现对VRAM内存的操作。<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">void</span> io_hlt(<span class="built_in">void</span>);</span><br><span class="line"><span class="built_in">void</span> write_mem8(<span class="built_in">int</span> addr, <span class="built_in">int</span> data);</span><br><span class="line"></span><br><span class="line"><span class="built_in">void</span> HariMain(<span class="built_in">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">int</span> i;</span><br><span class="line">	<span class="comment">// 白色</span></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0xa0000</span>; i &lt;= <span class="number">0xaffff</span>; i++) &#123;</span><br><span class="line">		write_mem8(i, <span class="number">15</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (;;) &#123;</span><br><span class="line">		io_hlt();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>显示白色<br>bootpack.c调用write_mem8()方法来实现对VRAM内存的操作。<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">void io<span class="constructor">_hlt(<span class="params">void</span>)</span>;</span><br><span class="line">void write<span class="constructor">_mem8(<span class="params">int</span> <span class="params">addr</span>, <span class="params">int</span> <span class="params">data</span>)</span>;</span><br><span class="line"></span><br><span class="line">void <span class="constructor">HariMain(<span class="params">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">int</span> i;</span><br><span class="line">	<span class="comment">// 白色</span></span><br><span class="line">	for (i = <span class="number">0xa0000</span>; i &lt;= <span class="number">0xaffff</span>; i++) &#123;</span><br><span class="line">		write<span class="constructor">_mem8(<span class="params">i</span>, 15)</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	for (;;) &#123;</span><br><span class="line">		io<span class="constructor">_hlt()</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>naskfunc.asm<br><figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">; naskfunc</span></span><br><span class="line"><span class="comment">; TAB=4</span></span><br><span class="line"></span><br><span class="line"><span class="meta">section</span> .data</span><br><span class="line"><span class="meta">section</span> .text</span><br><span class="line"><span class="meta">global</span>	io_hlt,write_mem8</span><br><span class="line"></span><br><span class="line"><span class="symbol">io_hlt:</span>	<span class="comment">; void io_hlt(void);</span></span><br><span class="line">	<span class="keyword">HLT</span></span><br><span class="line">	<span class="keyword">RET</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">write_mem8:</span>	<span class="comment">; void write_mem8(int addr, int data);</span></span><br><span class="line">	<span class="keyword">MOV</span>		<span class="built_in">ECX</span>,[<span class="built_in">ESP</span>+<span class="number">4</span>]		<span class="comment">;</span></span><br><span class="line">	<span class="keyword">MOV</span>		<span class="built_in">AL</span>,[<span class="built_in">ESP</span>+<span class="number">8</span>]		<span class="comment">;</span></span><br><span class="line">	<span class="keyword">MOV</span>		[<span class="built_in">ECX</span>],<span class="built_in">AL</span></span><br><span class="line">	<span class="keyword">RET</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>注意：</strong>section伪指令的位置一定要注意，因为对section的语法陌生，导致出现黑屏；其次要注意asm文件中<code>io_hlt</code>函数名的语法，有的编译器需要加前缀<code>_io_hlt</code></p>
-<ol start="2">
+<ol>
 <li>通过设定调色板显示彩条<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">void</span> HariMain(<span class="built_in">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">	char *vram;</span><br><span class="line">	<span class="built_in">int</span> xsize, ysize;</span><br><span class="line"></span><br><span class="line">	init_palette();</span><br><span class="line">	vram = (char *) <span class="number">0xa0000</span>;</span><br><span class="line">	xsize = <span class="number">320</span>;</span><br><span class="line">	ysize = <span class="number">200</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 矩形1</span></span><br><span class="line">	boxfill8(vram, xsize, COL8_008484,  <span class="number">0</span>,         <span class="number">0</span>,          xsize -  <span class="number">1</span>, ysize - <span class="number">29</span>);</span><br><span class="line">	boxfill8(vram, xsize, COL8_C6C6C6,  <span class="number">0</span>,         ysize - <span class="number">28</span>, xsize -  <span class="number">1</span>, ysize - <span class="number">28</span>);</span><br><span class="line">	boxfill8(vram, xsize, COL8_FFFFFF,  <span class="number">0</span>,         ysize - <span class="number">27</span>, xsize -  <span class="number">1</span>, ysize - <span class="number">27</span>);</span><br><span class="line">	boxfill8(vram, xsize, COL8_C6C6C6,  <span class="number">0</span>,         ysize - <span class="number">26</span>, xsize -  <span class="number">1</span>, ysize -  <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 矩形2</span></span><br><span class="line">	boxfill8(vram, xsize, COL8_FFFFFF,  <span class="number">3</span>,         ysize - <span class="number">24</span>, <span class="number">59</span>,         ysize - <span class="number">24</span>);</span><br><span class="line">	boxfill8(vram, xsize, COL8_FFFFFF,  <span class="number">2</span>,         ysize - <span class="number">24</span>,  <span class="number">2</span>,         ysize -  <span class="number">4</span>);</span><br><span class="line">	boxfill8(vram, xsize, COL8_848484,  <span class="number">3</span>,         ysize -  <span class="number">4</span>, <span class="number">59</span>,         ysize -  <span class="number">4</span>);</span><br><span class="line">	boxfill8(vram, xsize, COL8_848484, <span class="number">59</span>,         ysize - <span class="number">23</span>, <span class="number">59</span>,         ysize -  <span class="number">5</span>);</span><br><span class="line">	boxfill8(vram, xsize, COL8_000000,  <span class="number">2</span>,         ysize -  <span class="number">3</span>, <span class="number">59</span>,         ysize -  <span class="number">3</span>);</span><br><span class="line">	boxfill8(vram, xsize, COL8_000000, <span class="number">60</span>,         ysize - <span class="number">24</span>, <span class="number">60</span>,         ysize -  <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 矩形3</span></span><br><span class="line">	boxfill8(vram, xsize, COL8_848484, xsize - <span class="number">47</span>, ysize - <span class="number">24</span>, xsize -  <span class="number">4</span>, ysize - <span class="number">24</span>);</span><br><span class="line">	boxfill8(vram, xsize, COL8_848484, xsize - <span class="number">47</span>, ysize - <span class="number">23</span>, xsize - <span class="number">47</span>, ysize -  <span class="number">4</span>);</span><br><span class="line">	boxfill8(vram, xsize, COL8_FFFFFF, xsize - <span class="number">47</span>, ysize -  <span class="number">3</span>, xsize -  <span class="number">4</span>, ysize -  <span class="number">3</span>);</span><br><span class="line">	boxfill8(vram, xsize, COL8_FFFFFF, xsize -  <span class="number">3</span>, ysize - <span class="number">24</span>, xsize -  <span class="number">3</span>, ysize -  <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (;;) &#123;</span><br><span class="line">		io_hlt();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -865,7 +958,7 @@
 <blockquote>
 <p>指定处理的扇区数，范围在0x01 ~ 0xff(指定0x02以上的数值时，要特别注意<strong>连续处理多个扇区</strong>的条件。)</p>
 </blockquote>
-<ol start="3">
+<ol>
 <li><p>读取10个柱面：</p>
 </li>
 <li><p>启动区后增加执行程序</p>
@@ -884,7 +977,7 @@
 </li>
 </ol>
 <p>‘source’: 指定要复制的文件。<br>‘/A’: 表示一个 ASCII 文本文件。<br>‘/B’: 表示一个二进位文件。<br>‘/D’: 允许解密要创建的目标文件，destination 为新文件指定目录和/或文件名。<br>‘/V 验证新文件写入是否正确。<br>‘/N 复制带有非 8dot3 名称的文件时，尽可能使用短文件名。<br>‘/Y 不使用确认是否要覆盖现有目标文件的提示。<br>‘/-Y’: 使用确认是否要覆盖现有目标文件的提示。<br>‘/Z’: 用可重新启动模式复制已联网的文件。<br>‘/L’: 如果源是符号链接，请将链接复制到目标而不是源链接指向的实际文件。</p>
-<ol start="2">
+<ol>
 <li><p>mcopy指令</p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">mcopy</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -894,7 +987,7 @@
 <li><p>mformat指令<br>将一个最小化的<code>MS-DOS</code>文件系统添加到已经被Unix系统格式化的磁盘/软盘中，该文件系统包含启动区(boot sector)、FAT、根目录(root directory)。<br>现在的电脑，基本都只有1个软盘，以前一般都是2个。</p>
 </li>
 </ol>
-<figure class="highlight accesslog"><table><tr><td class="code"><pre><span class="line">mformat <span class="string">[-t cylinders|-T tot_sectors]</span> <span class="string">[-h heads]</span> <span class="string">[-s sectors]</span></span><br><span class="line">  <span class="string">[-f size]</span> <span class="string">[-1]</span> <span class="string">[-4]</span> <span class="string">[-8]</span></span><br><span class="line">  <span class="string">[-v volume_label]</span></span><br><span class="line">  <span class="string">[-F]</span> <span class="string">[-S sizecode]</span></span><br><span class="line">  <span class="string">[-M software_sector_size]</span></span><br><span class="line">  <span class="string">[-N serial_number]</span> <span class="string">[-a]</span></span><br><span class="line">  <span class="string">[-C]</span> <span class="string">[-H hidden_sectors]</span> <span class="string">[-I fsVersion]</span></span><br><span class="line">  <span class="string">[-r root_sectors]</span> <span class="string">[-L fat_len]</span> </span><br><span class="line">  <span class="string">[-B boot_sector]</span> <span class="string">[-k]</span></span><br><span class="line">  <span class="string">[-m media_descriptor]</span></span><br><span class="line">  <span class="string">[-K backup_boot]</span></span><br><span class="line">  <span class="string">[-R nb_reserved_sectors]</span></span><br><span class="line">  <span class="string">[-c clusters_per_sector]</span></span><br><span class="line">  <span class="string">[-d fat_copies]</span></span><br><span class="line">  <span class="string">[-X]</span> <span class="string">[-2 sectors_on_track_0]</span> <span class="string">[-3]</span></span><br><span class="line">  <span class="string">[-0 rate_on_track_0]</span> <span class="string">[-A rate_on_other_tracks]</span></span><br><span class="line">  drive:</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">mformat</span> <span class="selector-attr">[-t cylinders|-T tot_sectors]</span> <span class="selector-attr">[-h heads]</span> <span class="selector-attr">[-s sectors]</span></span><br><span class="line">  <span class="selector-attr">[-f size]</span> <span class="selector-attr">[-1]</span> <span class="selector-attr">[-4]</span> <span class="selector-attr">[-8]</span></span><br><span class="line">  <span class="selector-attr">[-v volume_label]</span></span><br><span class="line">  <span class="selector-attr">[-F]</span> <span class="selector-attr">[-S sizecode]</span></span><br><span class="line">  <span class="selector-attr">[-M software_sector_size]</span></span><br><span class="line">  <span class="selector-attr">[-N serial_number]</span> <span class="selector-attr">[-a]</span></span><br><span class="line">  <span class="selector-attr">[-C]</span> <span class="selector-attr">[-H hidden_sectors]</span> <span class="selector-attr">[-I fsVersion]</span></span><br><span class="line">  <span class="selector-attr">[-r root_sectors]</span> <span class="selector-attr">[-L fat_len]</span> </span><br><span class="line">  <span class="selector-attr">[-B boot_sector]</span> <span class="selector-attr">[-k]</span></span><br><span class="line">  <span class="selector-attr">[-m media_descriptor]</span></span><br><span class="line">  <span class="selector-attr">[-K backup_boot]</span></span><br><span class="line">  <span class="selector-attr">[-R nb_reserved_sectors]</span></span><br><span class="line">  <span class="selector-attr">[-c clusters_per_sector]</span></span><br><span class="line">  <span class="selector-attr">[-d fat_copies]</span></span><br><span class="line">  <span class="selector-attr">[-X]</span> <span class="selector-attr">[-2 sectors_on_track_0]</span> <span class="selector-attr">[-3]</span></span><br><span class="line">  <span class="selector-attr">[-0 rate_on_track_0]</span> <span class="selector-attr">[-A rate_on_other_tracks]</span></span><br><span class="line">  <span class="selector-tag">drive</span>:</span><br></pre></td></tr></table></figure>
 <p>‘-f’: 指定将要格式化软盘的DOS文件系统的size，仅支持个别参数(160K、180K、320K、360K、720K、1200K、1440K、2880K)，如果需要支持其他参数，可以结合’-h/-t/-s’使用。一张软盘2个面，每个柱面18个扇区，80个柱面，每个扇区512B：$ 2<em>18</em>80*512 = 1440KB $<br>‘-C’: 创建磁盘镜像，并将<code>MS-DOS</code>安装在磁盘上，很明显这个参数在物理设备上是不起作用的，例如：软盘、硬盘。<br>‘-B’: 代替默认的，使用boot sector来存储给定的文件、设备。</p>
 ]]></content>
   </entry>
@@ -907,7 +1000,8 @@
 <h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p><code>helloos.asm</code>也切换到<code>ipl.asm</code>，让它看起来像个系统。这里改变的主要是显示部分。<br>优化前：<br><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">;　程序主体</span><br><span class="line"></span><br><span class="line">	DB		<span class="number">0xb8</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x8e</span>, <span class="number">0xd0</span>, <span class="number">0xbc</span>, <span class="number">0x00</span>, <span class="number">0x7c</span></span><br><span class="line">	DB		<span class="number">0x8e</span>, <span class="number">0xd8</span>, <span class="number">0x8e</span>, <span class="number">0xc0</span>, <span class="number">0xbe</span>, <span class="number">0x74</span>, <span class="number">0x7c</span>, <span class="number">0x8a</span></span><br><span class="line">	DB		<span class="number">0x04</span>, <span class="number">0x83</span>, <span class="number">0xc6</span>, <span class="number">0x01</span>, <span class="number">0x3c</span>, <span class="number">0x00</span>, <span class="number">0x74</span>, <span class="number">0x09</span></span><br><span class="line">	DB		<span class="number">0xb4</span>, <span class="number">0x0e</span>, <span class="number">0xbb</span>, <span class="number">0x0f</span>, <span class="number">0x00</span>, <span class="number">0xcd</span>, <span class="number">0x10</span>, <span class="number">0xeb</span></span><br><span class="line">	DB		<span class="number">0xee</span>, <span class="number">0xf4</span>, <span class="number">0xeb</span>, <span class="number">0xfd</span></span><br><span class="line"></span><br><span class="line">;　信息显示部分</span><br><span class="line"></span><br><span class="line">	DB		<span class="number">0x0a</span>, <span class="number">0x0a</span>		;　换行</span><br><span class="line">	DB		<span class="string">"hello, world"</span></span><br><span class="line">	DB		<span class="number">0x0a</span>			;</span><br><span class="line">	DB		<span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p>优化后：<br><figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">; 程序核心</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">entry:</span></span><br><span class="line">    <span class="keyword">MOV</span>		<span class="built_in">AX</span>,<span class="number">0</span>			<span class="comment">; 初始化寄存器</span></span><br><span class="line">    <span class="keyword">MOV</span>		<span class="built_in">SS</span>,<span class="built_in">AX</span></span><br><span class="line">    <span class="keyword">MOV</span>		<span class="built_in">SP</span>,<span class="number">0x7c00</span></span><br><span class="line">    <span class="keyword">MOV</span>		<span class="built_in">DS</span>,<span class="built_in">AX</span></span><br><span class="line">    <span class="keyword">MOV</span>		<span class="built_in">ES</span>,<span class="built_in">AX</span></span><br><span class="line">    <span class="keyword">MOV</span>		<span class="built_in">SI</span>,msg</span><br><span class="line"></span><br><span class="line"><span class="symbol">putloop:</span></span><br><span class="line">    <span class="keyword">MOV</span>		<span class="built_in">AL</span>,[<span class="built_in">SI</span>]         <span class="comment">; 指向msg字符串</span></span><br><span class="line">    <span class="keyword">ADD</span>		<span class="built_in">SI</span>,<span class="number">1</span>			<span class="comment">; 遍历指针 </span></span><br><span class="line">    <span class="keyword">CMP</span>		<span class="built_in">AL</span>,<span class="number">0</span>			<span class="comment">; 比较是否到字符串末尾</span></span><br><span class="line">    <span class="keyword">JE</span>		fin</span><br><span class="line">    <span class="keyword">MOV</span>		<span class="number">AH</span>,<span class="number">0x0e</span>			<span class="comment">; </span></span><br><span class="line">    <span class="keyword">MOV</span>		<span class="built_in">BX</span>,<span class="number">15</span>			<span class="comment">; </span></span><br><span class="line">    <span class="keyword">INT</span>		<span class="number">0x10</span>			<span class="comment">; 中断显示字符</span></span><br><span class="line">    <span class="keyword">JMP</span>		putloop</span><br><span class="line"></span><br><span class="line"><span class="symbol">fin:</span></span><br><span class="line">	<span class="keyword">HLT</span>						<span class="comment">; </span></span><br><span class="line">	<span class="keyword">JMP</span>		fin				<span class="comment">; </span></span><br><span class="line"></span><br><span class="line"><span class="symbol">msg:</span></span><br><span class="line">	<span class="built_in">DB</span>		<span class="number">0x0a</span>, <span class="number">0x0a</span>		<span class="comment">; </span></span><br><span class="line">	<span class="built_in">DB</span>		<span class="string">"hello, world"</span></span><br><span class="line">	<span class="built_in">DB</span>		<span class="number">0x0a</span>			<span class="comment">; </span></span><br><span class="line">	<span class="built_in">DB</span>		<span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p>看起来变化很大， 其实只是从机器码转换为汇编，贴出一部分操作码：<br>| 汇编 | 字节码 |<br>|:-|:-:|<br>| MOV AX | 0xb8 |<br>| MOV SS | 0x8e |<br>| MOV SP | 0xbc |<br>| MOV DS,AX | 0x8e 0xd8|<br>| MOV ES,AX | 0x8e 0xc0|</p>
-<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><h4 id="8位寄存器"><a href="#8位寄存器" class="headerlink" title="8位寄存器"></a>8位寄存器</h4><table>
+<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><h4 id="8位寄存器"><a href="#8位寄存器" class="headerlink" title="8位寄存器"></a>8位寄存器</h4><div class="table-container">
+<table>
 <thead>
 <tr>
 <th style="text-align:left">符号</th>
@@ -957,8 +1051,10 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>SP、BP、SI、DI不分高位和低位。</p>
-<h4 id="16位寄存器"><a href="#16位寄存器" class="headerlink" title="16位寄存器"></a>16位寄存器</h4><table>
+<h4 id="16位寄存器"><a href="#16位寄存器" class="headerlink" title="16位寄存器"></a>16位寄存器</h4><div class="table-container">
+<table>
 <thead>
 <tr>
 <th style="text-align:left">符号</th>
@@ -1008,8 +1104,10 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h4 id="32位寄存器"><a href="#32位寄存器" class="headerlink" title="32位寄存器"></a>32位寄存器</h4><p>EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI都是32位寄存器，但是低16位和对应的16位寄存器共用。如果使用高16位，则需要通过移位实现。</p>
-<h4 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h4><table>
+<h4 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h4><div class="table-container">
+<table>
 <thead>
 <tr>
 <th style="text-align:left">符号</th>
@@ -1049,8 +1147,9 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p><strong>注意：</strong>在和C语言联合使用中，只有EAX、ECX、EDX这3个寄存器能自由使用，其他寄存器，只能使用其值，而不能修改值。</p>
-<h2 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h2><p>‘ORG’: 指定文件装载到内存的地址，默认情况下从<code>0x</code>开始装载。内存<code>0x0000</code>用来存放BIOS不同功能程序，<code>0xf0000</code>用来存放BIOS程序本身。所以一般使用<code>0x7c00</code>-<code>0x7dff</code>用来存放启动区程序，这个位置起源于IBM。附近’$’的含义变为将要读入的内存地址。<br>‘JMP’: 跳转到指定的内存地址。<br>‘MOV’: 移动，类似于复制拷贝。<br>‘ADD’:<br>‘CMP’: 比较指令。<br>‘JE’: 条件跳转指令，根据CMP比较结果决定跳转或不跳转。<br>‘INT’: 软件中断指令。电脑主板ROM中通常写入一些经常用到的控制硬件的函数，INT就是用来调用其中函数的指令，通过不同的参数调用相应的函数来控制硬件的反应。例如：<code>INT 0x10</code>用来控制显卡显示字符。这块儿涉及到BIOS对寄存器的一些默认操作<br><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">显示1个字符：</span><br><span class="line">AH=0x0e</span><br><span class="line">AL=字符编码</span><br><span class="line">BH=0</span><br><span class="line">BL=字符颜色</span><br><span class="line">返回值：无</span><br><span class="line">注：</span><br><span class="line"></span><br><span class="line">设置显卡模式：</span><br><span class="line">AH=0x00</span><br><span class="line">AL=模式 0x03 0x12 0x13 0x6a</span><br><span class="line">返回值：无</span><br></pre></td></tr></table></figure></p>
+<h2 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h2><p>‘ORG’: 指定文件装载到内存的地址，默认情况下从<code>0x</code>开始装载。内存<code>0x0000</code>用来存放BIOS不同功能程序，<code>0xf0000</code>用来存放BIOS程序本身。所以一般使用<code>0x7c00</code>-<code>0x7dff</code>用来存放启动区程序，这个位置起源于IBM。附近’$’的含义变为将要读入的内存地址。<br>‘JMP’: 跳转到指定的内存地址。<br>‘MOV’: 移动，类似于复制拷贝。<br>‘ADD’:<br>‘CMP’: 比较指令。<br>‘JE’: 条件跳转指令，根据CMP比较结果决定跳转或不跳转。<br>‘INT’: 软件中断指令。电脑主板ROM中通常写入一些经常用到的控制硬件的函数，INT就是用来调用其中函数的指令，通过不同的参数调用相应的函数来控制硬件的反应。例如：<code>INT 0x10</code>用来控制显卡显示字符。这块儿涉及到BIOS对寄存器的一些默认操作<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">显示1个字符：</span><br><span class="line"><span class="attribute">AH</span>=0x0e</span><br><span class="line"><span class="attribute">AL</span>=字符编码</span><br><span class="line"><span class="attribute">BH</span>=0</span><br><span class="line"><span class="attribute">BL</span>=字符颜色</span><br><span class="line">返回值：无</span><br><span class="line">注：</span><br><span class="line"></span><br><span class="line">设置显卡模式：</span><br><span class="line"><span class="attribute">AH</span>=0x00</span><br><span class="line"><span class="attribute">AL</span>=模式 0x03 0x12 0x13 0x6a</span><br><span class="line">返回值：无</span><br></pre></td></tr></table></figure></p>
 <p>‘HLT’: 停止CPU动作的指令，类似于待机/休眠状态，按下键盘、移动鼠标都会唤醒CPU。</p>
 <h2 id="BIOS"><a href="#BIOS" class="headerlink" title="BIOS"></a>BIOS</h2><p>对BIOS有没有兴趣？哈哈，这块儿的资料实在太少了<br><a href="https://www.freebsd.org/doc/en_US.ISO8859-1/books/arch-handbook/boot-bios.html" target="_blank" rel="noopener">FreeBSD BIOS</a></p>
 ]]></content>
@@ -1072,8 +1171,9 @@
 <li>文件名和目录名不可以重复</li>
 </ol>
 <h4 id="FAT表"><a href="#FAT表" class="headerlink" title="FAT表"></a>FAT表</h4><p>FAT tables：FAT表包含了指向所有簇的指针、指向下一个簇的数量、链表簇的尾节点、一个簇是否为空、是否出错。而且是查找文件、目录位置的唯一方法。可以看到有2个FAT表，这是为了安全性、恢复磁盘而增加一个副本作为冗余。在软盘上，由于一个簇只有一个扇区，所以FAT entry指针指向磁盘中的每一个扇区。<br>以下是根据文件名转换为11字节的名称的例子：<br><figure class="highlight ocaml"><table><tr><td class="code"><pre><span class="line">filename provided [<span class="number">01234567012</span>]</span><br><span class="line">• <span class="string">"foo.bar"</span>  -&gt; <span class="string">"FOO     BAR"</span></span><br><span class="line">• <span class="string">"FOO.BAR"</span>  -&gt; <span class="string">"FOO     BAR"</span></span><br><span class="line">• <span class="string">"Foo.Bar"</span>  -&gt; <span class="string">"FOO     BAR"</span></span><br><span class="line">• <span class="string">"foo"</span>      -&gt; <span class="string">"FOO        "</span></span><br><span class="line">• <span class="string">"foo."</span>     -&gt; <span class="string">"FOO        "</span></span><br><span class="line">• <span class="string">"PICKLE.A"</span> -&gt; <span class="string">"PICKLE A  "</span></span><br><span class="line">• <span class="string">"prettybg.big"</span> -&gt; <span class="string">"PRETTYBGBIG"</span></span><br><span class="line">• <span class="string">".big"</span> -&gt; illegal! file/directory names cannot <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">with</span> a <span class="string">"."</span></span><br></pre></td></tr></table></figure></p>
-<p>逻辑扇区和物理扇区的换算公式：<br>$$<br>物理扇区数值 = 33 + FAT entry数值 - 2<br>$$</p>
-<h4 id="根目录"><a href="#根目录" class="headerlink" title="根目录"></a>根目录</h4><p>根目录是磁盘的主要目录，不像磁盘的’Data area’可以无限扩展，根目录支持的大小有限，例如：FAT12格式，支持14*16=224个entry。<br>每个目录entry都包括了文件、子目录的信息：</p>
+<p>逻辑扇区和物理扇区的换算公式：</p>
+<script type="math/tex; mode=display">
+物理扇区数值 = 33 + FAT entry数值 - 2</script><h4 id="根目录"><a href="#根目录" class="headerlink" title="根目录"></a>根目录</h4><p>根目录是磁盘的主要目录，不像磁盘的’Data area’可以无限扩展，根目录支持的大小有限，例如：FAT12格式，支持14*16=224个entry。<br>每个目录entry都包括了文件、子目录的信息：</p>
 <p>存储结构：<br><img src="https://impwang.oss-cn-beijing.aliyuncs.com/os/fat-dir.PNG" alt="entry结构"><br>假如一个目录中存在’File1.txt’文件和’MyDir’目录，’File1.txt’的<code>Start Cluster</code>指向<code>FAT index</code>的扇区2，<code>FAT index</code>的扇区2指向<code>Data Area</code>的4。’File1.txt’的最后一个index为扇区7(EOC)。</p>
 <h4 id="数据区"><a href="#数据区" class="headerlink" title="数据区"></a>数据区</h4><h4 id="启动程序加载器"><a href="#启动程序加载器" class="headerlink" title="启动程序加载器"></a>启动程序加载器</h4><p>IPL。启动区只有512字节，实际的操作系统，像Windows、Linux都远远超过了这个数量。所以完整的系统加载程序放在别的扇区，只把最开始的加载程序放在第一个扇区。</p>
 <h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><ol>
@@ -1131,7 +1231,7 @@
 <li>请求后解析结果Response</li>
 </ol>
 <p>翻译分为普通版、专业版。给我的踩坑经历做一个总结：</p>
-<h2 id="普通版"><a href="#普通版" class="headerlink" title="普通版"></a>普通版</h2><h3 id="CommonRequest"><a href="#CommonRequest" class="headerlink" title="CommonRequest"></a>CommonRequest</h3><p>使用CommonRequest请求。<br><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(&#123;AliCloudProperties.<span class="keyword">class</span>, AcmProperties.<span class="keyword">class</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AliyunConfiguration</span> &#123;</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> IAcsClient clientBean(AliCloudProperties aliyunProperties, AcmProperties acmProperties) &#123;</span><br><span class="line"></span><br><span class="line">    DefaultProfile profile = DefaultProfile.getProfile(</span><br><span class="line">        acmProperties.getEndpoint(),   <span class="comment">// 这里其实应该是RegionId</span></span><br><span class="line">        aliyunProperties.getAccessKey(),</span><br><span class="line">        aliyunProperties.getSecretKey());</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> DefaultAcsClient(profile);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="普通版"><a href="#普通版" class="headerlink" title="普通版"></a>普通版</h2><h3 id="CommonRequest"><a href="#CommonRequest" class="headerlink" title="CommonRequest"></a>CommonRequest</h3><p>使用CommonRequest请求。<br><figure class="highlight d"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@Configuration</span></span><br><span class="line"><span class="keyword">@EnableConfigurationProperties</span>(&#123;AliCloudProperties.<span class="keyword">class</span>, AcmProperties.<span class="keyword">class</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> AliyunConfiguration &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> IAcsClient clientBean(AliCloudProperties aliyunProperties, AcmProperties acmProperties) &#123;</span><br><span class="line"></span><br><span class="line">    DefaultProfile profile = DefaultProfile.getProfile(</span><br><span class="line">        acmProperties.getEndpoint(),   <span class="comment">// 这里其实应该是RegionId</span></span><br><span class="line">        aliyunProperties.getAccessKey(),</span><br><span class="line">        aliyunProperties.getSecretKey());</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> DefaultAcsClient(profile);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>构造request<br><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 构造请求</span></span><br><span class="line"><span class="comment"> * @return</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">public static CommonRequest build<span class="constructor">Request(String <span class="params">str</span>)</span> &#123;</span><br><span class="line">  CommonRequest request = <span class="keyword">new</span> <span class="constructor">CommonRequest()</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="module-access"><span class="module"><span class="identifier">StringUtils</span>.</span></span>is<span class="constructor">Blank(<span class="params">str</span>)</span>) &#123;</span><br><span class="line">    return request;</span><br><span class="line">  &#125;</span><br><span class="line">  request.set<span class="constructor">SysMethod(MethodType.POST)</span>;</span><br><span class="line">  request.set<span class="constructor">SysDomain(<span class="string">"mt.cn-hangzhou.aliyuncs.com"</span>)</span>;</span><br><span class="line">  request.set<span class="constructor">SysVersion(<span class="string">"2020-09-29"</span>)</span>;</span><br><span class="line">  request.set<span class="constructor">SysAction(<span class="string">"TranslateGeneral"</span>)</span>;</span><br><span class="line"></span><br><span class="line">  request.put<span class="constructor">QueryParameter(<span class="string">"FormatType"</span>, <span class="string">"text"</span>)</span>;</span><br><span class="line">  request.put<span class="constructor">QueryParameter(<span class="string">"Scene"</span>, <span class="string">"general"</span>)</span>;</span><br><span class="line">  request.put<span class="constructor">QueryParameter(<span class="string">"SourceLanguage"</span>, <span class="string">"zh"</span>)</span>;</span><br><span class="line">  request.put<span class="constructor">QueryParameter(<span class="string">"SourceText"</span>, <span class="params">str</span>)</span>;</span><br><span class="line">  request.put<span class="constructor">QueryParameter(<span class="string">"TargetLanguage"</span>, <span class="string">"en"</span>)</span>;</span><br><span class="line"></span><br><span class="line">  return request;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>调用请求，这种方式返回String字符串，是需要手动去解析的。<br><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">@Override</span><br><span class="line">public String translate<span class="constructor">WithAuto(String <span class="params">str</span>)</span> &#123;</span><br><span class="line">  CommonRequest request = <span class="module-access"><span class="module"><span class="identifier">AliyunUtils</span>.</span></span>build<span class="constructor">Request(<span class="params">str</span>)</span>;</span><br><span class="line">  String res = str;</span><br><span class="line">  Gson gson = <span class="keyword">new</span> <span class="constructor">Gson()</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    log.info(<span class="string">"aliyun trans request: &#123;&#125;"</span>, gson.<span class="keyword">to</span><span class="constructor">Json(<span class="params">request</span>)</span>);</span><br><span class="line"></span><br><span class="line">    CommonResponse response = client.get<span class="constructor">CommonResponse(<span class="params">request</span>)</span>;</span><br><span class="line">    <span class="keyword">if</span> (null != response &amp;&amp;</span><br><span class="line">        <span class="module-access"><span class="module"><span class="identifier">TRANS_SUCCESS</span>.</span></span>equals(response.get<span class="constructor">HttpStatus()</span>)) &#123;</span><br><span class="line">      String responseStr = response.get<span class="constructor">Data()</span>;</span><br><span class="line">      TranslateRes translateRes = gson.from<span class="constructor">Json(<span class="params">responseStr</span>, TranslateRes.<span class="params">class</span>)</span>;</span><br><span class="line">      res = translateRes.get<span class="constructor">Data()</span>.get<span class="constructor">Translated()</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    log.info(<span class="string">"aliyun trans response: &#123;&#125;"</span>, gson.<span class="keyword">to</span><span class="constructor">Json(<span class="params">response</span>)</span>);</span><br><span class="line">  &#125; catch (ClientException e) &#123;</span><br><span class="line">    e.print<span class="constructor">StackTrace()</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="TranslateGeneralRequest"><a href="#TranslateGeneralRequest" class="headerlink" title="TranslateGeneralRequest"></a>TranslateGeneralRequest</h3><p>遇到2个错误：</p>
@@ -1144,7 +1244,7 @@
 </li>
 </ol>
 <p><strong>阿里云机器翻译组，我操你妈！一群傻逼！</strong>怒转专业版。</p>
-<h2 id="专业版"><a href="#专业版" class="headerlink" title="专业版"></a>专业版</h2><p>构造client客户端<br><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(&#123;AliCloudProperties.<span class="keyword">class</span>, AcmProperties.<span class="keyword">class</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AliyunConfiguration</span> &#123;</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> IAcsClient clientBean(AliCloudProperties aliyunProperties, AcmProperties acmProperties) &#123;</span><br><span class="line"></span><br><span class="line">    DefaultProfile profile = DefaultProfile.getProfile(</span><br><span class="line">        <span class="string">"cn-hangzhou"</span>,</span><br><span class="line">        aliyunProperties.getAccessKey(),</span><br><span class="line">        aliyunProperties.getSecretKey());</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> DefaultAcsClient(profile);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="专业版"><a href="#专业版" class="headerlink" title="专业版"></a>专业版</h2><p>构造client客户端<br><figure class="highlight d"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@Configuration</span></span><br><span class="line"><span class="keyword">@EnableConfigurationProperties</span>(&#123;AliCloudProperties.<span class="keyword">class</span>, AcmProperties.<span class="keyword">class</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> AliyunConfiguration &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> IAcsClient clientBean(AliCloudProperties aliyunProperties, AcmProperties acmProperties) &#123;</span><br><span class="line"></span><br><span class="line">    DefaultProfile profile = DefaultProfile.getProfile(</span><br><span class="line">        <span class="string">"cn-hangzhou"</span>,</span><br><span class="line">        aliyunProperties.getAccessKey(),</span><br><span class="line">        aliyunProperties.getSecretKey());</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> DefaultAcsClient(profile);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>构造请求体<br><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">public static TranslateECommerceRequest      build<span class="constructor">ECommerceRequest(String <span class="params">str</span>, String <span class="params">scene</span>)</span> &#123;</span><br><span class="line">  TranslateECommerceRequest eCommerceRequest = <span class="keyword">new</span> <span class="constructor">TranslateECommerceRequest()</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="module-access"><span class="module"><span class="identifier">StringUtils</span>.</span></span>is<span class="constructor">Blank(<span class="params">str</span>)</span></span><br><span class="line"><span class="operator">    || </span><span class="module-access"><span class="module"><span class="identifier">StringUtils</span>.</span></span>is<span class="constructor">Blank(<span class="params">scene</span>)</span>) &#123;</span><br><span class="line">    return eCommerceRequest;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  eCommerceRequest.set<span class="constructor">Scene(<span class="params">scene</span>)</span>;</span><br><span class="line">  eCommerceRequest.set<span class="constructor">FormatType(<span class="string">"text"</span>)</span>;</span><br><span class="line">  eCommerceRequest.set<span class="constructor">SourceLanguage(SOURCE_LANGUAGE)</span>;</span><br><span class="line">  eCommerceRequest.set<span class="constructor">SourceText(<span class="params">str</span>.<span class="params">trim</span>()</span>);</span><br><span class="line">  eCommerceRequest.set<span class="constructor">TargetLanguage(TARGET_LANGUAGE)</span>;</span><br><span class="line"></span><br><span class="line">  return eCommerceRequest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>调用请求<br><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">@Override</span><br><span class="line">public String translate<span class="constructor">WithAuto(String <span class="params">str</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="module-access"><span class="module"><span class="identifier">StringUtils</span>.</span></span>is<span class="constructor">Blank(<span class="params">str</span>)</span>) &#123;</span><br><span class="line">    return str;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  String res = str;</span><br><span class="line">  Gson gson = <span class="keyword">new</span> <span class="constructor">Gson()</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    TranslateECommerceRequest request = AliyunUtils</span><br><span class="line">        .build<span class="constructor">ECommerceRequest(<span class="params">str</span>, TranslateEnum.TITLE.<span class="params">getCode</span>()</span>);</span><br><span class="line">    log.info(<span class="string">"aliyun trans request: &#123;&#125;"</span>, gson.<span class="keyword">to</span><span class="constructor">Json(<span class="params">request</span>)</span>);</span><br><span class="line"></span><br><span class="line">    TranslateECommerceResponse response = client.get<span class="constructor">AcsResponse(<span class="params">request</span>)</span>;</span><br><span class="line">    log.info(<span class="string">"aliyun trans response: &#123;&#125;"</span>, gson.<span class="keyword">to</span><span class="constructor">Json(<span class="params">response</span>)</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="module-access"><span class="module"><span class="identifier">TRANS_SUCCESS</span>.</span></span>equals(response.get<span class="constructor">Code()</span>)) &#123;</span><br><span class="line">      Data data = response.get<span class="constructor">Data()</span>;</span><br><span class="line">      res = data.get<span class="constructor">Translated()</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125; catch (ClientException e) &#123;</span><br><span class="line">    e.print<span class="constructor">StackTrace()</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>终于成功了，我操你妈！</p>
@@ -1165,9 +1265,9 @@
 <p>当时只能想到怎么用Random来做，毫无思路。组长10分钟内连测试用例都验证过了。这算是真实感受到智商的暴击和数学的用处。直接上代码</p>
 <a id="more"></a>
 <figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> static <span class="built_in">int</span> mock(String id, <span class="built_in">int</span> <span class="built_in">count</span>, <span class="built_in">int</span> total) &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">min</span> = <span class="keyword">Integer</span>.<span class="built_in">max</span>(total / <span class="number">9</span> - <span class="built_in">count</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">max</span> = <span class="keyword">Integer</span>.<span class="built_in">max</span>(total - <span class="built_in">count</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">max</span> &lt;= <span class="built_in">min</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">count</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">int</span> mock = Math.<span class="built_in">abs</span>(id.hashCode()) % <span class="number">100</span> * (<span class="built_in">max</span> - <span class="built_in">min</span>) / <span class="number">100</span> + <span class="built_in">min</span>;</span><br><span class="line">    <span class="keyword">return</span> mock + <span class="built_in">count</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>思路：<br>$$</p>
-<p>$$</p>
-]]></content>
+<p>思路：</p>
+<script type="math/tex; mode=display">
+</script>]]></content>
   </entry>
   <entry>
     <title>Elasticsearch环境(一)</title>
@@ -1181,7 +1281,7 @@
 </li>
 </ol>
 <p>提示<br><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">正在升级/安装...</span><br><span class="line">	<span class="number">1</span>:elasticsearch<span class="number">-0</span>:<span class="number">6.4</span><span class="number">.0</span><span class="number">-1</span>          ################################# [<span class="number">100</span>%]</span><br><span class="line">### NOT starting on installation, please execute the following statements to configure elasticsearch service to start automatically using systemd</span><br><span class="line">	sudo systemctl daemon-reload</span><br><span class="line">	sudo systemctl enable elasticsearch.service</span><br><span class="line">### You can start elasticsearch service by executing</span><br><span class="line">	sudo systemctl start elasticsearch.service</span><br><span class="line">Created elasticsearch keystore <span class="keyword">in</span> /etc/elasticsearch</span><br></pre></td></tr></table></figure></p>
-<ol start="2">
+<ol>
 <li><p>修改配置文件，配置文件一般存放在/etc/elasticsearch目录下</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">vi</span> <span class="selector-tag">elasticsearch</span><span class="selector-class">.yml</span></span><br><span class="line"># 开启远程访问</span><br><span class="line"><span class="selector-tag">network</span><span class="selector-class">.host</span> 0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span></span><br><span class="line"># 修改端口</span><br></pre></td></tr></table></figure>
 </li>
@@ -1198,8 +1298,8 @@
 <h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>命令格式<br><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">curl -X&lt;REST Verb&gt; &lt;Node&gt;<span class="symbol">:&lt;Port&gt;/&lt;Index&gt;/&lt;Type&gt;/&lt;ID&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>参数：<br>REST Verb：REST风格的语法谓词<br>Node:节点ip<br>Port:节点端口号，默认9200<br>Index:索引名<br>Type:索引类型<br>ID:操作对象的ID号</p>
 <p>查看健康状态<br><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/_cat/health?v'</span></span><br><span class="line">epoch      timestamp cluster       status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent</span><br><span class="line"><span class="number">1535546872</span> <span class="number">20</span>:<span class="number">47</span>:<span class="number">52</span>  elasticsearch yellow          <span class="number">1</span>         <span class="number">1</span>      <span class="number">5</span>   <span class="number">5</span>    <span class="number">0</span>    <span class="number">0</span>        <span class="number">5</span>             <span class="number">0</span>                  -                 <span class="number">50.0</span>%</span><br></pre></td></tr></table></figure></p>
-<p>查看节点列表<br><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/_cat/nodes?v'</span></span><br><span class="line">ip              heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name</span><br><span class="line"><span class="number">192.168</span><span class="number">.117</span><span class="number">.133</span>           <span class="number">22</span>          <span class="number">32</span>   <span class="number">2</span>    <span class="number">0.00</span>    <span class="number">0.02</span>     <span class="number">0.05</span> mdi       *      M48aNzY</span><br></pre></td></tr></table></figure></p>
-<p>查看索引列表<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/_cat/indices?v'</span></span><br><span class="line">health status index    uuid                   pri rep docs<span class="selector-class">.count</span> docs<span class="selector-class">.deleted</span> store<span class="selector-class">.size</span> pri<span class="selector-class">.store</span><span class="selector-class">.size</span></span><br><span class="line">yellow open   customer FWs0PsZ0QAOJZ0W6l-HhLA   <span class="number">5</span>   <span class="number">1</span>          <span class="number">0</span>            <span class="number">0</span>      <span class="number">1.2</span>kb          <span class="number">1.2</span>kb</span><br></pre></td></tr></table></figure></p>
+<p>查看节点列表<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/_cat/nodes?v'</span></span><br><span class="line">ip              heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name</span><br><span class="line">192.168.117.133           22          32   2    0.00    0.02     0.05 mdi       *      M48aNzY</span><br></pre></td></tr></table></figure></p>
+<p>查看索引列表<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/_cat/indices?v'</span></span><br><span class="line">health status index    uuid                   pri rep docs.count docs.deleted store.size pri.store.size</span><br><span class="line">yellow open  <span class="built_in"> customer </span>FWs0PsZ0QAOJZ0W6l-HhLA   5   1          0            0      1.2kb          1.2kb</span><br></pre></td></tr></table></figure></p>
 <p>创建索引<br><figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">curl -XPUT <span class="symbol">'localhost</span>:<span class="number">9200</span>/customer?pretty'</span><br><span class="line"></span><br><span class="line">curl -XPUT <span class="symbol">'localhost</span>:<span class="number">9200</span>/customer/external/<span class="number">1</span>?pretty' -d '&#123;<span class="string">"name"</span>: <span class="string">"John Doe"</span>&#125;' </span><br><span class="line"></span><br><span class="line">curl -H <span class="string">"Content-Type: application/json"</span> -XPOST http://localhost:<span class="number">9200</span>/kiwi/ksay/ -d '&#123; <span class="string">"author"</span>: <span class="string">"rococojie"</span>, <span class="string">"message"</span>: <span class="string">"I am beautiful"</span>&#125;'</span><br><span class="line"></span><br><span class="line">curl -H <span class="string">"Content-Type: application/json"</span> -XPOST http://localhost:<span class="number">9200</span>/kiwi/ksay/<span class="number">1</span> -d '&#123;<span class="string">"author"</span>: <span class="string">"jerry"</span>, <span class="string">"message"</span>: <span class="string">"I hate Tom"</span>&#125;'</span><br></pre></td></tr></table></figure></p>
 <p>删除索引<br><figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">curl -XDELETE 'localhost:<span class="number">9200</span>/customer?pretty'</span><br></pre></td></tr></table></figure></p>
 <p>修改索引<br><figure class="highlight scilab"><table><tr><td class="code"><pre><span class="line">curl -XPUT <span class="string">'localhost:9200/customer/external/1?pretty'</span> -d <span class="string">'&#123;"</span>name<span class="string">": "</span>John Doe<span class="string">"&#125;'</span></span><br><span class="line"></span><br><span class="line">curl -XPOST <span class="string">'localhost:9200/customer/external/1/_update?pretty'</span> -d <span class="string">'&#123;"</span>doc<span class="string">": &#123; "</span>name<span class="string">": "</span>Jane Doe<span class="string">" &#125;&#125;'</span></span><br></pre></td></tr></table></figure></p>
@@ -1219,7 +1319,7 @@
 </ol>
 <h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>我个人的理解ES和MySQL的大致原理类似，无非都是对数据的存储，无非是基于内存模式，索引分析更快，更适用于全文搜索。</p>
 <h3 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h3><h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>_index<br>_type<br>_id<br>_uid<br>索引的核心就是<code>类型映射</code>和<code>分析器</code>，在POST插入数据时es会默认创建索引，如果禁用默认，可以通过配置<code>elasticsearch.yml</code>。如果需要自定义分析器、字段属性的类型映射则需要手动创建索引。<br><strong>注意:<code>DELETE /_all</code>和<code>DELETE /*</code>会删除所有数据，可以通过<code>elasticsearch.yml</code>禁用</strong></p>
-<p>索引格式：<br><figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">PUT /index_test</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"settings"</span>: &#123;</span><br><span class="line">        <span class="string">"number_of_shards"</span>:   <span class="number">1</span>,    <span class="meta"># 每个索引的主分片数，默认是5</span></span><br><span class="line">        <span class="string">"number_of_replicas"</span>: <span class="number">0</span>		<span class="meta"># 每个主分片的副本数，默认是1</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>索引格式：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">PUT</span> <span class="string">/index_test</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line">    <span class="attr">"settings":</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">"number_of_shards":</span>   <span class="number">1</span><span class="string">,</span>    <span class="comment"># 每个索引的主分片数，默认是5</span></span><br><span class="line">        <span class="attr">"number_of_replicas":</span> <span class="number">0</span>		<span class="comment"># 每个主分片的副本数，默认是1</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></p>
 <h4 id="静态索引"><a href="#静态索引" class="headerlink" title="静态索引"></a>静态索引</h4><h4 id="动态索引"><a href="#动态索引" class="headerlink" title="动态索引"></a>动态索引</h4><h3 id="分析器"><a href="#分析器" class="headerlink" title="分析器"></a>分析器</h3><p>分析器主要包括3种类型的函数：</p>
 <ol>
 <li>字符过滤器：</li>
@@ -1306,7 +1406,7 @@
 <h2 id="展望未来"><a href="#展望未来" class="headerlink" title="展望未来"></a>展望未来</h2><p>在部署QUIC的过程中，无论是强网络还是弱网络，我们已经找到了几种方法来提升APP性能。</p>
 <h3 id="增加QUIC覆盖率"><a href="#增加QUIC覆盖率" class="headerlink" title="增加QUIC覆盖率"></a>增加QUIC覆盖率</h3><p>我们通过对真实场景的分析，大约80%的会话请求完全使用QUIC协议，大约15%的请求使用混合的TCP和QUIC。对于这种混合请求的场景，我们目前的猜想是：出现超时现象时，由于无法区分是UDP失败，还是弱网络环境，代码会自动切换到TCP协议。我们目前正在解决这个问题。</p>
 <h3 id="QUIC优化"><a href="#QUIC优化" class="headerlink" title="QUIC优化"></a>QUIC优化</h3><p>与占用带宽的应用相比，Uber应用对延迟比较敏感。而且我们的应用起初也是使用蜂窝网接入。以我们的经验来看，尽管使用QUIC替换TCP协议，末端延迟仍然非常高。我们团队仍然在探索新的方法来控制拥塞、提升丢失恢复算法来优化QUIC的延迟问题。</p>
-<p><strong>翻译不好，有问题的地方多多反馈(邮箱：<a href="mailto:wwangwanchao@126.com" target="_blank" rel="noopener">wwangwanchao@126.com</a>)</strong></p>
+<p><strong>翻译不好，有问题的地方多多反馈(邮箱：wwangwanchao@126.com)</strong></p>
 ]]></content>
   </entry>
   <entry>
@@ -1323,8 +1423,8 @@
 <p>1) QUIC是一种基于UDP的通信协议，现在已经被IETF采纳为标准协议HTTP/3</p>
 <a id="more"></a>
 <p>一次无法理解的东西，我可能会分很长时间补充(待续…)</p>
-<h2 id="Cloudflare基于Rust实现的quiche"><a href="#Cloudflare基于Rust实现的quiche" class="headerlink" title="Cloudflare基于Rust实现的quiche"></a>Cloudflare基于Rust实现的quiche</h2><p>###<br>Windows<br>Exit any running-instance of Chrome.<br>Right click on your “Chrome” shortcut.<br>Choose properties.<br>At the end of your “Target:” line add the command line flags. For example:<br>–disable-gpu-vsync<br>With that example flag, it should look like below (replacing “–disable-gpu-vsync” with any other command line flags you want to use):<br>chrome.exe –disable-gpu-vsync<br>Launch Chrome like normal with the shortcut.<br>macOS<br>Quit any running instance of Chrome.<br>Run your favorite Terminal application.<br>In the terminal, run commands like below (replacing “–remote-debugging-port=9222” with any other command line flags you want to use):<br>/Applications/Chromium.app/Contents/MacOS/Chromium –remote-debugging-port=9222</p>
-<h1 id="For-Google-Chrome-you’ll-need-to-escape-spaces-like-so"><a href="#For-Google-Chrome-you’ll-need-to-escape-spaces-like-so" class="headerlink" title="For Google Chrome you’ll need to escape spaces like so:"></a>For Google Chrome you’ll need to escape spaces like so:</h1><p>/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome –remote-debugging-port=9222<br>Linux<br>Quit any running instance of Chrome.<br>Run your favorite terminal emulator.<br>In the terminal, run commands like below (replacing “–remote-debugging-port=9222” with any other command line flags you want to use):<br>chromium-browser –remote-debugging-port=9222<br>google-chrome –foo –bar=2</p>
+<h2 id="Cloudflare基于Rust实现的quiche"><a href="#Cloudflare基于Rust实现的quiche" class="headerlink" title="Cloudflare基于Rust实现的quiche"></a>Cloudflare基于Rust实现的quiche</h2><h3 id><a href="#" class="headerlink" title=" "></a> </h3><p>Windows<br>Exit any running-instance of Chrome.<br>Right click on your “Chrome” shortcut.<br>Choose properties.<br>At the end of your “Target:” line add the command line flags. For example:<br>—disable-gpu-vsync<br>With that example flag, it should look like below (replacing “—disable-gpu-vsync” with any other command line flags you want to use):<br>chrome.exe —disable-gpu-vsync<br>Launch Chrome like normal with the shortcut.<br>macOS<br>Quit any running instance of Chrome.<br>Run your favorite Terminal application.<br>In the terminal, run commands like below (replacing “—remote-debugging-port=9222” with any other command line flags you want to use):<br>/Applications/Chromium.app/Contents/MacOS/Chromium —remote-debugging-port=9222</p>
+<h1 id="For-Google-Chrome-you’ll-need-to-escape-spaces-like-so"><a href="#For-Google-Chrome-you’ll-need-to-escape-spaces-like-so" class="headerlink" title="For Google Chrome you’ll need to escape spaces like so:"></a>For Google Chrome you’ll need to escape spaces like so:</h1><p>/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome —remote-debugging-port=9222<br>Linux<br>Quit any running instance of Chrome.<br>Run your favorite terminal emulator.<br>In the terminal, run commands like below (replacing “—remote-debugging-port=9222” with any other command line flags you want to use):<br>chromium-browser —remote-debugging-port=9222<br>google-chrome —foo —bar=2</p>
 ]]></content>
   </entry>
   <entry>
@@ -1361,7 +1461,7 @@
 <h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>每个message生成相应类的同时会伴随生成一个Builder类，该类用来创建类实例，其实就是<code>建造者模式</code>。message对应类只有getters方法，相应的Builder类则包含setters/getters。生成所有的方法遵守‘驼峰命名法’。<br>clear(): 每个属性都会有一个clear方法用来对属性清空。<br>count(): repated字段还有count方法用来计数，setter/getter对指定索引index操作，add()添加单个元素，add()添加集合。其实就是一个List。</p>
 <h3 id="枚举类-嵌套类"><a href="#枚举类-嵌套类" class="headerlink" title="枚举类/嵌套类"></a>枚举类/嵌套类</h3><h3 id="Message-Builder公共方法"><a href="#Message-Builder公共方法" class="headerlink" title="Message/Builder公共方法"></a>Message/Builder公共方法</h3><p>isInitialized(): checks if all the required fields have been set.<br>toString(): returns a human-readable representation of the message, particularly useful for debugging.<br>mergeFrom(Message other): (builder only) merges the contents of other into this message, overwriting singular scalar fields, merging composite fields, and concatenating repeated fields.<br>clear(): (builder only) clears all the fields back to the empty state.</p>
 <h3 id="序列化-反序列化"><a href="#序列化-反序列化" class="headerlink" title="序列化/反序列化"></a>序列化/反序列化</h3><p>byte[] toByteArray();: serializes the message and returns a byte array containing its raw bytes.<br>static Person parseFrom(byte[] data);: parses a message from the given byte array.<br>void writeTo(OutputStream output);: serializes the message and writes it to an OutputStream.<br>static Person parseFrom(InputStream input);: reads and parses a message from an InputStream.</p>
-<h3 id="扩展pb"><a href="#扩展pb" class="headerlink" title="扩展pb"></a>扩展pb</h3><p>在开发过程中，毫无疑问需要扩展<code></code>proto`文件，如果新文件需要向后兼容，旧文件需要向前兼容，则在更新的proto文件中需要遵守一些规则：</p>
+<h3 id="扩展pb"><a href="#扩展pb" class="headerlink" title="扩展pb"></a>扩展pb</h3><p>在开发过程中，毫无疑问需要扩展<code>`proto</code>文件，如果新文件需要向后兼容，旧文件需要向前兼容，则在更新的proto文件中需要遵守一些规则：</p>
 <ol>
 <li>不能改变任何属性的tag值</li>
 <li>不能添加/删除任何required标志字段</li>
@@ -1370,6 +1470,7 @@
 </ol>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>理解pb的编码/序列化原理之前，首先需要理解变长数值<code>varints</code>，<code>varints</code>使用一个或者多个字节对一个整数序列化，越小的数字使用的字节数越少。<br>在<code>varints</code>中，除了最后一个字节外，每一个字节都有msb set。msb set表明接下来还有多少字节，每一个字节的低7位用来存储’二位补码’。pb默认采用<code>least significant group first</code>，其实就是LSB的一个变种(杂种)。</p>
 <p>序列化/反序列化的核心规则还是下面这些：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1411,6 +1512,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>例如：</p>
 <ol>
 <li>单字节<br>0000 0001 // 数值1，单字节，所以不需要设置msb</li>
@@ -1455,7 +1557,7 @@
 <h2 id="Linux系统"><a href="#Linux系统" class="headerlink" title="Linux系统"></a>Linux系统</h2><h3 id="Ubuntu-Deepin安装"><a href="#Ubuntu-Deepin安装" class="headerlink" title="Ubuntu/Deepin安装"></a>Ubuntu/Deepin安装</h3><p>安装<br><figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --install /usr/bin/java java /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">jvm</span>/<span class="title">jdk</span>-11/<span class="title">bin</span>/<span class="title">java</span> 300  </span></span><br><span class="line"></span><br><span class="line">sudo update-alternatives --install /usr/bin/java java /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">jvm</span>/<span class="title">jdk</span>-11/<span class="title">bin</span>/<span class="title">java</span> 300 -<span class="title">slave</span> /<span class="title">usr</span>/<span class="title">bin</span>/<span class="title">javac</span> /<span class="title">usr</span>/<span class="title">lib</span>/<span class="title">jvm</span>/<span class="title">jdk</span>-11/<span class="title">bin</span>/<span class="title">javac</span></span></span><br></pre></td></tr></table></figure></p>
 <p>切换版本<br><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">sudo <span class="keyword">update</span>-alternatives <span class="comment">--config java</span></span><br></pre></td></tr></table></figure></p>
 <p>卸载指定版本<br><figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --remove java /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">jvm</span>/<span class="title">jdk</span>-11/<span class="title">bin</span>/<span class="title">java</span></span></span><br></pre></td></tr></table></figure></p>
-<h3 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h3><p>update-alternatives命令<br>命令：<br>  –install &lt;链接&gt; &lt;名称&gt; &lt;路径&gt; &lt;优先级&gt;<br>    [–slave &lt;链接&gt; &lt;名称&gt; &lt;路径&gt;] …<br>                           在系统中加入一组候选项。<br>  –remove &lt;名称&gt; &lt;路径&gt;   从 &lt;名称&gt; 替换组中去除 &lt;路径&gt; 项。<br>  –remove-all &lt;名称&gt;      从替换系统中删除 &lt;名称&gt; 替换组。<br>  –auto &lt;名称&gt;            将 &lt;名称&gt; 的主链接切换到自动模式。<br>  –display &lt;名称&gt;         显示关于 &lt;名称&gt; 替换组的信息。<br>  –query &lt;名称&gt;           机器可读版的 –display &lt;名称&gt;.<br>  –list &lt;名称&gt;            列出 &lt;名称&gt; 替换组中所有的可用候选项。<br>  –get-selections         列出主要候选项名称以及它们的状态。<br>  –set-selections         从标准输入中读入候选项的状态。<br>  –config &lt;名称&gt;          列出 &lt;名称&gt; 替换组中的可选项，并就使用其中<br>                           哪一个，征询用户的意见。<br>  –set &lt;名称&gt; &lt;路径&gt;      将 &lt;路径&gt; 设置为 &lt;名称&gt; 的候选项。<br>  –all                    对所有可选项一一调用 –config 命令。</p>
+<h3 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h3><p>update-alternatives命令<br>命令：<br>  —install &lt;链接&gt; &lt;名称&gt; &lt;路径&gt; &lt;优先级&gt;<br>    [—slave &lt;链接&gt; &lt;名称&gt; &lt;路径&gt;] …<br>                           在系统中加入一组候选项。<br>  —remove &lt;名称&gt; &lt;路径&gt;   从 &lt;名称&gt; 替换组中去除 &lt;路径&gt; 项。<br>  —remove-all &lt;名称&gt;      从替换系统中删除 &lt;名称&gt; 替换组。<br>  —auto &lt;名称&gt;            将 &lt;名称&gt; 的主链接切换到自动模式。<br>  —display &lt;名称&gt;         显示关于 &lt;名称&gt; 替换组的信息。<br>  —query &lt;名称&gt;           机器可读版的 —display &lt;名称&gt;.<br>  —list &lt;名称&gt;            列出 &lt;名称&gt; 替换组中所有的可用候选项。<br>  —get-selections         列出主要候选项名称以及它们的状态。<br>  —set-selections         从标准输入中读入候选项的状态。<br>  —config &lt;名称&gt;          列出 &lt;名称&gt; 替换组中的可选项，并就使用其中<br>                           哪一个，征询用户的意见。<br>  —set &lt;名称&gt; &lt;路径&gt;      将 &lt;路径&gt; 设置为 &lt;名称&gt; 的候选项。<br>  —all                    对所有可选项一一调用 —config 命令。</p>
 <p>&lt;链接&gt; 是指向 /etc/alternatives/&lt;名称&gt; 的符号链接。<br>    (如 /usr/bin/pager)<br>&lt;名称&gt; 是该链接替换组的主控名。<br>    (如 pager)<br>&lt;路径&gt; 是候选项目标文件的位置。<br>    (如 /usr/bin/less)<br>&lt;优先级&gt; 是一个整数，在自动模式下，这个数字越高的选项，其优先级也就越高。</p>
 ]]></content>
       <tags>
@@ -1501,7 +1603,7 @@
 <li>服务级别</li>
 </ol>
 <h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p>默认情况下，使用线程池模式<br>每个请求对于一个线程池，接收请求后提交到线程池，下游服务在各自的单独线程中执行，达到资源隔离的作用。<br>微服务之间的调用包裹在HystrixCommand类中，这样每次都会启动一个新的线程执行</p>
-<h4 id="配置属性"><a href="#配置属性" class="headerlink" title="配置属性"></a>配置属性</h4><figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">coreSize</span><br><span class="line">execution.isolation.thread.interruptOnTimeout=<span class="literal">true</span>  <span class="comment">#是否打开超时线程中断</span></span><br><span class="line">execution.<span class="keyword">timeout</span>.enabled: <span class="literal">true</span>  <span class="comment"># 是否打开超时	</span></span><br><span class="line">maxQueueSize: <span class="number">-1</span>   <span class="comment"># 请求等待队列	默认值：-1 如果使用正数，队列将从SynchronizeQueue改为LinkedBlockingQueue</span></span><br></pre></td></tr></table></figure>
+<h4 id="配置属性"><a href="#配置属性" class="headerlink" title="配置属性"></a>配置属性</h4><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">coreSize</span></span><br><span class="line"><span class="string">execution.isolation.thread.interruptOnTimeout=true</span>  <span class="comment">#是否打开超时线程中断</span></span><br><span class="line"><span class="attr">execution.timeout.enabled:</span> <span class="literal">true</span>  <span class="comment"># 是否打开超时	</span></span><br><span class="line"><span class="attr">maxQueueSize:</span> <span class="number">-1</span>   <span class="comment"># 请求等待队列	默认值：-1 如果使用正数，队列将从SynchronizeQueue改为LinkedBlockingQueue</span></span><br></pre></td></tr></table></figure>
 <h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><p>本服务接收请求和下游服务的执行都在一个线程内执行，内部通过一个计数器(信号量)实现线程计数，当线程的并发数大于信号量阈值时将进入fallback。</p>
 <h4 id="配置属性：调整为信号量模式"><a href="#配置属性：调整为信号量模式" class="headerlink" title="配置属性：调整为信号量模式"></a>配置属性：调整为信号量模式</h4><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">execution.isolation.strategy</span> = ExecutionIsolationStrategy.SEMAPHORE</span><br><span class="line"><span class="attr">execution.isolation.semaphore.maxConcurrentRequests</span>=<span class="number">1000</span>  <span class="comment"># 限制下游服务调用，当并发请求数达到阈值时，请求线程可以快速失败，执行降级</span></span><br></pre></td></tr></table></figure>
 <h3 id="应用场景："><a href="#应用场景：" class="headerlink" title="应用场景："></a>应用场景：</h3><ol>
@@ -1538,9 +1640,9 @@
   <entry>
     <title>加缪和鼠疫</title>
     <url>/2020/08/28/think-in-lapeste/</url>
-    <content><![CDATA[<p>我最近真的太想读书了，和技术无关的一切图书：社科的、艺术的、数学的。知道加缪，来源于一句话–如果你一直在找人生的意义，你永远不会生活。恍然大悟，也许，人生的真正的意义在于这个过程，何必去追寻最终的高级意义？</p>
+    <content><![CDATA[<p>我最近真的太想读书了，和技术无关的一切图书：社科的、艺术的、数学的。知道加缪，来源于一句话—如果你一直在找人生的意义，你永远不会生活。恍然大悟，也许，人生的真正的意义在于这个过程，何必去追寻最终的高级意义？</p>
 <a id="more"></a>
-<p>“这不是一个人的生死抗争，而是一群人的休戚与共，你所需要的，不是逃离，而是直面它的勇气。”，这句话就好像罗曼罗兰说过的一句话–“世界上只有一种英雄主义，就是看清生活之后依然热爱生活”，两个人出生于同一个国家，多多少少有着31年的交集，对人生，或者生活的感受大抵如此。<br>“La Peste”，在法语中是鼠疫的意思，恰好今年赶上了新冠肺炎，就拿出这本书来读一读。<br>感想随心所欲的更新。。。</p>
+<p>“这不是一个人的生死抗争，而是一群人的休戚与共，你所需要的，不是逃离，而是直面它的勇气。”，这句话就好像罗曼罗兰说过的一句话—“世界上只有一种英雄主义，就是看清生活之后依然热爱生活”，两个人出生于同一个国家，多多少少有着31年的交集，对人生，或者生活的感受大抵如此。<br>“La Peste”，在法语中是鼠疫的意思，恰好今年赶上了新冠肺炎，就拿出这本书来读一读。<br>感想随心所欲的更新。。。</p>
 ]]></content>
   </entry>
   <entry>
@@ -1553,7 +1655,7 @@
 <li>make编译报错，gcc版本问题<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">In</span> file included <span class="keyword">from</span> <span class="keyword">server</span>.c:<span class="number">30</span>:<span class="number">0</span>:</span><br><span class="line"><span class="keyword">server</span>.h:<span class="number">1051</span>:<span class="number">5</span>: 错误：expected specifier-qualifier-list <span class="keyword">before</span> ‘_Atomic’</span><br><span class="line">     _Atomic unsigned <span class="type">int</span> lruclock; <span class="comment">/* Clock for LRU eviction */</span></span><br><span class="line">     ^</span><br><span class="line"><span class="keyword">server</span>.c: 在函数‘serverLogRaw’中:</span><br><span class="line"><span class="keyword">server</span>.c:<span class="number">1032</span>:<span class="number">31</span>: 错误：‘struct redisServer’没有名为‘logfile’的成员</span><br><span class="line">     <span class="type">int</span> log_to_stdout = <span class="keyword">server</span>.logfile[<span class="number">0</span>] == <span class="string">'\0'</span>;</span><br><span class="line">                               ^</span><br><span class="line"><span class="keyword">server</span>.c:<span class="number">1035</span>:<span class="number">23</span>: 错误：‘struct redisServer’没有名为‘verbosity’的成员</span><br><span class="line">     <span class="keyword">if</span> (<span class="keyword">level</span> &lt; <span class="keyword">server</span>.verbosity) <span class="keyword">return</span>;</span><br><span class="line">                       ^</span><br><span class="line"><span class="keyword">server</span>.c:<span class="number">1037</span>:<span class="number">47</span>: 错误：‘struct redisServer’没有名为‘logfile’的成员</span><br><span class="line">     fp = log_to_stdout ? stdout : fopen(<span class="keyword">server</span>.logfile,"a");</span><br><span class="line">                                               ^</span><br><span class="line"><span class="keyword">server</span>.c:<span class="number">1050</span>:<span class="number">47</span>: 错误：‘struct redisServer’没有名为‘timezone’的成员</span><br><span class="line">         nolocks_localtime(&amp;tm,tv.tv_sec,<span class="keyword">server</span>.timezone,<span class="keyword">server</span>.daylight_active);</span><br><span class="line">                                               ^</span><br><span class="line"><span class="keyword">server</span>.c:<span class="number">1050</span>:<span class="number">63</span>: 错误：‘struct redisServer’没有名为‘daylight_active’的成员</span><br><span class="line">         nolocks_localtime(&amp;tm,tv.tv_sec,<span class="keyword">server</span>.timezone,<span class="keyword">server</span>.daylight_active);</span><br><span class="line">                                                               ^</span><br><span class="line"><span class="keyword">server</span>.c:<span class="number">1053</span>:<span class="number">19</span>: 错误：‘struct redisServer’没有名为‘sentinel_mode’的成员</span><br><span class="line">         <span class="keyword">if</span> (<span class="keyword">server</span>.sentinel_mode) &#123;</span><br><span class="line">                   ^</span><br><span class="line"><span class="keyword">server</span>.c:<span class="number">1058</span>:<span class="number">32</span>: 错误：‘struct redisServer’没有名为‘masterhost’的成员</span><br><span class="line">             role_char = (<span class="keyword">server</span>.masterhost ? <span class="string">'S'</span>:<span class="string">'M'</span>); <span class="comment">/* Slave or Master. */</span></span><br><span class="line">                                ^</span><br><span class="line"><span class="keyword">server</span>.c:<span class="number">1066</span>:<span class="number">15</span>: 错误：‘struct redisServer’没有名为‘syslog_enabled’的成员</span><br><span class="line">     <span class="keyword">if</span> (<span class="keyword">server</span>.syslog_enabled) syslog(syslogLevelMap[<span class="keyword">level</span>], "%s", msg);</span><br><span class="line">               ^</span><br><span class="line"><span class="keyword">server</span>.c: 在函数‘serverLog’中:</span><br><span class="line"><span class="keyword">server</span>.c:<span class="number">1076</span>:<span class="number">30</span>: 错误：‘struct redisServer’没有名为‘verbosity’的成员</span><br><span class="line">     <span class="keyword">if</span> ((<span class="keyword">level</span>&amp;<span class="number">0xff</span>) &lt; <span class="keyword">server</span>.verbosity) <span class="keyword">return</span>;</span><br><span class="line"><span class="keyword">server</span>.c: 在函数‘writeCommandsDeniedByDiskError’中:</span><br><span class="line"><span class="keyword">server</span>.c:<span class="number">3826</span>:<span class="number">1</span>: 警告：在有返回值的函数中，控制流程到达函数尾 [-Wreturn-<span class="keyword">type</span>]</span><br><span class="line"> &#125;</span><br><span class="line"> ^</span><br><span class="line"><span class="keyword">server</span>.c: 在函数‘iAmMaster’中:</span><br><span class="line"><span class="keyword">server</span>.c:<span class="number">5000</span>:<span class="number">1</span>: 警告：在有返回值的函数中，控制流程到达函数尾 [-Wreturn-<span class="keyword">type</span>]</span><br><span class="line"> &#125;</span><br><span class="line"> ^</span><br><span class="line">make[<span class="number">1</span>]: *** [<span class="keyword">server</span>.o] 错误 <span class="number">1</span></span><br><span class="line">make[<span class="number">1</span>]: 离开目录“/usr/<span class="keyword">local</span>/redis<span class="number">-6.0</span><span class="number">.6</span>/src”</span><br><span class="line">make: *** [<span class="keyword">all</span>] 错误 <span class="number">2</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>解决方法：启用临时gcc9.3.1，打开新的shell后gcc版本重新复原<br><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">yum -y <span class="keyword">install </span>centos-release-<span class="keyword">scl</span></span><br><span class="line"><span class="keyword">yum </span>-y <span class="keyword">install </span>devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-<span class="keyword">binutils</span></span><br><span class="line"><span class="keyword">scl </span>enable devtoolset-9 <span class="keyword">bash</span></span><br></pre></td></tr></table></figure></p>
+<p>解决方法：启用临时gcc9.3.1，打开新的shell后gcc版本重新复原<br><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">yum -y <span class="keyword">install </span>centos-release-<span class="keyword">scl</span></span><br><span class="line"><span class="keyword">yum </span>-y <span class="keyword">install </span>devtoolset<span class="number">-9</span>-gcc devtoolset<span class="number">-9</span>-gcc-c++ devtoolset<span class="number">-9</span>-<span class="keyword">binutils</span></span><br><span class="line"><span class="keyword">scl </span>enable devtoolset<span class="number">-9</span> <span class="keyword">bash</span></span><br></pre></td></tr></table></figure></p>
 ]]></content>
   </entry>
   <entry>
@@ -1603,8 +1705,7 @@
 <li>握手</li>
 <li>数据传输</li>
 </ol>
-<p>## </p>
-]]></content>
+<h2 id><a href="#" class="headerlink" title=" "></a> </h2>]]></content>
   </entry>
   <entry>
     <title>java-list</title>
@@ -1726,7 +1827,7 @@
 <h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p><img src="https://impwang.oss-cn-beijing.aliyuncs.com/gRPC-1.svg" alt="通信模型"><br>server端：实现接口，处理客户端请求<br>client端：stub提供和server相同的方法</p>
 <h3 id="通信类型、生命周期"><a href="#通信类型、生命周期" class="headerlink" title="通信类型、生命周期"></a>通信类型、生命周期</h3><h4 id="单向通信-unary-rpc"><a href="#单向通信-unary-rpc" class="headerlink" title="单向通信(unary rpc)"></a>单向通信(unary rpc)</h4><p>client发起请求，server返回结果</p>
 <ol>
-<li>client调用stub方法，sever收到通知(metadata、方法名、指定的deadline)–client发起调用</li>
+<li>client调用stub方法，sever收到通知(metadata、方法名、指定的deadline)—client发起调用</li>
 <li>server要么直接返回自身初始化的metadata(需要在所有response之前返回)；或者等待client请求信息</li>
 <li>server收到client request信息后，创建response并填充属性，返回response、状态信息、trailing metadata(可选的)</li>
 <li>rpc完成<h4 id="Server流RPC"><a href="#Server流RPC" class="headerlink" title="Server流RPC"></a>Server流RPC</h4>client一次请求，sever返回流消息，client进行解析直到结束，在一次rpc请求中，gRPC保证流消息的顺序性<h4 id="Server流RPC-1"><a href="#Server流RPC-1" class="headerlink" title="Server流RPC"></a>Server流RPC</h4>client写入流消息请求，sever解析流消息返回消息，client结束，同样在一次rpc请求中，gRPC保证流消息的顺序性<h4 id="双向流消息通信"><a href="#双向流消息通信" class="headerlink" title="双向流消息通信"></a>双向流消息通信</h4></li>
@@ -1757,7 +1858,7 @@
   <entry>
     <title>Redis新特性概览</title>
     <url>/2020/08/13/a-overview-redis/</url>
-    <content><![CDATA[<p>“在我的后园，可以看见墙外有两株树，一株是枣树，还有一株也是枣树。” –鲁迅《秋夜》<br>好了，现在看看Redis为什么使用单线程。Redis6.0已经改成多线程了！</p>
+    <content><![CDATA[<p>“在我的后园，可以看见墙外有两株树，一株是枣树，还有一株也是枣树。” —鲁迅《秋夜》<br>好了，现在看看Redis为什么使用单线程。Redis6.0已经改成多线程了！</p>
 <a id="more"></a>
 <p>“纸上得来终觉浅，绝知此事要躬行”。所有的新特性都要亲身体验一下才会更深刻</p>
 <h2 id="Redis3"><a href="#Redis3" class="headerlink" title="Redis3"></a>Redis3</h2><h2 id="Redis4"><a href="#Redis4" class="headerlink" title="Redis4"></a>Redis4</h2><p>新特性变更历史：</p>
@@ -1773,12 +1874,8 @@
 <blockquote>
 <p>ACL LOG:权限控制日志<br>client端缓存重新设计：keys命令不再缓存slots；Broadcasting模式；OPTIN/OPTOUT模式<br>持久化较少的实例之间，用于复制的RDB文件被移除</p>
 <p>新命令：LCS (Longest Common Subsequence)<br>复制过程支持MULTI/EXEC命令<br>RDB加载速度提升</p>
-</blockquote>
-<blockquote>
-<p>linux/bsd上支持设置’CPU亲缘性’(将4个线程设置在4个CPU上)<br>client端缓存：在Server Info中添加’Tracking Prefix Number Stats’<br>redis-benchmark增加–user权限控制</p>
-</blockquote>
-<blockquote>
-<p>添加LPOS命令搜索list<br>redis-cli端添加TLS参数–pipe, –rdb,  –replica<br>添加TLS会话缓存配置</p>
+<p>linux/bsd上支持设置’CPU亲缘性’(将4个线程设置在4个CPU上)<br>client端缓存：在Server Info中添加’Tracking Prefix Number Stats’<br>redis-benchmark增加—user权限控制</p>
+<p>添加LPOS命令搜索list<br>redis-cli端添加TLS参数—pipe, —rdb,  —replica<br>添加TLS会话缓存配置</p>
 </blockquote>
 ]]></content>
   </entry>
@@ -1795,7 +1892,7 @@
 <li>操作app触发所有需要运行动画的地方</li>
 <li>在运行<code>flutter run</code>的命令行输入<code>M</code>将SkSL shaders保存到本地文件<code>flutter_01.sksl.json</code></li>
 <li><p>使用SkSL预热技术编译app</p>
- <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">flutter build apk --bundle-sksl-path flutter_01<span class="selector-class">.sksl</span><span class="selector-class">.json</span> <span class="keyword">for</span> Android</span><br><span class="line">flutter build ios --bundle-sksl-path flutter_01<span class="selector-class">.sksl</span><span class="selector-class">.json</span> <span class="keyword">for</span> iOS.</span><br></pre></td></tr></table></figure>
+ <figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">flutter <span class="keyword">build </span>apk --<span class="keyword">bundle-sksl-path </span>flutter_01.sksl.<span class="keyword">json </span>for <span class="keyword">Android</span></span><br><span class="line"><span class="keyword">flutter </span><span class="keyword">build </span>ios --<span class="keyword">bundle-sksl-path </span>flutter_01.sksl.<span class="keyword">json </span>for iOS.</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>app编译完成</p>
 </li>
@@ -1827,7 +1924,7 @@
   <entry>
     <title>java永久代、元数据区</title>
     <url>/2019/11/14/java-jvm-permgen/</url>
-    <content><![CDATA[<p>今天在维护一个jsp + tomcat的老项目中，开始使用JRE1.8运行，没有问题，切换到JRE1.7运行就报错:<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">java<span class="selector-class">.lang</span><span class="selector-class">.OutOfMemoryError</span>: PermGen space</span><br></pre></td></tr></table></figure></p>
+    <content><![CDATA[<p>今天在维护一个jsp + tomcat的老项目中，开始使用JRE1.8运行，没有问题，切换到JRE1.7运行就报错:<br><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">java</span><span class="selector-class">.lang</span><span class="selector-class">.OutOfMemoryError</span>: <span class="selector-tag">PermGen</span> <span class="selector-tag">space</span></span><br></pre></td></tr></table></figure></p>
 <p>添加运行时参数<code>-XX:MaxPermSize=512m</code>解决问题，这里涉及到jvm运行时内存的变化。</p>
 <a id="more"></a>
 <h2 id="永久代-Perm-Gen"><a href="#永久代-Perm-Gen" class="headerlink" title="永久代 Perm Gen"></a>永久代 Perm Gen</h2><p>PermGen存在于<code>jdk1.7-</code>版本中，主要存储内容：</p>
@@ -1943,9 +2040,10 @@
 </ol>
 <h4 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h4><p>zuul-ratelimit</p>
 <h3 id="超时"><a href="#超时" class="headerlink" title="超时"></a>超时</h3><h3 id="重试机制"><a href="#重试机制" class="headerlink" title="重试机制"></a>重试机制</h3><p>zuul默认整合了ribbon实现路由</p>
-<p>配置属性：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  cloud:</span></span><br><span class="line"><span class="attr">    loadbalancer:</span></span><br><span class="line"><span class="attr">      retry:</span></span><br><span class="line"><span class="attr">        enabled:</span> <span class="literal">true</span>  <span class="comment"># ribbon重试默认已经开启</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">zuul:</span></span><br><span class="line"><span class="comment"># 重试必配，据说在Brixton.SR5版的spring cloud中该配置默认是true，结果在Dalston.SR1中看到的是false</span></span><br><span class="line"><span class="attr">  retryable:</span> <span class="literal">true</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">ribbon:</span></span><br><span class="line"><span class="attr">  ConnectTimeout:</span> <span class="number">250</span>   <span class="comment"># ribbon重试超时时间</span></span><br><span class="line"><span class="attr">  ReadTimeout:</span> <span class="number">1000</span>     <span class="comment"># 建立连接后的超时时间</span></span><br><span class="line"><span class="attr">  OkToRetryOnAllOperations:</span> <span class="literal">true</span>  <span class="comment"># 对所有操作请求都进行重试</span></span><br><span class="line"><span class="attr">  MaxAutoRetriesNextServer:</span> <span class="number">2</span>  <span class="comment"># 重试负载均衡其他的实例最大重试次数，不包括首次server</span></span><br><span class="line"><span class="attr">  MaxAutoRetries:</span> <span class="number">1</span>  <span class="comment"># 同一台实例最大重试次数，不包括首次调用</span></span><br></pre></td></tr></table></figure></p>
+<p>配置属性：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">loadbalancer:</span></span><br><span class="line">      <span class="attr">retry:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span>  <span class="comment"># ribbon重试默认已经开启</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">zuul:</span></span><br><span class="line"><span class="comment"># 重试必配，据说在Brixton.SR5版的spring cloud中该配置默认是true，结果在Dalston.SR1中看到的是false</span></span><br><span class="line">  <span class="attr">retryable:</span> <span class="literal">true</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">ribbon:</span></span><br><span class="line">  <span class="attr">ConnectTimeout:</span> <span class="number">250</span>   <span class="comment"># ribbon重试超时时间</span></span><br><span class="line">  <span class="attr">ReadTimeout:</span> <span class="number">1000</span>     <span class="comment"># 建立连接后的超时时间</span></span><br><span class="line">  <span class="attr">OkToRetryOnAllOperations:</span> <span class="literal">true</span>  <span class="comment"># 对所有操作请求都进行重试</span></span><br><span class="line">  <span class="attr">MaxAutoRetriesNextServer:</span> <span class="number">2</span>  <span class="comment"># 重试负载均衡其他的实例最大重试次数，不包括首次server</span></span><br><span class="line">  <span class="attr">MaxAutoRetries:</span> <span class="number">1</span>  <span class="comment"># 同一台实例最大重试次数，不包括首次调用</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>注意</strong>熔断器的超时时间<code>hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds</code>需要大于ribbon的超时时间，否则不会触发重试</p>
-<h4 id="垮zone重试"><a href="#垮zone重试" class="headerlink" title="垮zone重试"></a>垮zone重试</h4><h2 id="Zuul2"><a href="#Zuul2" class="headerlink" title="Zuul2"></a>Zuul2</h2><table>
+<h4 id="垮zone重试"><a href="#垮zone重试" class="headerlink" title="垮zone重试"></a>垮zone重试</h4><h2 id="Zuul2"><a href="#Zuul2" class="headerlink" title="Zuul2"></a>Zuul2</h2><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>对比</th>
@@ -1981,6 +2079,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h2 id="Kong"><a href="#Kong" class="headerlink" title="Kong"></a>Kong</h2><p>kong可以说是nginx的升级版，基于OpenResty。</p>
 <h3 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h3><ol>
 <li>upstream</li>
@@ -2021,6 +2120,7 @@
     <content><![CDATA[<p>tomcat类加载器破坏了jvm的双亲委派机制</p>
 <a id="more"></a>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><figure class="highlight processing"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.catalina.startup;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Daemon reference.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">Object</span> catalinaDaemon = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">ClassLoader commonLoader = <span class="keyword">null</span>;</span><br><span class="line">ClassLoader catalinaLoader = <span class="keyword">null</span>;</span><br><span class="line">ClassLoader sharedLoader = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> initClassLoaders() &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        commonLoader = createClassLoader(<span class="string">"common"</span>, <span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">if</span> (commonLoader == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// no config file, default to this loader - we might be in a 'single' env.</span></span><br><span class="line">            commonLoader = <span class="keyword">this</span>.getClass().getClassLoader();</span><br><span class="line">        &#125;</span><br><span class="line">        catalinaLoader = createClassLoader(<span class="string">"server"</span>, commonLoader);</span><br><span class="line">        sharedLoader = createClassLoader(<span class="string">"shared"</span>, commonLoader);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">        handleThrowable(t);</span><br><span class="line">        <span class="built_in">log</span>.error(<span class="string">"Class loader creation threw exception"</span>, t);</span><br><span class="line">        System.<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -2052,6 +2152,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><ol>
 <li>jar类库隔离：tomcat可以部署多个应用，如果引用多个不同版本的jar，类实现不同，所以需要加载不同的jar包</li>
 <li>jar类库共享：如果jar版本相同，则只加载一份</li>
@@ -2362,7 +2463,7 @@
 <h2 id="经历"><a href="#经历" class="headerlink" title="经历"></a>经历</h2><p>工作上，3月1号出门面试，第一家面的x德，3月2号去面的x东。刚开始不太喜欢加班，就接了x德的offer，是一个全新的团队，也为后来埋了很多坑，具体的就不再吐槽了，主要说说自己的问题。这半年里，了解了一下区块链，没多久，国内外接连出台了很多对区块链比特币的整顿政策，一下子凉凉。在工作中开始使用SpringBoot、SpringCloud的一整套架构。半年后接受不了团队混乱的管理，打算出来。甚至怀疑所谓的技术理想。</p>
 <p>4月初清明节上午加班，下午赶飞机飞到重庆。对重庆的好感来自于《从你的全世界路过》，就这样一个人在重庆呆了三天，这是一座很有特色的城市，但是景点过于商业化，未来有机会和另一个人一起过来。</p>
 <p>5月初独自骑车子从沙河一直骑到十三陵，这是在北京的第一次骑行，而且是一个人，路上车轱辘散架、大卡车、回来的路上遇到下雨，晚上直到十一点多才回到家里，又累又困，可以说真的是一次记忆深刻的骑行了。</p>
-<p>从x德出来后，困惑了一段时间，想起自己一直想去未去的西藏，果断买了票过去。去到一个完全陌生而又向往的地方，一开始充满了期待。布达拉宫、大昭寺、巴松错、羊湖、日喀则、珠峰，一切都是新的。在林芝的时间，去见了朋友。而在西藏的这段时间里，让我有了更多的独处时间去思考，想起这半年来的各种事情，突然就感到豁然开朗。就这样待到11月份，后来的几天有点审美疲劳了吧，就天天坐在布达拉宫广场晒太阳。有拍婚纱照的，有朝圣的。后来甚至有点期待返京的日子。这可能就是“旅行就是从自己厌倦的地方去到一个别人厌倦的地方吧”。如果说旅行的意义是什么，我想，就是让自己进入慢节奏的生活，去思考，把自己的生活捋顺吧。意外的是收获了一首好歌–《狗屁青春》，朴树唱的，在路上听的时候还别有一番滋味。</p>
+<p>从x德出来后，困惑了一段时间，想起自己一直想去未去的西藏，果断买了票过去。去到一个完全陌生而又向往的地方，一开始充满了期待。布达拉宫、大昭寺、巴松错、羊湖、日喀则、珠峰，一切都是新的。在林芝的时间，去见了朋友。而在西藏的这段时间里，让我有了更多的独处时间去思考，想起这半年来的各种事情，突然就感到豁然开朗。就这样待到11月份，后来的几天有点审美疲劳了吧，就天天坐在布达拉宫广场晒太阳。有拍婚纱照的，有朝圣的。后来甚至有点期待返京的日子。这可能就是“旅行就是从自己厌倦的地方去到一个别人厌倦的地方吧”。如果说旅行的意义是什么，我想，就是让自己进入慢节奏的生活，去思考，把自己的生活捋顺吧。意外的是收获了一首好歌—《狗屁青春》，朴树唱的，在路上听的时候还别有一番滋味。</p>
 <p>从西藏回来后，心态好了很多，一些事情想通后也没有必要再去在乎或者纠结。只把心思放在工作上，希望能有更多的产出，</p>
 <h2 id="阅读"><a href="#阅读" class="headerlink" title="阅读"></a>阅读</h2><h3 id="看过的电影："><a href="#看过的电影：" class="headerlink" title="看过的电影："></a>看过的电影：</h3><p>华尔街之子</p>
 <p>大空头</p>
@@ -2550,14 +2651,6 @@ http2.0可以将响应主动推送到客户端缓存
       </tags>
   </entry>
   <entry>
-    <title>Srping AOP(2)</title>
-    <url>/2018/11/20/spring-aop/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Spring</category>
-      </categories>
-  </entry>
-  <entry>
     <title>mysql踩坑经历</title>
     <url>/2018/10/12/mysql-bugs/</url>
     <content><![CDATA[<p>mysql使用中还是会有各种各样的坑，在实际使用中就遇到几个小问题，</p>
@@ -2576,7 +2669,7 @@ http2.0可以将响应主动推送到客户端缓存
 <p> mysql时间不支持大于2037年的后时间，查询返回0.</p>
 </li>
 </ol>
-<ol start="3">
+<ol>
 <li><p>北京时间’1970-01-01 08:00:00’的问题</p>
 <p> 当字段为’1970-01-01 08:00:00’的时候报错<br> com.mysql.jdbc.MysqlDataTruncation: Data truncation: Incorrect datetime value: ‘1970-01-01 08:00:00’ for column</p>
 <p> 原因：</p>
@@ -2690,7 +2783,7 @@ http2.0可以将响应主动推送到客户端缓存
 <p>实际上，NDB使用的是T-Tree， MyISAM使用前缀压缩技术存储使得索引更小，索引通过物理地址查找记录；InnoDB引擎使用的是B+Tree，索引按照原数据格式存储，根据主键查找记录</p>
 <p>B-Tree索引生效：</p>
 <p>B-Tree索引失效：</p>
-<ol start="2">
+<ol>
 <li>哈希索引</li>
 <li>空间数据索引(R-Tree)</li>
 <li>全文索引</li>
@@ -2719,9 +2812,9 @@ http2.0可以将响应主动推送到客户端缓存
     <title>MySQL执行计划</title>
     <url>/2018/09/21/mysql-explain/</url>
     <content><![CDATA[<a id="more"></a>
-<h2 id="库表结构设计优化"><a href="#库表结构设计优化" class="headerlink" title="库表结构设计优化"></a>库表结构设计优化</h2><h2 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h2><h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h2><h3 id="1、LIKE"><a href="#1、LIKE" class="headerlink" title="1、LIKE"></a>1、LIKE</h3><pre><code>SELECT column FROM table WHERE field LIKE &apos;%keyword%&apos;;
+<h2 id="库表结构设计优化"><a href="#库表结构设计优化" class="headerlink" title="库表结构设计优化"></a>库表结构设计优化</h2><h2 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h2><h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h2><h3 id="1、LIKE"><a href="#1、LIKE" class="headerlink" title="1、LIKE"></a>1、LIKE</h3><pre><code>SELECT column FROM table WHERE field LIKE &#39;%keyword%&#39;;
 </code></pre><p>两边都有‘%’不走索引</p>
-<pre><code>SELECT column FROM table WHERE field LIKE &apos;keyword%&apos;;
+<pre><code>SELECT column FROM table WHERE field LIKE &#39;keyword%&#39;;
 </code></pre><p>左边没有‘%’，才会走索引</p>
 <p>可以通过explain执行计划查看，</p>
 <p>优化替代方案：</p>
@@ -2813,7 +2906,7 @@ yum install -y postgresql10-server postgresql10
 <h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><pre><code>postgresql-setup initdb
 </code></pre><h3 id="开机自启动"><a href="#开机自启动" class="headerlink" title="开机自启动"></a>开机自启动</h3><pre><code>systemctl enable postgresql.service
 systemctl start postgresql.service
-</code></pre><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><pre><code>CREATE USER postgres WITH PASSWORD &apos;&apos;;
+</code></pre><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><pre><code>CREATE USER postgres WITH PASSWORD &#39;&#39;;
 DROP DATABASE postgres;
 CREATE DATABASE postgres OWNER postgres;
 GRANT ALL PRIVILEGES ON DATABASE postgres to postgres;
@@ -2824,7 +2917,7 @@ ALTER ROLE postgres CREATEDB;
 <pre><code>psql -U [user] -d [database] -h [host] -p [password]
 </code></pre><ol>
 <li><p>默认登陆</p>
-<pre><code>psql
+<pre><code> psql
 </code></pre></li>
 <li><p>用户名密码登录</p>
 <p>  psql -U postgres -d postgres</p>
@@ -2924,7 +3017,7 @@ connections on Unix domain socket &quot;/tmp/.s.PGSQL.5432&quot;?
 </li>
 <li><p>语义分析与字节码生成</p>
 <blockquote>
-<p>标注检查: 实现方法JavaCompiler.attribute()–sun.tools.javac.comp.Attr/Check类</p>
+<p>标注检查: 实现方法JavaCompiler.attribute()—sun.tools.javac.comp.Attr/Check类</p>
 <p>数据及控制流分析: JavaCompiler.flow()<br>解语法糖: 泛型、变长参数、自动装箱/拆箱。实现类com.sun.tools.javac.comp.TransTypes/Lower类<br>字节码生成: 把以上生成的语法树、符号表转为字节码写到磁盘，同时添加少量代码。实现类com.sun.tools.javac.jvm.Gen/ClassWriter类</p>
 </blockquote>
 </li>
@@ -3083,7 +3176,7 @@ connections on Unix domain socket &quot;/tmp/.s.PGSQL.5432&quot;?
 <p>强制使用CGLIB实现AOP：</p>
 <ol>
 <li>添加CGLIB库，cglib/*.jar</li>
-<li>在spring配置文件中加入&lt;aop:aspectj-autoproxy proxy-target-class=”true”/&gt;</li>
+<li>在spring配置文件中加入<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy></li>
 </ol>
 ]]></content>
       <categories>
@@ -3142,44 +3235,44 @@ connections on Unix domain socket &quot;/tmp/.s.PGSQL.5432&quot;?
 <h2 id="单节点环境"><a href="#单节点环境" class="headerlink" title="单节点环境"></a>单节点环境</h2><p>单节点的安装可以增加用户，而不是使用root用户启动。</p>
 <ol>
 <li><p>下载安装包、解压缩</p>
-<pre><code>zookeeper-3.4.10.tar.gz
+<pre><code> zookeeper-3.4.10.tar.gz
 </code></pre></li>
 <li><p>修改配置文件zoo.cfg</p>
 <p> zk提供了zoo_sample.cfg在conf目录下，可以增加data、log目录，也可以直接使用模板文件。</p>
-<pre><code>cp zoo_sample.cfg zoo.cfg
+<pre><code> cp zoo_sample.cfg zoo.cfg
 </code></pre></li>
 <li><p>启动服务端server</p>
 <p> 服务端启动可以默认启动</p>
-<pre><code>bin/zkServer.sh start
+<pre><code> bin/zkServer.sh start
 </code></pre></li>
 <li><p>启动客户端client</p>
 <p> 客户端可以默认启动，也可以指定服务器参数</p>
-<pre><code>bin/zkCli.sh
-bin/zkCli.sh -server 127.0.0.1:2181
+<pre><code> bin/zkCli.sh
+ bin/zkCli.sh -server 127.0.0.1:2181
 </code></pre><p> 1). 创建节点</p>
 <p> 语法 </p>
-<pre><code>create [-s] [-e] path data acl
+<pre><code> create [-s] [-e] path data acl
 </code></pre><p> “-s”表示创建一个”有序”节点; “-e”表示创建一个临时节点.【默认为持久性节点】</p>
-<pre><code>create /test null  
-create -s /test null 
+<pre><code> create /test null  
+ create -s /test null 
 </code></pre><p> ACL授权方式为”digest”,其中授权的用户名:密码为”test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=”,ACL的权限列表为”r””w””c””d””a”.</p>
-<pre><code>create -s /test null digest:test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=:rwcda
-create /mykey1 myvalue1
-create /mykey2 myvalue2    
+<pre><code> create -s /test null digest:test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=:rwcda
+ create /mykey1 myvalue1
+ create /mykey2 myvalue2    
 </code></pre><p> 2). 删除节点</p>
 <p> 删除所有节点</p>
-<pre><code>rmr &lt;path&gt;    #删除&quot;/test&quot;以及其下的所有子节点.
+<pre><code> rmr &lt;path&gt;    #删除&quot;/test&quot;以及其下的所有子节点.
 </code></pre><p> 删除指定节点 </p>
-<pre><code>delete &lt;path&gt; [version]
-delete /test -1   #如果此path下还有子节点,将导致删除失败.这是和&quot;rmr&quot;指令的区别.
+<pre><code> delete &lt;path&gt; [version]
+ delete /test -1   #如果此path下还有子节点,将导致删除失败.这是和&quot;rmr&quot;指令的区别.
 </code></pre><p> 3). 修改节点</p>
-<pre><code>set path data [version]
-set /test 1313131 -1  #如果版本号为&quot;-1&quot;表示更新时忽略版本校验.
+<pre><code> set path data [version]
+ set /test 1313131 -1  #如果版本号为&quot;-1&quot;表示更新时忽略版本校验.
 </code></pre><p> 节点设置ACL权限</p>
-<pre><code>setAcl path acl
-setAcl /test digest:test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=:rwcda 
+<pre><code> setAcl path acl
+ setAcl /test digest:test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=:rwcda 
 </code></pre><p> 4). 查看节点数据</p>
-<pre><code>get /mykey1
+<pre><code> get /mykey1
 </code></pre><p> 5). 添加授权信息</p>
 </li>
 </ol>
@@ -3329,7 +3422,7 @@ public boolean containsKey(Object key) {
     boolean overflow; // true if size overflows 32 bits
     long sum;         // sum of modCounts
     long last = 0L;   // previous sum
-    int retries = -1; // first iteration isn&apos;t retry
+    int retries = -1; // first iteration isn&#39;t retry
     try {
         for (;;) {
             if (retries++ == RETRIES_BEFORE_LOCK) {
@@ -3506,7 +3599,7 @@ static class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {
 
     ...
 }
-</code></pre><p>可以看到先通过hash(key)和table.length求得一个下标i，然后去遍历table[i]后面的Entry&lt;K,V&gt;链表,查找是否已经存储过该对象，如果存储过，则返回存储的e.value，并且重新赋值新的value；否则添加Entry</p>
+</code></pre><p>可以看到先通过hash(key)和table.length求得一个下标i，然后去遍历table[i]后面的Entry<k,v>链表,查找是否已经存储过该对象，如果存储过，则返回存储的e.value，并且重新赋值新的value；否则添加Entry</k,v></p>
 <p>扩容机制可以看到，如果size &gt; threshold，则执行resize(2 * table.length)，</p>
 <ol>
 <li>在new HashMap()中默认threashold = DEFAULT_INITIAL_CAPACITY=16，否则为自定义值</li>
@@ -3682,7 +3775,7 @@ final Entry&lt;K,V&gt; getEntry(Object key) {
 <li>rpl_semi_sync_master_wait_point=WAIT_AFTER_COMMIT，主库先完成commit提交后，再同步至从库，等待从库的ACK.</li>
 </ol>
 <p>问题：如果在同步之前，主库发生崩溃 ，会出现事务数据丢失，导致数据不一致。</p>
-<ol start="2">
+<ol>
 <li>rpl_semi_sync_master_wait_point=WAIT_AFTER_SYNC，<br>问题：</li>
 </ol>
 <p><strong>注意：</strong>主库在等待从库ACK超时，会降级为异步复制</p>
@@ -3714,12 +3807,12 @@ final Entry&lt;K,V&gt; getEntry(Object key) {
 <p>ERROR 2006 (HY000): MySQL server has gone away<br>No connection. Trying to reconnect…<br>Connection id:    3<br>Current database: <strong><em> NONE </em></strong></p>
 <p>Empty set (0.00 sec)</p>
 <h4 id="参数解释"><a href="#参数解释" class="headerlink" title="参数解释"></a>参数解释</h4><p>2、创建一个供局域网内连接的用户(有的提到要加锁)</p>
-<pre><code>grant replication slave on *.* to &apos;admin&apos;@&apos;192.168.117.%&apos; identified by &apos;xxxxxx&apos;;
+<pre><code>grant replication slave on *.* to &#39;admin&#39;@&#39;192.168.117.%&#39; identified by &#39;xxxxxx&#39;;
 
 flush privileges;
 </code></pre><p><strong>注意：</strong> on后面是’<em>.</em>‘,否则可能会报错：</p>
-<p>ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘to ‘admin-m‘@’192.168.117.%’ identified by ‘admin234’’ at line 1</p>
-<ol start="3">
+<p>ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘to ‘admin-m’@’192.168.117.%’ identified by ‘admin234’’ at line 1</p>
+<ol>
 <li><p>查看主库</p>
 <figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">	mysql -uroot -p</span><br><span class="line">	show master status \G;</span><br><span class="line">```	</span><br><span class="line">### 从库 ###</span><br><span class="line">操作步骤：</span><br><span class="line"><span class="number">1.</span> 修改配置(有的提到修改/var/lib/mysql/auto.cnf文件)</span><br></pre></td></tr></table></figure>
 <p> vi /etc/my.cnf</p>
@@ -3734,7 +3827,7 @@ flush privileges;
 <figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">启动成功；</span><br><span class="line"></span><br><span class="line">## MySQL读写分离 ##</span><br><span class="line">从库配置参数：</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>–skip-innodb<br>–skip-bdb<br>–low-priority-updates<br>–delay-key-write=ALL<br><code>`</code></p>
+<p>—skip-innodb<br>—skip-bdb<br>—low-priority-updates<br>—delay-key-write=ALL<br>```</p>
 ]]></content>
       <categories>
         <category>MySQL</category>
@@ -3964,6 +4057,7 @@ pmap -d -q 5454
 <li>加锁</li>
 <li>MVCC多版本控制</li>
 </ol>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -4005,6 +4099,7 @@ pmap -d -q 5454
 </tr>
 </tbody>
 </table>
+</div>
 <p>查看系统行级锁占用<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">status</span> <span class="keyword">like</span> <span class="string">'innodb_row_lock%'</span>;</span><br></pre></td></tr></table></figure></p>
 <h4 id="意向共享锁-IS-、意向排他锁-IX"><a href="#意向共享锁-IS-、意向排他锁-IX" class="headerlink" title="意向共享锁(IS)、意向排他锁(IX)"></a>意向共享锁(IS)、意向排他锁(IX)</h4><p>这两种锁都是<strong>表锁</strong>，这两种意向锁和共享锁、排他锁有兼容、互斥的关系，在获取共享锁和排他锁之前必须先获取意向锁，而这两种锁都是数据库自动添加的，不需要开发人员显式添加。</p>
 <p><strong>注意：</strong>只有通过索引条件检索数据，InnoDB才会使用行级锁，否则，InnoDB将使用表锁！</p>
@@ -4137,79 +4232,6 @@ pmap -d -q 5454
       </categories>
       <tags>
         <tag>java, springboot, 源码</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2018/03/02/hello-world/</url>
-    <content><![CDATA[<p>从高中上网都不会的小白，到从事这个行业，我知道我是真心地喜欢这个行业，只不过一直在探索最终的方向，如果可以，我真的希望自己可以写到退休，然后达到研究者的水平，像linus torvalds一样。<br>这个行业有太多太多的偏见，毕竟“文人相轻”的道理还是存在的，你只需要做好自己，追求极致。<br>最后，在这条路上见过了太多太多的大佬。<br>2020，我的目标：成为这样的大佬，未来做出自己的开源产品:)(2020.08.01)<br>博客间歇式更新 PS: 今年对很多东西有了重新的认识，整个博客的内容，大部分会推翻，重新构建(2020.08.27)<br>凡事问一下：</p>
-<ol>
-<li>她是什么？what</li>
-<li>她用来做什么？for</li>
-<li>她解决了什么问题？solve</li>
-<li>她的设计原理是什么？design</li>
-<li>你自己如何实现她？practice</li>
-</ol>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=444267928&auto=1&height=66"></iframe>
-
-<h2 id="计划："><a href="#计划：" class="headerlink" title="计划："></a>计划：</h2><p><del>2019主线目标：造轮子(有进步，改了两个开源产品的简单功能，继续努力)</del><br>2020主线目标：做出一款自己的产品</p>
-<a id="more"></a>
-<h2 id="npm包管理"><a href="#npm包管理" class="headerlink" title="npm包管理"></a>npm包管理</h2><p>现在很多的语言框架都会采用包管理，像Maven、Gradle、Cargo、Go，npm的包管理原理差不多，无非要考虑全局/本地问题、镜像问题、包路径问题。</p>
-<h3 id="配置镜像"><a href="#配置镜像" class="headerlink" title="配置镜像"></a>配置镜像</h3><p>配置淘宝镜像(个人感觉不是很好用)<br><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">npm <span class="built_in">config</span> set registry https:<span class="comment">//registry.npm.taobao.org/</span></span><br><span class="line">npm <span class="built_in">config</span> <span class="built_in">get</span> registry</span><br></pre></td></tr></table></figure></p>
-<p>配置代理，npm只支持http，如果使用socks代理，需要安装插件<br><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> proxy <span class="keyword">http</span>://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">1087</span></span><br><span class="line">npm config <span class="built_in">set</span> <span class="keyword">https</span>-proxy <span class="keyword">http</span>://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">1087</span></span><br><span class="line"><span class="comment"># 设置用户密码的代理</span></span><br><span class="line">npm config <span class="built_in">set</span> proxy <span class="string">"http://username:password@localhost:8080"</span></span><br><span class="line">npm confit <span class="built_in">set</span> <span class="keyword">https</span>-proxy <span class="string">"http://username:password@localhost:8080"</span></span><br></pre></td></tr></table></figure></p>
-<p>也可以使用cnpm来代替npm<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">sudo npm <span class="keyword">install</span> -g cnpm <span class="comment">--registry=https://registry.npm.taobao.org</span></span><br><span class="line">cnpm <span class="keyword">install</span> xxx</span><br></pre></td></tr></table></figure></p>
-<p>查看配置<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">npm<span class="built_in"> config </span>list</span><br></pre></td></tr></table></figure></p>
-<h3 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-<span class="keyword">index</span> <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<h3 id="卸载依赖包"><a href="#卸载依赖包" class="headerlink" title="卸载依赖包"></a>卸载依赖包</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">uninstall</span> hexo-generator-<span class="keyword">index</span> <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<h3 id="查看安装的模块"><a href="#查看安装的模块" class="headerlink" title="查看安装的模块"></a>查看安装的模块</h3><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">ls</span> <span class="params">--depth</span> 0</span><br></pre></td></tr></table></figure>
-<h3 id="升级npm包"><a href="#升级npm包" class="headerlink" title="升级npm包"></a>升级npm包</h3><figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">npm</span> update</span><br></pre></td></tr></table></figure>
-<h3 id="npm自升级"><a href="#npm自升级" class="headerlink" title="npm自升级"></a>npm自升级</h3><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">sudo npm install npm -g</span><br><span class="line">sudo npm install <span class="symbol">npm@</span><span class="number">6.13</span><span class="number">.4</span> -g  <span class="comment">// 指定升级版本</span></span><br></pre></td></tr></table></figure>
-<h2 id="Hexo搭建博客"><a href="#Hexo搭建博客" class="headerlink" title="Hexo搭建博客"></a>Hexo搭建博客</h2><p><a href="https://github.com/theme-next/hexo-theme-next.git" target="_blank" rel="noopener">Hexo GitHub仓库</a></p>
-<h3 id="新建博客"><a href="#新建博客" class="headerlink" title="新建博客"></a>新建博客</h3><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="built_in">new</span> <span class="string">"My New Post"</span>/hexo <span class="built_in">new</span> <span class="built_in">post</span> hello-world</span><br></pre></td></tr></table></figure>
-<p>详情: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="生成草稿"><a href="#生成草稿" class="headerlink" title="生成草稿"></a>生成草稿</h3><figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="keyword">new</span> <span class="type">draft</span> hello-world</span><br></pre></td></tr></table></figure>
-<h3 id="发布草稿"><a href="#发布草稿" class="headerlink" title="发布草稿"></a>发布草稿</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo publish [post] hello-world</span><br></pre></td></tr></table></figure>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate/hexo g</span><br></pre></td></tr></table></figure>
-<p>详情: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo </span><br><span class="line">$ hexo server/hexo s  // 本地运行</span><br></pre></td></tr></table></figure>
-<p>详情: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="发布博客到github"><a href="#发布博客到github" class="headerlink" title="发布博客到github"></a>发布博客到github</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy/hexo d</span><br></pre></td></tr></table></figure>
-<p>详情: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<h2 id="优化博客"><a href="#优化博客" class="headerlink" title="优化博客"></a>优化博客</h2><h3 id="修改主题"><a href="#修改主题" class="headerlink" title="修改主题"></a>修改主题</h3><p>采用Next</p>
-<h3 id="添加RSS，RSS迁移-添加Search本地搜索"><a href="#添加RSS，RSS迁移-添加Search本地搜索" class="headerlink" title="添加RSS，RSS迁移; 添加Search本地搜索"></a>添加RSS，RSS迁移; 添加Search本地搜索</h3><p>rss:<br>hexo-generator-feed插件<br>修改主题下config文件，添加 <code>rss: /atom.xml</code></p>
-<p>search:</p>
-<h3 id="添加博客访问量PV-UV"><a href="#添加博客访问量PV-UV" class="headerlink" title="添加博客访问量PV/UV"></a>添加博客访问量PV/UV</h3><p>两种方法：<br>1). 在<code>$HEXO_BLOG/themes/next/layout/_partials/footer.swig</code>添加’不蒜子’js脚本、统计标签</p>
-<p>2).直接开启config配置</p>
-<h3 id="添加博客字数、阅读时长-修改博客国际化"><a href="#添加博客字数、阅读时长-修改博客国际化" class="headerlink" title="添加博客字数、阅读时长; 修改博客国际化"></a>添加博客字数、阅读时长; 修改博客国际化</h3><p>统计也遇到两种方法：<br>1）、hexo-wordcount插件 + 开启config + 修改post-swig添加统计</p>
-<p>2）、hexo-symbols-count-time插件，只需要开启config即可</p>
-<h3 id="修改博文底部标签样式-添加Read-more"><a href="#修改博文底部标签样式-添加Read-more" class="headerlink" title="修改博文底部标签样式; 添加Read more"></a>修改博文底部标签样式; 添加<code>Read more</code></h3><p>修改模板 <code>$HEXO_BLOG/themes/next/layout/_macro/post.swig</code>，搜索 <code>rel=&quot;tag&quot;&gt;#</code>，将’#’换成<code>&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt;</code></p>
-<h3 id="增加博文置顶功能"><a href="#增加博文置顶功能" class="headerlink" title="增加博文置顶功能"></a>增加博文置顶功能</h3><p>两种方案：<br>1）hexo-generator-index</p>
-<p>2）hexo-generator-index-pin-top</p>
-<p>找到<code>$HEXO_BLOG/themes/next/layout/_macro/post.swig</code>文件，定位到<code>&lt;div class=&quot;post-meta&quot;&gt;</code>标签下，插入代码：</p>
-<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> post.top %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-thumb-tack"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">7D26CD</span>&gt;</span>置顶<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-divider"</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
-<h3 id="添加评论功能"><a href="#添加评论功能" class="headerlink" title="添加评论功能"></a>添加评论功能</h3><h3 id="修改域名"><a href="#修改域名" class="headerlink" title="修改域名"></a>修改域名</h3><h3 id="网站备案"><a href="#网站备案" class="headerlink" title="网站备案"></a>网站备案</h3><h3 id="支持LaTex"><a href="#支持LaTex" class="headerlink" title="支持LaTex"></a>支持LaTex</h3><p>总结一下<br>markdown文件对LaTex数学公式的支持，最开始在windows上博客编辑使用<code>Markdown Pad 2</code>，可以支持实时预览。最近更换到<code>VSCode</code>，看了支持实时预览的大概几种方案：Tex Live(MaxTex)体积太大；MikTex对中文的支持不是很好；Overleaf采用线上编译模式。<br>最后放弃实时预览，只在编译后的博客中支持。<br>Hexo的Next主题已经提供了对LaTex的支持，只需要使用npm安装插件，编辑config配置文件开启即可，目前Next支持<code>Mathjax</code>和<code>Katex</code>两种编译引擎。<br><strong> 注意：不同的主题配置方式不同 </strong></p>
-<ol>
-<li><p>npm安装插件</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">cd $BLOG_HOME</span><br><span class="line"></span><br><span class="line">安装hexo-math</span><br><span class="line">$ npm <span class="keyword">install</span> hexo-math <span class="comment">--save</span></span><br><span class="line"></span><br><span class="line">卸载默认引擎，安装支持latex的引擎</span><br><span class="line">$ npm <span class="keyword">uninstall</span> hexo-renderer-marked <span class="comment">--save</span></span><br><span class="line">$ npm <span class="keyword">install</span> hexo-renderer-kramed <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改npm插件的编译规则<br>Latex和Markdown的一些语法一致导致render渲染规则存在冲突，可以通过修改插件的正则表达式来避免冲突。</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">vi $BLOG<span class="emphasis">_HOME/node_</span>modules/kramed/lib/rules/inline.js</span><br><span class="line"></span><br><span class="line">调整为</span><br><span class="line">escape: /^\\([<span class="string">`*\[\</span>](<span class="link"></span>)#$+\-.!_&gt;])/,</span><br><span class="line">em: /^\<span class="emphasis">*((?:\*</span>\<span class="emphasis">*|[\s\S])+?)\*</span>(?!\*)/,</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改<code>$HEXO_BLOG/themes/next/_config.yml</code>开启功能按钮<br>这里有人在Hexo的根目录下直接修改<code>_config.yml</code>，要注意themes的区别。</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Math Equations Render Support</span></span><br><span class="line"><span class="symbol">math:</span></span><br><span class="line"><span class="symbol">  enable:</span> true</span><br><span class="line">  <span class="meta"># 默认值为true， 只在添加了`mathjax: true`的文章中价值latex脚本。false会在所有的文章页加载`mathjax / katex`脚本</span></span><br><span class="line"><span class="symbol">  per_page:</span> true</span><br><span class="line"><span class="symbol">  engine:</span> mathjax</span><br><span class="line">  <span class="meta">#engine: katex</span></span><br><span class="line"></span><br><span class="line">  <span class="meta"># 安装 hexo-renderer-pandoc (or hexo-renderer-kramed)</span></span><br><span class="line"><span class="symbol">  mathjax:</span></span><br><span class="line"><span class="symbol">    enable:</span> true</span><br><span class="line"><span class="symbol">    per_page:</span> false</span><br><span class="line">		<span class="meta"># 这块儿js文件路径注意是否能正常访问</span></span><br><span class="line">    <span class="meta"># cdn: <span class="comment">//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML</span></span></span><br><span class="line"><span class="symbol">    cdn:</span> <span class="comment">//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML</span></span><br><span class="line">    <span class="meta"># See: https:<span class="comment">//mhchem.github.io/MathJax-mhchem/</span></span></span><br><span class="line">    <span class="meta">#mhchem: <span class="comment">//cdn.jsdelivr.net/npm/mathjax-mhchem@3</span></span></span><br><span class="line">    <span class="meta">#mhchem: <span class="comment">//cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.0</span></span></span><br><span class="line"></span><br><span class="line">  <span class="meta"># 插件2 hexo install hexo-renderer-markdown-it-plus (or hexo-renderer-markdown-it with markdown-it-katex plugin)</span></span><br><span class="line">  <span class="meta"># katex:</span></span><br><span class="line">  <span class="meta">#   cdn: <span class="comment">//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css</span></span></span><br><span class="line">  <span class="meta">#   #cdn: <span class="comment">//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css</span></span></span><br><span class="line"></span><br><span class="line">  <span class="meta">#   copy_tex:</span></span><br><span class="line">  <span class="meta">#     # See: https:<span class="comment">//github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex</span></span></span><br><span class="line">  <span class="meta">#     enable: false</span></span><br><span class="line">  <span class="meta">#     copy_tex_js: <span class="comment">//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js</span></span></span><br><span class="line">  <span class="meta">#     copy_tex_css: <span class="comment">//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css</span></span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>文章头添加<code>mathjax: true</code>标识。<br>使用数学公式验证一下</p>
-<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span><span class="symbol">$</span> evidence_&#123;i&#125;=\sum_&#123;j&#125;W_&#123;ij&#125;x_&#123;j&#125;+b_&#123;i&#125; <span class="symbol">$</span><span class="symbol">$</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span><span class="symbol">$</span> \<span class="built-in">frac</span>&#123;m&#125;&#123;n&#125; %n分之m <span class="symbol">$</span><span class="symbol">$</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>本地启动<br><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="attr">hexo</span> <span class="string">s</span></span><br></pre></td></tr></table></figure></p>
-<p><strong> 加载会变慢，js脚本可以考虑使用镜像 </strong></p>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">1. 错误1</span><br><span class="line">seems to be corrupted. Trying <span class="keyword">one</span> <span class="keyword">more</span> time</span><br><span class="line">解决方案</span><br><span class="line">更换网络：数据网络、代理、镜像，墙内世界总有一款适合你</span><br><span class="line"></span><br><span class="line">2. 错误2 权限问题</span><br><span class="line">Unhandled rejection <span class="keyword">Error</span>: EACCES: permission denied, <span class="keyword">mkdir</span></span><br><span class="line">解决方案</span><br><span class="line">sudo chown -R <span class="variable">$USER</span>:<span class="variable">$GROUP</span> ~/.npm</span><br><span class="line">sudo chown -R <span class="variable">$USER</span>:<span class="variable">$GROUP</span> ~/.config</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Hello</category>
-      </categories>
-      <tags>
-        <tag>Hello</tag>
       </tags>
   </entry>
 </search>

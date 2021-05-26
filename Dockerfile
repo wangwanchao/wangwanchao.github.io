@@ -8,6 +8,8 @@ RUN npm install npm -g \
 WORKDIR /blog
 COPY ./* /blog/
 RUN npm install --force \
+    npm uninstall hexo-renderer-marked --save \
+    npm install hexo-renderer-kramed --save \
     npm uninstall hexo-math --save \ 
     npm install hexo-renderer-mathjax --save 
 RUN hexo g

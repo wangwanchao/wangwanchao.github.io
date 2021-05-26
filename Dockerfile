@@ -12,7 +12,8 @@ RUN npm install --force \
     npm install hexo-renderer-kramed --save \
     npm uninstall hexo-math --save \ 
     npm install hexo-renderer-mathjax --save 
-RUN hexo g
+RUN npm audit fix \ 
+    hexo g
 
 CMD ["hexo", "s", "-p 8080"]
 EXPOSE 8080

@@ -1,4 +1,4 @@
-FROM node:10.24.1-alpine3.11
+FROM node:12.22.1-alpine3.11
 LABEL creater="blog" description="这是一个静态网站" version="1.0"
 
 RUN npm install npm -g \
